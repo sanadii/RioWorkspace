@@ -12,7 +12,7 @@ import Layout from "./layouts/reducer";
 
 
 // Apps
-import Transaction from "./transaction/reducer";
+import DailyRevenue from "./dailyRevenues/reducer";
 
 
 //API Key
@@ -27,7 +27,7 @@ const rootReducer = combineReducers({
     Users,
 
     // Apps
-    Transaction,
+    DailyRevenue,
 });
 
 export default rootReducer;

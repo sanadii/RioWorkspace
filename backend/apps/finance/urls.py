@@ -1,13 +1,16 @@
-# Campaign Urls
-
+# Finance Urls
 from django.urls import path
 from .views import *
 
-app_name = "electors"
+app_name = "finance"
 
 urlpatterns = [
 
-    # Transactions
+    # DailyRevenue
+    path("getDailyRevenues", GetDailyRevenues.as_view(), name="GetDailyRevenues"),
+    path('addDailyRevenue', AddDailyRevenue.as_view(), name='add_daily_revenue'),
+    path('editDailyRevenue/<int:id>', EditDailyRevenue.as_view(), name='edit_daily_revenue'),
+    path('deleteDailyRevenue/<int:id>', DeleteDailyRevenue.as_view(), name='delete_daily_revenue'),
 
     # Commissions
 

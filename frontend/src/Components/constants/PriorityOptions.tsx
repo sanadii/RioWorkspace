@@ -1,29 +1,38 @@
-export const PriorityOptions = [
+import React from "react";
+
+type PriorityOption = {
+  id: number;
+  name: string;
+  value: string;
+  badgeClass: string;
+};
+
+export const PriorityOptions: PriorityOption[] = [
   {
     id: 1,
-    name: "منخفض",
+    name: "Low",
     value: "low",
     badgeClass: "badge bg-info",
-    description: "الانتخابات ذات الأولوية المنخفضة. (منخفض)",
   },
   {
     id: 2,
-    name: "متوسط",
+    name: "Medium",
     value: "medium",
     badgeClass: "badge bg-warning",
-    description: "الانتخابات ذات الأولوية المتوسطة. (متوسط)",
   },
   {
     id: 3,
-    name: "عالي",
+    name: "High",
     value: "high",
     badgeClass: "badge bg-danger",
-    description: "الانتخابات ذات الأولوية العالية. (عالي)",
   },
 ];
 
+type PriorityBadgeProps = {
+  priority: number; // Changed from 'status' to 'priority'
+};
 
-export const PriorityBadge = ({ priority }) => {
+export const PriorityBadge: React.FC<PriorityBadgeProps> = ({ priority }) => {
   const entryPriority = PriorityOptions.find(option => option.id === priority);
   if (!entryPriority) return null;
 

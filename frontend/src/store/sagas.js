@@ -13,7 +13,7 @@ import LayoutSaga from "./layouts/saga";
 
 
 // Apps
-import TransactionSaga from "./transaction/saga";
+import DailyRevenueSaga from "./dailyRevenues/saga";
 
 export default function* rootSaga() {
   yield all([
@@ -28,7 +28,7 @@ export default function* rootSaga() {
     fork(LayoutSaga),
 
     // Apps
-    fork(TransactionSaga),
+    fork(DailyRevenueSaga),
 
 
   ]);

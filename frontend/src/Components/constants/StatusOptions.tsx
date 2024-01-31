@@ -1,4 +1,15 @@
-const StatusOptions = [
+// StatusOptions.tsx
+
+import React from "react";
+
+type StatusOption = {
+  id: number;
+  name: string;
+  value: string;
+  badgeClass: string;
+};
+
+export const StatusOptions: StatusOption[] = [
   {
     id: 1,
     name: "New",
@@ -25,9 +36,12 @@ const StatusOptions = [
   },
 ];
 
+type StatusBadgeProps = {
+  status: number;
+};
 
-const StatusBadge = ({ status }) => {
-  const entryStatus = StatusOptions.find(option => option.id === status);
+export const StatusBadge: React.FC<StatusBadgeProps> = ({ status }) => {
+  const entryStatus = StatusOptions.find((option) => option.id === status);
   if (!entryStatus) return null;
 
   return (

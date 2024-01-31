@@ -8,4 +8,4 @@ export { layoutSelector } from './layoutSelector';
 
 
 // Apps
-export { transactionSelector } from './transactionSelector';
+export { dailyRevenueSelector } from './dailyRevenueSelector';

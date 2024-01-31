@@ -249,7 +249,7 @@ const NotificationDropdown = () => {
                                         <div className="flex-grow-1">
                                             <Link to="#" className="stretched-link"><h6 className="mt-0 mb-1 fs-13 fw-semibold">Kenneth Brown</h6></Link>
                                             <div className="fs-13 text-muted">
-                                                <p className="mb-1">Mentionned you in his comment on 📃 transaction #12501. </p>
+                                                <p className="mb-1">Mentionned you in his comment on 📃 DailyRevenue #12501. </p>
                                             </div>
                                             <p className="mb-0 fs-11 fw-medium text-uppercase text-muted">
                                                 <span><i className="mdi mdi-clock-outline"></i> 10 hrs ago</span>

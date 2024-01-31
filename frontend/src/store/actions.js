@@ -9,4 +9,4 @@ export * from "./auth/users/action";
 export * from "./layouts/action";
 
 // Apps
-export * from "./transaction/action";
+export * from "./dailyRevenues/action";

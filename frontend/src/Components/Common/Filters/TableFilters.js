@@ -4,7 +4,6 @@ import { Row } from "reactstrap";
 
 // General Filters
 import GlobalFilter from "../Filters/GlobalFilter";
-import GenderFilter from "../Filters/GenderFilter";
 import PriorityFilter from "../Filters/PriorityFilter";
 import StatusFilter from "../Filters/StatusFilter";
 import ResetFilters from "../Filters/ResetFilters";
@@ -25,14 +24,6 @@ const TableFilters = ({
   // Select Filters----------
   isStatusFilter,
   isPriorityFilter,
-  isCandidateGenderFilter,
-  isMemberRoleFilter,
-  isGenderFilter,
-  isGuaranteeAttendanceFilter,
-  isAttendeesGenderFilter,
-  isCommitteeFilter,
-  isGuaranteeStatusFilter,
-  isGuarantorFilter,
   isResetFilters,
   isTestFilter,
   isGlobalSearch,
@@ -141,21 +132,6 @@ const TableFilters = ({
                       setFilters={setFilters}
                     />
                   )}
-
-
-                
-                  {isGenderFilter && (
-                    <GenderFilter
-                      filters={filters}
-                      setFilters={setFilters}
-                    />
-                  )}
-                  {/* {isAttendeesGenderFilter && (
-                            <AttendeeGenderFilter
-                                filters={filters}
-                                setFilters={setFilters}
-                            />
-                        )} */}
                  
                 </div>
                 <div className="flex-shrink-0">

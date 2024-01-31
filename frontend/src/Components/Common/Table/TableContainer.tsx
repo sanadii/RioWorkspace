@@ -18,7 +18,7 @@ import {
 import { rankItem } from '@tanstack/match-sorter-utils';
 
 import {
-  TransactionListGlobalSearch,
+  DailyRevenueListGlobalSearch,
 } from "Components/Common/Filters/GlobalSearchFilter";
 
 // Column Filter
@@ -86,7 +86,7 @@ interface TableContainerProps {
   isCompaniesFilter?: any;
   isLeadsFilter?: any;
   isCryptoOrdersFilter?: any;
-  isTransactionListFilter?: any;
+  isDailyRevenueListFilter?: any;
   isTicketsListFilter?: any;
   isNFTRankingFilter?: any;
   isTaskListFilter?: any;
@@ -115,7 +115,7 @@ const TableContainer = ({
   isCompaniesFilter,
   isLeadsFilter,
   isCryptoOrdersFilter,
-  isTransactionListFilter,
+  isDailyRevenueListFilter,
   isTicketsListFilter,
   isNFTRankingFilter,
   isTaskListFilter,
@@ -192,8 +192,8 @@ const TableContainer = ({
                 </div>
               </Col>
               
-              {isTransactionListFilter && (
-                <TransactionListGlobalSearch />
+              {isDailyRevenueListFilter && (
+                <DailyRevenueListGlobalSearch />
               )}
              
             </Row>

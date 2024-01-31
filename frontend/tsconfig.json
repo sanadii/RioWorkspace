@@ -27,6 +27,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/config.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/config.js", "src/Components/Common/Table/TableContainer.tsx", "src/Components/Common/Table/TableColumns.xxx"],
   "exclude": ["node_modules"]
 }

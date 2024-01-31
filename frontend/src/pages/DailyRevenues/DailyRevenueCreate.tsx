@@ -28,9 +28,9 @@ import * as Yup from "yup";
 
 //redux
 import { useDispatch } from "react-redux";
-import { addNewTransaction as onAddNewTransaction } from "store/actions";
+import { addNewDailyRevenue as onAddNewDailyRevenue } from "store/actions";
 
-const TransactionCreate = () => {
+const DailyRevenueCreate = () => {
   const dispatch: any = useDispatch();
   const history = useNavigate();
 
@@ -117,7 +117,7 @@ const TransactionCreate = () => {
   };
 
   document.title =
-    "Create Transaction | Velzon - React Admin & Dashboard Template";
+    "Create DailyRevenue | Velzon - React Admin & Dashboard Template";
 
   const validation: any = useFormik({
     enableReinitialize: true,
@@ -128,7 +128,7 @@ const TransactionCreate = () => {
       email: "",
       website: "",
       contact: "",
-      transactionId: "",
+      DailyRevenueId: "",
       date: "",
       name: "",
       status: "",
@@ -149,7 +149,7 @@ const TransactionCreate = () => {
       email: Yup.string().required("Please Enter a Email"),
       website: Yup.string().required("Please Enter a website"),
       contact: Yup.string().required("Please Enter a contact number"),
-      transactionId: Yup.string().required("This field is required"),
+      DailyRevenueId: Yup.string().required("This field is required"),
       name: Yup.string().required("Please Enter a Full name"),
       // country: Yup.string().required("Please Enter a Country"),
       billing_address: Yup.string().required("Please Enter a Address"),
@@ -162,14 +162,14 @@ const TransactionCreate = () => {
       product_name: Yup.string().required("Please Enter a product Name"),
     }),
     onSubmit: (values) => {
-      const newTransaction = {
+      const newDailyRevenue = {
         _id: (Math.floor(Math.random() * (30 - 20)) + 20).toString(),
         postalcode: values.postalcode,
         registration: values.registration,
         email: values.email,
         website: values.website,
         contact: values.contact,
-        transactionId: values.transactionId,
+        DailyRevenueId: values.DailyRevenueId,
         date: date,
         name: values.name,
         status: values.status,
@@ -184,8 +184,8 @@ const TransactionCreate = () => {
         shipping_taxno: values.shipping_taxno,
         product_name: values.product_name,
       };
-      dispatch(onAddNewTransaction(newTransaction));
-      history("/apps-transactions-list");
+      dispatch(onAddNewDailyRevenue(newDailyRevenue));
+      history("/apps-DailyRevenues-list");
       validation.resetForm();
     },
   });
@@ -193,7 +193,7 @@ const TransactionCreate = () => {
   return (
     <div className="page-content">
       <Container fluid>
-        <BreadCrumb title="Create Transaction" pageTitle="Transactions" />
+        <BreadCrumb title="Create DailyRevenue" pageTitle="DailyRevenues" />
         <Row className="justify-content-center">
           <Col xxl={9}>
             <Card>
@@ -204,7 +204,7 @@ const TransactionCreate = () => {
                   return false;
                 }}
                 className="needs-validation"
-                id="transaction_form"
+                id="DailyRevenue_form"
               >
                 <CardBody className="border-bottom border-bottom-dashed p-4">
                   <Row>
@@ -380,27 +380,27 @@ const TransactionCreate = () => {
                 <CardBody className="p-4">
                   <Row className="g-3">
                     <Col lg={3} sm={6}>
-                      <Label for="transactionoInput">Transaction No</Label>
+                      <Label for="DailyRevenueoInput">DailyRevenue No</Label>
                       <Input
                         type="text"
                         className="form-control bg-light border-0"
-                        id="transactionoInput"
-                        name="transactionId"
-                        value={validation.values.transactionId || ""}
+                        id="DailyRevenueoInput"
+                        name="DailyRevenueId"
+                        value={validation.values.DailyRevenueId || ""}
                         onBlur={validation.handleBlur}
                         onChange={validation.handleChange}
-                        placeholder="Transaction No"
+                        placeholder="DailyRevenue No"
                         invalid={
-                          validation.errors.transactionId &&
-                          validation.touched.transactionId
+                          validation.errors.DailyRevenueId &&
+                          validation.touched.DailyRevenueId
                             ? true
                             : false
                         }
                       />
-                      {validation.errors.transactionId &&
-                      validation.touched.transactionId ? (
+                      {validation.errors.DailyRevenueId &&
+                      validation.touched.DailyRevenueId ? (
                         <FormFeedback type="invalid">
-                          {validation.errors.transactionId}
+                          {validation.errors.DailyRevenueId}
                         </FormFeedback>
                       ) : null}
                     </Col>
@@ -709,7 +709,7 @@ const TransactionCreate = () => {
                 </CardBody>
                 <CardBody className="p-4">
                   <div className="table-responsive">
-                    <Table className="transaction-table table-borderless table-nowrap mb-0">
+                    <Table className="DailyRevenue-table table-borderless table-nowrap mb-0">
                       <thead className="align-middle">
                         <tr className="table-active">
                           <th scope="col" style={{ width: "50px" }}>
@@ -1014,7 +1014,7 @@ const TransactionCreate = () => {
                       placeholder="Notes"
                       rows="2"
                       defaultValue="All accounts are to be paid within 7 days from receipt of
-                      transaction. To be paid by cheque or credit card or direct
+                      DailyRevenue. To be paid by cheque or credit card or direct
                       payment online. If account is not paid within 7 days the
                       credits details supplied as confirmation of work
                       undertaken will be charged the agreed quoted fee noted
@@ -1027,11 +1027,11 @@ const TransactionCreate = () => {
                     </button>
                     <Link to="#" className="btn btn-primary">
                       <i className="ri-download-2-line align-bottom me-1"></i>{" "}
-                      Download Transaction
+                      Download DailyRevenue
                     </Link>
                     <Link to="#" className="btn btn-secondary">
                       <i className="ri-send-plane-fill align-bottom me-1"></i>{" "}
-                      Send Transaction
+                      Send DailyRevenue
                     </Link>
                   </div>
                 </CardBody>
@@ -1044,4 +1044,4 @@ const TransactionCreate = () => {
   );
 };
 
-export default TransactionCreate;
+export default DailyRevenueCreate;

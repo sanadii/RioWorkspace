@@ -7,16 +7,16 @@ import avatar6 from "../../assets/images/users/avatar-6.jpg";
 import avatar7 from "../../assets/images/users/avatar-7.jpg";
 import avatar8 from "../../assets/images/users/avatar-8.jpg";
 
-const transactionWidgets = [
+const DailyRevenueWidgets = [
     {
         id: 1,
-        label: "Transactions Sent",
+        label: "DailyRevenues Sent",
         percentage: "+89.24 %",
         percentageClass: "success",
         icon: "ri-arrow-right-up-line",
         counter: 559.25,
         badge: "2,258",
-        caption: "Transactions sent",
+        caption: "DailyRevenues sent",
         feaIcon: "file-text",
         decimals: 1,
         prefix: "$",
@@ -24,7 +24,7 @@ const transactionWidgets = [
     },
     {
         id: 2,
-        label: "Paid Transactions",
+        label: "Paid DailyRevenues",
         percentage: "+8.09 %",
         percentageClass: "danger",
         icon: "ri-arrow-right-down-line",
@@ -38,7 +38,7 @@ const transactionWidgets = [
     },
     {
         id: 3,
-        label: "Unpaid Transactions",
+        label: "Unpaid DailyRevenues",
         percentage: "+9.01 %",
         percentageClass: "danger",
         icon: "ri-arrow-right-down-line",
@@ -52,7 +52,7 @@ const transactionWidgets = [
     },
     {
         id: 4,
-        label: "Cancelled Transactions",
+        label: "Cancelled DailyRevenues",
         percentage: "+7.55 %",
         percentageClass: "success",
         icon: "ri-arrow-right-up-line",
@@ -66,7 +66,7 @@ const transactionWidgets = [
     },
 ];
 
-const transactionTable = [
+const DailyRevenueTable  = [
     {
         id: 1,
         name: "Diana Kohler",
@@ -78,7 +78,7 @@ const transactionTable = [
     },
     {
         id: 2,
-        transactionId: "#VL25000352",
+        DailyRevenueId: "#VL25000352",
         picture: avatar3,
         name: "James Morris",
         email: "jamesmorris@velzon.com",
@@ -91,7 +91,7 @@ const transactionTable = [
     },
     {
         id: 3,
-        transactionId: "#VL25000353",
+        DailyRevenueId: "#VL25000353",
         picture: avatar4,
         name: "Dawn Koh",
         email: "dawnkoh@velzon.com",
@@ -104,7 +104,7 @@ const transactionTable = [
     },
     {
         id: 4,
-        transactionId: "#VL25000354",
+        DailyRevenueId: "#VL25000354",
         picture: avatar5,
         name: "Tonya Noble",
         email: "tonynoble@velzon.com",
@@ -117,7 +117,7 @@ const transactionTable = [
     },
     {
         id: 5,
-        transactionId: "#VL25000355",
+        DailyRevenueId: "#VL25000355",
         picture: avatar6,
         name: "David Nichols",
         email: "davidnochols@velzon.com",
@@ -130,7 +130,7 @@ const transactionTable = [
     },
     {
         id: 6,
-        transactionId: "#VL25000356",
+        DailyRevenueId: "#VL25000356",
         picture: avatar7,
         name: "Joseph Payten",
         email: "josephpayten@velzon.com",
@@ -143,7 +143,7 @@ const transactionTable = [
     },
     {
         id: 7,
-        transactionId: "#VL25000357",
+        DailyRevenueId: "#VL25000357",
         name: "Mary Rucker",
         email: "maryrucker@velzon.com",
         country: "United Kingdom",
@@ -155,7 +155,7 @@ const transactionTable = [
     },
     {
         id: 8,
-        transactionId: "#VL25000358",
+        DailyRevenueId: "#VL25000358",
         name: "Alexis Clarke",
         email: "alexisclarke@velzon.com",
         country: "Spain",
@@ -167,7 +167,7 @@ const transactionTable = [
     },
     {
         id: 9,
-        transactionId: "#VL25000359",
+        DailyRevenueId: "#VL25000359",
         picture: avatar8,
         name: "Ryan Cowie",
         email: "rayancowie@velzon.com",
@@ -180,7 +180,7 @@ const transactionTable = [
     },
     {
         id: 10,
-        transactionId: "#VL25000360",
+        DailyRevenueId: "#VL25000360",
         picture: avatar4,
         name: "Christina Maier",
         email: "christinamaier@velzon.com",
@@ -193,7 +193,7 @@ const transactionTable = [
     },
     {
         id: 11,
-        transactionId: "#VL25000361",
+        DailyRevenueId: "#VL25000361",
         picture: avatar2,
         name: "Jennifer Winkel",
         email: "jenniferwinkal@velzon.com",
@@ -206,7 +206,7 @@ const transactionTable = [
     },
     {
         id: 12,
-        transactionId: "#VL25000362",
+        DailyRevenueId: "#VL25000362",
         name: "Erik Peters",
         email: "erikpeters@velzon.com",
         country: "Mexico",
@@ -218,4 +218,4 @@ const transactionTable = [
     },
 ];
 
-export { transactionWidgets, transactionTable };
+export { DailyRevenueWidgets, DailyRevenueTable };

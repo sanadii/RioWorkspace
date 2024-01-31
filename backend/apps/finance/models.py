@@ -3,7 +3,7 @@ from apps.clients.models import Client
 from apps.staff.models import Staff
 from apps.appointments.models import AppointmentService
 
-# Define common choices for transaction and expense categories
+# Define common choices for dailyRevenue and expense categories
 TRANSACTION_CATEGORY_CHOICES = [
     ('Cash', 'Cash'),
     ('Credit', 'Credit'),
@@ -24,23 +24,26 @@ EXPENSES_CATEGORY_CHOICES = [
     ('Miscellaneous', 'Miscellaneous'),
 ]
 
-TRANSACTION_STATUS_CHOICES = [
+DAILY_REVENUE_STATUS_CHOICES = [
     ('pending', 'Pending'),
-    ('completed', 'Completed'),
-    ('cancelled', 'Cancelled'),
-    # Add more status choices as needed
+    ('reviewed', 'Reviewed'),
+    ('declined', 'Declined'),
 ]
 
 
-# Transactions Model
-class Transactions(models.Model):
-    transaction_date = models.DateField()
+# DailyRevenue Model
+class DailyRevenue(models.Model):
+    dailyRevenue_date = models.DateField()
     notes = models.TextField()
-    amount = models.DecimalField(max_digits=10, decimal_places=2)
+    cash = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+    credit = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+    others = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
     notes = models.TextField()
+    status = models.CharField(max_length=100, choices=DAILY_REVENUE_STATUS_CHOICES)
+    is_closed = models.BooleanField(default=False)
 
     def __str__(self):
-        return f"{self.transaction_date} - {self.amount}"
+        return f"{self.dailyRevenue_date} - {self.amount}"
 
 # Expenses Model
 class Expenses(models.Model):

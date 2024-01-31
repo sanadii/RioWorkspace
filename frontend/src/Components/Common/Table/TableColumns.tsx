@@ -60,17 +60,22 @@ const Id: React.FC<IdProps> = ({ row }) => (
   </Link>
 );
 
-// Name props & value
-type NameProps = {
-  row: {
-    original: {
-      value: string;
-    };
-  };
+const Name = (cell:any) => {
+  return (
+      <React.Fragment>
+          <Link to="/apps-projects-overview" className="fw-medium link-primary">{cell.getValue()}</Link>
+      </React.Fragment>
+  );
 };
 
-const Name: React.FC<NameProps> = ({ row }) => <b>{row.original.value}</b>;
 
+const Notes = (cell:any) => {
+  return (
+      <React.Fragment>
+          <span className="fw-medium link-primary">{cell.getValue()}</span>
+      </React.Fragment>
+  );
+};
 // Description props & value
 type DescriptionProps = {
   row: {
@@ -84,16 +89,13 @@ const Description: React.FC<DescriptionProps> = ({ row }) => (
   <b>{row.original.value}</b>
 );
 
-type AmountProps = {
-  row: {
-    original: {
-      value: number;
-    };
-  };
+const Amount = (cell:any) => {
+  return (
+      <React.Fragment>
+          <strong className="fw-medium link-primary">{cell.getValue() } KD</strong>
+      </React.Fragment>
+  );
 };
-
-const Amount: React.FC<AmountProps> = ({ row }) => <b>{row.original.value}</b>;
-
 type DateProps = {
   row: {
     original: {
@@ -106,44 +108,49 @@ const DateComponent: React.FC<DateProps> = ({ row }) => (
   <span>{handleValidDate(row.original.dueDate)}</span>
 );
 
-type StatusOption = {
-  id: number;
-  name: string;
-  badgeClass: string;
+const Status = (cell:any) => {
+  return (
+      <React.Fragment>
+          {cell.getValue() === "declined" ?
+              <span className="badge bg-secondary-subtle text-secondary text-uppercase">{cell.getValue()}</span>
+              :
+              cell.getValue() === "declined" ?
+                  <span className="badge bg-info-subtle text-info text-uppercase">{cell.getValue()}</span>
+                  : cell.getValue() === "reviewed" ?
+                      <span className="badge bg-success-subtle text-success text-uppercase">{cell.getValue()}</span>
+                      : cell.getValue() === "pending" ?
+                          <span className="badge bg-warning-subtle text-warning text-uppercase">{cell.getValue()}</span>
+                          : null
+          }
+      </React.Fragment>
+  );
 };
 
 
-
-
-type StatusProps = {
-  row: {
-    original: {
-      status: string;
-    };
-  };
+const Priority = (cell:any) => {
+  return (
+      <React.Fragment>
+          {cell.getValue() === "Medium" ?
+              <span className="badge bg-warning text-uppercase">{cell.getValue()}</span>
+              :
+              cell.getValue() === "High" ?
+                  <span className="badge bg-danger text-uppercase">{cell.getValue()}</span>
+                  : cell.getValue() === "Low" ?
+                      <span className="badge bg-success text-uppercase">{cell.getValue()}</span>
+                      : null
+          }
+      </React.Fragment>
+  );
 };
 
-
-const Status: React.FC<StatusProps> = ({ row }) => {
-  const statusMapping = StatusOptions.reduce((acc: Record<string, StatusOption>, curr) => {
-    acc[curr.id] = curr;
-    return acc;
-  }, {});
-
-  const { name, badgeClass } = statusMapping[row.original.status] || {
-    name: "Unknown",
-    badgeClass: "badge bg-primary",
-  };
-
-  return <span className={`${badgeClass} text-uppercase`}>{name}</span>;
+const CreateBy = (cell:any) => {
+  return (
+      <React.Fragment>
+          {cell.getValue()}
+      </React.Fragment>
+  );
 };
 
-
-type CreateByProps = {
-  value: string;
-};
-
-const CreateBy: React.FC<CreateByProps> = ({ value }) => <span>{value}</span>;
 
 type ActionsProps = {
   cell: {
@@ -152,24 +159,23 @@ type ActionsProps = {
       original: any; // Replace 'any' with a more specific type if possible
     };
   };
-  handleElectionClick: (electionData: any) => void; // Replace 'any' with a more specific type if possible
-  onClickDelete: (electionData: any) => void; // Replace 'any' with a more specific type if possible
+  handleItemClick: (itemData: any) => void; // Replace 'any' with a more specific type if possible
+  onClickDelete: (itemData: any) => void; // Replace 'any' with a more specific type if possible
 };
 
 const Actions: React.FC<ActionsProps> = ({
   cell,
-  handleElectionClick,
+  handleItemClick,
   onClickDelete,
 }) => {
   return (
     <div className="d-flex">
-      <div className="flex-grow-1 elections_name">{cell.value}</div>
       <div className="hstack gap-2">
         <button
           className="btn btn-sm btn-soft-info edit-list"
           onClick={() => {
-            const electionData = cell.row.original;
-            handleElectionClick(electionData);
+            const itemData = cell.row.original;
+            handleItemClick(itemData);
           }}
         >
           <i className="ri-pencil-fill align-bottom" />
@@ -177,8 +183,8 @@ const Actions: React.FC<ActionsProps> = ({
         <button
           className="btn btn-sm btn-soft-danger remove-list"
           onClick={() => {
-            const electionData = cell.row.original;
-            onClickDelete(electionData);
+            const itemData = cell.row.original;
+            onClickDelete(itemData);
           }}
         >
           <i className="ri-delete-bin-5-fill align-bottom" />
@@ -193,6 +199,7 @@ export {
   CheckboxHeader,
   CheckboxCell,
   Name,
+  Notes,
   Description,
   DateComponent as Date,
   Status,

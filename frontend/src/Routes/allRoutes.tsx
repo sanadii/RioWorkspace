@@ -5,10 +5,10 @@ import { Navigate } from "react-router-dom";
 import DashboardEcommerce from "../pages/DashboardEcommerce";
 
 
-//Transactions
-import TransactionList from "../pages/Transaction/TransactionList";
-import TransactionCreate from "../pages/Transaction/TransactionCreate";
-import TransactionDetails from "../pages/Transaction/TransactionDetails";
+//DailyRevenues
+import DailyRevenueList from "../pages/DailyRevenues/DailyRevenueList";
+import DailyRevenueCreate from "../pages/DailyRevenues/DailyRevenueCreate";
+import DailyRevenueDetails from "../pages/DailyRevenues/DailyRevenueDetails";
 
 
 //AuthenticationInner pages
@@ -49,10 +49,10 @@ const authProtectedRoutes = [
   { path: "/dashboard", component: <DashboardEcommerce /> },
   { path: "/index", component: <DashboardEcommerce /> },
 
-  //Transactions
-  { path: "/apps-transactions-list", component: <TransactionList /> },
-  { path: "/apps-transactions-details", component: <TransactionDetails /> },
-  { path: "/apps-transactions-create", component: <TransactionCreate /> },
+  //DailyRevenues
+  { path: "/apps-DailyRevenues-list", component: <DailyRevenueList /> },
+  { path: "/apps-DailyRevenues-details", component: <DailyRevenueDetails /> },
+  { path: "/apps-DailyRevenues-create", component: <DailyRevenueCreate /> },
 
 
   // this route should be at the end of all other routes

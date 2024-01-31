@@ -6,18 +6,18 @@ import { Link } from "react-router-dom";
 import logoDark from "../../assets/images/logo-dark.png";
 import logoLight from "../../assets/images/logo-light.png";
 
-const TransactionDetails = () => {
-  //Print the Transaction
-  const printTransaction = () => {
+const DailyRevenueDetails = () => {
+  //Print the DailyRevenue
+  const printDailyRevenue = () => {
     window.print();
   };
 
-  document.title = "Transaction Details | Velzon - React Admin & Dashboard Template";
+  document.title = "DailyRevenue Details | Velzon - React Admin & Dashboard Template";
 
   return (
     <div className="page-content">
       <Container fluid>
-        <BreadCrumb title="Transaction Details" pageTitle="Transactions" />
+        <BreadCrumb title="DailyRevenue Details" pageTitle="DailyRevenues" />
 
         <Row className="justify-content-center">
           <Col xxl={9}>
@@ -79,16 +79,16 @@ const TransactionDetails = () => {
                     <Row className="g-3">
                       <Col lg={3} xs={6}>
                         <p className="text-muted mb-2 text-uppercase fw-semibold">
-                          Transaction No
+                          DailyRevenue No
                         </p>
-                        <h5 className="fs-14 mb-0">#VL<span id="transaction-no">25000355</span></h5>
+                        <h5 className="fs-14 mb-0">#VL<span id="DailyRevenue-no">25000355</span></h5>
                       </Col>
                       <Col lg={3} xs={6}>
                         <p className="text-muted mb-2 text-uppercase fw-semibold">
                           Date
                         </p>
                         <h5 className="fs-14 mb-0">
-                          <span id="transaction-date">23 Nov, 2021</span> <small className="text-muted" id="transaction-time">02:36PM</small>
+                          <span id="DailyRevenue-date">23 Nov, 2021</span> <small className="text-muted" id="DailyRevenue-time">02:36PM</small>
                         </h5>
                       </Col>
                       <Col lg={3} xs={6}>
@@ -253,7 +253,7 @@ const TransactionDetails = () => {
                         <p className="mb-0">
                           <span className="fw-semibold">NOTES:</span>
                           <span id="note"> All accounts
-                            are to be paid within 7 days from receipt of transaction. To
+                            are to be paid within 7 days from receipt of DailyRevenue. To
                             be paid by cheque or credit card or direct payment online.
                             If account is not paid within 7 days the credits details
                             supplied as confirmation of work undertaken will be
@@ -265,7 +265,7 @@ const TransactionDetails = () => {
                     <div className="hstack gap-2 justify-content-end d-print-none mt-4">
                       <Link
                         to="#"
-                        onClick={printTransaction}
+                        onClick={printDailyRevenue}
                         className="btn btn-soft-primary"
                       >
                         <i className="ri-printer-line align-bottom me-1"></i> Print
@@ -286,4 +286,4 @@ const TransactionDetails = () => {
   );
 };
 
-export default TransactionDetails;
+export default DailyRevenueDetails;

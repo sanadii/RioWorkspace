@@ -3,19 +3,16 @@ import { useSelector } from "react-redux";
 import { Row } from "reactstrap";
 
 // General Filters
-import GlobalFilter from "../Filters/GlobalFilter";
-import GenderFilter from "../Filters/GenderFilter";
-import PriorityFilter from "../Filters/PriorityFilter";
-import StatusFilter from "../Filters/StatusFilter";
-import ResetFilters from "../Filters/ResetFilters";
-import SearchFilter from "../Filters/SearchFilter";
+import GlobalFilter from "./GlobalFilter";
+import PriorityFilter from "./PriorityFilter";
+import StatusFilter from "./StatusFilter";
+import ResetFilters from "./ResetFilters";
+import SearchFilter from "./SearchFilter";
 
 
 const TableContainerFilters = ({
 
     // Tab Filters----------
-    isElectionCategoryFilter,
-    isCampaignRoleFilter,
 
     // Global Filter----------
     isGlobalFilter,
@@ -25,16 +22,7 @@ const TableContainerFilters = ({
     // Select Filters----------
     isStatusFilter,
     isPriorityFilter,
-    isCandidateGenderFilter,
-    isMemberRoleFilter,
-    isGenderFilter,
-    isGuaranteeAttendanceFilter,
-    isAttendeesGenderFilter,
-    isCommitteeFilter,
-    isGuaranteeStatusFilter,
-    isGuarantorFilter,
     isResetFilters,
-    isTestFilter,
     isGlobalSearch,
 
     // Settings
@@ -75,7 +63,7 @@ const TableContainerFilters = ({
             <Row className="g-4 mb-4">
                 <div className="d-flex align-items-center ">
                     <div className="col">
-                       
+
                     </div>
                     <div className="flex-shrink-0"></div>
                 </div>
@@ -120,21 +108,6 @@ const TableContainerFilters = ({
                             />
                         )}
 
-
-                      
-                        {isGenderFilter && (
-                            <GenderFilter
-                                filters={filters}
-                                setFilters={setFilters}
-                            />
-                        )}
-                        {/* {isAttendeesGenderFilter && (
-                            <AttendeeGenderFilter
-                                filters={filters}
-                                setFilters={setFilters}
-                            />
-                        )} */}
-                       
                     </div>
                     <div className="flex-shrink-0">
                         {isResetFilters && (

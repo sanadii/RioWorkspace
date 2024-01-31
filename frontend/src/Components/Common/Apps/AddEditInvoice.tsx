@@ -6,7 +6,7 @@ import Flatpickr from 'react-flatpickr'
 import * as Yup from "yup";
 import { useDispatch } from 'react-redux';
 import { useFormik } from 'formik';
-import { addNewTransaction as onAddTransaction, updateTransaction as onUpdateTransaction } from 'store/actions';
+import { addNewDailyRevenue as onAddDailyRevenue, updateDailyRevenue as onUpdateDailyRevenue } from 'store/actions';
 
 import dummy from "../../../assets/images/users/user-dummy-img.jpg"
 
@@ -18,7 +18,7 @@ interface modal {
     handleClose: any,
 }
 
-const AddEditTransaction = ({ edit, isEdit, handleShow, handleClose, isShow }: modal) => {
+const AddEditDailyRevenue = ({ edit, isEdit, handleShow, handleClose, isShow }: modal) => {
 
     // Date
     const defaultdate = () => {
@@ -68,7 +68,7 @@ const AddEditTransaction = ({ edit, isEdit, handleShow, handleClose, isShow }: m
         enableReinitialize: true,
         initialValues: {
             id: (edit && edit.id) || '',
-            transactionId: (edit && edit.transactionId) || '',
+            DailyRevenueId: (edit && edit.DailyRevenueId) || '',
             picture: (edit && edit.picture) || '',
             name: (edit && edit.name) || '',
             email: (edit && edit.email) || '',
@@ -78,7 +78,7 @@ const AddEditTransaction = ({ edit, isEdit, handleShow, handleClose, isShow }: m
 
         },
         validationSchema: Yup.object({
-            transactionId: Yup.string().required("Please Enter TransactionID"),
+            DailyRevenueId: Yup.string().required("Please Enter DailyRevenueID"),
             name: Yup.string().required("Please Enter Your Name"),
             email: Yup.string().email().required('Please Enter Email'),
             country: Yup.string().required('Please Enter the Country name'),
@@ -87,9 +87,9 @@ const AddEditTransaction = ({ edit, isEdit, handleShow, handleClose, isShow }: m
         }),
         onSubmit: (values: any) => {
             if (isEdit) {
-                const UpdateTransaction = {
+                const UpdateDailyRevenue = {
                     id: values.id,
-                    transactionId: values.transactionId,
+                    DailyRevenueId: values.DailyRevenueId,
                     picture: values.picture,
                     name: values.name,
                     email: values.email,
@@ -97,12 +97,12 @@ const AddEditTransaction = ({ edit, isEdit, handleShow, handleClose, isShow }: m
                     date: values.date,
                     amount: values.amount,
                 }
-                dispatch(onUpdateTransaction(UpdateTransaction));
+                dispatch(onUpdateDailyRevenue(UpdateDailyRevenue));
                 formik.resetForm();
             } else {
-                const newTransaction = {
+                const newDailyRevenue = {
                     id: (Math.floor(Math.random() * (30 - 20)) + 20),
-                    transactionId: values['transactionId'],
+                    DailyRevenueId: values['DailyRevenueId'],
                     //   picture: selectedImage,
                     picture: values['picture'],
                     name: values['name'],
@@ -111,7 +111,7 @@ const AddEditTransaction = ({ edit, isEdit, handleShow, handleClose, isShow }: m
                     date: values['date'],
                     amount: values['amount'],
                 }
-                dispatch(onAddTransaction(newTransaction));
+                dispatch(onAddDailyRevenue(newDailyRevenue));
                 formik.resetForm();
             }
 
@@ -175,20 +175,20 @@ const AddEditTransaction = ({ edit, isEdit, handleShow, handleClose, isShow }: m
                             </Col>
 
                             <Col lg={12}>
-                                <Label htmlFor="transactionid-field">transactionId</Label>
+                                <Label htmlFor="DailyRevenueid-field">DailyRevenueId</Label>
                                 <Input
                                     type="text"
-                                    id="transactionid-field"
+                                    id="DailyRevenueid-field"
                                     className="form-control"
-                                    placeholder="Enter TransactionId"
+                                    placeholder="Enter DailyRevenueId"
                                     required
-                                    name='transactionId'
-                                    value={formik.values.transactionId || ''}
+                                    name='DailyRevenueId'
+                                    value={formik.values.DailyRevenueId || ''}
                                     onChange={formik.handleChange}
-                                    isInvalid={!!formik.errors.transactionId}
+                                    isInvalid={!!formik.errors.DailyRevenueId}
                                 />
-                                {formik.errors.transactionId && formik.touched.transactionId ? (
-                                    <FormFeedback type="invalid">{formik.errors.transactionId}</FormFeedback>
+                                {formik.errors.DailyRevenueId && formik.touched.DailyRevenueId ? (
+                                    <FormFeedback type="invalid">{formik.errors.DailyRevenueId}</FormFeedback>
                                 ) : null}
                             </Col>
 
@@ -319,4 +319,4 @@ const AddEditTransaction = ({ edit, isEdit, handleShow, handleClose, isShow }: m
     )
 }
 
-export default AddEditTransaction
+export default AddEditDailyRevenue

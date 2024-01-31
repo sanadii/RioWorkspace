@@ -9,11 +9,11 @@ import Route from './Routes';
 // Import Firebase Configuration file
 // import { initFirebaseBackend } from "./helpers/firebase_helper";
 
-import fakeBackend from './helpers/AuthType/fakeBackend';
+// import backend from './helpers/AuthType/backend';
 
 // Activating fake backend
-fakeBackend();
-// console.log("abcd", fakeBackend())
+// backend();
+// console.log("abcd", backend())
 
 // const firebaseConfig = {
 //   apiKey: process.env.REACT_APP_APIKEY,
