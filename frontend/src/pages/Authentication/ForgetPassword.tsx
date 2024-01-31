@@ -6,14 +6,14 @@ import { Row, Col, Alert, Card, CardBody, Container, FormFeedback, Input, Label,
 import { useSelector, useDispatch } from "react-redux";
 
 import { Link } from "react-router-dom";
-import withRouter from "../../Components/Common/withRouter";
+import withRouter from "../../Components/Common/Components/withRouter";
 
 // Formik Validation
 import * as Yup from "yup";
 import { useFormik } from "formik";
 
 // action
-import { userForgetPassword } from "../../slices/thunks";
+import { userForgetPassword } from "store/actions";
 
 // import images
 // import profile from "../../assets/images/bg.png";

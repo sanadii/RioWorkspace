@@ -22,8 +22,9 @@
     "jsx": "react-jsx",
     "paths": {
       "helpers/*": ["helpers/*"],
+      "assets/*": ["assets/*"],
       "Components/*": ["Components/*"],
-      "@/*": ["*"]
+      "@/*": ["./*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/config.js"],

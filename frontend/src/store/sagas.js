@@ -12,6 +12,9 @@ import UsersSaga from "./auth/users/saga";
 import LayoutSaga from "./layouts/saga";
 
 
+// Apps
+import TransactionSaga from "./transaction/saga";
+
 export default function* rootSaga() {
   yield all([
     // Authentication
@@ -23,6 +26,10 @@ export default function* rootSaga() {
 
     // System / Settings
     fork(LayoutSaga),
+
+    // Apps
+    fork(TransactionSaga),
+
 
   ]);
 }

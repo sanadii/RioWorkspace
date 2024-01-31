@@ -75,7 +75,7 @@ import {
   productsData,
   jobCategories,
   jobCandidatesList,
-  invoiceTable,
+  transactionTable,
   companies,
   crmcontacts,
   leads,
@@ -2201,13 +2201,13 @@ const fakeBackend = () => {
   });
 
 
-  // Invoice
-  mock.onGet(url.GET_INVOICES).reply(() => {
+  // Transaction
+  mock.onGet(url.GET_TRANSACTIONS).reply(() => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
-        if (invoiceTable) {
+        if (transactionTable) {
           // Passing fake JSON data as response
-          resolve([200, invoiceTable]);
+          resolve([200, transactionTable]);
         } else {
           reject([400, "Cannot get order Data"]);
         }
@@ -2215,7 +2215,7 @@ const fakeBackend = () => {
     });
   });
 
-  mock.onPost(url.ADD_NEW_INVOICE).reply((event: any) => {
+  mock.onPost(url.ADD_NEW_TRANSACTION).reply((event: any) => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         if (event && event.data) {
@@ -2228,7 +2228,7 @@ const fakeBackend = () => {
     });
   });
 
-  mock.onPut(url.UPDATE_INVOICE).reply((event: any) => {
+  mock.onPut(url.UPDATE_TRANSACTION).reply((event: any) => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         if (event && event.data) {
@@ -2241,7 +2241,7 @@ const fakeBackend = () => {
     });
   });
 
-  mock.onPatch(url.UPDATE_INVOICE).reply((event: any) => {
+  mock.onPatch(url.UPDATE_TRANSACTION).reply((event: any) => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         if (event && event.data) {
@@ -2254,12 +2254,12 @@ const fakeBackend = () => {
     });
   });
 
- // Invoice
- mock.onDelete(url.DELETE_INVOICE).reply((config: any) => {
+ // Transaction
+ mock.onDelete(url.DELETE_TRANSACTION).reply((config: any) => {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       if (config && config.headers) {
-        resolve([200, config.headers.invoice]);
+        resolve([200, config.headers.transaction]);
       } else {
         reject([400, "Cannot delete event"]);
       }

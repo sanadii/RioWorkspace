@@ -3,6 +3,7 @@ from django.urls import path, include
 from .views import *
 
 from .forms import LoginForm
+from . import views  # Import the views module from the same directory
 
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,

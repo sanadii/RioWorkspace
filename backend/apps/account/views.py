@@ -1,12 +1,5 @@
-import json
-from django.contrib import messages
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import Group
 from django.http import JsonResponse
-from django.shortcuts import render, redirect
-from django.views.decorators.http import require_POST
-
-from apps.account.forms import AddUserForm, EditUserForm
 from apps.account.models import User
 from rest_framework.views import APIView
 from rest_framework.permissions import AllowAny, IsAuthenticated
@@ -15,23 +8,27 @@ from .serializers import UserSerializer, UserLoginSerializer
 from rest_framework import status
 from rest_framework.response import Response
 
-
-
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
 from django.core.exceptions import ObjectDoesNotExist
 
 from rest_framework_simplejwt.tokens import RefreshToken, AccessToken
 
+from django.views import View
+from rest_framework.views import APIView
+from django.http import HttpResponse
 
 
-@method_decorator(csrf_exempt, name='dispatch')
+
 class UserLogin(APIView):
     permission_classes = [AllowAny]
+
+    @method_decorator(csrf_exempt)
     def post(self, request):
+        print("Inside UserLogin view")
         email = request.data.get('email')
         password = request.data.get('password')
-        user = User.objects.filter(email=email).first() # Assuming your User model has an email field
+        user = User.objects.filter(email=email).first()
 
         if user is None:
             return Response({'error': 'User not found!'}, status=status.HTTP_404_NOT_FOUND)
@@ -41,14 +38,26 @@ class UserLogin(APIView):
         refresh = RefreshToken.for_user(user)
         access_token = str(AccessToken().for_user(user))
 
-        user_data = UserLoginSerializer(user).data
-
-        return Response({
+        # Create cookies and add them to the response
+        response = Response({
             'status': 'success',
             'refresh_token': str(refresh),
             'access_token': access_token,
-            'data': user_data
         })
+
+        # Set the cookies with the tokens
+        response.set_cookie('first_name', 'John')  # Example cookie
+        response.set_cookie('team', 'barcelona')    # Example cookie
+
+        response.set_cookie('test_cookie', 'test_value')
+        response.set_cookie('test_cookie', value='test_value', max_age=None, expires=None, path='/', domain=None, secure=None, httponly=False, samesite=None)
+
+        print("Cookies set:", response.cookies)
+
+        return response
+
+
+
 
 class ChangeUserPassword(APIView):
     permission_classes = [IsAuthenticated]

@@ -24,15 +24,23 @@ EXPENSES_CATEGORY_CHOICES = [
     ('Miscellaneous', 'Miscellaneous'),
 ]
 
+TRANSACTION_STATUS_CHOICES = [
+    ('pending', 'Pending'),
+    ('completed', 'Completed'),
+    ('cancelled', 'Cancelled'),
+    # Add more status choices as needed
+]
+
+
 # Transactions Model
 class Transactions(models.Model):
     transaction_date = models.DateField()
-    description = models.TextField()
+    notes = models.TextField()
     amount = models.DecimalField(max_digits=10, decimal_places=2)
-    category = models.CharField(max_length=100, choices=TRANSACTION_CATEGORY_CHOICES)
+    notes = models.TextField()
 
     def __str__(self):
-        return f"{self.description} - {self.amount}"
+        return f"{self.transaction_date} - {self.amount}"
 
 # Expenses Model
 class Expenses(models.Model):

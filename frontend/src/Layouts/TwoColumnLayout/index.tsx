@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import withRouter from '../../Components/Common/withRouter';
+import withRouter from '../../Components/Common/Components/withRouter';
 import PropTypes from "prop-types";
 import { Collapse, Container } from 'reactstrap';
 import logoSm from "../../assets/images/logo-sm.png";

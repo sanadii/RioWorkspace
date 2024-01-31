@@ -117,11 +117,11 @@ export const GET_DEALS = "/deals";
 export const GET_TRANSACTION_LIST = "/transaction-list";
 export const GET_ORDRER_LIST = "/order-list";
 
-// Invoice
-export const GET_INVOICES = "/apps/invoice";
-export const ADD_NEW_INVOICE = "/apps/invoice";
-export const UPDATE_INVOICE = "/apps/invoice";
-export const DELETE_INVOICE = "/apps/invoice";
+// Transaction
+export const GET_TRANSACTIONS = "/apps/transaction";
+export const ADD_NEW_TRANSACTION = "/apps/transaction";
+export const UPDATE_TRANSACTION = "/apps/transaction";
+export const DELETE_TRANSACTION = "/apps/transaction";
 
 // TicketsList
 export const GET_TICKETS_LIST = "/apps/ticket";

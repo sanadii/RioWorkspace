@@ -8,16 +8,16 @@ import logoDark from "../assets/images/logo-dark.png";
 import logoLight from "../assets/images/logo-light.png";
 
 //import Components
-import SearchOption from '../Components/Common/SearchOption';
-import LanguageDropdown from '../Components/Common/LanguageDropdown';
-import WebAppsDropdown from '../Components/Common/WebAppsDropdown';
-import MyCartDropdown from '../Components/Common/MyCartDropdown';
-import FullScreenDropdown from '../Components/Common/FullScreenDropdown';
-import NotificationDropdown from '../Components/Common/NotificationDropdown';
-import ProfileDropdown from '../Components/Common/ProfileDropdown';
-import LightDark from '../Components/Common/LightDark';
+import SearchOption from '../Components/Common/Filters/SearchOption';
+import LanguageDropdown from '../Components/Common/Components/LanguageDropdown';
+import WebAppsDropdown from '../Components/Common/Components/WebAppsDropdown';
+import MyCartDropdown from '../Components/Common/Components/MyCartDropdown';
+import FullScreenDropdown from '../Components/Common/Components/FullScreenDropdown';
+import NotificationDropdown from '../Components/Common/Components/NotificationDropdown';
+import ProfileDropdown from '../Components/Common/Components/ProfileDropdown';
+import LightDark from '../Components/Common/Components/LightDark';
 
-import { changeSidebarVisibility } from '../slices/thunks';
+import { changeSidebarVisibility } from '../store/actions';
 import { useSelector, useDispatch } from "react-redux";
 import { createSelector } from 'reselect';
 

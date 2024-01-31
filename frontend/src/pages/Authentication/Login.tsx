@@ -6,7 +6,8 @@ import ParticlesAuth from "../AuthenticationInner/ParticlesAuth";
 import { useSelector, useDispatch } from "react-redux";
 
 import { Link } from "react-router-dom";
-import withRouter from "../../Components/Common/withRouter";
+import withRouter from "../../Components/Common/Components/withRouter";
+
 // Formik validation
 import * as Yup from "yup";
 import { useFormik } from "formik";

@@ -177,12 +177,12 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:3001",
 ]
 
-CORS_ALLOW_CREDENTIALS = True
-
 # For Development only
 CORS_ALLOW_ALL_ORIGINS = True
 
-CSRF_COOKIE_SECURE = True  # Set to True in a production environment with HTTPS
+SESSION_COOKIE_SECURE = False
+
+CSRF_COOKIE_SECURE = False  # Set to True in a production environment with HTTPS
 CSRF_COOKIE_SAMESITE = 'Lax'  # or 'Lax' or 'Strict' depending on your needs
 
 CSRF_TRUSTED_ORIGINS = ['http://localhost:3000']

@@ -8,7 +8,7 @@ const Navdata = () => {
     const [isApps, setIsApps] = useState(false);
 
     // Apps
-    const [isInvoices, setIsInvoices] = useState(false);
+    const [isTransactions, setIsTransactions] = useState(false);
 
     const [iscurrentState, setIscurrentState] = useState('Dashboard');
 
@@ -82,20 +82,20 @@ const Navdata = () => {
             stateVariables: isApps,
             subItems: [
                 {
-                    id: "invoices",
-                    label: "Invoices",
+                    id: "transactions",
+                    label: "Transactions",
                     link: "/#",
                     isChildItem: true,
                     click: function (e : any) {
                         e.preventDefault();
-                        setIsInvoices(!isInvoices);
+                        setIsTransactions(!isTransactions);
                     },
                     parentId: "apps",
-                    stateVariables: isInvoices,
+                    stateVariables: isTransactions,
                     childItems: [
-                        { id: 1, label: "List View", link: "/apps-invoices-list" },
-                        { id: 2, label: "Details", link: "/apps-invoices-details" },
-                        { id: 3, label: "Create Invoice", link: "/apps-invoices-create" },
+                        { id: 1, label: "List View", link: "/apps-transactions-list" },
+                        { id: 2, label: "Details", link: "/apps-transactions-details" },
+                        { id: 3, label: "Create Transaction", link: "/apps-transactions-create" },
                     ]
                 },
             ],

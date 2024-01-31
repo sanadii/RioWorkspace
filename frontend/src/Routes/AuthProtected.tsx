@@ -45,7 +45,7 @@ export default AuthProtected;
 
 // import { useProfile } from "../Components/Hooks/UserHooks";
 
-// import { logoutUser } from "../slices/thunks";
+// import { logoutUser } from "../store/actions";
 
 // const AuthProtected = (props : any) => {
 //   const dispatch = useDispatch();

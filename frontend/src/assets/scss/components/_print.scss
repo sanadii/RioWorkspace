@@ -2,7 +2,7 @@
 // print.scss
 //
 
-// Used invoice page
+// Used transaction page
 @media print {
     .vertical-menu,
     .right-bar,
@@ -27,7 +27,7 @@
         box-shadow: none !important;
     }
 
-    .invoice-details{
+    .transaction-details{
         .d-sm-flex{
             display: flex !important;
         }

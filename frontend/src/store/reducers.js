@@ -11,6 +11,10 @@ import Users from "./auth/users/reducer";
 import Layout from "./layouts/reducer";
 
 
+// Apps
+import Transaction from "./transaction/reducer";
+
+
 //API Key
 const rootReducer = combineReducers({
 
@@ -21,6 +25,9 @@ const rootReducer = combineReducers({
     ForgetPassword,
     Profile,
     Users,
+
+    // Apps
+    Transaction,
 });
 
 export default rootReducer;

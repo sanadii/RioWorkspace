@@ -13,7 +13,7 @@ import {
     registerUser,
     // apiError, 
     resetRegisterFlag
-} from "../../slices/thunks";
+} from "store/actions";
 
 //redux
 import { useSelector, useDispatch } from "react-redux";

@@ -227,18 +227,18 @@ export const getTransationList = () => api.get(url.GET_TRANSACTION_LIST);
 // Order List
 export const getOrderList = () => api.get(url.GET_ORDRER_LIST);
 
-// Invoice
-//get Invoice
-export const getInvoices = () => api.get(url.GET_INVOICES);
+// Transaction
+//get Transaction
+export const getTransactions = () => api.get(url.GET_TRANSACTIONS);
 
-// add Invoice
-export const addNewInvoice = (invoice : any) => api.create(url.ADD_NEW_INVOICE, invoice);
+// add Transaction
+export const addNewTransaction = (transaction : any) => api.create(url.ADD_NEW_TRANSACTION, transaction);
 
-// update Invoice
-export const updateInvoice = (invoice : any) => api.update(url.UPDATE_INVOICE, invoice); //+ '/' + invoice._id
+// update Transaction
+export const updateTransaction = (transaction : any) => api.update(url.UPDATE_TRANSACTION, transaction); //+ '/' + transaction._id
 
-// delete Invoice
-export const deleteInvoice = (invoice : any) => api.delete(url.DELETE_INVOICE , { headers: { invoice } }); //+ '/' + invoice 
+// delete Transaction
+export const deleteTransaction = (transaction : any) => api.delete(url.DELETE_TRANSACTION , { headers: { transaction } }); //+ '/' + transaction 
 
 // Support Tickets 
 // Tickets
