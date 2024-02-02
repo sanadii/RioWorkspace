@@ -45,7 +45,7 @@ import {
   otherWidgets2
 } from "./widgets";
 import { taskWidgets, allTask, kanbanBoardData } from "./taskList";
-import { DailyRevenueWidgets, DailyRevenueTable } from "./DailyRevenueList";
+import { RevenueWidgets, RevenueTable } from "./RevenueList";
 import {
   projectList,
 } from "./projectList";
@@ -53,7 +53,7 @@ import {
 import { calenderDefaultCategories, events, defaultevent } from "./calender";
 import { chatMessage, messages, chatContactData } from "./chat";
 import { mailbox } from "./mailbox";
-import { DailyRevenues, buysellWidgets, market, CryptoOrders, watchlist, marketStatus, CryptoicoWidgets, icoWidgetsList } from "./cryptoPage";
+import { Revenues, buysellWidgets, market, CryptoOrders, watchlist, marketStatus, CryptoicoWidgets, icoWidgetsList } from "./cryptoPage";
 import { ticketsWidgets, ticketsTable } from "./supportTickets";
 
 // Pages
@@ -130,8 +130,8 @@ export {
   taskWidgets,
   allTask,
   kanbanBoardData,
-  DailyRevenueWidgets,
-  DailyRevenueTable,
+  RevenueWidgets,
+  RevenueTable,
   projectList,
   chatMessage,
   messages,
@@ -155,7 +155,7 @@ export {
   companies,
   leads,
   deals,
-  DailyRevenues,
+  Revenues,
   buysellWidgets,
   market,
   CryptoOrders,

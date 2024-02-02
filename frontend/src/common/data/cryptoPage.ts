@@ -42,7 +42,7 @@ import neoCoin from "../../assets/images/svg/crypto-icons/neo.svg";
 import enzymeCoin from "../../assets/images/svg/crypto-icons/mln.svg";
 
 
-const DailyRevenues = [
+const Revenues = [
     {
         icon: "ri-arrow-right-up-fill",
         iconClass: "danger",
@@ -1006,7 +1006,7 @@ const icoWidgetsList = [
     },
 ];
 
-export { DailyRevenues, buysellWidgets, market, CryptoOrders, watchlist, marketStatus, CryptoicoWidgets, icoWidgetsList };
+export { Revenues, buysellWidgets, market, CryptoOrders, watchlist, marketStatus, CryptoicoWidgets, icoWidgetsList };
 
 
 

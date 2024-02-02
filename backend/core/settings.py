@@ -49,14 +49,11 @@ INSTALLED_APPS = [
     'django_extensions',
 
     # Apps
-    'apps.account',
-    'apps.settings',
-    
-    'apps.appointments',
-    'apps.clients',
-    'apps.finance',
-    'apps.services',
-    'apps.staff',
+    'account',
+    'settings',
+    'utilities',
+
+    'workspace',
 ]
 
 MIDDLEWARE = [

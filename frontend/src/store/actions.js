@@ -10,6 +10,11 @@ export * from "./layouts/action";
 export * from "./settingOptions/action";
 
 // Apps - Finance
-export * from "./dailyRevenues/action";
+export * from "./revenues/action";
 export * from "./expenses/action";
+export * from "./appointments/action";
+
+
+// Apps - Services
+export * from "./services/action";
 

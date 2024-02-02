@@ -16,7 +16,7 @@ from django.utils.translation import gettext as _
 # from utils.deprecation import is_authenticated
 # from utils.importing import import_dotted_path
 # from utils.sites import has_site_permission
-from apps.account.models import  User
+from account.models import  User
 from django.db.models import Q
 
 # from account.serializers import GroupSerializer
@@ -27,8 +27,8 @@ from rest_framework.response import Response
 from rest_framework.generics import get_object_or_404
 from rest_framework.permissions import IsAuthenticated
 
-from apps.account.models import User
-from apps.account.serializers import UserSerializer
+from account.models import User
+from account.serializers import UserSerializer
 
 
 

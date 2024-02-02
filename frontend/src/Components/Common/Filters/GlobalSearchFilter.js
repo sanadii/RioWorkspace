@@ -288,7 +288,7 @@ const CryptoOrdersGlobalFilter = () => {
     );
 };
 
-const DailyRevenueListGlobalSearch = () => {
+const RevenueListGlobalSearch = () => {
     const [isStatus, setisStatus] = useState(null);
 
 
@@ -476,7 +476,7 @@ export {
     ContactsGlobalFilter,
     CompaniesGlobalFilter,
     CryptoOrdersGlobalFilter,
-    DailyRevenueListGlobalSearch,
+    RevenueListGlobalSearch,
     TicketsListGlobalFilter,
     NFTRoleingGlobalFilter,
     LeadsGlobalFilter

@@ -12,9 +12,16 @@ import Layout from "./layouts/reducer";
 import SettingOptions from "./settingOptions/reducer";
 
 
-// Apps
-import DailyRevenue from "./dailyRevenues/reducer";
+// Apps - Finance
+import Revenue from "./revenues/reducer";
 import Expense from "./expenses/reducer";
+
+// Apps - Appointments
+import Appointments from "./appointments/reducer";
+
+
+// Apps - Services
+import Service from "./services/reducer";
 
 
 //API Key
@@ -32,8 +39,14 @@ const rootReducer = combineReducers({
     Users,
 
     // Apps
-    DailyRevenue,
+    Revenue,
     Expense,
+    Appointments,
+
+    // Services
+    Service,
+
+
 });
 
 export default rootReducer;

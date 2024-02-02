@@ -67,17 +67,29 @@ export const postJwtForgetPwd = (data : any) => api.create(url.POST_FAKE_JWT_PAS
 // postSocialLogin
 export const postSocialLogin = (data : any) => api.create(url.SOCIAL_LOGIN, data);
 
-// DailyRevenues
-export const getDailyRevenues = () => api.get(url.GET_DAILY_REVENUES);
-export const addDailyRevenue = (dailyRevenue : any) => api.create(url.ADD_DAILY_REVENUE, dailyRevenue);
-export const updateDailyRevenue = (dailyRevenue : any) => api.update(url.UPDATE_DAILY_REVENUE + '/' + dailyRevenue.id, dailyRevenue); //+ '/' + DailyRevenue._id
-export const deleteDailyRevenue = (dailyRevenue : any) => api.delete(url.DELETE_DAILY_REVENUE + '/' + dailyRevenue); //+ '/' + DailyRevenue 
+// Revenues
+export const getRevenues = () => api.get(url.GET_REVENUES);
+export const addRevenue = (dailyRevenue : any) => api.create(url.ADD_REVENUE, dailyRevenue);
+export const updateRevenue = (dailyRevenue : any) => api.update(url.UPDATE_REVENUE + '/' + dailyRevenue.id, dailyRevenue); //+ '/' + Revenue._id
+export const deleteRevenue = (dailyRevenue : any) => api.delete(url.DELETE_REVENUE + '/' + dailyRevenue); //+ '/' + Revenue 
 
 // Expenses
 export const getExpenses = () => api.get(url.GET_EXPENSES);
 export const addExpense = (expense : any) => api.create(url.ADD_EXPENSE, expense);
 export const updateExpense = (expense : any) => api.update(url.UPDATE_EXPENSE + '/' + expense.id, expense); //+ '/' + Expense._id
 export const deleteExpense = (expense : any) => api.delete(url.DELETE_EXPENSE + '/' + expense); //+ '/' + Expense 
+
+// Appointments
+export const getAppointments = () => api.get(url.GET_APPOINTMENTS);
+export const addAppointment = (appointment : any) => api.create(url.ADD_APPOINTMENT, appointment);
+export const updateAppointment = (appointment : any) => api.update(url.UPDATE_APPOINTMENT + '/' + appointment.id, appointment); //+ '/' + Appointment._id
+export const deleteAppointment = (appointment : any) => api.delete(url.DELETE_APPOINTMENT + '/' + appointment); //+ '/' + Appointment 
+
+// Services
+export const getServices = () => api.get(url.GET_SERVICES);
+export const addService = (service : any) => api.create(url.ADD_SERVICE, service);
+export const updateService = (service : any) => api.update(url.UPDATE_SERVICE + '/' + service.id, service); //+ '/' + Service._id
+export const deleteService = (service : any) => api.delete(url.DELETE_SERVICE + '/' + service); //+ '/' + Service 
 
 
 // Users

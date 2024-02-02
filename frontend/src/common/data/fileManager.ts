@@ -13,7 +13,7 @@ const recentFile = [
     id: 2,
     icon: "ri-file-pdf-fill",
     iconClass: "danger",
-    fileName: "velzon-DailyRevenue.pdf",
+    fileName: "velzon-Revenue.pdf",
     fileType: "Documents",
     fileItem: "01",
     size: "1.1 MB",

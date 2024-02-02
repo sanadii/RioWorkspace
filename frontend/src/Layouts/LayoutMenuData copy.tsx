@@ -26,7 +26,7 @@ const Navdata = () => {
     const [isTasks, setIsTasks] = useState(false);
     const [isCRM, setIsCRM] = useState(false);
     const [isCrypto, setIsCrypto] = useState(false);
-    const [isDailyRevenues, setIsDailyRevenues] = useState(false);
+    const [isRevenues, setIsRevenues] = useState(false);
     const [isSupportTickets, setIsSupportTickets] = useState(false);
     const [isNFTMarketplace, setIsNFTMarketplace] = useState(false);
     const [isJobs, setIsJobs] = useState(false);
@@ -367,7 +367,7 @@ const Navdata = () => {
                     parentId: "apps",
                     stateVariables: isCrypto,
                     childItems: [
-                        { id: 1, label: "DailyRevenues", link: "/apps-crypto-DailyRevenues" },
+                        { id: 1, label: "Revenues", link: "/apps-crypto-Revenues" },
                         { id: 2, label: "Buy & Sell", link: "/apps-crypto-buy-sell" },
                         { id: 3, label: "Orders", link: "/apps-crypto-orders" },
                         { id: 4, label: "My Wallet", link: "/apps-crypto-wallet" },
@@ -376,20 +376,20 @@ const Navdata = () => {
                     ]
                 },
                 {
-                    id: "DailyRevenues",
-                    label: "DailyRevenues",
+                    id: "Revenues",
+                    label: "Revenues",
                     link: "/#",
                     isChildItem: true,
                     click: function (e : any) {
                         e.preventDefault();
-                        setIsDailyRevenues(!isDailyRevenues);
+                        setIsRevenues(!isRevenues);
                     },
                     parentId: "apps",
-                    stateVariables: isDailyRevenues,
+                    stateVariables: isRevenues,
                     childItems: [
-                        { id: 1, label: "List View", link: "/apps-DailyRevenues-list" },
-                        { id: 2, label: "Details", link: "/apps-DailyRevenues-details" },
-                        { id: 3, label: "Create DailyRevenue", link: "/apps-DailyRevenues-create" },
+                        { id: 1, label: "List View", link: "/apps-Revenues-list" },
+                        { id: 2, label: "Details", link: "/apps-Revenues-details" },
+                        { id: 3, label: "Create Revenue", link: "/apps-Revenues-create" },
                     ]
                 },
                 {

@@ -33,11 +33,11 @@ export const POST_EDIT_JWT_PROFILE = "/post-jwt-profile";
 export const POST_EDIT_PROFILE = "/user";
 
 
-// DailyRevenue
-export const GET_DAILY_REVENUES = "/finance/getDailyRevenues";
-export const ADD_DAILY_REVENUE = "/finance/addDailyRevenue";
-export const UPDATE_DAILY_REVENUE = "/finance/updateDailyRevenue";
-export const DELETE_DAILY_REVENUE = "/finance/deleteDailyRevenue";
+// Revenue
+export const GET_REVENUES = "/finance/getRevenues";
+export const ADD_REVENUE = "/finance/addRevenue";
+export const UPDATE_REVENUE = "/finance/updateRevenue";
+export const DELETE_REVENUE = "/finance/deleteRevenue";
 
 // Expenses
 export const GET_EXPENSES = "/finance/getExpenses";
@@ -45,6 +45,18 @@ export const ADD_EXPENSE = "/finance/addExpense";
 export const UPDATE_EXPENSE = "/finance/updateExpense";
 export const DELETE_EXPENSE = "/finance/deleteExpense";
 
+// Appointments
+export const GET_APPOINTMENTS = "/appointments/getAppointments";
+export const ADD_APPOINTMENT = "/appointments/addAppointment";
+export const UPDATE_APPOINTMENT = "/appointments/updateAppointment";
+export const DELETE_APPOINTMENT = "/appointments/deleteAppointment";
+
+
+// Services
+export const GET_SERVICES = "/services/getServices";
+export const ADD_SERVICE = "/services/addService";
+export const UPDATE_SERVICE = "/services/updateService";
+export const DELETE_SERVICE = "/services/deleteService";
 
 
 // Setting

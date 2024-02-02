@@ -9,5 +9,9 @@ export { settingOptionsSelector } from './settingOptionsSelector';
 
 
 // Apps
-export { dailyRevenueSelector } from './dailyRevenueSelector';
+export { revenuesSelector } from './revenuesSelector ';
 export { expenseSelector } from './expenseSelector';
+export { appointmentsSelector } from './appointmentsSelector';
+
+// Services
+export { servicesSelector } from './servicesSelector';

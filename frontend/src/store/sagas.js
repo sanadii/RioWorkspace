@@ -14,8 +14,14 @@ import SettingOptionSaga from "./settingOptions/saga";
 
 
 // Apps - Finance
-import DailyRevenueSaga from "./dailyRevenues/saga";
+import RevenueSaga from "./revenues/saga";
 import ExpenseSaga from "./expenses/saga";
+import AppointmentSaga from "./appointments/saga";
+
+
+// Services
+import ServiceSaga from "./services/saga";
+
 
 export default function* rootSaga() {
   yield all([
@@ -31,8 +37,12 @@ export default function* rootSaga() {
     fork(SettingOptionSaga),
     
     // Apps - Finance
-    fork(DailyRevenueSaga),
-    fork(ExpenseSaga)
+    fork(RevenueSaga),
+    fork(ExpenseSaga),
+    fork(AppointmentSaga),
+
+    // Services
+    fork(ServiceSaga),
 
 
   ]);
