@@ -9,10 +9,12 @@ import Users from "./auth/users/reducer";
 
 // Front
 import Layout from "./layouts/reducer";
+import SettingOptions from "./settingOptions/reducer";
 
 
 // Apps
 import DailyRevenue from "./dailyRevenues/reducer";
+import Expense from "./expenses/reducer";
 
 
 //API Key
@@ -20,6 +22,9 @@ const rootReducer = combineReducers({
 
     // Theme
     Layout,
+    SettingOptions,
+
+    // Authentication
     Login,
     Account,
     ForgetPassword,
@@ -28,6 +33,7 @@ const rootReducer = combineReducers({
 
     // Apps
     DailyRevenue,
+    Expense,
 });
 
 export default rootReducer;

@@ -6,7 +6,7 @@ import {
   UPDATE_DAILY_REVENUE,
   UPDATE_DAILY_REVENUE_SUCCESS,
   UPDATE_DAILY_REVENUE_FAIL,
-  ADD_NEW_DAILY_REVENUE,
+  ADD_DAILY_REVENUE,
   ADD_DAILY_REVENUE_SUCCESS,
   ADD_DAILY_REVENUE_FAIL,
   DELETE_DAILY_REVENUE,
@@ -44,8 +44,8 @@ export const updateDailyRevenueFail = error => ({
   payload: error,
 });
 
-export const addNewDailyRevenue = dailyRevenue => ({
-  type: ADD_NEW_DAILY_REVENUE,
+export const addDailyRevenue = dailyRevenue => ({
+  type: ADD_DAILY_REVENUE,
   payload: dailyRevenue,
 });
 

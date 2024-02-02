@@ -50,6 +50,8 @@ INSTALLED_APPS = [
 
     # Apps
     'apps.account',
+    'apps.settings',
+    
     'apps.appointments',
     'apps.clients',
     'apps.finance',

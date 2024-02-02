@@ -1,48 +1,25 @@
 import React, { useState, useEffect, useMemo, useCallback } from "react";
-import { CellProps } from "react-table";
+import moment from "moment";
 
-import {
-  CardBody,
-  Row,
-  Col,
-  Card,
-  Container,
-  CardHeader,
-  UncontrolledDropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
-} from "reactstrap";
+import { CardBody, Row, Col, Card, Container, CardHeader } from "reactstrap";
 
 import { Link } from "react-router-dom";
-import moment from "moment";
-import CountUp from "react-countup";
 import {
   Loader,
   DeleteModal,
   BreadCrumb,
   TableContainer,
   TableContainerHeader,
-  TableFilters,
 } from "Components/Common";
 
 import {
-  CheckboxHeader,
-  CheckboxCell,
-  Id,
   Notes,
   Date,
   Amount,
   Status,
-  Actions,
 } from "Components/Common/Table/TableColumns";
 
 //Import Icons
-import FeatherIcon from "feather-icons-react";
-import {
-  DailyRevenueTable,
-  DailyRevenueWidgets,
-} from "../../common/data/DailyRevenueList";
 import { useDelete } from "Components/Hooks";
 
 import DailyRevenueModal from "./DailyRevenueModal";
@@ -54,9 +31,21 @@ import { getDailyRevenues, deleteDailyRevenue } from "store/actions";
 import { useSelector, useDispatch } from "react-redux";
 import { dailyRevenueSelector } from "Selectors";
 
-import { toast, ToastContainer } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { createSelector } from "reselect";
+import useRecentDailyRevenues from "./useRecentDailyRevenues"; // Adjust the path as needed
+
+// Assuming you have a type defined for your daily revenue data
+type DailyRevenueType = {
+  id: number;
+  date: string;
+  cash: number;
+  credit: number;
+  link: string;
+  other: number;
+  status: string;
+  notes: string;
+};
 
 const DailyRevenueList = () => {
   const dispatch: any = useDispatch();
@@ -75,8 +64,20 @@ const DailyRevenueList = () => {
     deleteMultiple,
   } = useDelete(deleteDailyRevenue);
 
+  const { dailyRevenues, isDailyRevenueSuccess, error } =
+    useSelector(dailyRevenueSelector);
+
+  const [dailyRevenue, setDailyRevenue] = useState<any>(null);
+  const [lastSevenDaysRevenues, setLastSevenDaysRevenues] = useState<
+    DailyRevenueType[]
+  >([]);
+
   const [isEdit, setIsEdit] = useState<boolean>(false);
   const [modal, setModal] = useState<boolean>(false);
+
+
+  // Use the custom hook
+  const recentRevenues = useRecentDailyRevenues(dailyRevenues);
 
   const toggle = useCallback(() => {
     if (modal) {
@@ -86,15 +87,6 @@ const DailyRevenueList = () => {
       setModal(true);
     }
   }, [modal]);
-
-  const { dailyRevenues, isDailyRevenueSuccess, error } =
-    useSelector(dailyRevenueSelector);
-
-  console.log("dailyRevenues: ", dailyRevenues);
-  console.log("isDailyRevenueSuccess: ", isDailyRevenueSuccess);
-  console.log("error: ", error);
-
-  const [dailyRevenue, setDailyRevenue] = useState<any>(null);
 
   useEffect(() => {
     // Dispatch getDailyRevenues if dailyRevenues is not available
@@ -118,11 +110,13 @@ const DailyRevenueList = () => {
 
       setDailyRevenue({
         id: dailyRevenue.id,
-        project: dailyRevenue.name,
-        dueDate: dailyRevenue.date,
+        date: dailyRevenue.date,
+        cash: dailyRevenue.cash,
+        credit: dailyRevenue.credit,
+        link: dailyRevenue.link,
+        other: dailyRevenue.other,
         status: dailyRevenue.status,
-        priority: dailyRevenue.priority,
-        subItem: dailyRevenue.amount,
+        notes: dailyRevenue.notes,
       });
 
       setIsEdit(true);
@@ -160,6 +154,7 @@ const DailyRevenueList = () => {
       },
       {
         header: "Date",
+        accessorKey: "date",
         enableColumnFilter: false,
         cell: (cell: any) => {
           return <Date {...cell} />;
@@ -167,8 +162,8 @@ const DailyRevenueList = () => {
       },
       {
         header: "Cash",
-        enableColumnFilter: false,
         accessorKey: "cash",
+        enableColumnFilter: false,
         cell: (cell: any) => {
           return <Amount {...cell} />;
         },
@@ -302,12 +297,12 @@ const DailyRevenueList = () => {
                       </div>
                     </div>
                   </div>
-                  <TableContainerHeader
+                  {/* <TableContainerHeader
                     title="DailyRevenues"
                     setDeleteModalMulti={setDeleteModalMulti}
                     PrimaryButtonText="Create dailyRevenue"
                     // HandlePrimaryButton={HandlePrimaryButton}
-                  />
+                  /> */}
                 </CardHeader>
 
                 <CardBody className="pt-0">
@@ -315,7 +310,7 @@ const DailyRevenueList = () => {
                     {isDailyRevenueSuccess && dailyRevenues?.length ? (
                       <TableContainer
                         columns={columns}
-                        data={dailyRevenues || []}
+                        data={recentRevenues || []}
                         isGlobalFilter={true}
                         customPageSize={10}
                         isDailyRevenueListFilter={true}

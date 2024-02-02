@@ -6,7 +6,7 @@ import Flatpickr from 'react-flatpickr'
 import * as Yup from "yup";
 import { useDispatch } from 'react-redux';
 import { useFormik } from 'formik';
-import { addNewDailyRevenue as onAddDailyRevenue, updateDailyRevenue as onUpdateDailyRevenue } from 'store/actions';
+import { addDailyRevenue as onAddDailyRevenue, updateDailyRevenue as onUpdateDailyRevenue } from 'store/actions';
 
 import dummy from "../../../assets/images/users/user-dummy-img.jpg"
 

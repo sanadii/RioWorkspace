@@ -8,9 +8,8 @@ const Navdata = () => {
     const [isApps, setIsApps] = useState(false);
 
     // Apps
-    const [isDailyRevenues, setIsDailyRevenues] = useState(false);
-
-    const [iscurrentState, setIscurrentState] = useState('Dashboard');
+    const [isFinance, setIsFinance] = useState(false);
+    const [iscurrentState, setIscurrentState] = useState('Finance');
 
     function updateIconSidebar(e : any) {
         if (e && e.target && e.target.getAttribute("sub-items")) {
@@ -29,6 +28,9 @@ const Navdata = () => {
 
     useEffect(() => {
         document.body.classList.remove('twocolumn-panel');
+        if (iscurrentState !== 'Finance') {
+            setIsFinance(false);
+        }
         if (iscurrentState !== 'Dashboard') {
             setIsDashboard(false);
         }
@@ -39,67 +41,43 @@ const Navdata = () => {
         history,
         iscurrentState,
         isDashboard,
+        isFinance,
         isApps,
     ]);
 
     const menuItems : any = [
         {
-            label: "Menu",
+            label: "Finance",
             isHeader: true,
         },
         {
-            id: "dashboard",
-            label: "Dashboards",
+            id: "finance",
+            label: "Finance",
             icon: "ri-dashboard-2-line",
             link: "/#",
-            stateVariables: isDashboard,
+            stateVariables: isFinance,
             click: function (e : any) {
                 e.preventDefault();
-                setIsDashboard(!isDashboard);
-                setIscurrentState('Dashboard');
+                setIsFinance(!isFinance);
+                setIscurrentState('Finance');
                 updateIconSidebar(e);
             },
             subItems: [
                 {
-                    id: "ecommerce",
-                    label: "Ecommerce",
-                    link: "/dashboard",
-                    parentId: "dashboard",
+                    id: "revenues",
+                    label: "Revenues",
+                    link: "/revenues",
+                    parentId: "finance",
                 },
-            ],
-        },
-        {
-            id: "apps",
-            label: "Apps",
-            icon: "ri-apps-2-line",
-            link: "/#",
-            click: function (e : any) {
-                e.preventDefault();
-                setIsApps(!isApps);
-                setIscurrentState('Apps');
-                updateIconSidebar(e);
-            },
-            stateVariables: isApps,
-            subItems: [
                 {
-                    id: "DailyRevenues",
-                    label: "DailyRevenues",
-                    link: "/#",
-                    isChildItem: true,
-                    click: function (e : any) {
-                        e.preventDefault();
-                        setIsDailyRevenues(!isDailyRevenues);
-                    },
-                    parentId: "apps",
-                    stateVariables: isDailyRevenues,
-                    childItems: [
-                        { id: 1, label: "List View", link: "/apps-DailyRevenues-list" },
-                        { id: 2, label: "Details", link: "/apps-DailyRevenues-details" },
-                        { id: 3, label: "Create DailyRevenue", link: "/apps-DailyRevenues-create" },
-                    ]
+                    id: "expenses",
+                    label: "Expenses",
+                    link: "/expenses",
+                    parentId: "finance",
                 },
             ],
         },
+
     ];
     return <React.Fragment>{menuItems}</React.Fragment>;
 };

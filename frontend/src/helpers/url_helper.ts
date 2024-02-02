@@ -10,7 +10,7 @@ export const POST_REGISTER = "/account/signup";
 export const GET_USERS = "/account/getUsers";
 export const GET_CURRENT_USER = "/account/getCurrentUser";
 export const GET_USER_DETAILS = "/account/getUserDetails";
-export const ADD_NEW_USER = "/account/addNewUser";
+export const ADD_USER = "/account/addUser";
 export const UPDATE_USER_PROFILE = "/account/updateUser";
 export const CHANGE_USER_PASSWORD = "/account/changeUserPassword";
 export const DELETE_USER = "/account/deleteUser";
@@ -35,13 +35,29 @@ export const POST_EDIT_PROFILE = "/user";
 
 // DailyRevenue
 export const GET_DAILY_REVENUES = "/finance/getDailyRevenues";
-export const ADD_NEW_DAILY_REVENUE = "/finance/addNewDailyRevenue";
-export const UPDATE_DAILY_REVENUE = "/finance/editDailyRevenue";
+export const ADD_DAILY_REVENUE = "/finance/addDailyRevenue";
+export const UPDATE_DAILY_REVENUE = "/finance/updateDailyRevenue";
 export const DELETE_DAILY_REVENUE = "/finance/deleteDailyRevenue";
 
-// Dashboard Ecommerce
-// Revenue
-export const GET_ALLREVENUE_DATA = "/allRevenue-data";
-export const GET_MONTHREVENUE_DATA = "/monthRevenue-data";
-export const GET_HALFYEARREVENUE_DATA = "/halfYearRevenue-data";
-export const GET_YEARREVENUE_DATA = "/yearRevenue-data";
+// Expenses
+export const GET_EXPENSES = "/finance/getExpenses";
+export const ADD_EXPENSE = "/finance/addExpense";
+export const UPDATE_EXPENSE = "/finance/updateExpense";
+export const DELETE_EXPENSE = "/finance/deleteExpense";
+
+
+
+// Setting
+export const GET_SETTING_OPTIONS = "/settings/getSettingOptions";
+
+// Option Categories
+export const GET_OPTION_CATEGORIES = "/settings/getOptionCategories";
+export const ADD_OPTION_CATEGORY = "/settings/addOptionCategory";
+export const UPDATE_OPTION_CATEGORY = "/settings/updateOptionCategory";
+export const DELETE_OPTION_CATEGORY = "/finance/deleteOptionCategory";
+
+// Option Choices
+export const GET_OPTION_CHOICES = "/settings/getOptionChoices";
+export const ADD_OPTION_CHOICE = "/settings/addOptionChoice";
+export const UPDATE_OPTION_CHOICE = "/settings/updateOptionChoice";
+export const DELETE_OPTION_CHOICE = "/settings/deleteOptionChoice";

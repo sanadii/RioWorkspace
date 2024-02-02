@@ -88,8 +88,9 @@ const FormFields = ({ field, validation, inLineStyle }) => {
             case 'seperator':
                 return <hr />;
             case 'title':
-                return <h4>{label}</h4>;
-
+                return <h4 className="color-secondary">{label}</h4>;
+            case 'info':
+                return <h4>{validation.values[name] || 0}</h4>;
             case 'text':
             case 'tel':
             case 'email':
@@ -108,7 +109,7 @@ const FormFields = ({ field, validation, inLineStyle }) => {
                             name={name}
                             id={id}
                             className="form-control"
-                            placeholder={`ادخل ${label}`}
+                            placeholder={`Enter ${label}`}
                             onChange={validation.handleChange}
                             onBlur={validation.handleBlur}
                             value={validation.values[name] || ""}
@@ -154,7 +155,7 @@ const FormFields = ({ field, validation, inLineStyle }) => {
                         invalid={validation.touched[name] && validation.errors[name]}
 
                     >
-                        {/* <option value="">-- اختر --</option> */}
+                        {/* <option value="">-- Choose --</option> */}
                         {field.options &&
                             field.options.map((option) => (
                                 <option key={option.value} value={option.value}>
@@ -205,7 +206,7 @@ const FormFields = ({ field, validation, inLineStyle }) => {
                             className="form-control pe-5"
 
                             id={id}
-                            placeholder={`ادخل ${label}`}
+                            placeholder={`Enter ${label}`}
                             onChange={validation.handleChange}
                             onBlur={validation.handleBlur}
                             value={validation.values[name] || ""}
@@ -229,7 +230,7 @@ const FormFields = ({ field, validation, inLineStyle }) => {
                         name={name}
                         id={id}
                         className="form-control"
-                        placeholder={`اختر ${label}`}
+                        placeholder={`Choose ${label}`}
                         options={{
                             altInput: true,
                             altFormat: "Y-m-d",

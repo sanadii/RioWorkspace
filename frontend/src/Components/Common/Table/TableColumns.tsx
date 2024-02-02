@@ -5,8 +5,8 @@ import moment from "moment";
 // Component, Constants & Hooks
 import { StatusOptions } from "Components/constants";
 
-const handleValidDate = (dueDate: string): string => {
-  return moment(dueDate).format("YYYY-MM-DD");
+const handleValidDate = (date: string): string => {
+  return moment(date).format("YYYY-MM-DD");
 };
 
 // CheckBox props
@@ -60,20 +60,21 @@ const Id: React.FC<IdProps> = ({ row }) => (
   </Link>
 );
 
-const Name = (cell:any) => {
+const Name = (cell: any) => {
   return (
-      <React.Fragment>
-          <Link to="/apps-projects-overview" className="fw-medium link-primary">{cell.getValue()}</Link>
-      </React.Fragment>
+    <React.Fragment>
+      <Link to="/apps-projects-overview" className="fw-medium link-primary">
+        {cell.getValue()}
+      </Link>
+    </React.Fragment>
   );
 };
 
-
-const Notes = (cell:any) => {
+const Notes = (cell: any) => {
   return (
-      <React.Fragment>
-          <span className="fw-medium link-primary">{cell.getValue()}</span>
-      </React.Fragment>
+    <React.Fragment>
+      <span className="fw-medium link-primary">{cell.getValue()}</span>
+    </React.Fragment>
   );
 };
 // Description props & value
@@ -89,68 +90,84 @@ const Description: React.FC<DescriptionProps> = ({ row }) => (
   <b>{row.original.value}</b>
 );
 
-const Amount = (cell:any) => {
+const Amount = (cell: any) => {
   return (
-      <React.Fragment>
-          <strong className="fw-medium link-primary">{cell.getValue() } KD</strong>
-      </React.Fragment>
-  );
-};
-type DateProps = {
-  row: {
-    original: {
-      dueDate: string;
-    };
-  };
-};
-
-const DateComponent: React.FC<DateProps> = ({ row }) => (
-  <span>{handleValidDate(row.original.dueDate)}</span>
-);
-
-const Status = (cell:any) => {
-  return (
-      <React.Fragment>
-          {cell.getValue() === "declined" ?
-              <span className="badge bg-secondary-subtle text-secondary text-uppercase">{cell.getValue()}</span>
-              :
-              cell.getValue() === "declined" ?
-                  <span className="badge bg-info-subtle text-info text-uppercase">{cell.getValue()}</span>
-                  : cell.getValue() === "reviewed" ?
-                      <span className="badge bg-success-subtle text-success text-uppercase">{cell.getValue()}</span>
-                      : cell.getValue() === "pending" ?
-                          <span className="badge bg-warning-subtle text-warning text-uppercase">{cell.getValue()}</span>
-                          : null
-          }
-      </React.Fragment>
+    <React.Fragment>
+      <strong className="fw-medium link-primary">{cell.getValue()} KD</strong>
+    </React.Fragment>
   );
 };
 
-
-const Priority = (cell:any) => {
+const DateComponent = (cell: any) => {
   return (
-      <React.Fragment>
-          {cell.getValue() === "Medium" ?
-              <span className="badge bg-warning text-uppercase">{cell.getValue()}</span>
-              :
-              cell.getValue() === "High" ?
-                  <span className="badge bg-danger text-uppercase">{cell.getValue()}</span>
-                  : cell.getValue() === "Low" ?
-                      <span className="badge bg-success text-uppercase">{cell.getValue()}</span>
-                      : null
-          }
-      </React.Fragment>
+    <React.Fragment>
+      <strong className="fw-medium link-primary">{cell.getValue()}</strong>
+    </React.Fragment>
   );
 };
-
-const CreateBy = (cell:any) => {
+const Status = (cell: any) => {
   return (
-      <React.Fragment>
+    <React.Fragment>
+      {cell.getValue() === "declined" ? (
+        <span className="badge bg-secondary-subtle text-secondary text-uppercase">
           {cell.getValue()}
-      </React.Fragment>
+        </span>
+      ) : cell.getValue() === "declined" ? (
+        <span className="badge bg-info-subtle text-info text-uppercase">
+          {cell.getValue()}
+        </span>
+      ) : cell.getValue() === "reviewed" ? (
+        <span className="badge bg-success-subtle text-success text-uppercase">
+          {cell.getValue()}
+        </span>
+      ) : cell.getValue() === "pending" ? (
+        <span className="badge bg-warning-subtle text-warning text-uppercase">
+          {cell.getValue()}
+        </span>
+      ) : null}
+    </React.Fragment>
   );
 };
 
+const StatusExpenses = (cell: any) => {
+  return (
+    <React.Fragment>
+      {cell.getValue() === "paid" ? (
+        <span className="badge bg-secondary-subtle text-secondary text-uppercase">
+          {cell.getValue()}
+        </span>
+      ) : cell.getValue() === "pending" ? (
+        <span className="badge bg-warning-subtle text-warning text-uppercase">
+          {cell.getValue()}
+        </span>
+      ) : null}
+    </React.Fragment>
+  );
+};
+
+const Priority = (cell: any) => {
+  return (
+    <React.Fragment>
+      {cell.getValue() === "Medium" ? (
+        <span className="badge bg-warning text-uppercase">
+          {cell.getValue()}
+        </span>
+      ) : cell.getValue() === "High" ? (
+        <span className="badge bg-danger text-uppercase">
+          {cell.getValue()}
+        </span>
+      ) : cell.getValue() === "Low" ? (
+        <span className="badge bg-success text-uppercase">
+          {cell.getValue()}
+        </span>
+      ) : null}
+    </React.Fragment>
+  );
+};
+
+const CreateBy = (cell: any) => {
+  return <React.Fragment>{cell.getValue()}</React.Fragment>;
+};
 
 type ActionsProps = {
   cell: {
@@ -203,6 +220,7 @@ export {
   Description,
   DateComponent as Date,
   Status,
+  StatusExpenses,
   CreateBy,
   Amount,
   Actions,

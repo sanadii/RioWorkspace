@@ -5,16 +5,18 @@ import { useDispatch } from "react-redux";
 
 import { useProfile } from "../Components/Hooks/UserHooks";
 
-// import { getCurrentUser, logoutUser } from "../store/actions";
-import { logoutUser } from "../store/actions";
+import { getCurrentUser, getSettingOptions, logoutUser } from "../store/actions";
 
-const AuthProtected = (props : any) =>{
-  const dispatch : any = useDispatch();
+const AuthProtected = (props: any) => {
+  const dispatch: any = useDispatch();
   const { userProfile, loading, token } = useProfile();
-  
+  dispatch(getCurrentUser());
+  dispatch(getSettingOptions());
+
   useEffect(() => {
     if (userProfile && !loading && token) {
       setAuthorization(token);
+
     } else if (!userProfile && loading && !token) {
       dispatch(logoutUser());
     }
@@ -25,18 +27,13 @@ const AuthProtected = (props : any) =>{
     */
 
   if (!userProfile && loading && !token) {
-    return (
-      <Navigate to={{ pathname: "/login"}} />
-    );
+    return <Navigate to={{ pathname: "/login" }} />;
   }
 
   return <>{props.children}</>;
 };
 
-
 export default AuthProtected;
-
-
 
 // import React, { useEffect } from "react";
 // import { Navigate, Route } from "react-router-dom";

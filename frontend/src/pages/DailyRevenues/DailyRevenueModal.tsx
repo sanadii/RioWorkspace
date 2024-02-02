@@ -1,11 +1,18 @@
-import React, { useEffect, useState } from "react";
-import { Modal, ModalHeader, ModalBody, Button, Row, Form } from "reactstrap";
+import {
+  Modal,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  Row,
+  Button,
+  Form,
+} from "reactstrap";
 import { useNavigate } from "react-router-dom";
 import { FormFields } from "Components/Common";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useDispatch } from "react-redux";
-import { addNewDailyRevenue as onAddNewDailyRevenue } from "store/actions";
+import { addDailyRevenue, updateDailyRevenue } from "store/actions";
 
 interface DailyRevenueModalProps {
   isEdit: boolean;
@@ -32,28 +39,32 @@ const DailyRevenueModal = ({
     enableReinitialize: true,
 
     initialValues: {
-      id: "",
-      date: "",
-      cash: "",
-      credit: "",
-      link: "",
-      others: "",
-      notes: "",
-      status: "",
+      id: (dailyRevenue && dailyRevenue.id) || null,
+      date: (dailyRevenue && dailyRevenue.date) || "",
+      cash: (dailyRevenue && dailyRevenue.cash) || 0,
+      credit: (dailyRevenue && dailyRevenue.credit) || 0,
+      link: (dailyRevenue && dailyRevenue.link) || 0,
+      others: (dailyRevenue && dailyRevenue.others) || 0,
+      notes: (dailyRevenue && dailyRevenue.notes) || "",
+      status: (dailyRevenue && dailyRevenue.status) || "pending",
     },
     validationSchema: Yup.object({}),
     onSubmit: (values) => {
       const newDailyRevenue = {
-        _id: (Math.floor(Math.random() * (30 - 20)) + 20).toString(),
+        id: values.id || undefined, // If no ID, set it to undefined
         date: values.date,
         cash: values.cash,
         credit: values.credit,
         link: values.link,
         others: values.others,
         notes: values.notes,
-        status: values.status,
+        status: values.status ,
       };
-      dispatch(onAddNewDailyRevenue(newDailyRevenue));
+      if (newDailyRevenue.id) {
+        dispatch(updateDailyRevenue(newDailyRevenue));
+      } else {
+        dispatch(addDailyRevenue(newDailyRevenue));
+      }
       history("/apps-DailyRevenues-list");
       validation.resetForm();
     },
@@ -74,7 +85,6 @@ const DailyRevenueModal = ({
       label: "Cash",
       type: "text",
       colSize: 3,
-
     },
     {
       id: "credit-field",
@@ -89,7 +99,6 @@ const DailyRevenueModal = ({
       label: "Link",
       type: "text",
       colSize: 3,
-
     },
     {
       id: "others-field",
@@ -112,24 +121,53 @@ const DailyRevenueModal = ({
       isOpen={modal}
       centered
       size="lg"
-      className="border-2"
+      className="border-0"
       modalClassName="modal fadeInLeft zoomIn"
     >
       <ModalHeader className="p-3 bg-soft-danger" toggle={toggle}>
         {isEdit ? "Edit Daily Revenue" : "Add Daily Revenue"}
       </ModalHeader>
-      <Row className="g-3">
-        {fields.map((field) => {
-          return (
-            <FormFields
-              key={field.id}
-              field={field}
-              validation={validation}
-              inLineStyle={false} // Add this prop or make it optional in FormFields component
-            />
-          );
-        })}
-      </Row>
+      <Form
+        className="tablelist-form"
+        onSubmit={(e) => {
+          e.preventDefault();
+          validation.handleSubmit();
+          return false;
+        }}
+      >
+        <ModalBody className="modal-body">
+          <Row className="g-3">
+            {fields.map((field) => {
+              return (
+                <FormFields
+                  key={field.id}
+                  field={field}
+                  validation={validation}
+                  inLineStyle={false} // Add this prop or make it optional in FormFields component
+                />
+              );
+            })}
+          </Row>
+        </ModalBody>
+        <ModalFooter>
+          <div className="modal-footer">
+            <div className="hstack gap-2 justify-content-end">
+              <Button
+                type="button"
+                onClick={() => {
+                  setModal(false);
+                }}
+                className="btn-light"
+              >
+                Close
+              </Button>
+              <button type="submit" className="btn btn-success" id="add-btn">
+                {!!isEdit ? " Update Revenue" : "Add Revenue"}
+              </button>
+            </div>
+          </div>
+        </ModalFooter>
+      </Form>
     </Modal>
   );
 };

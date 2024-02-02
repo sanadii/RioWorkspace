@@ -28,7 +28,7 @@ import * as Yup from "yup";
 
 //redux
 import { useDispatch } from "react-redux";
-import { addNewDailyRevenue as onAddNewDailyRevenue } from "store/actions";
+import { addDailyRevenue as onAddDailyRevenue } from "store/actions";
 
 const DailyRevenueCreate = () => {
   const dispatch: any = useDispatch();
@@ -184,7 +184,7 @@ const DailyRevenueCreate = () => {
         shipping_taxno: values.shipping_taxno,
         product_name: values.product_name,
       };
-      dispatch(onAddNewDailyRevenue(newDailyRevenue));
+      dispatch(onAddDailyRevenue(newDailyRevenue));
       history("/apps-DailyRevenues-list");
       validation.resetForm();
     },

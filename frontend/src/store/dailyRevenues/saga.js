@@ -6,7 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 // DailyRevenue Redux States
 import {
   GET_DAILY_REVENUES,
-  ADD_NEW_DAILY_REVENUE,
+  ADD_DAILY_REVENUE,
   DELETE_DAILY_REVENUE,
   UPDATE_DAILY_REVENUE
 } from "./actionType";
@@ -25,7 +25,7 @@ import {
 //Include Both Helper File with needed methods
 import {
   getDailyRevenues as getDailyRevenuesApi,
-  addNewDailyRevenue,
+  addDailyRevenue,
   updateDailyRevenue,
   deleteDailyRevenue
 } from "helpers/backend_helper";
@@ -40,9 +40,9 @@ function* getDailyRevenues() {
   }
 }
 
-function* onAddNewDailyRevenue({ payload: dailyRevenue }) {
+function* onAddDailyRevenue({ payload: dailyRevenue }) {
   try {
-    const response = yield call(addNewDailyRevenue, dailyRevenue);
+    const response = yield call(addDailyRevenue, dailyRevenue);
 
     yield put(addDailyRevenueSuccess(response));
     toast.success("DailyRevenue Added Successfully", { autoClose: 3000 });
@@ -87,14 +87,14 @@ export function* watchDeleteDailyRevenue() {
   yield takeEvery(DELETE_DAILY_REVENUE, onDeleteDailyRevenue);
 }
 
-export function* watchAddNewDailyRevenue() {
-  yield takeEvery(ADD_NEW_DAILY_REVENUE, onAddNewDailyRevenue);
+export function* watchAddDailyRevenue() {
+  yield takeEvery(ADD_DAILY_REVENUE, onAddDailyRevenue);
 }
 
 function* DailyRevenueSaga() {
   yield all([
     fork(watchGetDailyRevenues),
-    fork(watchAddNewDailyRevenue),
+    fork(watchAddDailyRevenue),
     fork(watchDeleteDailyRevenue),
     fork(watchUpdateDailyRevenue),
   ]);

@@ -2,14 +2,18 @@ import React from "react";
 import { Navigate } from "react-router-dom";
 
 //Dashboard
-import DashboardEcommerce from "../pages/DashboardEcommerce";
+import Calendar from "../pages/Calendar";
 
 
-//DailyRevenues
+// DailyRevenues
 import DailyRevenueList from "../pages/DailyRevenues/DailyRevenueList";
 import DailyRevenueCreate from "../pages/DailyRevenues/DailyRevenueCreate";
 import DailyRevenueDetails from "../pages/DailyRevenues/DailyRevenueDetails";
 
+// Expenses
+import ExpenseList from "../pages/Expenses/ExpensesList";
+import ExpenseCreate from "../pages/Expenses/ExpenseCreate";
+import ExpenseDetails from "../pages/Expenses/ExpenseDetails";
 
 //AuthenticationInner pages
 import BasicSignIn from '../pages/AuthenticationInner/Login/BasicSignIn';
@@ -46,13 +50,22 @@ import Register from "../pages/Authentication/Register";
 
 
 const authProtectedRoutes = [
-  { path: "/dashboard", component: <DashboardEcommerce /> },
-  { path: "/index", component: <DashboardEcommerce /> },
+  { path: "/calendar", component: <Calendar /> },
+  { path: "/dashboard", component: <Calendar /> },
+  { path: "/index", component: <Calendar /> },
 
   //DailyRevenues
-  { path: "/apps-DailyRevenues-list", component: <DailyRevenueList /> },
-  { path: "/apps-DailyRevenues-details", component: <DailyRevenueDetails /> },
-  { path: "/apps-DailyRevenues-create", component: <DailyRevenueCreate /> },
+  { path: "/revenues", component: <DailyRevenueList /> },
+  { path: "/revenue-details", component: <DailyRevenueDetails /> },
+  { path: "/revenue-create", component: <DailyRevenueCreate /> },
+
+
+  // Expenses
+  { path: "/expenses", component: <ExpenseList /> },
+  { path: "/expense-details", component: <ExpenseDetails /> },
+  { path: "/expense-create", component: <ExpenseCreate /> },
+
+
 
 
   // this route should be at the end of all other routes

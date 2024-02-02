@@ -48,21 +48,26 @@ const DailyRevenue = (state = INIT_STATE, action) => {
         ...state,
         isDailyRevenueCreated: true,
         dailyRevenues: [...state.dailyRevenues, action.payload.data],
+        isDailyRevenueAdd: true,
+        isDailyRevenueAddFail: false,
+
       };
 
     case ADD_DAILY_REVENUE_FAIL:
       return {
         ...state,
         error: action.payload,
+        isDailyRevenueAdd: false,
+        isDailyRevenueAddFail: true,
       };
 
     case UPDATE_DAILY_REVENUE_SUCCESS:
       return {
         ...state,
-        dailyRevenues: state.dailyRevenues.map(DailyRevenue =>
-          DailyRevenue.id.toString() === action.payload.data._id.toString()
-            ? { ...DailyRevenue, ...action.payload.data }
-            : DailyRevenue
+        dailyRevenues: state.dailyRevenues.map((dailyRevenue) =>
+          dailyRevenue.id.toString() === action.payload.data.id.toString()
+            ? { ...dailyRevenue, ...action.payload.data }
+            : dailyRevenue
         ),
       };
 
@@ -73,7 +78,7 @@ const DailyRevenue = (state = INIT_STATE, action) => {
       };
 
     case DELETE_DAILY_REVENUE_SUCCESS:
-      
+
       return {
         ...state,
         dailyRevenues: state.dailyRevenues.filter(

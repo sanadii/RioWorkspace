@@ -135,7 +135,7 @@ class FirebaseAuthBackend {
     throw new Error(`Invalid social login type: ${type}`);
   };
 
-  addNewUserToFirestore = (user : any) => {
+  addUserToFirestore = (user : any) => {
     const collection = firebase.firestore().collection("users");
     const { profile } = user.additionalUserInfo;
     const details = {

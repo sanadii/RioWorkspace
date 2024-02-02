@@ -10,10 +10,12 @@ import UsersSaga from "./auth/users/saga";
 
 // Settings
 import LayoutSaga from "./layouts/saga";
+import SettingOptionSaga from "./settingOptions/saga";
 
 
-// Apps
+// Apps - Finance
 import DailyRevenueSaga from "./dailyRevenues/saga";
+import ExpenseSaga from "./expenses/saga";
 
 export default function* rootSaga() {
   yield all([
@@ -26,9 +28,11 @@ export default function* rootSaga() {
 
     // System / Settings
     fork(LayoutSaga),
-
-    // Apps
+    fork(SettingOptionSaga),
+    
+    // Apps - Finance
     fork(DailyRevenueSaga),
+    fork(ExpenseSaga)
 
 
   ]);

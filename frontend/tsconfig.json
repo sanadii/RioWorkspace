@@ -21,12 +21,13 @@
     "noEmit": true,
     "jsx": "react-jsx",
     "paths": {
+      "syncfusion/*": ["syncfusion/*"],
       "helpers/*": ["helpers/*"],
       "assets/*": ["assets/*"],
       "Components/*": ["Components/*"],
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/config.js", "src/Components/Common/Table/TableContainer.tsx", "src/Components/Common/Table/TableColumns.xxx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/config.js", "src/Components/Common/Table/TableContainer.tsx", "src/Components/Common/Table/TableColumns.xxx", "src/pages/DailyRevenues/useRecentDailyRevenues.js", "src/pages/Calendar/index.tsx"],
   "exclude": ["node_modules"]
 }

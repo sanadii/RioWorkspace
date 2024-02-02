@@ -9,3 +9,20 @@ class Client(models.Model):
 
     def __str__(self):
         return self.name
+
+from django.db import models
+
+class Appointment(models.Model):
+    Subject = models.CharField(max_length=255)
+    Location = models.CharField(max_length=255)
+    StartTime = models.DateTimeField()
+    EndTime = models.DateTimeField()
+    IsAllDay = models.BooleanField(default=False)
+    StartTimezone = models.CharField(max_length=255, null=True, blank=True)
+    EndTimezone = models.CharField(max_length=255, null=True, blank=True)
+    Description = models.TextField(null=True, blank=True)
+    RecurrenceRule = models.CharField(max_length=255, null=True, blank=True)
+    Id = models.PositiveIntegerField()
+
+    def __str__(self):
+        return self.Subject
