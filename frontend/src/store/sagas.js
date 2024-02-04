@@ -18,10 +18,14 @@ import RevenueSaga from "./revenues/saga";
 import ExpenseSaga from "./expenses/saga";
 import AppointmentSaga from "./appointments/saga";
 
+// Clients
+import ClientSaga from "./clients/saga";
 
 // Services
 import ServiceSaga from "./services/saga";
 
+// Staff
+import Staffaga from "./staff/saga";
 
 export default function* rootSaga() {
   yield all([
@@ -35,14 +39,20 @@ export default function* rootSaga() {
     // System / Settings
     fork(LayoutSaga),
     fork(SettingOptionSaga),
-    
+
     // Apps - Finance
     fork(RevenueSaga),
     fork(ExpenseSaga),
     fork(AppointmentSaga),
 
+    // Clients
+    fork(ClientSaga),
+
     // Services
     fork(ServiceSaga),
+
+    // Staff
+    fork(Staffaga),
 
 
   ]);

@@ -15,6 +15,12 @@ export * from "./expenses/action";
 export * from "./appointments/action";
 
 
+// Clients
+export * from "./clients/action";
+
 // Apps - Services
 export * from "./services/action";
 
+
+// Staff
+export * from "./staff/action";

@@ -51,12 +51,26 @@ export const ADD_APPOINTMENT = "/appointments/addAppointment";
 export const UPDATE_APPOINTMENT = "/appointments/updateAppointment";
 export const DELETE_APPOINTMENT = "/appointments/deleteAppointment";
 
+// Clients
+export const GET_CLIENTS = "/clients/getClients";
+export const ADD_CLIENT = "/clients/addClient";
+export const UPDATE_CLIENT = "/clients/updateClient";
+export const DELETE_CLIENT = "/clients/deleteClient";
+
 
 // Services
 export const GET_SERVICES = "/services/getServices";
 export const ADD_SERVICE = "/services/addService";
 export const UPDATE_SERVICE = "/services/updateService";
 export const DELETE_SERVICE = "/services/deleteService";
+
+
+// AllStaff
+export const GET_ALL_STAFF = "/staff/getAllStaff";
+export const ADD_STAFF = "/staff/addStaff";
+export const UPDATE_STAFF = "/staff/updateStaff";
+export const DELETE_STAFF = "/staff/deleteStaff";
+
 
 
 // Setting

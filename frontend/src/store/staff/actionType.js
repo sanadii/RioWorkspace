@@ -1,0 +1,19 @@
+// Actions
+export const API_RESPONSE_SUCCESS = "API_RESPONSE_SUCCESS";
+export const API_RESPONSE_ERROR = "API_RESPONSE_ERROR";
+export const GET_ALL_STAFF = "GET_ALL_STAFF";
+
+// Add Staff
+export const ADD_STAFF = "ADD_STAFF";
+export const ADD_STAFF_SUCCESS = "ADD_STAFF_SUCCESS";
+export const ADD_STAFF_FAIL = "ADD_STAFF_FAIL";
+
+// Edit Staff
+export const UPDATE_STAFF = "UPDATE_STAFF";
+export const UPDATE_STAFF_SUCCESS = "UPDATE_STAFF_SUCCESS";
+export const UPDATE_STAFF_FAIL = "UPDATE_STAFF_FAIL";
+
+// Delete Staff
+export const DELETE_STAFF = "DELETE_STAFF";
+export const DELETE_STAFF_SUCCESS = "DELETE_STAFF_SUCCESS";
+export const DELETE_STAFF_FAIL = "DELETE_STAFF_FAIL";

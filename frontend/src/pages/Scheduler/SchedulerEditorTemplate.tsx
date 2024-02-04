@@ -1,64 +1,83 @@
+import React, { useEffect, useState, useRef } from "react";
 import { DropDownListComponent } from "@syncfusion/ej2-react-dropdowns";
 import { DateTimePickerComponent } from "@syncfusion/ej2-react-calendars";
+import { NumericTextBoxComponent, TextBoxComponent } from "@syncfusion/ej2-react-inputs";
+
+// Redux
+import { getClients, getAllStaff, getServices } from "store/actions";
+import { clientsSelector, servicesSelector, staffSelector } from "Selectors";
+import { useSelector, useDispatch } from "react-redux";
 
 interface SchedulerEditorTemplateProps {
   EventType?: string;
   StartTime?: Date;
   EndTime?: Date;
-  // ... other properties that editorTemplate expects
+  services: Array<{ name: string; id: string }>;
+  staff: Array<{ name: string; id: string }>;
+  customerName?: string;
+  price?: number;
 }
 
 export const SchedulerEditorTemplate = (props: SchedulerEditorTemplateProps) => {
-  return props !== undefined ? (
-    <table className="custom-event-editor">
-      <tbody>
-        <tr>
-          <td className="e-textlabel">Summary</td>
-          <td colSpan={4}>
-            <input id="Summary" className="e-field e-input" type="text" name="Subject" /> {/* Add appropriate style object or remove the style attribute if not needed */}
-          </td>
-        </tr>
-        <tr>
-          <td className="e-textlabel">Status</td>
-          <td colSpan={4}>
-            <DropDownListComponent
-              id="EventType"
-              placeholder="Choose status"
-              data-name="EventType"
-              className="e-field"
-              dataSource={["New", "Requested", "Confirmed"]}
-              value={props.EventType || undefined} // Change null to undefined
-            />
-          </td>
-        </tr>
-        <tr>
-          <td className="e-textlabel">From</td>
-          <td colSpan={4}>
-            <DateTimePickerComponent format="dd/MM/yy hh:mm a" id="StartTime" data-name="StartTime" value={new Date(props.StartTime || "")} className="e-field" />
-          </td>
-        </tr>
-        <tr>
-          <td className="e-textlabel">To</td>
-          <td colSpan={4}>
-            <DateTimePickerComponent format="dd/MM/yy hh:mm a" id="EndTime" data-name="EndTime" value={new Date(props.EndTime || "")} className="e-field" />
-          </td>
-        </tr>
-        <tr>
-          <td className="e-textlabel">Reason</td>
-          <td colSpan={4}>
-            <textarea
-              id="Description"
-              className="e-field e-input"
-              name="Description"
-              rows={3}
-              cols={50}
-              // style={{}}  {/* Add appropriate style object or remove the style attribute if not needed */}
-            ></textarea>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  ) : (
-    <div></div>
+  const dispatch = useDispatch();
+
+  const { clients, isClientSuccess } = useSelector(clientsSelector);
+  const { allStaff } = useSelector(staffSelector);
+  const { services } = useSelector(servicesSelector);
+
+  useEffect(() => {
+    if (!clients || clients.length === 0) {
+      dispatch(getClients());
+    }
+  }, [dispatch, clients]);
+
+  useEffect(() => {
+    if (!allStaff || allStaff.length === 0) {
+      dispatch(getAllStaff());
+    }
+  }, [dispatch, allStaff]);
+
+  useEffect(() => {
+    if (!services || services.length === 0) {
+      dispatch(getServices());
+    }
+  }, [dispatch, services]);
+
+  const handleServiceChange = (e) => {
+    // Handle service change
+    console.log("Service selected:", e.itemData);
+  };
+
+  const handleStaffChange = (e) => {
+    // Handle staff change
+    console.log("Staff selected:", e.itemData);
+  };
+
+  return (
+    <div className="custom-editor">
+      <div className="editor-section">
+        <DateTimePickerComponent id="appointmentDate" value={props.StartTime || new Date()} format="dd/MM/yyyy HH:mm" placeholder="Appointment Date" />
+      </div>
+
+      <div className="editor-section">
+        <DropDownListComponent id="serviceDropdown" dataSource={services} fields={{ text: "name", value: "id" }} change={handleServiceChange} placeholder="Select a Service" />
+      </div>
+
+      <div className="editor-section">
+        <DropDownListComponent id="staffDropdown" dataSource={allStaff} fields={{ text: "name", value: "id" }} change={handleStaffChange} placeholder="Select Staff" />
+      </div>
+
+      <div className="editor-section">
+        <NumericTextBoxComponent
+          id="price"
+          format="c2"
+          // Assuming you have a way to set and get price
+          value={props.price || 0}
+          placeholder="Price"
+        />
+      </div>
+
+      {/* ... other fields ... */}
+    </div>
   );
 };

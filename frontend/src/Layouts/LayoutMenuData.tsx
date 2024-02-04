@@ -6,16 +6,24 @@ const Navdata = () => {
   //state data
   const [isDashboard, setIsDashboard] = useState(false);
   const [isApps, setIsApps] = useState(false);
+  const [iscurrentState, setIscurrentState] = useState("Scheduler");
 
-  // Apps
+  // Scheduler Calendar
   const [isScheduler, setIsScheduler] = useState(false);
+  const [isCalendar, setIsCalendar] = useState(false);
+
+  // Finance
   const [isRevenues, setIsRevenues] = useState(false);
   const [isExpenses, setIsExpenses] = useState(false);
 
+  // Staff
+  const [isStaff, setIsStaff] = useState(false);
+
+  // Client
+  const [isClients, setIsClients] = useState(false);
+
   // Services
   const [isServices, setIsServices] = useState(false);
-
-  const [iscurrentState, setIscurrentState] = useState("Scheduler");
 
   function updateIconSidebar(e: any) {
     if (e && e.target && e.target.getAttribute("sub-items")) {
@@ -36,10 +44,20 @@ const Navdata = () => {
     if (iscurrentState !== "Dashboard") {
       setIsDashboard(false);
     }
-    
+
+    // Scheduler Calendar
     if (iscurrentState !== "Scheduler") {
       setIsScheduler(false);
     }
+    if (iscurrentState !== "Calendar") {
+      setIsCalendar(false);
+    }
+
+    if (iscurrentState !== "Staff") {
+      setIsStaff(false);
+    }
+
+    // Finance
     if (iscurrentState !== "Revenues") {
       setIsRevenues(false);
     }
@@ -47,18 +65,55 @@ const Navdata = () => {
       setIsExpenses(false);
     }
 
+    // Clients
+    if (iscurrentState !== "Clients") {
+      setIsClients(false);
+    }
+
     // Services
     if (iscurrentState !== "Services") {
       setIsServices(false);
     }
 
-
     if (iscurrentState !== "Apps") {
       setIsApps(false);
     }
-  }, [history, iscurrentState, isDashboard, isScheduler, isRevenues, isExpenses, isApps]);
+  }, [history, iscurrentState, isDashboard, isScheduler, isCalendar, isRevenues, isExpenses, isApps]);
 
   const menuItems: any = [
+    // Scheduler Calendar
+    {
+      label: "Scheduler",
+      isHeader: true,
+    },
+    {
+      id: "scheduler",
+      label: "Scheduler",
+      icon: "ri-dashboard-2-line",
+      link: "/scheduler",
+      stateVariables: isScheduler,
+      click: function (e: any) {
+        e.preventDefault();
+        setIsScheduler(!isScheduler);
+        setIscurrentState("Scheduler");
+        updateIconSidebar(e);
+      },
+    },
+    {
+      id: "calendar",
+      label: "Calendar",
+      icon: "ri-dashboard-2-line",
+      link: "/calendar",
+      stateVariables: isCalendar,
+      click: function (e: any) {
+        e.preventDefault();
+        setIsCalendar(!isCalendar);
+        setIscurrentState("Calendar");
+        updateIconSidebar(e);
+      },
+    },
+
+    // Finance
     {
       label: "Finance",
       isHeader: true,
@@ -89,6 +144,12 @@ const Navdata = () => {
         updateIconSidebar(e);
       },
     },
+
+    // Services
+    {
+      label: "Services",
+      isHeader: true,
+    },
     {
       id: "services",
       label: "Services",
@@ -99,6 +160,44 @@ const Navdata = () => {
         e.preventDefault();
         setIsServices(!isServices);
         setIscurrentState("Services");
+        updateIconSidebar(e);
+      },
+    },
+
+    // Clients
+    {
+      label: "Clients",
+      isHeader: true,
+    },
+    {
+      id: "clients",
+      label: "Clients",
+      icon: "ri-dashboard-2-line",
+      link: "/clients",
+      stateVariables: isClients,
+      click: function (e: any) {
+        e.preventDefault();
+        setIsClients(!isClients);
+        setIscurrentState("Clients");
+        updateIconSidebar(e);
+      },
+    },
+    // Staff
+    {
+      label: "Clients",
+      isHeader: true,
+    },
+
+    {
+      id: "Staff",
+      label: "Staff",
+      icon: "ri-dashboard-2-line",
+      link: "/staff",
+      stateVariables: isStaff,
+      click: function (e: any) {
+        e.preventDefault();
+        setIsStaff(!isStaff);
+        setIscurrentState("Staff");
         updateIconSidebar(e);
       },
     },

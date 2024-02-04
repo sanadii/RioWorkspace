@@ -16,7 +16,7 @@ class Command(BaseCommand):
 
         # Create sample appointment services
         for i in range(10):
-            AppointmentService.objects.create(
+            appointment_service = AppointmentService.objects.create(
                 name=f'Appointment Service {i}',
                 price=random.randint(50, 200),
                 staff_member=Staff.objects.order_by('?').first()

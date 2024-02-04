@@ -19,10 +19,10 @@ import logoLight from "../../assets/images/logo-light.png";
 import { createSelector } from 'reselect';
 //import images
 
-const Login = (props : any) => {
-    const dispatch : any = useDispatch();
-    
-    const selectLayoutState = (state : any) => state;
+const Login = (props: any) => {
+    const dispatch: any = useDispatch();
+
+    const selectLayoutState = (state: any) => state;
     const loginpageData = createSelector(
         selectLayoutState,
         (state) => ({
@@ -31,14 +31,14 @@ const Login = (props : any) => {
             errorMsg: state.Login.errorMsg,
         })
     );
-    // Inside your component
+
     const {
-        user, error,errorMsg
+        user, error, errorMsg
     } = useSelector(loginpageData);
 
     const [userLogin, setUserLogin] = useState<any>([]);
     const [passwordShow, setPasswordShow] = useState<any>(false);
-    const [loader, setLoader] = useState<boolean>(false);
+    const [loader, setLoader] = useState<boolean>(false); // Local loader state
 
     useEffect(() => {
         if (user && user) {
@@ -51,10 +51,8 @@ const Login = (props : any) => {
         }
     }, [user]);
 
-    const validation : any = useFormik({
-        // enableReinitialize : use this flag when initial values needs to be changed
+    const validation: any = useFormik({
         enableReinitialize: true,
-
         initialValues: {
             email: userLogin.email || "esanad@gmail.com" || '',
             password: userLogin.password || "I4ksb@11782" || '',
@@ -65,29 +63,29 @@ const Login = (props : any) => {
         }),
         onSubmit: (values) => {
             dispatch(loginUser(values, props.router.navigate));
-            setLoader(true)
+            setLoader(true); // Set local loader state
         }
     });
 
-    const signIn = (type : any) => {
+    const signIn = (type: any) => {
         dispatch(socialLogin(type, props.router.navigate));
     };
 
-    //for facebook and google authentication
-    const socialResponse = (type : any) => {
+    const socialResponse = (type: any) => {
         signIn(type);
     };
-
 
     useEffect(() => {
         if (errorMsg) {
             setTimeout(() => {
                 dispatch(resetLoginFlag());
-                setLoader(false)
+                setLoader(false); // Set local loader state to false
             }, 3000);
         }
     }, [dispatch, errorMsg]);
+
     document.title = "Basic SignIn | Velzon - React Admin & Dashboard Template";
+
     return (
         <React.Fragment>
             <ParticlesAuth>

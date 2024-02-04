@@ -10,6 +10,9 @@ urlpatterns = [
 
     # Apps
     path('finance/', include('workspace.urls.finance')),
+    path('staff/', include('workspace.urls.staff')),
+
     path('appointments/', include('workspace.urls.appointments')),
     path('services/', include('workspace.urls.services')),
+    path('clients/', include('workspace.urls.clients')),
 ]

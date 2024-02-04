@@ -19,9 +19,16 @@ import Expense from "./expenses/reducer";
 // Apps - Appointments
 import Appointments from "./appointments/reducer";
 
+// Reducer
+import Client from "./clients/reducer";
 
 // Apps - Services
 import Service from "./services/reducer";
+
+
+// Staff
+import Staff from "./staff/reducer";
+
 
 
 //API Key
@@ -46,7 +53,9 @@ const rootReducer = combineReducers({
     // Services
     Service,
 
-
+    // Clients
+    Client,
+    Staff,
 });
 
 export default rootReducer;

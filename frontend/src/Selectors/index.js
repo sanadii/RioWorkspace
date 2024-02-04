@@ -13,5 +13,11 @@ export { revenuesSelector } from './revenuesSelector ';
 export { expenseSelector } from './expenseSelector';
 export { appointmentsSelector } from './appointmentsSelector';
 
+// Selectors
+export { clientsSelector } from './clientsSelector';
+
 // Services
 export { servicesSelector } from './servicesSelector';
+
+// Staff
+export { staffSelector } from './staffSelector';

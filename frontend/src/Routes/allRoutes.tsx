@@ -3,6 +3,7 @@ import { Navigate } from "react-router-dom";
 
 //Dashboard
 import Scheduler from "../pages/Scheduler";
+import Calendar from "../pages/Calendar";
 
 // Revenues
 import RevenueList from "../pages/Revenues/RevenueList";
@@ -13,6 +14,15 @@ import RevenueDetails from "../pages/Revenues/RevenueDetails";
 import ExpenseList from "../pages/Expenses/ExpensesList";
 import ExpenseCreate from "../pages/Expenses/ExpenseCreate";
 import ExpenseDetails from "../pages/Expenses/ExpenseDetails";
+
+// Clients
+// import ClientList from "../pages/Clients/ClientList";
+// import ClientCreate from "../pages/Clients/ClientCreate";
+// import ClientDetails from "../pages/Clients/ClientDetails";
+
+// import StaffList from "../pages/Staff/StaffList";
+// import StaffCreate from "../pages/Staff/StaffCreate";
+// import StaffDetails from "../pages/Staff/StaffDetails";
 
 // Services
 import ServiceList from "../pages/Services/ServiceList";
@@ -55,6 +65,9 @@ const authProtectedRoutes = [
   { path: "/dashboard", component: <Scheduler /> },
   { path: "/index", component: <Scheduler /> },
 
+  // Test Calendar
+  { path: "/calendar", component: <Calendar /> },
+
   //Revenues
   { path: "/revenues", component: <RevenueList /> },
   { path: "/revenue-details", component: <RevenueDetails /> },
@@ -64,6 +77,16 @@ const authProtectedRoutes = [
   { path: "/expenses", component: <ExpenseList /> },
   { path: "/expense-details", component: <ExpenseDetails /> },
   { path: "/expense-create", component: <ExpenseCreate /> },
+
+  // Clients
+  // { path: "/clients", component: <ClientList /> },
+  // { path: "/client-details", component: <ClientDetails /> },
+  // { path: "/client-create", component: <ClientCreate /> },
+
+  // AllStaff
+  // { path: "/Staff", component: <StaffList /> },
+  // { path: "/staff-details", component: <StaffDetails /> },
+  // { path: "/staff-create", component: <StaffCreate /> },
 
   // Services
   { path: "/services", component: <ServiceList /> },

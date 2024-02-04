@@ -17,7 +17,7 @@ class AppointmentService(models.Model):
 
     class Meta:
         # managed = False
-        db_table = "client_appointment_service"
+        db_table = "appointment_service"
 
 # Appointment Model
 class Appointment(models.Model):
@@ -39,7 +39,7 @@ class Appointment(models.Model):
 
     class Meta:
         # managed = False
-        db_table = "client_appointment"
+        db_table = "appointment"
 
     
 # Service Provider Model

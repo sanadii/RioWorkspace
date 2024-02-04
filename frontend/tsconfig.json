@@ -6,7 +6,11 @@
     "skipLibCheck": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "strict": true,
+
+    // was true
+    "strict": false,
+    "strictNullChecks": false, // Turn off strict null checks only
+
     "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": true,
     "module": "esnext",

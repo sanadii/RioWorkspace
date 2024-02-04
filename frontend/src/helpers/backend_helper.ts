@@ -85,11 +85,26 @@ export const addAppointment = (appointment : any) => api.create(url.ADD_APPOINTM
 export const updateAppointment = (appointment : any) => api.update(url.UPDATE_APPOINTMENT + '/' + appointment.id, appointment); //+ '/' + Appointment._id
 export const deleteAppointment = (appointment : any) => api.delete(url.DELETE_APPOINTMENT + '/' + appointment); //+ '/' + Appointment 
 
+// Clients
+export const getClients = () => api.get(url.GET_CLIENTS);
+export const addClient = (client : any) => api.create(url.ADD_CLIENT, client);
+export const updateClient = (client : any) => api.update(url.UPDATE_CLIENT + '/' + client.id, client); //+ '/' + Client._id
+export const deleteClient = (client : any) => api.delete(url.DELETE_CLIENT + '/' + client); //+ '/' + Client 
+
+
 // Services
 export const getServices = () => api.get(url.GET_SERVICES);
 export const addService = (service : any) => api.create(url.ADD_SERVICE, service);
 export const updateService = (service : any) => api.update(url.UPDATE_SERVICE + '/' + service.id, service); //+ '/' + Service._id
 export const deleteService = (service : any) => api.delete(url.DELETE_SERVICE + '/' + service); //+ '/' + Service 
+
+// AllStaff
+export const getAllStaff = () => api.get(url.GET_ALL_STAFF);
+export const addStaff = (staff : any) => api.create(url.ADD_STAFF, staff);
+export const updateStaff = (staff : any) => api.update(url.UPDATE_STAFF + '/' + staff.id, staff); //+ '/' + Staff._id
+export const deleteStaff = (staff : any) => api.delete(url.DELETE_STAFF + '/' + staff); //+ '/' + Staff 
+
+
 
 
 // Users
@@ -100,6 +115,9 @@ export const addUser = (user : any) => api.create(url.ADD_USER, user);
 export const updateUser = (user : any) => api.update(url.UPDATE_USER_PROFILE + "/" + user.id, user);
 export const changeUserPassword = (user : any) => api.update(url.CHANGE_USER_PASSWORD + "/" + user.id, user);
 export const deleteUser = (user : any) => api.delete(url.DELETE_USER + "/" + user);
+
+
+
 
 
 // SettingOptions
