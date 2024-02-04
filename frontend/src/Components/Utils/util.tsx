@@ -1,14 +1,14 @@
 import { FormValidator, FormValidatorModel } from '@syncfusion/ej2-react-inputs';
 import { createElement, remove, removeClass, Internationalization } from '@syncfusion/ej2-base';
-import adminImage from './assets/images/Admin.png';
-import alexImage from './assets/images/AlexaRichardson.png';
-import ameliaImage from './assets/images/AmeliaEdwards.png';
-import defaultImage from './assets/images/default.png';
-import mollieImage from './assets/images/MollieCobb.png';
-import nemboImage from './assets/images/NemboLukni.png';
-import noutImage from './assets/images/NoutGolstein.png';
-import paulImage from './assets/images/PaulWalker.png';
-import yaraImage from './assets/images/YaraBarros.png';
+import adminImage from 'assets/images/Admin.png';
+import alexImage from 'assets/images/AlexaRichardson.png';
+import ameliaImage from 'assets/images/AmeliaEdwards.png';
+import defaultImage from 'assets/images/default.png';
+import mollieImage from 'assets/images/MollieCobb.png';
+import nemboImage from 'assets/images/NemboLukni.png';
+import noutImage from 'assets/images/NoutGolstein.png';
+import paulImage from 'assets/images/PaulWalker.png';
+import yaraImage from 'assets/images/YaraBarros.png';
 
 export function renderFormValidator(formElement: HTMLFormElement, rules: Record<string, any>, parentElement: HTMLElement): void {
     const model: FormValidatorModel = {

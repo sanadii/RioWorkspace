@@ -1,10 +1,9 @@
 import React, { useEffect, useState, useRef, useCallback } from "react";
 import { BreadCrumb } from "Components/Common";
-import { Button, ButtonComponent } from "@syncfusion/ej2-react-buttons";
-import "./scheduler.css";
+import "./SchedulerSettings/scheduler.css";
 
 // Redux and selectors
-import { getAppointments, getClients, getAllStaff, getServices } from "store/actions";
+import { getAppointments, addAppointment, getClients, getAllStaff, getServices } from "store/actions";
 import { useSelector, useDispatch } from "react-redux";
 import { clientsSelector, appointmentsSelector, servicesSelector, staffSelector } from "Selectors";
 
@@ -25,20 +24,36 @@ import {
   Resize,
   PopupOpenEventArgs,
 
+  // New Features
+  TimelineViews,
+  TimelineMonth,
+  ActionEventArgs,
+  CellClickEventArgs,
+  TimeScaleModel,
+  GroupModel,
+  ResourcesDirective,
+  ResourceDirective,
+  getWeekFirstDate,
+  addDays,
+  View,
+  PopupCloseEventArgs,
 } from "@syncfusion/ej2-react-schedule";
-import { closest, Browser, L10n,   Internationalization, extend, isNullOrUndefined, createElement } from "@syncfusion/ej2-base";
+
+import { DialogComponent } from "@syncfusion/ej2-react-popups";
+
+import { closest, Browser, L10n, Internationalization, extend, isNullOrUndefined, createElement } from "@syncfusion/ej2-base";
 import { DropDownListComponent, ComboBox } from "@syncfusion/ej2-react-dropdowns";
 import { Query, Predicate, DataManager } from "@syncfusion/ej2-data";
 
 // React Scheduler
-import { calendarSettings, onDragStart, onResizeStart } from "./SchedulerSettings";
-import { SchedulerEditorTemplate } from "./SchedulerEditorTemplate";
-import { dateHeaderTemplate } from "./DateHeaderTemplate";
+import { calendarSettings, onDragStart, onResizeStart } from "./SchedulerSettings/SchedulerSettings";
+import { SchedulerEditorTemplate } from "./SchedulerSettings/SchedulerEditorTemplate";
+import { DateHeaderTemplate, getQuickInfoTemplates, onPopupOpen } from "./SchedulerSettings";
 
-import { onPopupOpen } from "./onPopupOpen";
-import getEventSettings from './eventSettings';
+import getEventSettings from "./SchedulerSettings/eventSettings";
 import { errorPlacement, updateActiveItem, loadImage, getString } from "Components/Utils/util";
 
+import doctorsIcon from "assets/Icons/Doctors.svg";
 
 L10n.load({
   "en-US": {
@@ -66,6 +81,7 @@ const Scheduler = () => {
   const { allStaff, isStaffSuccess } = useSelector(staffSelector);
 
   const [transformedAppointments, setTransformedAppointments] = useState([]);
+  const QuickInfoTemplates = getQuickInfoTemplates(clients, services, allStaff);
 
   const comboBox = useRef<ComboBox>(null);
   const clientValue = useRef(null);
@@ -73,9 +89,16 @@ const Scheduler = () => {
   const eventSettings = getEventSettings(transformedAppointments, clients, calendarSettings);
   const instance: Internationalization = new Internationalization();
 
+  // New Features
+  const specialistObj = useRef<DialogComponent>(null);
+  const activeDoctorData = useRef([]);
+
   useEffect(() => {
     if (!appointments || appointments.length === 0) {
       dispatch(getAppointments());
+      dispatch(getAllStaff());
+      dispatch(getServices());
+      dispatch(getClients());
     } else {
       // Transform the appointments data
       const transformed = appointments.map((appointment: Appointment) => ({
@@ -92,11 +115,12 @@ const Scheduler = () => {
   }, [dispatch, appointments]);
 
   const scheduleObj = useRef<ScheduleComponent | null>(null);
+  // const data = extend([], dataSource.zooEventsData, null, true);
+
   const buttonObj = useRef<any>(null); // Using 'any' to bypass type checking
 
   const [selectedDate, setSelectedDate] = useState(new Date());
   const currentDate = useRef(selectedDate);
-
 
   // Now you can use calendarSettings in your component
   const onNavigation = (args: NavigatingEventArgs): void => {
@@ -104,11 +128,11 @@ const Scheduler = () => {
     if (args.action === "dateNavigate") {
       setSelectedDate(currentDate.current);
     }
-    // if (activeDoctorData.current.length > 0) {
+    // if (activeStaffData.current.length > 0) {
     //   updateBreakHours(currentDate.current);
-    //   eventData.current = generateEvents(activeDoctorData.current[0]);
+    //   eventData.current = generateEvents(activeStaffData.current[0]);
     //   scheduleObj.current.eventSettings.dataSource = eventData.current;
-    //   treeObj.current.updateWaitingList(activeDoctorData.current[0]["DepartmentId"], null);
+    //   treeObj.current.updateWaitingList(activeStaffData.current[0]["ServiceId"], null);
     // } else {
     //   treeObj.current.updateWaitingList();
     // }
@@ -127,97 +151,35 @@ const Scheduler = () => {
   //   },
   // };
 
-  const getEventDetails = (data: Record<string, any>): string => {
-    return (
-      instance.formatDate(new Date(data["StartTime"]), { type: "date", skeleton: "long" }) +
-      "(" +
-      getString(new Date(data["StartTime"]), "hm", instance) +
-      "-" +
-      getString(new Date(data["EndTime"]), "hm", instance) +
-      ")"
-    );
-  };
-
-  const getBackGroundColor = (data: Record<string, any>): Record<string, string> => {
-    let color: string;
-    if (calendarSettings.bookingColor === "Doctors" && !isNullOrUndefined(data["DoctorId"])) {
-      color = (allStaff.filter((item: Record<string, any>) => item["Id"] === data["DoctorId"])[0]["Color"] as string) || "#7575ff";
-    } else {
-      color = services.filter((item: Record<string, any>) => item["DepartmentId"] === data["DepartmentId"])[0]["Color"] as string;
+  const onActionComplete = (args: ActionEventArgs): void => {
+    if (args.requestType === "toolBarItemRendered") {
+      if (Browser.isDevice) {
+        const doctorIconContainer: HTMLElement = scheduleObj.current.element.querySelector(".app-doctor-icon") as HTMLElement;
+        const doctorIcon: HTMLElement = doctorIconContainer.querySelector(".doctor-icon");
+        const doctorImage: HTMLElement = createElement("img", { className: "active-doctor", attrs: { src: doctorsIcon } });
+        doctorIcon.appendChild(doctorImage);
+        doctorIconContainer.style.display = "block";
+        doctorIconContainer.onclick = () => specialistObj.current.show();
+      }
     }
-    return { backgroundColor: color, color: "#FFFFFF" };
-  };
+    if (document.body.style.cursor === "not-allowed") {
+      document.body.style.cursor = "";
+    }
+    if (args.requestType === "eventCreated" || args.requestType === "eventChanged" || args.requestType === "eventRemoved") {
+      let updatedAppointments = [...appointments]; // Create a copy of the appointments array
 
-  const getPatientName = (data: Record<string, any>): string => {
-    return clients.filter((item: Record<string, any>) => item["Id"] === data["PatientId"])[0]["Name"].toString();
-  };
+      if (args.addedRecords.length > 0) {
+        updatedAppointments = [...args.addedRecords];
+      }
 
-  const getDoctorName = (data: Record<string, any>): string => {
-    if (!isNullOrUndefined(data["DoctorId"])) {
-      return "Dr. " + allStaff.filter((item: Record<string, any>) => item["Id"] === data["DoctorId"])[0]["Name"].toString();
-    } else {
-      return services.filter((item: Record<string, any>) => item["DepartmentId"] === data["DepartmentId"])[0]["Text"].toString();
+      if (args.deletedRecords.length > 0) {
+        args.deletedRecords.forEach((item: Record<string, any>) => {
+          updatedAppointments = updatedAppointments.filter((data: Record<string, any>) => data["Id"] !== item["Id"]);
+        });
+      }
+      dispatch(addAppointment(updatedAppointments));
     }
   };
-
-  const header = useCallback((props: Record<string, any>): JSX.Element => {
-    if (props.elementType === "cell") {
-      return <></>;
-    }
-    return (
-      <div>
-        <div className="quick-info-header">
-          <div className="quick-info-header-content" style={getBackGroundColor(props)}>
-            <div className="quick-info-title">Appointment Details</div>
-            <div className="duration-text">{getEventDetails(props)}</div>
-          </div>
-        </div>
-      </div>
-    );
-  }, []);
-
-  const content = useCallback((props: Record<string, any>): JSX.Element => {
-    if (props.elementType === "cell") {
-      return (
-        <div className="e-cell-content">
-          <form className="e-schedule-form">
-            <div style={{ padding: "10px" }}>
-              <input className="subject e-field" type="text" name="Subject" placeholder="Title" style={{ width: "100%" }} />
-            </div>
-            <div style={{ padding: "10px" }}>
-              <input className="location e-field" type="text" name="Location" placeholder="Location" style={{ width: "100%" }} />
-            </div>
-          </form>
-        </div>
-      );
-    }
-    return (
-      <div>
-        <div className="event-content">
-          <div className="patient-name-wrap">
-            <label>Patient Name</label>:
-            <div>
-              <span>{getPatientName(props)}</span>
-            </div>
-          </div>
-          <div className="doctor-name-wrap">
-            <label>{props.DoctorId ? "Doctor Name" : "Department Name"}</label>:
-            <div>
-              <span>{getDoctorName(props)}</span>
-            </div>
-          </div>
-          <div className="notes-wrap">
-            <label>Notes</label>:
-            <div>
-              <span>{props.Symptoms}</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  }, []);
-
-  const quickInfoTemplates = { header: header, content: content };
 
   return (
     <React.Fragment>
@@ -228,7 +190,7 @@ const Scheduler = () => {
           ref={scheduleObj}
           width="100%"
           height="650px"
-          cssClass={"doctor-appointment-planner"}
+          cssClass={"staff-appointment-planner"}
           // showWeekend={false}
 
           // Calendar Settings Props
@@ -248,10 +210,9 @@ const Scheduler = () => {
           // New Features
           navigating={onNavigation}
           // Date Header
-          dateHeaderTemplate={dateHeaderTemplate}
-
-          quickInfoTemplates={quickInfoTemplates}
-
+          dateHeaderTemplate={DateHeaderTemplate}
+          quickInfoTemplates={QuickInfoTemplates}
+          actionComplete={onActionComplete}
         >
           <ViewsDirective>
             <ViewDirective option="Day" />

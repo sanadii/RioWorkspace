@@ -10,7 +10,7 @@ export class CalendarSettings {
   timeScale: TimeScaleModel;
 
   constructor() {
-    this.bookingColor = 'YourBookingColor'; // Default value
+    this.bookingColor = '#008000'; // Default value
     this.calendar = { start: '10:00', end: '23:00' }; // Default value
     this.currentView = 'Week'; // Default value
     this.interval = 60; // Default value
