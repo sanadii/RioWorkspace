@@ -5,10 +5,10 @@ import { appointmentsSelector, clientsSelector, servicesSelector, staffSelector 
 
 const DataSource = () => {
   const dispatch = useDispatch();
-  const { appointments } = useSelector(appointmentsSelector);
-  const { clients } = useSelector(clientsSelector);
-  const { services } = useSelector(servicesSelector);
-  const { allStaff } = useSelector(staffSelector);
+  const appointmentsData = useSelector(appointmentsSelector);
+  const clientsData = useSelector(clientsSelector);
+  const servicesData = useSelector(servicesSelector);
+  const staffData = useSelector(staffSelector);
 
   const [dataSource, setDataSource] = useState({
     appointmentData: [],
@@ -19,31 +19,21 @@ const DataSource = () => {
 
   useEffect(() => {
     // Fetch data if not already loaded
-    if (!appointments || !clients || !services || !allStaff) {
+    if (!appointmentsData || !clientsData || !servicesData || !staffData) {
       dispatch(getAppointments());
       dispatch(getAllStaff());
       dispatch(getServices());
       dispatch(getClients());
     } else {
-      // Transform the appointments data
-      const transformedAppointments = appointments.map(appointment => ({
-        Id: appointment.id,
-        Subject: appointment.subject,
-        StartTime: appointment.startTime,
-        EndTime: appointment.endTime,
-        CategoryColor: appointment.categoryColor,
-        // Add other fields as necessary
-      }));
-
       // Set the data in state
       setDataSource({
-        appointmentData: transformedAppointments,
-        clientData: clients,  // Assuming clients data doesn't need transformation
-        serviceData: services, // Assuming services data doesn't need transformation
-        staffData: allStaff,  // Assuming staff data doesn't need transformation
+        appointmentData: appointmentsData.appointments || [],
+        clientData: clientsData.clients || [],
+        serviceData: servicesData.services || [],
+        staffData: staffData.allStaff || [],
       });
     }
-  }, [dispatch, appointments, clients, services, allStaff]);
+  }, [dispatch, appointmentsData, clientsData, servicesData, staffData]);
 
   return dataSource;
 };

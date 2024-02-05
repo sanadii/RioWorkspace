@@ -12,7 +12,7 @@ const RevenueDetails = () => {
     window.print();
   };
 
-  document.title = "Revenue Details | Velzon - React Admin & Dashboard Template";
+  document.title = "Revenue Details | Rio Brazil Salon - React Workspace";
 
   return (
     <div className="page-content">

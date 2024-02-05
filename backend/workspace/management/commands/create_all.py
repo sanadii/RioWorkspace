@@ -21,8 +21,8 @@ class Command(BaseCommand):
 
         # Call the individual commands here
         call_command('create_staff')
-        call_command('create_services')
-
+        call_command('create_services') # To Allocate Resources
+        call_command('create_resources')
 
         call_command('create_clients')
         call_command('create_appointments')

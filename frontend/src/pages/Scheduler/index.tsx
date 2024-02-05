@@ -5,7 +5,6 @@ import "./SchedulerSettings/scheduler.css";
 // Redux and selectors
 import { getAppointments, addAppointment, getClients, getAllStaff, getServices } from "store/actions";
 import { useSelector, useDispatch } from "react-redux";
-import { clientsSelector, appointmentsSelector, servicesSelector, staffSelector } from "Selectors";
 
 // @syncfusion
 import {
@@ -37,18 +36,33 @@ import {
   addDays,
   View,
   PopupCloseEventArgs,
+  type EventRenderedArgs,
 } from "@syncfusion/ej2-react-schedule";
 
 import { DialogComponent } from "@syncfusion/ej2-react-popups";
 
-import { closest, Browser, L10n, Internationalization, extend, isNullOrUndefined, createElement } from "@syncfusion/ej2-base";
+import {
+  closest,
+  Browser,
+  L10n,
+  Internationalization,
+  extend,
+  isNullOrUndefined,
+  createElement,
+} from "@syncfusion/ej2-base";
 import { DropDownListComponent, ComboBox } from "@syncfusion/ej2-react-dropdowns";
 import { Query, Predicate, DataManager } from "@syncfusion/ej2-data";
 
 // React Scheduler
 import { calendarSettings, onDragStart, onResizeStart } from "./SchedulerSettings/SchedulerSettings";
-import { SchedulerEditorTemplate } from "./SchedulerSettings/SchedulerEditorTemplate";
-import { DateHeaderTemplate, getQuickInfoTemplates, onPopupOpen } from "./SchedulerSettings";
+import {
+  SchedulerEditorTemplate,
+  DateHeaderTemplate,
+  getQuickInfoTemplates,
+  useScheduleData,
+  onPopupOpen,
+  eventTemplate,
+} from "./SchedulerSettings";
 
 import getEventSettings from "./SchedulerSettings/eventSettings";
 import { errorPlacement, updateActiveItem, loadImage, getString } from "Components/Utils/util";
@@ -64,55 +78,22 @@ L10n.load({
   },
 });
 
-interface Appointment {
-  id: number;
-  subject: string;
-  location: string;
-  startTime: string;
-  endTime: string;
-  categoryColor: string;
-}
-
 const Scheduler = () => {
+  // Revised
   const dispatch = useDispatch();
-  const { appointments, isAppointmentSuccess, error } = useSelector(appointmentsSelector);
-  const { clients, isClientSuccess } = useSelector(clientsSelector);
-  const { services, isServiceSuccess } = useSelector(servicesSelector);
-  const { allStaff, isStaffSuccess } = useSelector(staffSelector);
+  const { appointments, clients, services, staff } = useScheduleData();
+  const eventSettings = getEventSettings(appointments, clients, calendarSettings);
 
-  const [transformedAppointments, setTransformedAppointments] = useState([]);
-  const QuickInfoTemplates = getQuickInfoTemplates(clients, services, allStaff);
+  const QuickInfoTemplates = getQuickInfoTemplates(clients, services, staff);
 
   const comboBox = useRef<ComboBox>(null);
   const clientValue = useRef(null);
   const addEditClientObj = useRef(null);
-  const eventSettings = getEventSettings(transformedAppointments, clients, calendarSettings);
   const instance: Internationalization = new Internationalization();
 
   // New Features
   const specialistObj = useRef<DialogComponent>(null);
   const activeDoctorData = useRef([]);
-
-  useEffect(() => {
-    if (!appointments || appointments.length === 0) {
-      dispatch(getAppointments());
-      dispatch(getAllStaff());
-      dispatch(getServices());
-      dispatch(getClients());
-    } else {
-      // Transform the appointments data
-      const transformed = appointments.map((appointment: Appointment) => ({
-        Id: appointment.id,
-        Subject: appointment.subject,
-        Location: appointment.location,
-        StartTime: appointment.startTime,
-        EndTime: appointment.endTime,
-        CategoryColor: appointment.categoryColor,
-        // Add other fields as necessary
-      }));
-      setTransformedAppointments(transformed);
-    }
-  }, [dispatch, appointments]);
 
   const scheduleObj = useRef<ScheduleComponent | null>(null);
   // const data = extend([], dataSource.zooEventsData, null, true);
@@ -154,9 +135,14 @@ const Scheduler = () => {
   const onActionComplete = (args: ActionEventArgs): void => {
     if (args.requestType === "toolBarItemRendered") {
       if (Browser.isDevice) {
-        const doctorIconContainer: HTMLElement = scheduleObj.current.element.querySelector(".app-doctor-icon") as HTMLElement;
+        const doctorIconContainer: HTMLElement = scheduleObj.current.element.querySelector(
+          ".app-doctor-icon"
+        ) as HTMLElement;
         const doctorIcon: HTMLElement = doctorIconContainer.querySelector(".doctor-icon");
-        const doctorImage: HTMLElement = createElement("img", { className: "active-doctor", attrs: { src: doctorsIcon } });
+        const doctorImage: HTMLElement = createElement("img", {
+          className: "active-doctor",
+          attrs: { src: doctorsIcon },
+        });
         doctorIcon.appendChild(doctorImage);
         doctorIconContainer.style.display = "block";
         doctorIconContainer.onclick = () => specialistObj.current.show();
@@ -165,7 +151,11 @@ const Scheduler = () => {
     if (document.body.style.cursor === "not-allowed") {
       document.body.style.cursor = "";
     }
-    if (args.requestType === "eventCreated" || args.requestType === "eventChanged" || args.requestType === "eventRemoved") {
+    if (
+      args.requestType === "eventCreated" ||
+      args.requestType === "eventChanged" ||
+      args.requestType === "eventRemoved"
+    ) {
       let updatedAppointments = [...appointments]; // Create a copy of the appointments array
 
       if (args.addedRecords.length > 0) {
@@ -181,6 +171,32 @@ const Scheduler = () => {
     }
   };
 
+  const onEventRendered = (args: EventRenderedArgs): void => {
+    const today = new Date();
+    today.setDate(today.getDate() - 1);
+    if (args.data.CheckOut < today) {
+      args.element.classList.add("e-read-only");
+    }
+    applyCategoryColor(args);
+    const workCell: Element = scheduleObj.current?.element.querySelector(
+      ".e-work-cells:not(.e-resource-group-cells)"
+    ) as Element;
+    setTimeout(() => {
+      args.element.style.height = `${workCell.clientHeight - 4}px`;
+    }, 100);
+  };
+
+  const applyCategoryColor = (args: EventRenderedArgs): void => {
+    const roomId: number = args.data.Room;
+    const floorId: number = args.data.Floor;
+    const borderColor = getBorderColor(roomId, floorId);
+    args.element.style.setProperty("border", `1px solid ${borderColor}`, "important");
+  };
+
+  const getBorderColor = (roomId: number, floorId: number): string => {
+    const key: string = `${roomId}_${floorId}`;
+    return borderColor[key] || "#000";
+  };
   return (
     <React.Fragment>
       <div className="page-content">
@@ -202,7 +218,6 @@ const Scheduler = () => {
           // The data to show
           eventSettings={eventSettings}
           popupOpen={(args) => onPopupOpen(args, clients, clientValue, comboBox, onAddClient, scheduleObj)}
-          // editorTemplate={SchedulerEditorTemplate}
           views={["Day", "Week", "Month"]}
           selectedDate={new Date(2024, 2, 2)}
           dragStart={onDragStart}
@@ -210,13 +225,18 @@ const Scheduler = () => {
           // New Features
           navigating={onNavigation}
           // Date Header
-          dateHeaderTemplate={DateHeaderTemplate}
           quickInfoTemplates={QuickInfoTemplates}
           actionComplete={onActionComplete}
+          // Templates
+          dateHeaderTemplate={DateHeaderTemplate}
+          editorTemplate={SchedulerEditorTemplate}
+          eventRendered={onEventRendered}
+
+          // cellTemplate={cellTemplate}
         >
           <ViewsDirective>
             <ViewDirective option="Day" />
-            <ViewDirective option="Week" />
+            <ViewDirective option="Week" eventTemplate={eventTemplate} />
             <ViewDirective option="WorkWeek" />
             <ViewDirective option="Month" />
           </ViewsDirective>

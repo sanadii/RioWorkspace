@@ -9,6 +9,7 @@ export const staffSelector = createSelector(
     
     // Daily Revenues Selectors
     allStaff: staffSelector.allStaff,
+    staff: staffSelector.allStaff,
     isStaffSuccess: staffSelector.isStaffSuccess,
     error: staffSelector.error,
 

@@ -25,7 +25,7 @@ const BasicLockScreen = () => {
             // console.log(values);
         }
     });
-document.title="Lock Screen | Velzon - React Admin & Dashboard Template";
+document.title="Lock Screen | Rio Brazil Salon - React Workspace";
     return (
         <React.Fragment>
             <div className="auth-page-content">
@@ -41,7 +41,7 @@ document.title="Lock Screen | Velzon - React Admin & Dashboard Template";
                                                     <img src={logoLight} alt="" height="20" />
                                                 </Link>
                                             </div>
-                                            <p className="mt-3 fs-15 fw-medium">Premium Admin & Dashboard Template</p>
+                                            <p className="mt-3 fs-15 fw-medium">Premium Workspace</p>
                                         </div>
                                     </Col>
                                 </Row>

@@ -10,7 +10,7 @@ import * as Yup from 'yup';
 
 const BasicPasswCreate = () => {
 
-    document.title = "Create New Password | Velzon - React Admin & Dashboard Template";
+    document.title = "Create New Password | Rio Brazil Salon - React Workspace";
 
     const [passwordShow, setPasswordShow] = useState(false);
     const [confrimPasswordShow, setConfrimPasswordShow] = useState(false);
@@ -49,7 +49,7 @@ const BasicPasswCreate = () => {
                                         <img src={logoLight} alt="" height="20" />
                                     </Link>
                                 </div>
-                                <p className="mt-3 fs-15 fw-medium">Premium Admin & Dashboard Template</p>
+                                <p className="mt-3 fs-15 fw-medium">Premium Workspace</p>
                             </div>
                         </Col>
                     </Row>

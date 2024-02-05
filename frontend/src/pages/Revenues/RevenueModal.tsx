@@ -33,7 +33,7 @@ const RevenueModal = ({
   const history = useNavigate();
 
   document.title =
-    "Create Revenue | Velzon - React Admin & Dashboard Template";
+    "Create Revenue | Rio Brazil Salon - React Workspace";
 
   const validation: any = useFormik({
     enableReinitialize: true,

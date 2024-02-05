@@ -54,7 +54,7 @@ const ServiceModal = ({
     error,
   } = useSelector(settingOptionsSelector);
 
-  document.title = "Create Service | Velzon - React Admin & Dashboard Template";
+  document.title = "Create Service | Rio Brazil Salon - React Workspace";
 
   const validation: any = useFormik({
     enableReinitialize: true,

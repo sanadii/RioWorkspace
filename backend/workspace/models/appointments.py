@@ -1,6 +1,7 @@
 from django.db import models
 from workspace.models.clients import Client
 from workspace.models.staff import Staff
+from workspace.models.resources import ResourceItem
 
 
 # Service Model
@@ -10,6 +11,8 @@ class AppointmentService(models.Model):
 
     # change staff_member to many to many we will use service provider
     staff_member = models.ForeignKey(Staff, on_delete=models.CASCADE)
+    resources = models.ManyToManyField(ResourceItem, blank=True)  # Linking services to resource items
+    match_resources = models.BooleanField(default=False)  # New field
 
     
     def __str__(self):
@@ -36,6 +39,10 @@ class Appointment(models.Model):
 
     def __str__(self):
         return f"Appointment with {self.client} on {self.appointment_date}"
+
+    def allocate_resources(self):
+        # Logic to allocate resources based on minimize_switching and match_resources settings
+        pass
 
     class Meta:
         # managed = False

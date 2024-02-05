@@ -117,7 +117,7 @@ const ServiceCreate = () => {
   };
 
   document.title =
-    "Create Service | Velzon - React Admin & Dashboard Template";
+    "Create Service | Rio Brazil Salon - React Workspace";
 
   const validation: any = useFormik({
     enableReinitialize: true,

@@ -54,7 +54,7 @@ const ExpenseModal = ({
     error,
   } = useSelector(settingOptionsSelector);
 
-  document.title = "Create Expense | Velzon - React Admin & Dashboard Template";
+  document.title = "Create Expense | Rio Brazil Salon - React Workspace";
 
   const validation: any = useFormik({
     enableReinitialize: true,

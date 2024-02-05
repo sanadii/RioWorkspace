@@ -31,7 +31,7 @@ const BasicSignIn = () => {
         }
     });
 
-    document.title = "Basic SignIn | Velzon - React Admin & Dashboard Template";
+    document.title = "Basic SignIn | Rio Brazil Salon - React Workspace";
     return (
         <React.Fragment>
             <ParticlesAuth>
@@ -45,7 +45,7 @@ const BasicSignIn = () => {
                                             <img src={logoLight} alt="" height="20" />
                                         </Link>
                                     </div>
-                                    <p className="mt-3 fs-15 fw-medium">Premium Admin & Dashboard Template</p>
+                                    <p className="mt-3 fs-15 fw-medium">Premium Workspace</p>
                                 </div>
                             </Col>
                         </Row>
@@ -56,7 +56,7 @@ const BasicSignIn = () => {
                                     <CardBody className="p-4">
                                         <div className="text-center mt-2">
                                             <h5 className="text-primary">Welcome Back !</h5>
-                                            <p className="text-muted">Sign in to continue to Velzon.</p>
+                                            <p className="text-muted">Sign in to continue to Rio Brazil Salon.</p>
                                         </div>
                                         <div className="p-2 mt-4">
                                             <Form

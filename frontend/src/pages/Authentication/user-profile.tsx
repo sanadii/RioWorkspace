@@ -91,7 +91,7 @@ const UserProfile = () => {
     }
   });
 
-  document.title = "Profile | Velzon - React Admin & Dashboard Template";
+  document.title = "Profile | Rio Brazil Salon - React Workspace";
   return (
     <React.Fragment>
       <div className="page-content">

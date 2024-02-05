@@ -7,7 +7,7 @@ import ParticlesAuth from "../ParticlesAuth";
 import logoLight from "../../../assets/images/logo-light.png";
 
 const BasicLogout = () => {
-    document.title="Log Out | Velzon - React Admin & Dashboard Template";
+    document.title="Log Out | Rio Brazil Salon - React Workspace";
     return (
         <React.Fragment>
             <div className="auth-page-content">
@@ -23,7 +23,7 @@ const BasicLogout = () => {
                                                     <img src={logoLight} alt="" height="20" />
                                                 </Link>
                                             </div>
-                                            <p className="mt-3 fs-15 fw-medium">Premium Admin & Dashboard Template</p>
+                                            <p className="mt-3 fs-15 fw-medium">Premium Workspace</p>
                                         </div>
                                     </Col>
                                 </Row>

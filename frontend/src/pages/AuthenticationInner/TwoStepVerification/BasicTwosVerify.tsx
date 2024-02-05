@@ -8,7 +8,7 @@ import logoLight from "../../../assets/images/logo-light.png";
 
 
 const BasicTwosVerify = () => {
-    document.title = "Two Step Verification | Velzon - React Admin & Dashboard Template";
+    document.title = "Two Step Verification | Rio Brazil Salon - React Workspace";
 
     const getInputElement = (index : any): HTMLInputElement => {
         return document.getElementById('digit' + index + '-input') as HTMLInputElement;
@@ -40,7 +40,7 @@ const BasicTwosVerify = () => {
                                                 <img src={logoLight} alt="" height="20" />
                                             </Link>
                                         </div>
-                                        <p className="mt-3 fs-15 fw-medium">Premium Admin & Dashboard Template</p>
+                                        <p className="mt-3 fs-15 fw-medium">Premium Workspace</p>
                                     </div>
                                 </Col>
                             </Row>

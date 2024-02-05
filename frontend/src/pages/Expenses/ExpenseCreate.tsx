@@ -117,7 +117,7 @@ const ExpenseCreate = () => {
   };
 
   document.title =
-    "Create Expense | Velzon - React Admin & Dashboard Template";
+    "Create Expense | Rio Brazil Salon - React Workspace";
 
   const validation: any = useFormik({
     enableReinitialize: true,

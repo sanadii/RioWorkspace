@@ -1,25 +1,19 @@
-# Import necessary models and libraries
+# management/commands/populate_resources.py
 from django.core.management.base import BaseCommand
-from faker import Faker
-from workspace.models.staff import Staff
+from workspace.models.resources import Resource
 
 class Command(BaseCommand):
-    help = 'Create sample staff'
+    help = 'Create sample resources'
 
     def handle(self, *args, **options):
-        fake = Faker()  # Create a Faker instance
+        # List of resource names
+        resource_names = ["Spa Room", "Makeup Room"]
 
-        # Create a Staff instance with random data
-        staff = Staff.objects.create(
-            name=fake.name(),  # Generate a random staff name
-            position=fake.job(),  # Generate a random staff position
-            salary=fake.random_int(min=30000, max=80000),  # Generate a random salary
-            telephone=fake.phone_number(),  # Generate a random phone number
-            email=fake.email(),  # Generate a random email address
-            address=fake.address(),  # Generate a random address
-            city=fake.city(),  # Generate a random city
-        )
+        for name in resource_names:
+            # Create a resource instance for each name
+            resource, created = Resource.objects.get_or_create(name=name)
 
-        # You can continue to populate other fields with random data as needed
-
-        self.stdout.write(self.style.SUCCESS('Successfully created staff with random data'))
+            if created:
+                self.stdout.write(self.style.SUCCESS(f'Successfully created resource: {name}'))
+            else:
+                self.stdout.write(self.style.WARNING(f'Resource already exists: {name}'))

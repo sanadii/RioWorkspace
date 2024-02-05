@@ -9,7 +9,7 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
 const CoverPasswReset = () => {
-    document.title = "Reset Password | Velzon - React Admin & Dashboard Template";
+    document.title = "Reset Password | Rio Brazil Salon - React Workspace";
 
     const validation = useFormik({
         enableReinitialize: true,
@@ -90,7 +90,7 @@ const CoverPasswReset = () => {
                         <Row>
                             <Col lg={12}>
                                 <div className="text-center">
-                                    <p className="mb-0">&copy; {new Date().getFullYear()} Velzon. Crafted with <i className="mdi mdi-heart text-danger"></i> by Themesbrand</p>
+                                    <p className="mb-0">&copy; {new Date().getFullYear()} Rio Brazil Salon. Crafted with <i className="mdi mdi-heart text-danger"></i> by Themesbrand</p>
                                 </div>
                             </Col>
                         </Row>

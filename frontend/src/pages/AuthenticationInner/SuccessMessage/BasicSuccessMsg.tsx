@@ -7,7 +7,7 @@ import ParticlesAuth from "../ParticlesAuth";
 import logoLight from "../../../assets/images/logo-light.png";
 
 const BasicSuccessMsg = () => {
-document.title ="Success Message | Velzon - React Admin & Dashboard Template";
+document.title ="Success Message | Rio Brazil Salon - React Workspace";
     return (
         <React.Fragment>
             <div className="auth-page-wrapper">
@@ -22,7 +22,7 @@ document.title ="Success Message | Velzon - React Admin & Dashboard Template";
                                                 <img src={logoLight} alt="" height="20" />
                                             </Link>
                                         </div>
-                                        <p className="mt-3 fs-15 fw-medium">Premium Admin & Dashboard Template</p>
+                                        <p className="mt-3 fs-15 fw-medium">Premium Workspace</p>
                                     </div>
                                 </Col>
                             </Row>

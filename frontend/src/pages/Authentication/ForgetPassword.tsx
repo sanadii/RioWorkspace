@@ -53,7 +53,7 @@ const ForgetPasswordPage = (props : any) => {
     forgetError, forgetSuccessMsg
   } = useSelector(selectLayoutProperties);
 
-document.title ="Reset Password | Velzon - React Admin & Dashboard Template";
+document.title ="Reset Password | Rio Brazil Salon - React Workspace";
   return (
     <ParticlesAuth>
       <div className="auth-page-content">
@@ -67,7 +67,7 @@ document.title ="Reset Password | Velzon - React Admin & Dashboard Template";
                     <img src={logoLight} alt="" height="20" />
                   </Link>
                 </div>
-                <p className="mt-3 fs-15 fw-semibold">Premium Admin & Dashboard Template</p>
+                <p className="mt-3 fs-15 fw-semibold">Premium Workspace</p>
               </div>
             </Col>
           </Row>

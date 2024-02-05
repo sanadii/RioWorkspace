@@ -1,7 +1,11 @@
 // Components/Hooks/index.js
 
+// Data
+export { useScheduleData } from "./useScheduleData";
 // Templates
-export { getQuickInfoTemplates  } from "./getQuickInfoTemplates";
+export { SchedulerEditorTemplate } from "./SchedulerEditorTemplate";
+export { getQuickInfoTemplates } from "./getQuickInfoTemplates";
+export { eventTemplate } from "./eventTemplate";
 
 // Common
 export { DateHeaderTemplate } from "./DateHeaderTemplate";

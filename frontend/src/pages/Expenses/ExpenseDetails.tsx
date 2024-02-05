@@ -12,7 +12,7 @@ const ExpenseDetails = () => {
     window.print();
   };
 
-  document.title = "Expense Details | Velzon - React Admin & Dashboard Template";
+  document.title = "Expense Details | Rio Brazil Salon - React Workspace";
 
   return (
     <div className="page-content">
