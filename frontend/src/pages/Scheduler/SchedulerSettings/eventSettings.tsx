@@ -7,28 +7,29 @@ export const nameValidation = (clients, args) => {
   return clients.some((client) => client.name === args.value);
 };
 
-const getEventSettings = (transformedAppointments, clients, calendarSettings) => {
+const getEventSettings = (appointments, clients, calendarSettings) => {
+  
   return {
-    dataSource: transformedAppointments,
+    
+    dataSource: appointments,
     query: new Query(),
     fields: {
-      subject: {
-        name: "client",
-        validation: {
-          required: [true, "Enter valid Client Name"],
-          // range: [nameValidation, "Entered Client name is not present, please add new Client or select from list"],
-        },
-      },
-      title: { title: "Mobile", validation: { required: true } },
-      startTime: { title: "From", validation: { required: true } },
-      endTime: { title: "To", validation: { required: true } },
-      description: {
-        name: "notes",
-        title: "Notes",
-      },
+      // subject: { name: "clientName", title: "Client Name"}
+      // subject: {
+      //   name: "clientName",
+      //   validation: {
+      //     required: [true, "Enter valid Client Name"],
+      //     // range: [nameValidation, "Entered Client name is not present, please add new Client or select from list"],
+      //   },
+      // },
+      // title: { title: "mobile", validation: { required: true } },
+      // startTime: { title: "from", validation: { required: true } },
+      // endTime: { title: "to", validation: { required: true } },
+      // description: { name: "notes", title: "Notes" },
     },
     resourceColorField: calendarSettings.bookingColor,
   };
+
 };
 
-export default getEventSettings;
+export { getEventSettings };

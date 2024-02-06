@@ -2,8 +2,10 @@
 
 // Data
 export { useScheduleData } from "./useScheduleData";
+export { getEventSettings } from "./eventSettings";
+
 // Templates
-export { SchedulerEditorTemplate } from "./SchedulerEditorTemplate";
+export { EditorTemplate } from "./EditorTemplate";
 export { getQuickInfoTemplates } from "./getQuickInfoTemplates";
 export { eventTemplate } from "./eventTemplate";
 

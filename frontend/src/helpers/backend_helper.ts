@@ -87,6 +87,7 @@ export const deleteAppointment = (appointment : any) => api.delete(url.DELETE_AP
 
 // Clients
 export const getClients = () => api.get(url.GET_CLIENTS);
+// export const getClient = () => api.get(url.GET_CLIENT);
 export const addClient = (client : any) => api.create(url.ADD_CLIENT, client);
 export const updateClient = (client : any) => api.update(url.UPDATE_CLIENT + '/' + client.id, client); //+ '/' + Client._id
 export const deleteClient = (client : any) => api.delete(url.DELETE_CLIENT + '/' + client); //+ '/' + Client 

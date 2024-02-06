@@ -5,13 +5,14 @@ import { appointmentsSelector, clientsSelector, servicesSelector, staffSelector 
 
 const DataSource = () => {
   const dispatch = useDispatch();
-  const appointmentsData = useSelector(appointmentsSelector);
-  const clientsData = useSelector(clientsSelector);
-  const servicesData = useSelector(servicesSelector);
-  const staffData = useSelector(staffSelector);
+  const { appointments } = useSelector(appointmentsSelector);
+  const { clients } = useSelector(clientsSelector);
+  const { services } = useSelector(servicesSelector);
+  const { staff } = useSelector(staffSelector);
 
   const [dataSource, setDataSource] = useState({
     appointmentData: [],
+    // appServiceData: [],
     clientData: [],
     serviceData: [],
     staffData: [],
@@ -19,7 +20,7 @@ const DataSource = () => {
 
   useEffect(() => {
     // Fetch data if not already loaded
-    if (!appointmentsData || !clientsData || !servicesData || !staffData) {
+    if (!appointments.length || !clients.length || !services.length || !staff.length) {
       dispatch(getAppointments());
       dispatch(getAllStaff());
       dispatch(getServices());
@@ -27,13 +28,13 @@ const DataSource = () => {
     } else {
       // Set the data in state
       setDataSource({
-        appointmentData: appointmentsData.appointments || [],
-        clientData: clientsData.clients || [],
-        serviceData: servicesData.services || [],
-        staffData: staffData.allStaff || [],
+        appointmentData: appointments,
+        clientData: clients,
+        serviceData: services,
+        staffData: staff,
       });
     }
-  }, [dispatch, appointmentsData, clientsData, servicesData, staffData]);
+  }, [dispatch, appointments, clients, services, staff]);
 
   return dataSource;
 };

@@ -10,6 +10,8 @@ interface Appointment {
   startTime: string;
   endTime: string;
   categoryColor: string;
+  services: string;
+  mobile: string;
 }
 
 const useScheduleData = () => {
@@ -19,7 +21,7 @@ const useScheduleData = () => {
   const { services } = useSelector(servicesSelector);
   const { staff } = useSelector(staffSelector);
 
-  const [transformedAppointments, setTransformedAppointments] = useState([]);
+  const [appointments, setappointments] = useState([]);
 
   useEffect(() => {
     if (!appointmentData || appointmentData.length === 0) {
@@ -30,17 +32,20 @@ const useScheduleData = () => {
     } else {
       const transformed = appointmentData.map((appointment: Appointment) => ({
         Id: appointment.id,
-        ClientName: appointment.clientName,
+        Subject: appointment.clientName,
+        clientName: appointment.clientName,
+        services: appointment.services,
         StartTime: new Date(appointment.startTime),
         EndTime: new Date(appointment.endTime),
         CategoryColor: appointment.categoryColor,
+        mobile: appointment.mobile,
       }));
-      setTransformedAppointments(transformed);
+      setappointments(transformed);
     }
   }, [dispatch, appointmentData]);
 
   const scheduleData = {
-    appointments: transformedAppointments,
+    appointments: appointments,
     clients,
     services,
     staff,

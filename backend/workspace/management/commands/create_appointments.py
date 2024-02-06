@@ -16,10 +16,11 @@ class Command(BaseCommand):
 
         # Create sample appointment services
         for i in range(10):
+            service = Service.objects.order_by('?').first()
             appointment_service = AppointmentService.objects.create(
-                name=f'Appointment Service {i}',
-                price=random.randint(50, 200),
-                staff_member=Staff.objects.order_by('?').first()
+                service=service,
+                price=service.price,  # Assuming the price is directly taken from the service
+                staff=Staff.objects.order_by('?').first()
             )
 
         # Create sample appointments
@@ -36,11 +37,12 @@ class Command(BaseCommand):
                 start_time=start_time,
                 end_time=end_time,
                 category_color=f'#{"%06x" % random.randint(0, 0xFFFFFF)}',
-                staff_member=Staff.objects.order_by('?').first()
+                staff=Staff.objects.order_by('?').first()
             )
 
             # Add random services to the appointment
             services = AppointmentService.objects.order_by('?')[:random.randint(1, 3)]
-            appointment.services.set(services)
+            for service in services:
+                appointment.services.add(service)
 
         self.stdout.write(self.style.SUCCESS('Successfully populated the database with sample data'))

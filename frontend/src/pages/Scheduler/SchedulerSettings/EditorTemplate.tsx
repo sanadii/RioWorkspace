@@ -16,12 +16,14 @@ interface SchedulerEditorTemplateProps {
   price?: number;
 }
 
-export const SchedulerEditorTemplate = (props: SchedulerEditorTemplateProps) => {
+export const EditorTemplate = (props: SchedulerEditorTemplateProps) => {
   const { appointments, clients, services, staff } = useScheduleData();
 
   // Client
   const [selectedClient, setSelectedClient] = useState(null);
-
+  console.log("selectedClient: ", selectedClient);
+  console.log("SchedulerEditorTemplateProps: ", props);
+  
   // Service
   const [selectedService, setSelectedService] = useState(null);
   const [serviceDuration, setServiceDuration] = useState(null);
@@ -35,16 +37,7 @@ export const SchedulerEditorTemplate = (props: SchedulerEditorTemplateProps) => 
     return `${hours.toString().padStart(2, "0")}:${mins.toString().padStart(2, "0")}`;
   };
 
-  useEffect(() => {
-    const initialClient = clients.find((client) => client.id === props.clientId);
-    setSelectedClient(initialClient || null);
-  }, [props.clientId, clients]);
-
-  useEffect(() => {
-    setSelectedClient(props.clientId || "");
-  }, [props.clientId]);
-
-  const onClientChange = (e) => {
+   const handleClienteChange = (e) => {
     const clientObj = clients.find((client) => client.id === e.value);
     setSelectedClient(clientObj || null);
   };
@@ -73,6 +66,7 @@ export const SchedulerEditorTemplate = (props: SchedulerEditorTemplateProps) => 
             value={props.StartTime || new Date()}
             format="dd/MM/yyyy HH:mm"
             placeholder="Appointment Date"
+            className="e-field e-input"
           />
         </Col>
       </Row>
@@ -85,9 +79,10 @@ export const SchedulerEditorTemplate = (props: SchedulerEditorTemplateProps) => 
               dataSource={clients}
               fields={{ text: "name", value: "id" }}
               value={selectedClient}
-              change={onClientChange}
+              change={handleClienteChange}
               placeholder="Select Client"
               allowFiltering={true}
+              className="e-field e-input"
             />
           </div>
         </Col>

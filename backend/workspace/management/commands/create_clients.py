@@ -1,9 +1,9 @@
 from django.core.management.base import BaseCommand
 from faker import Faker
 import random
+from datetime import datetime
 
 from workspace.models.staff import Staff
-from workspace.models.services import Service
 from workspace.models.clients import Client
 
 class Command(BaseCommand):
@@ -28,11 +28,13 @@ class Command(BaseCommand):
         # Create sample clients
         for i in range(50):
             Client.objects.create(
-                name=fake.name(),
-                contact_number=fake.phone_number(),
+                first_name=fake.first_name(),
+                last_name=fake.last_name(),
+                mobile=fake.phone_number(),
                 email=fake.email(),
-                address=fake.address(),
-                # Add other fields as necessary
+                occupation=fake.job(),
+                customer_type=random.choice(['Regular', 'VIP', 'New']),
+                date_of_birth=fake.date_of_birth(minimum_age=18, maximum_age=70)
             )
 
         self.stdout.write(self.style.SUCCESS('Successfully populated the database with sample data'))
