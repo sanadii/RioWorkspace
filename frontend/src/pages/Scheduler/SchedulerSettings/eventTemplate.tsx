@@ -57,7 +57,6 @@ const getTimeString = (value: Date) => {
 };
 
 export const eventTemplate = (props) => {
-  console.log("props:", props);
   return (
     <div className="template-wrap" style={{ background: props.SecondaryColor }}>
       <div className="subject" style={{ background: props.PrimaryColor }}>

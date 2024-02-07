@@ -29,6 +29,11 @@ import ServiceList from "../pages/Services/ServiceList";
 import ServiceCreate from "../pages/Services/ServiceCreate";
 import ServiceDetails from "../pages/Services/ServiceDetails";
 
+// Resources
+// import ResourceList from "../pages/Resources/ResourceList";
+// import ResourceCreate from "../pages/Resources/ResourceCreate";
+// import ResourceDetails from "../pages/Resources/ResourceDetails";
+
 //AuthenticationInner pages
 import BasicSignIn from "../pages/AuthenticationInner/Login/BasicSignIn";
 import CoverSignIn from "../pages/AuthenticationInner/Login/CoverSignIn";
@@ -92,6 +97,10 @@ const authProtectedRoutes = [
   { path: "/services", component: <ServiceList /> },
   { path: "/service-details", component: <ServiceDetails /> },
   { path: "/service-create", component: <ServiceCreate /> },
+
+  // { path: "/resources", component: <ResourceList /> },
+  // { path: "/resource-details", component: <ResourceDetails /> },
+  // { path: "/resource-create", component: <ResourceCreate /> },
 
   // this route should be at the end of all other routes
   // eslint-disable-next-line react/display-name

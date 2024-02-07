@@ -23,9 +23,10 @@ import ClientSaga from "./clients/saga";
 
 // Services
 import ServiceSaga from "./services/saga";
+import ResourceSaga from "./resources/saga";
 
 // Staff
-import Staffaga from "./staff/saga";
+import StaffSaga from "./staff/saga";
 
 export default function* rootSaga() {
   yield all([
@@ -50,9 +51,10 @@ export default function* rootSaga() {
 
     // Services
     fork(ServiceSaga),
+    fork(ResourceSaga),
 
     // Staff
-    fork(Staffaga),
+    fork(StaffSaga),
 
 
   ]);

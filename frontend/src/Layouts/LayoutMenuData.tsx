@@ -24,6 +24,7 @@ const Navdata = () => {
 
   // Services
   const [isServices, setIsServices] = useState(false);
+  const [isResources, setIsResources] = useState(false);
 
   function updateIconSidebar(e: any) {
     if (e && e.target && e.target.getAttribute("sub-items")) {
@@ -74,7 +75,9 @@ const Navdata = () => {
     if (iscurrentState !== "Services") {
       setIsServices(false);
     }
-
+    if (iscurrentState !== "Resources") {
+      setIsResources(false);
+    }
     if (iscurrentState !== "Apps") {
       setIsApps(false);
     }
@@ -163,7 +166,19 @@ const Navdata = () => {
         updateIconSidebar(e);
       },
     },
-
+    {
+      id: "resources",
+      label: "Resources",
+      icon: "ri-dashboard-2-line",
+      link: "/resources",
+      stateVariables: isResources,
+      click: function (e: any) {
+        e.preventDefault();
+        setIsResources(!isResources);
+        setIscurrentState("Resources");
+        updateIconSidebar(e);
+      },
+    },
     // Clients
     {
       label: "Clients",

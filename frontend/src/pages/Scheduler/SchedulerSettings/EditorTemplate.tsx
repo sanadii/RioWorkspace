@@ -1,11 +1,12 @@
 import React, { useEffect, useState, useRef } from "react";
-import { DropDownListComponent } from "@syncfusion/ej2-react-dropdowns";
+import { DropDownListComponent, ComboBoxComponent } from "@syncfusion/ej2-react-dropdowns";
 import { DateTimePickerComponent } from "@syncfusion/ej2-react-calendars";
 import { NumericTextBoxComponent, TextBoxComponent } from "@syncfusion/ej2-react-inputs";
 import { useScheduleData } from "./useScheduleData";
-import { ComboBoxComponent } from "@syncfusion/ej2-react-dropdowns";
+import { ButtonComponent } from "@syncfusion/ej2-react-buttons";
 
 import { Row, Col, Table } from "reactstrap";
+
 interface SchedulerEditorTemplateProps {
   EventType?: string;
   StartTime?: Date;
@@ -16,19 +17,21 @@ interface SchedulerEditorTemplateProps {
   price?: number;
 }
 
-export const EditorTemplate = (props: SchedulerEditorTemplateProps) => {
+export const EditorTemplate = (data: Record<string, any>): React.JSX.Element => {
   const { appointments, clients, services, staff } = useScheduleData();
 
   // Client
   const [selectedClient, setSelectedClient] = useState(null);
-  console.log("selectedClient: ", selectedClient);
-  console.log("SchedulerEditorTemplateProps: ", props);
-  
+
   // Service
   const [selectedService, setSelectedService] = useState(null);
   const [serviceDuration, setServiceDuration] = useState(null);
   const [servicePrice, setServicePrice] = useState(null);
   const [serviceResources, setServiceResources] = useState([]);
+
+  // Array of service objects
+  const [serviceList, setServiceList] = useState([{ id: 1, service: "", staff: "", price: 0, duration: "" }]);
+
 
   // Formats
   const formatDuration = (minutes) => {
@@ -37,33 +40,61 @@ export const EditorTemplate = (props: SchedulerEditorTemplateProps) => {
     return `${hours.toString().padStart(2, "0")}:${mins.toString().padStart(2, "0")}`;
   };
 
-   const handleClienteChange = (e) => {
-    const clientObj = clients.find((client) => client.id === e.value);
-    setSelectedClient(clientObj || null);
-  };
+  const handleClienteChange = (clientObj) => {
+    if (clientObj && clientObj.itemData && clientObj.itemData.id) {
+      const clientId = clientObj.itemData.id;
+      setSelectedClient(clientId);
 
-  const handleServiceChange = (e) => {
-    const serviceObj = services.find((service) => service.id === e.value);
-    if (serviceObj) {
-      setSelectedService(serviceObj);
-      setServiceDuration(formatDuration(serviceObj.duration)); // Format the duration
-      setServicePrice(serviceObj.price);
-      setServiceResources(serviceObj.resources || []);
+      // Update a local variable with the clientId
+      const updatedProps = { ...data, clientName: clientId };
     }
   };
 
-  const handleStaffChange = (e) => {
-    // Handle staff change
-    console.log("Staff selected:", e.itemData);
+  const handleServiceChange = (serviceObj, serviceIndex) => {
+    const updatedServiceList = [...serviceList];
+    updatedServiceList[serviceIndex] = {
+      ...updatedServiceList[serviceIndex],
+      service: serviceObj.itemData.id,
+    };
+    setServiceList(updatedServiceList);
+
+    setServiceDuration(formatDuration(serviceObj.itemData.duration)); // Format the duration
+    setServicePrice(serviceObj.itemData.price);
+    setServiceResources(serviceObj.itemData.resources || []);
+  };
+
+  const handleStaffChange = (e, serviceIndex) => {
+    const updatedServiceList = [...serviceList];
+    updatedServiceList[serviceIndex] = {
+      ...updatedServiceList[serviceIndex],
+      staff: e.itemData.name,
+    };
+    setServiceList(updatedServiceList);
+
+  };
+
+  const allServicesString = serviceList
+    .map((serviceItem) => {
+      return `Service: ${serviceItem.service}, Staff: ${serviceItem.staff}, Price: ${serviceItem.price}, Duration: ${serviceItem.duration}`;
+    })
+    .join("\n");
+
+  const addServiceTable = () => {
+    const newServiceList = [
+      ...serviceList,
+      { id: serviceList.length + 1, service: "", staff: "", price: 0, duration: "" },
+    ];
+    setServiceList(newServiceList);
   };
 
   return (
     <div className="custom-editor p-3">
-      <Row className="pb-3">
+      <p>EditorTemplate</p>
+      {/* <Row className="pb-3">
         <Col lg={12}>
           <DateTimePickerComponent
             id="appointmentDate"
-            value={props.StartTime || new Date()}
+            value={data.StartTime || new Date()}
             format="dd/MM/yyyy HH:mm"
             placeholder="Appointment Date"
             className="e-field e-input"
@@ -72,23 +103,22 @@ export const EditorTemplate = (props: SchedulerEditorTemplateProps) => {
       </Row>
       <h4>Client</h4>
       <Row className="pb-3">
-        <Col lg={6}>
+        {/* <Col lg={6}>
           <div className="editor-section">
             <ComboBoxComponent
-              id="ClientName"
+              id="clientId"
               dataSource={clients}
               fields={{ text: "name", value: "id" }}
-              value={selectedClient}
+              placeholder="Client Name"
               change={handleClienteChange}
-              placeholder="Select Client"
               allowFiltering={true}
-              className="e-field e-input"
             />
           </div>
-        </Col>
+        </Col> 
         <Col lg={6}>
           <TextBoxComponent
             id="clientMobile"
+            className="e-field e-input"
             placeholder="Client Mobile *"
             type="text"
             value={selectedClient ? selectedClient.mobile : ""}
@@ -97,64 +127,67 @@ export const EditorTemplate = (props: SchedulerEditorTemplateProps) => {
         <hr />
       </Row>
       <h4>Services</h4>
-      <Row className="pb-3">
-        <Table>
-          <tr>
-            <td>
-              <ComboBoxComponent
-                id="serviceDropdown"
-                dataSource={services}
-                fields={{ text: "name", value: "id" }}
-                change={handleServiceChange}
-                placeholder="Select a Service"
-                allowFiltering={true}
-              />
-            </td>
-            <td>
-              <ComboBoxComponent
-                id="staffDropdown"
-                dataSource={services}
-                fields={{ text: "name", value: "id" }}
-                change={handleStaffChange}
-                placeholder="Select a Staff"
-                allowFiltering={true}
-              />
-            </td>
-            <td>
-              <DropDownListComponent
-                id="resourceDropdown"
-                dataSource={serviceResources}
-                fields={{ text: "name", value: "id" }}
-                placeholder="Select Resource"
-                allowFiltering={true}
-              />
-            </td>
-            <td>Start</td>
-            <td>
-              <TextBoxComponent
-                id="serviceDuration"
-                value={serviceDuration || "00:00"}
-                placeholder="Duration"
-                readonly={true}
-              />
-            </td>
-            <td>
-              <NumericTextBoxComponent
-                id="price"
-                format="c2"
-                value={servicePrice || 0}
-                placeholder="Price"
-                readonly={true}
-              />
-            </td>
-            <td>
-              <td>×</td>
-            </td>
-          </tr>
-        </Table>
-      </Row>
+      {serviceList.map((serviceItem, serviceIndex) => (
+        <div key={serviceItem.id} className="pb-3 services">
+          <Table>
+            <tr>
+              <td>
+                <DropDownListComponent
+                  id={`servic-${serviceItem.id}`}
+                  className="e-field e-input"
+                  dataSource={services}
+                  fields={{ text: "name", value: "id" }}
+                  change={(e) => handleServiceChange(e, serviceIndex)}
+                  placeholder="Select a Service"
+                  allowFiltering={true}
+                />
+              </td>
+              <td>
+                <DropDownListComponent
+                  id={`servicStaff-${serviceItem.id}`}
+                  className="e-field e-input"
+                  dataSource={staff}
+                  fields={{ text: "name", value: "id" }}
+                  change={(e) => handleStaffChange(e, serviceIndex)}
+                  placeholder="Select a Staff"
+                  allowFiltering={true}
+                />
+              </td>
+              <td>Start</td>
+              <td>
+                <TextBoxComponent
+                  id={`serviceDuration-${serviceItem.id}`}
+                  className="e-field e-input"
+                  value={serviceDuration || "00:00"}
+                  placeholder="Duration"
+                  readonly={true}
+                />
+              </td>
+              <td>
+                <TextBoxComponent
+                  id={`price-${serviceItem.id}`}
+                  className="e-field e-input"
+                  value={servicePrice || 0}
+                  placeholder="Price"
+                  readonly={true}
+                />
+              </td>
+              <td></td>
+            </tr>
+          </Table>
+        </div>
+      ))}
 
-      {/* ... other fields ... */}
+      <ButtonComponent onClick={addServiceTable}>Add More Service</ButtonComponent>
+      <td>
+        <TextBoxComponent
+          id="allServices"
+          className="e-field e-input"
+          value={allServicesString}
+          placeholder="All Services"
+          readonly={true}
+        />
+      </td> */}
     </div>
   );
 };

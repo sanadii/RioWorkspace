@@ -64,6 +64,12 @@ export const ADD_SERVICE = "/services/addService";
 export const UPDATE_SERVICE = "/services/updateService";
 export const DELETE_SERVICE = "/services/deleteService";
 
+// Resources
+export const GET_RESOURCES = "/resources/getResources";
+export const ADD_RESOURCE = "/resources/addResource";
+export const UPDATE_RESOURCE = "/resources/updateResource";
+export const DELETE_RESOURCE = "/resources/deleteResource";
+
 
 // AllStaff
 export const GET_ALL_STAFF = "/staff/getAllStaff";

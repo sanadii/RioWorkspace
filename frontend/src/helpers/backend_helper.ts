@@ -99,6 +99,13 @@ export const addService = (service : any) => api.create(url.ADD_SERVICE, service
 export const updateService = (service : any) => api.update(url.UPDATE_SERVICE + '/' + service.id, service); //+ '/' + Service._id
 export const deleteService = (service : any) => api.delete(url.DELETE_SERVICE + '/' + service); //+ '/' + Service 
 
+// Resources
+export const getResources = () => api.get(url.GET_RESOURCES);
+export const addResource = (resource : any) => api.create(url.ADD_RESOURCE, resource);
+export const updateResource = (resource : any) => api.update(url.UPDATE_RESOURCE + '/' + resource.id, resource); //+ '/' + Resource._id
+export const deleteResource = (resource : any) => api.delete(url.DELETE_RESOURCE + '/' + resource); //+ '/' + Resource 
+
+
 // AllStaff
 export const getAllStaff = () => api.get(url.GET_ALL_STAFF);
 export const addStaff = (staff : any) => api.create(url.ADD_STAFF, staff);

@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef, useCallback } from "react";
 import { BreadCrumb } from "Components/Common";
 import "./SchedulerSettings/scheduler.css";
+import ReactDOM from "react-dom";
 
 // Redux and selectors
 import { addAppointment } from "store/actions";
@@ -59,6 +60,8 @@ import { Button, ButtonComponent } from "@syncfusion/ej2-react-buttons";
 // React Scheduler
 import { calendarSettings, onDragStart, onResizeStart } from "./SchedulerSettings/SchedulerSettings";
 import {
+  ClientFieldElement,
+  ServiceFieldElement,
   getEventSettings,
   EditorTemplate,
   DateHeaderTemplate,
@@ -90,22 +93,13 @@ const Scheduler = () => {
 
   const quickInfoTemplates = getQuickInfoTemplates(clients, services, staff);
 
-  const comboBox = useRef<ComboBox>(null);
-  const clientValue = useRef(null);
-  const addEditClientObj = useRef(null);
-
   // New Features
   const specialistObj = useRef<DialogComponent>(null);
   const scheduleObj = useRef<ScheduleComponent | null>(null);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const currentDate = useRef(selectedDate);
 
-  const buttonObj = useRef<any>(null); // Using 'any' to bypass type checking
-
-
-  const serviceValue = useRef(null);
   const addEditServiceObj = useRef(null);
-
 
   // Now you can use calendarSettings in your component
   const onNavigation = (args: NavigatingEventArgs): void => {
@@ -123,8 +117,93 @@ const Scheduler = () => {
     // }
   };
 
-  const onAddClient = (): void => {
-    addEditClientObj.current.onAddClient();
+  // Working - Commented
+  const clientValue = useRef(null);
+  const serviceValue = useRef([]);
+
+  const onPopupOpen = (args: PopupOpenEventArgs): void => {
+    if (args.type === "Editor") {
+      // additional field customization
+      if (!args.element.querySelector(".custom-field-row")) {
+        const row: HTMLElement = createElement("div", { className: "custom-field-row" });
+        const formElement: HTMLElement = args.element.querySelector(".e-schedule-form");
+        if (formElement) {
+          // Check if formElement exists
+          const firstChild: Element | null = formElement.firstElementChild;
+          if (firstChild) {
+            // Check if firstChild exists
+            firstChild.insertBefore(row, args.element.querySelector(".e-title-location-row"));
+
+            // Render Client Component
+            const clientContainer: HTMLElement = createElement("div", { className: "custom-field-container" });
+            ReactDOM.render(<ClientFieldElement clients={clients} clientValue={clientValue} />, clientContainer);
+            row.appendChild(clientContainer);
+
+            // Render Service Component
+            const serviceContainer: HTMLElement = createElement("div", { className: "custom-field-container" });
+            ReactDOM.render(
+              <ServiceFieldElement
+                services={services}
+                staff={staff}
+                serviceValue={serviceValue}
+                // serviceList={serviceList}
+                // setServiceList={setServiceList}
+              />,
+              serviceContainer
+            );
+            row.appendChild(serviceContainer);
+          }
+        }
+      }
+    }
+  };
+
+  // const onPopupOpen = (args: PopupOpenEventArgs): void => {
+  //   if (args.type === "Editor") {
+  //     // additional field customization
+  //     if (!args.element.querySelector(".custom-field-row")) {
+  //       const row: HTMLElement = createElement("div", { className: "custom-field-row" });
+  //       const formElement: HTMLElement = args.element.querySelector(".e-schedule-form");
+  //       formElement.firstChild.insertBefore(row, args.element.querySelector(".e-title-location-row"));
+  //       const container: HTMLElement = createElement("div", { className: "custom-field-container" });
+  //       // const serviceContainer: HTMLElement = createElement("div", { className: "custom-field-container" });
+
+  //       // Render the custom React component within the container
+  //       ReactDOM.render(<ClientFieldElement clients={clients} clientValue={clientValue} />, container);
+  //       // ReactDOM.render(<ServiceFieldElement services={services} serviceValue={serviceValue} />, serviceContainer);
+
+  //       row.appendChild(container);
+  //       // row.appendChild(serviceContainer);
+  //     }
+  //   }
+  // };
+
+  const onActionBegin = (args: ActionEventArgs): void => {
+    if (args.requestType === "eventCreate" || args.requestType === "eventChange") {
+      const data: Record<string, any> =
+        args.requestType === "eventCreate"
+          ? (args.data as Record<string, any>[])[0]
+          : (args.changedRecords as Record<string, any>[])[0];
+      if (clientValue.current) {
+        data["clientName"] = clientValue.current;
+      }
+
+      if (serviceValue.current) {
+        data["serviceName"] = serviceValue.current;
+      }
+      let eventCollection: Record<string, any>[] = scheduleObj.current.eventBase.filterEvents(
+        data["StartTime"] as Date,
+        data["EndTime"] as Date
+      );
+      const predicate: Predicate = new Predicate("Id", "notequal", data["Id"] as number)
+        .and(new Predicate("DepartmentId", "equal", data["DepartmentId"] as number))
+        .and(new Predicate("DoctorId", "equal", data["DoctorId"] as number))
+        .and(new Predicate("Id", "notequal", data["RecurrenceID"] as number));
+      eventCollection = new DataManager({ json: eventCollection }).executeLocal(new Query().where(predicate));
+      if (eventCollection.length > 0) {
+        args.cancel = true;
+      }
+    }
   };
 
   const onActionComplete = (args: ActionEventArgs): void => {
@@ -176,91 +255,9 @@ const Scheduler = () => {
       args.element.style.borderLeft = "3px solid #7cca7c";
     }
   };
-  console.log("Selected Service:", selectedService);
 
   const onAddService = (): void => {
-    console.log("Selected Service:", selectedService);
-
     addEditServiceObj.current.onAddService();
-  };
-  const onPopupOpen = (args: PopupOpenEventArgs): void => {
-    if (args.type === "Editor") {
-      // additional field customization
-      if (!args.element.querySelector(".custom-sanad")) {
-        const row: HTMLElement = createElement("div", { className: "custom-sanad" });
-        const formElement: HTMLElement = args.element.querySelector(".e-schedule-form");
-        formElement.firstChild.insertBefore(row, args.element.querySelector(".e-title-location-row"));
-        const container: HTMLElement = createElement("div", { className: "custom-field-container" });
-        const comboBoxElement: HTMLInputElement = createElement("input", {
-          attrs: { id: "id" },
-        }) as HTMLInputElement;
-        container.appendChild(comboBoxElement);
-        row.appendChild(container);
-        comboBox.current = new ComboBox({
-          dataSource: services,
-          allowFiltering: true,
-          fields: { text: "name", value: "id" },
-          floatLabelType: "Always",
-          placeholder: "SERVICE NAME",
-          change: (e: any) => setSelectedService(e.value),
-          select: () => {
-            if (!isNullOrUndefined(document.querySelector(".custom-field-row .field-error"))) {
-              (document.querySelector(".custom-field-row .field-error") as HTMLElement).style.display = "none";
-            }
-          },
-        });
-        comboBox.current.appendTo(comboBoxElement);
-        comboBoxElement.setAttribute("name", "name");
-        const buttonEle: HTMLInputElement = createElement("button", {
-          attrs: { name: "ServiceButton" },
-        }) as HTMLInputElement;
-        buttonEle.onclick = onAddService.bind(this);
-        container.appendChild(buttonEle);
-        const button: Button = new Button({
-          iconCss: "e-icons e-add-icon",
-          cssClass: "e-small e-round",
-          isPrimary: true,
-        });
-        button.appendTo(buttonEle);
-      }
-      comboBox.current.value = args.data["ServiceId"] || null;
-    }
-
-    if (
-      (args.target && !args.target.classList.contains("e-appointment") && args.type === "QuickInfo") ||
-      args.type === "Editor"
-    ) {
-      args.cancel = onEventCheck(args);
-      if (args.cancel) {
-        return;
-      }
-    }
-    const popupType: string[] = ["Editor", "RecurrenceAlert", "DeleteAlert"];
-    if (popupType.includes(args.type)) {
-      const target = ["DeleteAlert", "RecurrenceAlert"].includes(args.type) ? args.element : args.target;
-      if (target?.classList.contains("e-work-cells")) {
-        args.cancel =
-          target.classList.contains("e-read-only-cells") ||
-          !scheduleObj.current?.isSlotAvailable(args.data as Record<string, any>);
-      }
-      const errorTarget: HTMLElement = document.getElementById("EventType_Error") as HTMLElement;
-      if (!isNullOrUndefined(errorTarget)) {
-        errorTarget.style.display = "none";
-        errorTarget.style.left = "351px";
-      }
-      setTimeout(() => {
-        const formElement = args.element.querySelector(".e-schedule-form");
-        if (formElement == null) return;
-        // const validator = (formElement as EJ2Instance).ej2_instances[0];
-        // validator.addRules("clientName", { required: true });
-        // validator.addRules("StartTimezone", { required: true });
-        // validator.addRules("RecurrenceRule", { required: true });
-        // validator.addRules("IsAllDay", { required: true });
-        // validator.addRules("EndTimezone", { required: true });
-        // validator.addRules("EndTime", { required: true });
-        // validator.addRules("Id", { required: true });
-      }, 100);
-    }
   };
 
   const onEventCheck = (args: Record<string, any>): boolean => {
@@ -268,10 +265,6 @@ const Scheduler = () => {
     const today = new Date();
     today.setDate(today.getDate() - 1);
     return eventObj.CheckIn < today;
-  };
-
-  const minValidation = (args: any) => {
-    return args["value"].length >= 10;
   };
 
   return (
@@ -294,7 +287,7 @@ const Scheduler = () => {
           timeScale={calendarSettings.timeScale}
           // // The data to show
           eventSettings={eventSettings}
-          // popupOpen={onPopupOpen}
+          popupOpen={onPopupOpen}
           // popupOpen={(args) => onPopupOpen(args, clients, clientValue, comboBox, onAddClient, scheduleObj)}
           views={["Day", "Week", "Month"]}
           selectedDate={new Date(2024, 2, 2)}
@@ -304,11 +297,13 @@ const Scheduler = () => {
           navigating={onNavigation}
           // Date Header
           quickInfoTemplates={quickInfoTemplates}
-          actionComplete={onActionComplete}
           // Templates
           dateHeaderTemplate={DateHeaderTemplate}
           editorTemplate={EditorTemplate}
           eventRendered={onEventRendered}
+          // Actions
+          actionBegin={onActionBegin}
+          actionComplete={onActionComplete}
 
           // cellTemplate={cellTemplate}
         >

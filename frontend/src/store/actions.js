@@ -20,7 +20,9 @@ export * from "./clients/action";
 
 // Apps - Services
 export * from "./services/action";
+export * from "./resources/action";
 
 
 // Staff
 export * from "./staff/action";
+

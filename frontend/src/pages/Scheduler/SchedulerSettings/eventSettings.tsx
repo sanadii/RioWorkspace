@@ -3,7 +3,6 @@ import { Query } from "@syncfusion/ej2-data";
 
 // Assuming clients is an array of client objects with a 'name' property
 export const nameValidation = (clients, args) => {
-  console.log("clients", clients);
   return clients.some((client) => client.name === args.value);
 };
 
@@ -14,7 +13,8 @@ const getEventSettings = (appointments, clients, calendarSettings) => {
     dataSource: appointments,
     query: new Query(),
     fields: {
-      // subject: { name: "clientName", title: "Client Name"}
+      subject: { name: "clientName", title: "clientName"},
+      title: { name: "serviceName", title: "serviceName"},
       // subject: {
       //   name: "clientName",
       //   validation: {

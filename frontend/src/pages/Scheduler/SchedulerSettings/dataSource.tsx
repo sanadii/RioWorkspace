@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAppointments, getClients, getAllStaff, getServices } from "store/actions";
-import { appointmentsSelector, clientsSelector, servicesSelector, staffSelector } from "Selectors";
+import { getAppointments, getClients, getAllStaff, getServices, getResources } from "store/actions";
+import { appointmentsSelector, clientsSelector, servicesSelector, resourceSelector, staffSelector } from "Selectors";
 
 const DataSource = () => {
   const dispatch = useDispatch();
   const { appointments } = useSelector(appointmentsSelector);
   const { clients } = useSelector(clientsSelector);
   const { services } = useSelector(servicesSelector);
+  const { resources } = useSelector(resourceSelector);
   const { staff } = useSelector(staffSelector);
 
   const [dataSource, setDataSource] = useState({
@@ -16,6 +17,7 @@ const DataSource = () => {
     clientData: [],
     serviceData: [],
     staffData: [],
+    resourceData: [],
   });
 
   useEffect(() => {
@@ -25,16 +27,18 @@ const DataSource = () => {
       dispatch(getAllStaff());
       dispatch(getServices());
       dispatch(getClients());
+      dispatch(getResources());
     } else {
       // Set the data in state
       setDataSource({
         appointmentData: appointments,
         clientData: clients,
         serviceData: services,
+        resourceData: resources,
         staffData: staff,
       });
     }
-  }, [dispatch, appointments, clients, services, staff]);
+  }, [dispatch, appointments, clients, services, resources, staff,]);
 
   return dataSource;
 };

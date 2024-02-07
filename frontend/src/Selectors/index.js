@@ -18,6 +18,7 @@ export { clientsSelector } from './clientsSelector';
 
 // Services
 export { servicesSelector } from './servicesSelector';
+export { resourceSelector } from './resourceSelector';
 
 // Staff
 export { staffSelector } from './staffSelector';

@@ -9,6 +9,11 @@ export { EditorTemplate } from "./EditorTemplate";
 export { getQuickInfoTemplates } from "./getQuickInfoTemplates";
 export { eventTemplate } from "./eventTemplate";
 
+// Field Templates
+export { ClientFieldElement } from "./ClientFieldElement";
+export { ServiceFieldElement } from "./ServiceFieldElement";
+
+
 // Common
 export { DateHeaderTemplate } from "./DateHeaderTemplate";
 

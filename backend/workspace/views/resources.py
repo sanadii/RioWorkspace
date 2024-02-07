@@ -7,35 +7,35 @@ from rest_framework.exceptions import NotFound
 from rest_framework.permissions import AllowAny, IsAuthenticated
 
 # Apps
-from workspace.models.clients import Client
-from workspace.serializers.clients import ClientSerializer
+from workspace.models.resources import Resource
+from workspace.serializers.resources import ResourceSerializer
 
-class GetClients(APIView):
+class GetResources(APIView):
     def get(self, request, format=None):
-        revenues = Client.objects.all()  # Adjust the query as needed
-        serializer = ClientSerializer(revenues, many=True)
+        revenues = Resource.objects.all()  # Adjust the query as needed
+        serializer = ResourceSerializer(revenues, many=True)
         return Response({'data': serializer.data}, status=status.HTTP_200_OK)
 
-class AddClient(CreateAPIView):
-    queryset = Client.objects.all()
-    serializer_class = ClientSerializer
+class AddResource(CreateAPIView):
+    queryset = Resource.objects.all()
+    serializer_class = ResourceSerializer
 
     def create(self, request, *args, **kwargs):
-        """Handle Client creation."""
+        """Handle Resource creation."""
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         self.perform_create(serializer)
         headers = self.get_success_headers(serializer.data)
         return Response({"data": serializer.data, "count": 1, "code": 201}, status=status.HTTP_201_CREATED, headers=headers)
 
-class UpdateClient(UpdateAPIView):
-    queryset = Client.objects.all()
-    serializer_class = ClientSerializer
+class UpdateResource(UpdateAPIView):
+    queryset = Resource.objects.all()
+    serializer_class = ResourceSerializer
     permission_classes = [IsAuthenticated]
     lookup_field = 'id'
 
     def get_object(self):
-        """Retrieve and return the Client object."""
+        """Retrieve and return the Resource object."""
         daily_revenue = super().get_object()
         # Add any specific checks or conditions you need here
         # For example, if you need to validate against a specific condition:
@@ -44,22 +44,22 @@ class UpdateClient(UpdateAPIView):
         return daily_revenue
 
     def update(self, request, *args, **kwargs):
-        """Handle Client update."""
+        """Handle Resource update."""
         partial = kwargs.pop('partial', False)
         serializer = self.get_serializer(instance=self.get_object(), data=request.data, partial=partial)
         serializer.is_valid(raise_exception=True)
         self.perform_update(serializer)
         return Response({"data": serializer.data, "count": 1, "code": 200}, status=status.HTTP_200_OK)
 
-class DeleteClient(DestroyAPIView):
-    queryset = Client.objects.all()
-    serializer_class = ClientSerializer
+class DeleteResource(DestroyAPIView):
+    queryset = Resource.objects.all()
+    serializer_class = ResourceSerializer
     lookup_field = 'id'
 
     def delete(self, request, *args, **kwargs):
         try:
-            # Retrieve and delete the Client instance
+            # Retrieve and delete the Resource instance
             self.get_object().delete()
-            return JsonResponse({"data": "Daily Client deleted successfully", "count": 1, "code": 200})
-        except Client.DoesNotExist:
-            return JsonResponse({"data": "Daily Client not found", "count": 0, "code": 404}, status=404)
+            return JsonResponse({"data": "Daily Resource deleted successfully", "count": 1, "code": 200})
+        except Resource.DoesNotExist:
+            return JsonResponse({"data": "Daily Resource not found", "count": 0, "code": 404}, status=404)

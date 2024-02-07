@@ -24,6 +24,7 @@ import Client from "./clients/reducer";
 
 // Apps - Services
 import Service from "./services/reducer";
+import Resource from "./resources/reducer";
 
 
 // Staff
@@ -52,6 +53,7 @@ const rootReducer = combineReducers({
 
     // Services
     Service,
+    Resource,
 
     // Clients
     Client,
