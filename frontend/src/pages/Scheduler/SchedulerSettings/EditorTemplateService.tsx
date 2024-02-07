@@ -14,7 +14,7 @@ type ServiceItem = {
   duration: string;
 };
 
-const ServiceFieldElement = ({ services, staff, serviceValue }) => {
+const EditorTemplateService = ({ services, staff, serviceValue }) => {
   const [serviceList, setServiceList] = useState<ServiceItem[]>([
     { id: 1, service: null, staff: null, price: 0, duration: "" },
   ]);
@@ -119,10 +119,10 @@ const ServiceFieldElement = ({ services, staff, serviceValue }) => {
   };
 
   return (
-    <div className="custom-field-row p-3">
-      <h4>Services</h4>
-      <div>
-        <Table size="sm">
+    <Row>
+      <h5>Services</h5>
+      <Table className="table-cell-background-grey">
+        <tbody>
           {serviceList.map((serviceItem, serviceIndex) => (
             <tr key={serviceIndex} className="services">
               <td>
@@ -164,7 +164,7 @@ const ServiceFieldElement = ({ services, staff, serviceValue }) => {
                 />
               </td>
               <td>
-                <NumericTextBoxComponent
+                <TextBoxComponent
                   id={`price-${serviceIndex}`}
                   format="c2" // Format as currency with 2 decimal places
                   placeholder="Price"
@@ -173,26 +173,26 @@ const ServiceFieldElement = ({ services, staff, serviceValue }) => {
                 />
               </td>
               <td>
-                <Button to="#" className="link-danger fs-15">
-                  <i className="ri-delete-bin-line"></i>
+                <Button color="danger" className="btn-icon">
+                  <i className="ri-delete-bin-5-line" />{" "}
                 </Button>
               </td>
             </tr>
           ))}
-          <tr className="mt-3">
-            <td></td>
-            <td></td>
-            <td></td>
-            <td>
-              <h5>Time: 15 mins</h5>
-            </td>
-            <td>
-              <h5>Total: {calculateTotalPrice()} KD</h5>
-            </td>
-            <td></td>
-          </tr>
-        </Table>
-      </div>
+        </tbody>
+        <tr className="mt-3">
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>
+            <h5>Time: 15 mins</h5>
+          </td>
+          <td>
+            <h5>Total: {calculateTotalPrice()} KD</h5>
+          </td>
+          <td></td>
+        </tr>
+      </Table>
 
       <Row>
         <Col lg={6}>
@@ -200,8 +200,8 @@ const ServiceFieldElement = ({ services, staff, serviceValue }) => {
         </Col>
         <Col lg={6}></Col>
       </Row>
-    </div>
+    </Row>
   );
 };
 
-export { ServiceFieldElement };
+export { EditorTemplateService };

@@ -72,7 +72,7 @@ $pink: #f672a7;
 $red: #ee6352;
 $orange: #f1963b;
 $yellow: #ffca5b;
-$green: #40bb82;
+$green: #7CCA7C;
 $teal: #02a8b5;
 $cyan: #3fa7d6;
 // scss-docs-end color-variables
@@ -103,6 +103,7 @@ $info: $cyan;
 $warning: $yellow;
 $danger: $red;
 $light: $gray-100;
+$grey: $gray-200;
 $dark: $gray-900;
 
 // The contrast ratio to reach against white, to determine if color changes from "light" to "dark". Acceptable values for WCAG 2.0 are 3, 4.5 and 7.
@@ -345,6 +346,7 @@ $theme-colors: (
   "warning": $warning,
   "danger": $danger,
   "light": $light,
+  "grey": $grey,
   "dark": $dark
 );
 // scss-docs-end theme-colors-map
@@ -357,6 +359,7 @@ $info-text-emphasis: shade-color($info, 15%);
 $warning-text-emphasis: shade-color($warning, 15%);
 $danger-text-emphasis: shade-color($danger, 15%);
 $light-text-emphasis: $gray-400;
+$grey-text-emphasis: $gray-600;
 $dark-text-emphasis: $gray-800;
 // scss-docs-end theme-text-variables
 
@@ -368,6 +371,7 @@ $info-bg-subtle: tint-color($info, 85%);
 $warning-bg-subtle: tint-color($warning, 85%);
 $danger-bg-subtle: tint-color($danger, 85%);
 $light-bg-subtle: mix($gray-100, $white);
+$grey-bg-subtle: mix($gray-200, $white);
 $dark-bg-subtle: $gray-300;
 // scss-docs-end theme-bg-subtle-variables
 
@@ -379,6 +383,7 @@ $info-border-subtle: tint-color($info, 60%);
 $warning-border-subtle: tint-color($warning, 60%);
 $danger-border-subtle: tint-color($danger, 60%);
 $light-border-subtle: $gray-200;
+$grey-border-subtle: $gray-300;
 $dark-border-subtle: $gray-500;
 // scss-docs-end theme-border-subtle-variables
 
@@ -772,6 +777,18 @@ $table-cell-padding-y: .75rem;
 $table-cell-padding-x: .6rem;
 $table-cell-padding-y-sm: .3rem;
 $table-cell-padding-x-sm: .25rem;
+$table-cell-background-grey: $grey; // White background color for table cells
+$table-cell-background-info: $info; // White background color for table cells
+
+
+// Define a class to set the background color for all td elements within a table
+.table-cell-background-grey tbody td {
+  background-color: $table-cell-background-grey;
+}
+
+.table-cell-background-info tbody td {
+  background-color: $table-cell-background-info;
+}
 
 $table-cell-vertical-align: top;
 
@@ -816,6 +833,7 @@ $table-variants: (
   "warning": shift-color($warning, $table-bg-scale),
   "danger": shift-color($danger, $table-bg-scale),
   "light": $light,
+  "grey": $grey,
   "dark": $dark,
 );
 // scss-docs-end table-loop

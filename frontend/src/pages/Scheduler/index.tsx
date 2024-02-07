@@ -60,9 +60,9 @@ import { Button, ButtonComponent } from "@syncfusion/ej2-react-buttons";
 // React Scheduler
 import { calendarSettings, onDragStart, onResizeStart } from "./SchedulerSettings/SchedulerSettings";
 import {
-  ClientFieldElement,
-  ServiceFieldElement,
-  StatusFieldElement,
+  EditorTemplateClient,
+  EditorTemplateService,
+  EditorTemplateStatus,
   getEventSettings,
   EditorTemplate,
   DateHeaderTemplate,
@@ -138,17 +138,17 @@ const Scheduler = () => {
 
             // Render Client Component
             const clientContainer: HTMLElement = createElement("div", { className: "field-element-container" });
-            ReactDOM.render(<ClientFieldElement clients={clients} clientValue={clientValue} />, clientContainer);
+            ReactDOM.render(<EditorTemplateClient clients={clients} clientValue={clientValue} />, clientContainer);
             row.appendChild(clientContainer);
 
             // Render Service Component
             const serviceContainer: HTMLElement = createElement("div", { className: "field-element-container" });
-            ReactDOM.render(<ServiceFieldElement services={services} staff={staff} serviceValue={serviceValue} />, serviceContainer);
+            ReactDOM.render(<EditorTemplateService services={services} staff={staff} serviceValue={serviceValue} />, serviceContainer);
             row.appendChild(serviceContainer);
 
             // Render Appointment Status Component
             const statusContainer: HTMLElement = createElement("div", { className: "field-element-container" });
-            ReactDOM.render(<StatusFieldElement statusValue={statusValue} />, statusContainer);
+            ReactDOM.render(<EditorTemplateStatus statusValue={statusValue} />, statusContainer);
             row.appendChild(statusContainer);
           }
         }

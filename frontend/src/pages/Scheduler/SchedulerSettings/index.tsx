@@ -10,9 +10,9 @@ export { getQuickInfoTemplates } from "./getQuickInfoTemplates";
 export { eventTemplate } from "./eventTemplate";
 
 // Field Templates
-export { ClientFieldElement } from "./ClientFieldElement";
-export { ServiceFieldElement } from "./ServiceFieldElement";
-export { StatusFieldElement } from "./StatusFieldElement";
+export { EditorTemplateClient } from "./EditorTemplateClient";
+export { EditorTemplateService } from "./EditorTemplateService";
+export { EditorTemplateStatus } from "./EditorTemplateStatus";
 
 
 // Common

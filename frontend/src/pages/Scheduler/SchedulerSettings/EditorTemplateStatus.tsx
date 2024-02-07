@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { Button, ButtonGroup, Col, Row } from "reactstrap";
 
-const StatusFieldElement = ({ statusValue }) => {
+const EditorTemplateStatus = ({ statusValue }) => {
   const [selectedStatus, setSelectedStatus] = useState(1);
   const [isListOpen, setIsListOpen] = useState(false);
   const [appointmentConfirmed, setAppointmentConfirmed] = useState(false);
 
-  console.log("appointmentConfirmed:", appointmentConfirmed)
+  console.log("appointmentConfirmed:", appointmentConfirmed);
   const handlePencilledInClick = () => {
     setIsListOpen(false);
     setAppointmentConfirmed(false);
@@ -35,36 +35,34 @@ const StatusFieldElement = ({ statusValue }) => {
   return (
     <Row className="mt-3">
       <Col lg={8} className="d-flex">
-        <ButtonGroup className="me-2">
-          <Button
-            className={appointmentConfirmed ? "btn-soft-secondary" : "btn-secondary mb-0"}
-            id="btncheck1"
-            onClick={handlePencilledInClick}
+        <Button
+          className={appointmentConfirmed ? "btn-soft-secondary" : "btn-secondary mb-0"}
+          id="btncheck1"
+          onClick={handlePencilledInClick}
+        >
+          Pencilled-in
+        </Button>
+        <Button
+          className={!appointmentConfirmed ? "btn-soft-secondary" : "btn-secondary mb-0"}
+          id="btncheck2"
+          onClick={handleConfirmedClick}
+        >
+          Confirmed
+        </Button>
+        {isListOpen && (
+          <select
+            id="appointment-confirmed-status"
+            name="appointmentConfirmationStatus"
+            className="form-select"
+            onChange={(e) => handleOptionSelect(Number(e.target.value))}
           >
-            Pencilled-in
-          </Button>
-          <Button
-            className={!appointmentConfirmed ? "btn-soft-secondary" : "btn-secondary mb-0"}
-            id="btncheck2"
-            onClick={handleConfirmedClick}
-          >
-            Confirmed
-          </Button>
-          {isListOpen && (
-            <select
-              id="Booking_BookingConfirmationStatusId"
-              name="Booking.BookingConfirmationStatusId"
-              className="form-select"
-              onChange={(e) => handleOptionSelect(Number(e.target.value))}
-            >
-              {Object.entries(statusOptions).map(([key, value]) => (
-                <option key={key} value={key}>
-                  {value}
-                </option>
-              ))}
-            </select>
-          )}
-        </ButtonGroup>
+            {Object.entries(statusOptions).map(([key, value]) => (
+              <option key={key} value={key}>
+                {value}
+              </option>
+            ))}
+          </select>
+        )}
       </Col>
       <Col lg={4}>
         <div className="d-flex justify-content-end align-items-center">
@@ -84,4 +82,4 @@ const StatusFieldElement = ({ statusValue }) => {
   );
 };
 
-export { StatusFieldElement };
+export { EditorTemplateStatus };
