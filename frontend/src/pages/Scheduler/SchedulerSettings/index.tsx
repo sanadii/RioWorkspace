@@ -12,6 +12,7 @@ export { eventTemplate } from "./eventTemplate";
 // Field Templates
 export { ClientFieldElement } from "./ClientFieldElement";
 export { ServiceFieldElement } from "./ServiceFieldElement";
+export { StatusFieldElement } from "./StatusFieldElement";
 
 
 // Common

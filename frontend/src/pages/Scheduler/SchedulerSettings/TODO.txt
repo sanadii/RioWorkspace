@@ -1,0 +1,10 @@
+<label>
+<input
+  id="AutoExpirePencilledInBooking"
+  name="AutoExpirePencilledInBooking"
+  type="checkbox"
+  value="true"
+/>
+<input name="AutoExpirePencilledInBooking" type="hidden" value="false" />
+Auto-expire at set time
+</label>

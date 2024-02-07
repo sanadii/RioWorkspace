@@ -1,33 +1,63 @@
-import React, { useEffect, useState, useRef, useCallback } from "react";
+import React, { useEffect, useState } from "react";
 import { DropDownListComponent } from "@syncfusion/ej2-react-dropdowns";
-import { TextBoxComponent } from "@syncfusion/ej2-react-inputs";
-import { Table } from "reactstrap";
+import { NumericTextBoxComponent, TextBoxComponent } from "@syncfusion/ej2-react-inputs";
+import { Link } from "react-router-dom";
 import { ButtonComponent } from "@syncfusion/ej2-react-buttons";
+import { Table, Row, Col, Button, Input, Label, ButtonGroup } from "reactstrap";
+
+// Define the type for a service item
+type ServiceItem = {
+  id: number;
+  service: number;
+  staff: number;
+  price: number;
+  duration: string;
+};
 
 const ServiceFieldElement = ({ services, staff, serviceValue }) => {
-  const [serviceList, setServiceList] = useState([{ id: 1, service: "", staff: "", price: 0, duration: "" }]);
+  const [serviceList, setServiceList] = useState<ServiceItem[]>([
+    { id: 1, service: null, staff: null, price: 0, duration: "" },
+  ]);
 
-  useEffect(() => {
-    serviceValue.current = serviceList;
-  }, [serviceList]);
+  const [autoPopulated, setAutoPopulated] = useState<boolean>(false);
 
+  serviceValue.current = serviceList;
+
+  console.log("autoPopulated: ", autoPopulated);
+  console.log("serviceList: ", serviceList);
   console.log("serviceValue: ", serviceValue);
+
   const formatDuration = (minutes) => {
     const hours = Math.floor(minutes / 60);
     const mins = minutes % 60;
     return `${hours.toString().padStart(2, "0")}:${mins.toString().padStart(2, "0")}`;
   };
 
-  const handleServiceChange = (serviceObj, serviceIndex) => {
-    const updatedServiceList = [...serviceList];
-    updatedServiceList[serviceIndex] = {
-      ...updatedServiceList[serviceIndex],
-      service: serviceObj.itemData ? serviceObj.itemData.id : null,
-      duration: serviceObj.itemData ? formatDuration(serviceObj.itemData.duration) : "", // Set the duration based on the selected service
-      price: serviceObj.itemData ? serviceObj.itemData.price : null,
-      // Add any other properties you need to update
-    };
-    setServiceList(updatedServiceList);
+  const handleServiceChange = (e, serviceIndex) => {
+    setAutoPopulated(true); // Set autoPopulated to true after the initial service selection
+    handleAutoPopulation(e, serviceIndex);
+  };
+
+  const handleAutoPopulation = (e, serviceIndex) => {
+    console.log("auto population is running");
+    // console.log("selectedService:", selectedService);
+    // console.log("updatedServiceList:", updatedServiceList); // Log the updated service list
+
+    const selectedService = e.itemData;
+    const duration = selectedService ? selectedService.duration : 0;
+
+    setServiceList((prevServiceList) => {
+      const updatedServiceList = [...prevServiceList];
+      const updatedServiceItem = {
+        ...updatedServiceList[serviceIndex],
+        service: selectedService ? selectedService.id : null,
+        duration: selectedService ? selectedService.duration : 0,
+        price: selectedService ? selectedService.price : 0,
+      };
+      updatedServiceList[serviceIndex] = updatedServiceItem;
+      return updatedServiceList;
+    });
+    setAutoPopulated(false); // Reset autoPopulated to false after the auto-population
   };
 
   const handleStaffChange = (serviceObj, serviceIndex) => {
@@ -50,12 +80,14 @@ const ServiceFieldElement = ({ services, staff, serviceValue }) => {
   };
 
   const handleServicePriceChange = (serviceObj, serviceIndex) => {
-    const updatedServiceList = [...serviceList];
-    updatedServiceList[serviceIndex] = {
-      ...updatedServiceList[serviceIndex],
-      price: serviceObj.itemData ? serviceObj.itemData.value : 0,
-    };
-    setServiceList(updatedServiceList);
+    setServiceList((prevServiceList) => {
+      const updatedServiceList = [...prevServiceList];
+      updatedServiceList[serviceIndex] = {
+        ...updatedServiceList[serviceIndex],
+        price: serviceObj,
+      };
+      return updatedServiceList;
+    });
   };
 
   const generateDurationOptions = () => {
@@ -63,29 +95,36 @@ const ServiceFieldElement = ({ services, staff, serviceValue }) => {
     for (let i = 0; i <= 24 * 4; i++) {
       const hours = Math.floor(i / 4);
       const minutes = (i % 4) * 15;
+      const totalMinutes = hours * 60 + minutes;
       const formattedTime = `${hours.toString().padStart(2, "0")}:${minutes.toString().padStart(2, "0")}`;
-      options.push({ text: formattedTime, value: minutes });
+      options.push({ text: formattedTime, value: totalMinutes });
     }
     return options;
+  };
+
+  const calculateTotalPrice = () => {
+    let totalPrice = 0;
+    serviceList.forEach((serviceItem) => {
+      totalPrice += serviceItem.price || 0;
+    });
+    return totalPrice.toFixed(2); // Round to 2 decimal places
   };
 
   const addServiceTable = () => {
     const newServiceList = [
       ...serviceList,
-      { id: serviceList.length + 1, service: "", staff: "", price: 0, duration: "" },
+      { id: serviceList.length + 1, service: null, staff: null, price: 0, duration: "" },
     ];
     setServiceList(newServiceList);
   };
 
-  console.log("serviceList: ", serviceList);
-
   return (
-    <div className="custom-field-row">
+    <div className="custom-field-row p-3">
       <h4>Services</h4>
-      {serviceList.map((serviceItem, serviceIndex) => (
-        <div key={serviceIndex} className="services">
-          <Table>
-            <tr>
+      <div>
+        <Table size="sm">
+          {serviceList.map((serviceItem, serviceIndex) => (
+            <tr key={serviceIndex} className="services">
               <td>
                 <DropDownListComponent
                   id={`servic-${serviceIndex}`}
@@ -102,36 +141,65 @@ const ServiceFieldElement = ({ services, staff, serviceValue }) => {
                   id={`servicStaff-${serviceIndex}`}
                   dataSource={staff}
                   fields={{ text: "name", value: "id" }}
-                  change={(e) => handleStaffChange(e, serviceIndex)}
+                  change={(e) => !autoPopulated && handleStaffChange(e, serviceIndex)}
                   placeholder="Select a Staff"
                   allowFiltering={true}
                   value={serviceItem.staff}
                 />
               </td>
-              <td>Start</td>
+              <td>
+                <DropDownListComponent
+                  id={`serviceResource-${serviceIndex}`}
+                  allowFiltering={true}
+                  value={serviceItem.staff}
+                />
+              </td>
               <td>
                 <DropDownListComponent
                   id={`serviceDuration-${serviceIndex}`}
                   dataSource={generateDurationOptions()}
                   placeholder="Select Duration"
-                  value={serviceItem.duration || "00:00"}
-                  change={(e) => handleServiceDurationChange(e, serviceIndex)}
+                  value={formatDuration(serviceItem.duration) || 0}
+                  change={(e) => !autoPopulated && handleServiceDurationChange(e, serviceIndex)}
                 />
               </td>
               <td>
-                <TextBoxComponent
+                <NumericTextBoxComponent
                   id={`price-${serviceIndex}`}
-                  value={String(serviceItem.price || 0)}
+                  format="c2" // Format as currency with 2 decimal places
                   placeholder="Price"
-                  change={(e) => handleServicePriceChange(e, serviceIndex)}
+                  value={serviceItem.price}
+                  change={(e) => !autoPopulated && handleServicePriceChange(e.value, serviceIndex)}
                 />
               </td>
-              <td></td>
+              <td>
+                <Button to="#" className="link-danger fs-15">
+                  <i className="ri-delete-bin-line"></i>
+                </Button>
+              </td>
             </tr>
-          </Table>
-        </div>
-      ))}
-      <ButtonComponent onClick={addServiceTable}>Add More Service</ButtonComponent>
+          ))}
+          <tr className="mt-3">
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>
+              <h5>Time: 15 mins</h5>
+            </td>
+            <td>
+              <h5>Total: {calculateTotalPrice()} KD</h5>
+            </td>
+            <td></td>
+          </tr>
+        </Table>
+      </div>
+
+      <Row>
+        <Col lg={6}>
+          <ButtonComponent onClick={addServiceTable}>Add More Service</ButtonComponent>
+        </Col>
+        <Col lg={6}></Col>
+      </Row>
     </div>
   );
 };

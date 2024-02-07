@@ -62,6 +62,7 @@ import { calendarSettings, onDragStart, onResizeStart } from "./SchedulerSetting
 import {
   ClientFieldElement,
   ServiceFieldElement,
+  StatusFieldElement,
   getEventSettings,
   EditorTemplate,
   DateHeaderTemplate,
@@ -120,6 +121,7 @@ const Scheduler = () => {
   // Working - Commented
   const clientValue = useRef(null);
   const serviceValue = useRef([]);
+  const statusValue = useRef([]);
 
   const onPopupOpen = (args: PopupOpenEventArgs): void => {
     if (args.type === "Editor") {
@@ -135,23 +137,19 @@ const Scheduler = () => {
             firstChild.insertBefore(row, args.element.querySelector(".e-title-location-row"));
 
             // Render Client Component
-            const clientContainer: HTMLElement = createElement("div", { className: "custom-field-container" });
+            const clientContainer: HTMLElement = createElement("div", { className: "field-element-container" });
             ReactDOM.render(<ClientFieldElement clients={clients} clientValue={clientValue} />, clientContainer);
             row.appendChild(clientContainer);
 
             // Render Service Component
-            const serviceContainer: HTMLElement = createElement("div", { className: "custom-field-container" });
-            ReactDOM.render(
-              <ServiceFieldElement
-                services={services}
-                staff={staff}
-                serviceValue={serviceValue}
-                // serviceList={serviceList}
-                // setServiceList={setServiceList}
-              />,
-              serviceContainer
-            );
+            const serviceContainer: HTMLElement = createElement("div", { className: "field-element-container" });
+            ReactDOM.render(<ServiceFieldElement services={services} staff={staff} serviceValue={serviceValue} />, serviceContainer);
             row.appendChild(serviceContainer);
+
+            // Render Appointment Status Component
+            const statusContainer: HTMLElement = createElement("div", { className: "field-element-container" });
+            ReactDOM.render(<StatusFieldElement statusValue={statusValue} />, statusContainer);
+            row.appendChild(statusContainer);
           }
         }
       }
