@@ -5,7 +5,7 @@ import { closest, Browser, L10n, extend, isNullOrUndefined, createElement } from
 import { ComboBox } from "@syncfusion/ej2-react-dropdowns";
 import { Button, ButtonComponent } from "@syncfusion/ej2-react-buttons";
 
-export const onPopupOpen = (args: PopupOpenEventArgs, clients, clientValue, comboBox, onAddClient, scheduleObj) => {
+export const onPopupOpen = (args: PopupOpenEventArgs, clients, clientRef, comboBox, onAddClient, scheduleObj) => {
   if (args.type === "Editor") {
     // additional field customization
     if (!args.element.querySelector(".custom-field-row")) {

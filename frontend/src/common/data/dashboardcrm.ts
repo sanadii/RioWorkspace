@@ -72,7 +72,7 @@ const dealsStatus = [
         representativeName: "Donald Risher",
         badgeClass: "success",
         status: "Deal Won",
-        statusValue: "$100.1K",
+        statusRef: "$100.1K",
     },
     {
         id: 2,
@@ -82,7 +82,7 @@ const dealsStatus = [
         representativeName: "Sofia Cunha",
         badgeClass: "warning",
         status: "Intro Call",
-        statusValue: "$150K",
+        statusRef: "$150K",
     },
     {
         id: 3,
@@ -92,7 +92,7 @@ const dealsStatus = [
         representativeName: "Luis Rocha",
         badgeClass: "danger",
         status: "Stuck",
-        statusValue: "$78.18K",
+        statusRef: "$78.18K",
     },
     {
         id: 4,
@@ -102,7 +102,7 @@ const dealsStatus = [
         representativeName: "Vitoria Rodrigues",
         badgeClass: "success",
         status: "Deal Won",
-        statusValue: "$180K",
+        statusRef: "$180K",
     },
     {
         id: 5,
@@ -112,7 +112,7 @@ const dealsStatus = [
         representativeName: "Vitoria Rodrigues",
         badgeClass: "info",
         status: "New Lead",
-        statusValue: "$78.9K",
+        statusRef: "$78.9K",
     },
 ];
 

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Button, ButtonGroup, Col, Row } from "reactstrap";
 
-const EditorTemplateStatus = ({ statusValue }) => {
+const EditorStatusComponent = ({ statusRef }) => {
   const [selectedStatus, setSelectedStatus] = useState(1);
   const [isListOpen, setIsListOpen] = useState(false);
   const [appointmentConfirmed, setAppointmentConfirmed] = useState(false);
@@ -82,4 +82,4 @@ const EditorTemplateStatus = ({ statusValue }) => {
   );
 };
 
-export { EditorTemplateStatus };
+export { EditorStatusComponent };

@@ -40,7 +40,6 @@ import {
   type EventRenderedArgs,
   type EJ2Instance,
 } from "@syncfusion/ej2-react-schedule";
-
 import { DialogComponent } from "@syncfusion/ej2-react-popups";
 
 import {
@@ -60,21 +59,21 @@ import { Button, ButtonComponent } from "@syncfusion/ej2-react-buttons";
 // React Scheduler
 import { calendarSettings, onDragStart, onResizeStart } from "./SchedulerSettings/SchedulerSettings";
 import {
-  EditorTemplateClient,
-  EditorTemplateService,
-  EditorTemplateStatus,
   getEventSettings,
-  EditorTemplate,
+  // EditorTemplate,
   DateHeaderTemplate,
   getQuickInfoTemplates,
   useScheduleData,
   // onPopupOpen,
   eventTemplate,
 } from "./SchedulerSettings";
+import EditorComponent from "./EditorComponent";
+import EditorTemplate from "./EditorComponent/EditorTemplate";
 
 import { errorPlacement, updateActiveItem, loadImage, getString } from "Components/Utils/util";
 
 import doctorsIcon from "assets/Icons/Doctors.svg";
+import "./schedule.css";
 
 L10n.load({
   "en-US": {
@@ -119,11 +118,14 @@ const Scheduler = () => {
   };
 
   // Working - Commented
-  const clientValue = useRef(null);
-  const serviceValue = useRef([]);
-  const statusValue = useRef([]);
+  const clientRef = useRef(null);
+  const serviceRef = useRef([]);
+  const statusRef = useRef([]);
+  const productRef = useRef([]);
+  const packageRef = useRef([]);
 
   const onPopupOpen = (args: PopupOpenEventArgs): void => {
+    console.log("args: ", args);
     if (args.type === "Editor") {
       // additional field customization
       if (!args.element.querySelector(".custom-field-row")) {
@@ -137,19 +139,22 @@ const Scheduler = () => {
             firstChild.insertBefore(row, args.element.querySelector(".e-title-location-row"));
 
             // Render Client Component
-            const clientContainer: HTMLElement = createElement("div", { className: "field-element-container" });
-            ReactDOM.render(<EditorTemplateClient clients={clients} clientValue={clientValue} />, clientContainer);
-            row.appendChild(clientContainer);
-
-            // Render Service Component
-            const serviceContainer: HTMLElement = createElement("div", { className: "field-element-container" });
-            ReactDOM.render(<EditorTemplateService services={services} staff={staff} serviceValue={serviceValue} />, serviceContainer);
-            row.appendChild(serviceContainer);
-
-            // Render Appointment Status Component
-            const statusContainer: HTMLElement = createElement("div", { className: "field-element-container" });
-            ReactDOM.render(<EditorTemplateStatus statusValue={statusValue} />, statusContainer);
-            row.appendChild(statusContainer);
+            const editorComponent: HTMLElement = createElement("div", { className: "field-element-container" });
+            ReactDOM.render(
+              <EditorComponent
+                args={args}
+                clients={clients}
+                services={services}
+                staff={staff}
+                clientRef={clientRef}
+                serviceRef={serviceRef}
+                productRef={productRef}
+                packageRef={packageRef}
+                statusRef={statusRef}
+              />,
+              editorComponent
+            );
+            row.appendChild(editorComponent);
           }
         }
       }
@@ -167,8 +172,8 @@ const Scheduler = () => {
   //       // const serviceContainer: HTMLElement = createElement("div", { className: "custom-field-container" });
 
   //       // Render the custom React component within the container
-  //       ReactDOM.render(<ClientFieldElement clients={clients} clientValue={clientValue} />, container);
-  //       // ReactDOM.render(<ServiceFieldElement services={services} serviceValue={serviceValue} />, serviceContainer);
+  //       ReactDOM.render(<ClientFieldElement clients={clients} clientRef={clientRef} />, container);
+  //       // ReactDOM.render(<ServiceFieldElement services={services} serviceRef={serviceRef} />, serviceContainer);
 
   //       row.appendChild(container);
   //       // row.appendChild(serviceContainer);
@@ -182,12 +187,12 @@ const Scheduler = () => {
         args.requestType === "eventCreate"
           ? (args.data as Record<string, any>[])[0]
           : (args.changedRecords as Record<string, any>[])[0];
-      if (clientValue.current) {
-        data["clientName"] = clientValue.current;
+      if (clientRef.current) {
+        data["clientName"] = clientRef.current;
       }
 
-      if (serviceValue.current) {
-        data["serviceName"] = serviceValue.current;
+      if (serviceRef.current) {
+        data["serviceName"] = serviceRef.current;
       }
       let eventCollection: Record<string, any>[] = scheduleObj.current.eventBase.filterEvents(
         data["StartTime"] as Date,
@@ -286,7 +291,7 @@ const Scheduler = () => {
           // // The data to show
           eventSettings={eventSettings}
           popupOpen={onPopupOpen}
-          // popupOpen={(args) => onPopupOpen(args, clients, clientValue, comboBox, onAddClient, scheduleObj)}
+          // popupOpen={(args) => onPopupOpen(args, clients, clientRef, comboBox, onAddClient, scheduleObj)}
           views={["Day", "Week", "Month"]}
           selectedDate={new Date(2024, 2, 2)}
           dragStart={onDragStart}

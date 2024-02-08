@@ -1,31 +1,55 @@
 import React, { useEffect, useState } from "react";
 import { DropDownListComponent } from "@syncfusion/ej2-react-dropdowns";
-import { NumericTextBoxComponent, TextBoxComponent } from "@syncfusion/ej2-react-inputs";
+import { TextBoxComponent } from "@syncfusion/ej2-react-inputs";
 import { Link } from "react-router-dom";
 import { ButtonComponent } from "@syncfusion/ej2-react-buttons";
 import { Table, Row, Col, Button, Input, Label, ButtonGroup } from "reactstrap";
+import { TimePickerComponent } from "@syncfusion/ej2-react-calendars";
 
 // Define the type for a service item
 type ServiceItem = {
   id: number;
   service: number;
   staff: number;
-  price: number;
+  startTime: Date; // Change the type to Date
+  endTime: Date; // Change the type to Date
   duration: string;
+  price: string;
 };
 
-const EditorTemplateService = ({ services, staff, serviceValue }) => {
+const EditorServiceComponenet = ({ args, services, staff, serviceRef }) => {
   const [serviceList, setServiceList] = useState<ServiceItem[]>([
-    { id: 1, service: null, staff: null, price: 0, duration: "" },
+    { id: 1, service: null, staff: null, startTime: new Date(), endTime: new Date(), duration: "", price: "" },
   ]);
+
+  const startTime = args.data.StartTime; // Extract start time
+  const [serviceStartTime, setServiceStartTime] = useState(startTime);
+
+  // const endTime = args.data.EndTime; // Extract end time
+
+  // const startDate = args.data.StartTime.toLocaleDateString(); // Extract start date
+  // const startTime = args.data.StartTime.toLocaleTimeString(); // Extract start time
+  // const endDate = args.data.EndTime.toLocaleDateString(); // Extract end date
+  // const endTime = args.data.EndTime.toLocaleTimeString(); // Extract end time
+
+  // console.log("Start Date: ", startDate);
+  // console.log("Start Time: ", startTime);
+  // console.log("End Date: ", endDate);
+  // console.log("End Time: ", endTime);
+
+  const minTime = new Date();
+  minTime.setHours(10, 0, 0); // Set minimum time to 10:00 AM
+
+  const maxTime = new Date();
+  maxTime.setHours(20, 0, 0); // Set maximum time to 8:00 PM
 
   const [autoPopulated, setAutoPopulated] = useState<boolean>(false);
 
-  serviceValue.current = serviceList;
+  serviceRef.current = serviceList;
 
   console.log("autoPopulated: ", autoPopulated);
   console.log("serviceList: ", serviceList);
-  console.log("serviceValue: ", serviceValue);
+  console.log("serviceRef: ", serviceRef);
 
   const formatDuration = (minutes) => {
     const hours = Math.floor(minutes / 60);
@@ -39,12 +63,7 @@ const EditorTemplateService = ({ services, staff, serviceValue }) => {
   };
 
   const handleAutoPopulation = (e, serviceIndex) => {
-    console.log("auto population is running");
-    // console.log("selectedService:", selectedService);
-    // console.log("updatedServiceList:", updatedServiceList); // Log the updated service list
-
     const selectedService = e.itemData;
-    const duration = selectedService ? selectedService.duration : 0;
 
     setServiceList((prevServiceList) => {
       const updatedServiceList = [...prevServiceList];
@@ -53,6 +72,7 @@ const EditorTemplateService = ({ services, staff, serviceValue }) => {
         service: selectedService ? selectedService.id : null,
         duration: selectedService ? selectedService.duration : 0,
         price: selectedService ? selectedService.price : 0,
+        startTime: startTime,
       };
       updatedServiceList[serviceIndex] = updatedServiceItem;
       return updatedServiceList;
@@ -67,14 +87,40 @@ const EditorTemplateService = ({ services, staff, serviceValue }) => {
       staff: serviceObj.itemData ? serviceObj.itemData.id : null,
     };
     setServiceList(updatedServiceList);
-    // Handle staff change
+  };
+
+  const handleStartTimeChange = (serviceObj, serviceIndex) => {
+    const updatedServiceList = [...serviceList];
+    const startTimeValue = serviceObj.value; // Get the new start time value
+    const durationValue = updatedServiceList[serviceIndex].duration; // Get the duration value in minutes
+
+    // Ensure durationValue is a number
+    if (typeof durationValue === "number") {
+      const startTime = new Date(startTimeValue); // Convert start time to Date object
+      const endTime = new Date(startTime.getTime() + durationValue * 60000); // Calculate end time (add duration in milliseconds)
+
+      updatedServiceList[serviceIndex] = {
+        ...updatedServiceList[serviceIndex],
+        startTime: startTimeValue,
+        endTime: endTime,
+      };
+      setServiceList(updatedServiceList);
+    } else {
+      console.error("Duration value is not a number");
+    }
   };
 
   const handleServiceDurationChange = (serviceObj, serviceIndex) => {
     const updatedServiceList = [...serviceList];
+    const durationValue = serviceObj.itemData ? serviceObj.itemData.value : ""; // Duration value in minutes
+    const startTimeValue = updatedServiceList[serviceIndex].startTime; // Start time value
+    const startTime = new Date(startTimeValue); // Convert start time to Date object
+    const endTime = new Date(startTime.getTime() + durationValue * 60000); // Calculate end time (add duration in milliseconds)
+
     updatedServiceList[serviceIndex] = {
       ...updatedServiceList[serviceIndex],
-      duration: serviceObj.itemData ? serviceObj.itemData.value : "",
+      duration: durationValue,
+      endTime: endTime,
     };
     setServiceList(updatedServiceList);
   };
@@ -105,17 +151,20 @@ const EditorTemplateService = ({ services, staff, serviceValue }) => {
   const calculateTotalPrice = () => {
     let totalPrice = 0;
     serviceList.forEach((serviceItem) => {
-      totalPrice += serviceItem.price || 0;
+      totalPrice += parseFloat(serviceItem.price) || 0; // Ensure price is always a number
     });
     return totalPrice.toFixed(2); // Round to 2 decimal places
   };
 
   const addServiceTable = () => {
+    console.log("serviceList.length:", serviceList.length);
+    const previousEndTime = serviceList.length > 1 ? serviceList[serviceList.length - 1].endTime : startTime; // Get the end time of the last service or set it to the current time if there are no services
     const newServiceList = [
       ...serviceList,
-      { id: serviceList.length + 1, service: null, staff: null, price: 0, duration: "" },
+      { id: 1, service: null, staff: null, startTime: previousEndTime, endTime: startTime, duration: "", price: "" },
     ];
     setServiceList(newServiceList);
+    setServiceStartTime(previousEndTime); // Set the serviceStartTime to the start time of the last service
   };
 
   return (
@@ -148,12 +197,25 @@ const EditorTemplateService = ({ services, staff, serviceValue }) => {
                 />
               </td>
               <td>
+                <TimePickerComponent
+                  id={`startTime-${serviceIndex}`}
+                  placeholder="Select a Start Time"
+                  value={serviceStartTime}
+                  step={15}
+                  min={minTime}
+                  max={maxTime}
+                  format="hh:mm a" // Set the time format to 'hh:mm AM/PM'
+                  change={(e) => !autoPopulated && handleStartTimeChange(e, serviceIndex)}
+                />
+              </td>
+
+              {/* <td>
                 <DropDownListComponent
                   id={`serviceResource-${serviceIndex}`}
                   allowFiltering={true}
                   value={serviceItem.staff}
                 />
-              </td>
+              </td> */}
               <td>
                 <DropDownListComponent
                   id={`serviceDuration-${serviceIndex}`}
@@ -166,7 +228,6 @@ const EditorTemplateService = ({ services, staff, serviceValue }) => {
               <td>
                 <TextBoxComponent
                   id={`price-${serviceIndex}`}
-                  format="c2" // Format as currency with 2 decimal places
                   placeholder="Price"
                   value={serviceItem.price}
                   change={(e) => !autoPopulated && handleServicePriceChange(e.value, serviceIndex)}
@@ -204,4 +265,4 @@ const EditorTemplateService = ({ services, staff, serviceValue }) => {
   );
 };
 
-export { EditorTemplateService };
+export { EditorServiceComponenet };

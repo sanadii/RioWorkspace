@@ -11,6 +11,10 @@
 @import "@syncfusion/ej2-icons/styles/tailwind.css";
 @import '@syncfusion/ej2-notifications/styles/tailwind.css';
 
+.table tr td {
+  padding: .2em;
+}
+
 .app-scheduler.e-schedule .e-table-wrap .e-resource-column-wrap .e-resource-column-table .e-resource-cells.e-parent-node {
   border-right-color: transparent !important;
   height: 40px;

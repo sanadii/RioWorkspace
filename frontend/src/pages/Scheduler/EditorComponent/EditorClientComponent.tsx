@@ -5,13 +5,29 @@ import doctorsIcon from "assets/Icons/Doctors.svg";
 import { DropDownListComponent, ComboBox, ComboBoxComponent } from "@syncfusion/ej2-react-dropdowns";
 import { NumericTextBoxComponent, TextBoxComponent } from "@syncfusion/ej2-react-inputs";
 import { DatePickerComponent } from "@syncfusion/ej2-react-calendars";
-import "../schedule.css"; // Import the scheduler.css file
 
 import { Row, Table } from "reactstrap";
 
-const EditorTemplateClient = ({ clients, clientValue }) => {
+const EditorClientComponent = ({ args, clients, clientRef }) => {
+  // const startTime = args.data.StartTime; // Extract start time
+  // const endTime = args.data.EndTime; // Extract end time
+
+  const startDate = args.data.StartTime.toLocaleDateString(); // Extract start date
+  const startTime = args.data.StartTime.toLocaleTimeString(); // Extract start time
+  const endDate = args.data.EndTime.toLocaleDateString(); // Extract end date
+  const endTime = args.data.EndTime.toLocaleTimeString(); // Extract end time
+
+  console.log("Start Date: ", startDate);
+  console.log("Start Time: ", startTime);
+  console.log("End Date: ", endDate);
+  console.log("End Time: ", endTime);
+
   return (
     <Row>
+      <div className="d-flex">
+        <h5>Date: </h5>
+        <p>{startDate}</p>
+      </div>
       <h5>Client</h5>
       <Table className="table-cell-background-grey">
         <tbody>
@@ -21,7 +37,7 @@ const EditorTemplateClient = ({ clients, clientValue }) => {
                 dataSource={clients}
                 allowFiltering={true}
                 fields={{ text: "name", value: "id" }}
-                change={(e: any) => (clientValue.current = e.value)}
+                change={(e: any) => (clientRef.current = e.value)}
                 placeholder="Mobile"
 
                 // select={ () => {
@@ -53,4 +69,4 @@ const EditorTemplateClient = ({ clients, clientValue }) => {
   );
 };
 
-export { EditorTemplateClient };
+export { EditorClientComponent };

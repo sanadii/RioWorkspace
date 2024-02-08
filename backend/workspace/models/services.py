@@ -27,6 +27,7 @@ class Service(models.Model):
     online_booking = models.BooleanField(default=False)
     optional_booking_question = models.TextField(blank=True, null=True)
     order = models.PositiveIntegerField(default=0)  # Add 'order' field here
+    deleted = models.BooleanField(default=False)  # New field for soft deletion
 
     def __str__(self):
         return self.name
