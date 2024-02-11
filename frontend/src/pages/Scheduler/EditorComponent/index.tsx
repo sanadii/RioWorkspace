@@ -1,13 +1,15 @@
 import React from "react";
+import { configureStore } from "../../../store";
+import { Provider } from 'react-redux';
+
 import { EditorClientComponent } from "./EditorClientComponent";
-import { EditorServiceComponenet } from "./EditorServiceComponenet";
+import { EditorServiceComponent } from "./EditorServiceComponent";
 import { EditorProductComponent } from "./EditorProductComponent";
 import { EditorPackageComponent } from "./EditorPackageComponent";
 import { EditorStatusComponent } from "./EditorStatusComponent";
 
 const EditorComponent = ({
   args,
-  clients,
   services,
   staff,
   clientRef,
@@ -17,10 +19,12 @@ const EditorComponent = ({
   statusRef,
 }) => {
   return (
-    <React.Fragment>
-      <EditorClientComponent args={args} clients={clients} clientRef={clientRef} />
+    <Provider store={configureStore({})}>
 
-      <EditorServiceComponenet args={args} services={services} staff={staff} serviceRef={serviceRef} />
+    <React.Fragment>
+      <EditorClientComponent args={args} clientRef={clientRef} />
+
+      <EditorServiceComponent args={args} services={services} staff={staff} serviceRef={serviceRef} />
 
       <EditorProductComponent productRef={productRef} />
 
@@ -28,6 +32,7 @@ const EditorComponent = ({
 
       <EditorStatusComponent statusRef={statusRef} />
     </React.Fragment>
+    </Provider>
   );
 };
 

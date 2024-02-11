@@ -1,7 +1,10 @@
 // Actions
 export const API_RESPONSE_SUCCESS = "API_RESPONSE_SUCCESS";
 export const API_RESPONSE_ERROR = "API_RESPONSE_ERROR";
+
 export const GET_CLIENTS = "GET_CLIENTS";
+export const GET_CLIENT_SEARCH = "GET_CLIENT_SEARCH";
+export const GET_CLIENT_INFO = "GET_CLIENT_INFO";
 
 // Add Client
 export const ADD_CLIENT = "ADD_CLIENT";

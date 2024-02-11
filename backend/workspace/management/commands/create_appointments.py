@@ -12,37 +12,44 @@ class Command(BaseCommand):
     help = 'Populates the database with sample data'
 
     def handle(self, *args, **kwargs):
-        # Existing code to create staff, services, and clients...
+        # Define time range for appointments
+        one_week_ago = timezone.now() - timedelta(weeks=1)
+        thirty_days_from_now = timezone.now() + timedelta(days=30)
 
         # Create sample appointment services
-        for i in range(10):
+        for i in range(50):  # Adjust the range as needed
             service = Service.objects.order_by('?').first()
+            staff_member = Staff.objects.order_by('?').first()
+
+            service_start_time = timezone.now() + timedelta(days=random.randint(-7, 30))
+            service_end_time = service_start_time + timedelta(minutes=service.duration)
+
             appointment_service = AppointmentService.objects.create(
                 service=service,
-                price=service.price,  # Assuming the price is directly taken from the service
-                staff=Staff.objects.order_by('?').first()
+                price=service.price,
+                start_time=service_start_time,
+                end_time=service_end_time,
+                duration=service.duration,
+                staff=staff_member
             )
 
         # Create sample appointments
         for i in range(30):
-            appointment_date = timezone.now() + timedelta(days=random.randint(1, 30))
-            start_time = appointment_date.replace(hour=random.randint(9, 17), minute=0, second=0)
-            end_time = start_time + timedelta(hours=random.randint(1, 3))
+            random_start_time = timezone.now() + timedelta(days=random.randint(-7, 30), hours=random.randint(8, 16))
+            duration = timedelta(hours=random.randint(1, 3))
+            random_end_time = random_start_time + duration
 
-            appointment = Appointment.objects.create(
-                client=Client.objects.order_by('?').first(),
-                appointment_date=appointment_date,
-                subject=f'Appointment Subject {i}',
-                location=f'Location {i}',
-                start_time=start_time,
-                end_time=end_time,
-                category_color=f'#{"%06x" % random.randint(0, 0xFFFFFF)}',
-                staff=Staff.objects.order_by('?').first()
-            )
+            # Ensure the appointment is within the specified time range
+            if one_week_ago <= random_start_time <= thirty_days_from_now:
+                appointment = Appointment.objects.create(
+                    client=Client.objects.order_by('?').first(),
+                    date=random_start_time,
+                    start_time=random_start_time,
+                    end_time=random_end_time
+                )
 
-            # Add random services to the appointment
-            services = AppointmentService.objects.order_by('?')[:random.randint(1, 3)]
-            for service in services:
-                appointment.services.add(service)
+                # Add random services to the appointment
+                services_to_add = AppointmentService.objects.order_by('?')[:random.randint(1, 3)]
+                appointment.appointment_service.add(*services_to_add)
 
         self.stdout.write(self.style.SUCCESS('Successfully populated the database with sample data'))

@@ -1,32 +1,89 @@
 from django.http import JsonResponse
+from django.utils.dateparse import parse_datetime
+
 from rest_framework.views import APIView
 from rest_framework.generics import UpdateAPIView, DestroyAPIView, CreateAPIView
 from rest_framework.response import Response
 from rest_framework import status
+
 from rest_framework.exceptions import NotFound
 from rest_framework.permissions import AllowAny, IsAuthenticated
 
 # Apps
-from workspace.models.appointments import Appointment
-from workspace.serializers.appointments import AppointmentSerializer
+from workspace.models.appointments import Appointment, AppointmentService
+from workspace.models.staff import Staff
+from workspace.models.services import Service
+
+from workspace.serializers.appointments import AppointmentSerializer, AppointmentServiceSerializer, ScheduleSerializer
+from workspace.serializers.staff import StaffSerializer
+from workspace.serializers.services import ServiceSerializer
+
 
 class GetAppointments(APIView):
     def get(self, request, format=None):
-        revenues = Appointment.objects.all()  # Adjust the query as needed
-        serializer = AppointmentSerializer(revenues, many=True)
+        appointments = Appointment.objects.all()  # Adjust the query as needed
+        serializer = AppointmentSerializer(appointments, many=True)
         return Response({'data': serializer.data}, status=status.HTTP_200_OK)
 
-class AddAppointment(CreateAPIView):
-    queryset = Appointment.objects.all()
-    serializer_class = AppointmentSerializer
 
-    def create(self, request, *args, **kwargs):
-        """Handle Appointment creation."""
-        serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        self.perform_create(serializer)
-        headers = self.get_success_headers(serializer.data)
-        return Response({"data": serializer.data, "count": 1, "code": 201}, status=status.HTTP_201_CREATED, headers=headers)
+class GetScheduleData(APIView):
+    def get(self, request, format=None):
+        # Parse start and end dates from the query parameters
+        start_date_str = request.query_params.get('StartDate', None)
+        end_date_str = request.query_params.get('EndDate', None)
+
+        # Convert string dates to datetime objects
+        start_date = parse_datetime(start_date_str) if start_date_str else None
+        end_date = parse_datetime(end_date_str) if end_date_str else None
+
+        # Filter appointments between start and end dates, if provided
+        if start_date and end_date:
+            appointments = Appointment.objects.filter(
+                start_time__gte=start_date,
+                end_time__lte=end_date
+            )
+        else:
+            appointments = Appointment.objects.all()
+
+        appointment_serializer = AppointmentSerializer(appointments, many=True)
+
+        # Fetch all services (assuming no date filtering for services)
+        services = Service.objects.all()
+        service_serializer = ServiceSerializer(services, many=True)
+
+        # Fetch all staff (assuming no date filtering for staff)
+        staff = Staff.objects.all()
+        staff_serializer = StaffSerializer(staff, many=True)
+
+        response_data = {
+            'appointments': appointment_serializer.data,
+            'services': service_serializer.data,
+            'staff': staff_serializer.data
+        }
+
+        return Response({'data': response_data}, status=status.HTTP_200_OK)
+
+
+class AddAppointment(APIView):
+    def post(self, request):
+        serializer = AppointmentSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+# class AddAppointment(CreateAPIView):
+#     queryset = Appointment.objects.all()
+#     serializer_class = AppointmentSerializer
+
+#     def create(self, request, *args, **kwargs):
+#         """Handle Appointment creation."""
+#         serializer = self.get_serializer(data=request.data)
+#         serializer.is_valid(raise_exception=True)
+#         self.perform_create(serializer)
+#         headers = self.get_success_headers(serializer.data)
+#         return Response({"data": serializer.data, "count": 1, "code": 201}, status=status.HTTP_201_CREATED, headers=headers)
+
 
 class UpdateAppointment(UpdateAPIView):
     queryset = Appointment.objects.all()
@@ -46,10 +103,12 @@ class UpdateAppointment(UpdateAPIView):
     def update(self, request, *args, **kwargs):
         """Handle Appointment update."""
         partial = kwargs.pop('partial', False)
-        serializer = self.get_serializer(instance=self.get_object(), data=request.data, partial=partial)
+        serializer = self.get_serializer(
+            instance=self.get_object(), data=request.data, partial=partial)
         serializer.is_valid(raise_exception=True)
         self.perform_update(serializer)
         return Response({"data": serializer.data, "count": 1, "code": 200}, status=status.HTTP_200_OK)
+
 
 class DeleteAppointment(DestroyAPIView):
     queryset = Appointment.objects.all()

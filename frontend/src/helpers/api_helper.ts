@@ -87,15 +87,33 @@ const setAuthorization = (token: string | null) => {
   }
 };
 
+// class APIClient {
+//   get = (url: string, params?: Record<string, any>) => {
+//     const queryString = params
+//       ? Object.entries(params)
+//           .map(([key, value]) => `${key}=${value}`)
+//           .join('&')
+//       : '';
+//     return axios.get(queryString ? `${url}?${queryString}` : url);
+//   };
+
 class APIClient {
   get = (url: string, params?: Record<string, any>) => {
-    const queryString = params
-      ? Object.entries(params)
-          .map(([key, value]) => `${key}=${value}`)
-          .join('&')
+    // Check if params exist and contain keys
+    const queryParams = params && Object.keys(params).length
+      ? `?${new URLSearchParams(params).toString()}`
       : '';
-    return axios.get(queryString ? `${url}?${queryString}` : url);
+
+    // Append query parameters to the URL if they exist
+    const fullUrl = `${url}${queryParams}`;
+
+    return axios.get(fullUrl);
   };
+
+
+
+
+
 
   create = (url: string, data: Record<string, any>) => {
     return axios.post(url, data);

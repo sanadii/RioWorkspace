@@ -11,3 +11,5 @@ class ClientSerializer(serializers.ModelSerializer):
     def get_name(self, obj):
         # Concatenate first name and last name
         return f"{obj.first_name} {obj.last_name}".strip()
+
+

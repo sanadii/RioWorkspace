@@ -6,15 +6,21 @@ export const nameValidation = (clients, args) => {
   return clients.some((client) => client.name === args.value);
 };
 
-const getEventSettings = (appointments, clients, calendarSettings) => {
-  
+const getEventSettings = (appointments, calendarSettings) => {
   return {
-    
     dataSource: appointments,
     query: new Query(),
     fields: {
-      subject: { name: "clientName", title: "clientName"},
-      title: { name: "serviceName", title: "serviceName"},
+      // subject: { name: "clientName", title: "clientName" },
+      // title: { name: "serviceName", title: "serviceName" },
+      id: "id",
+      subject: { name: "clientName" },
+      location: { name: "ShipCountry" },
+      description: { name: "ShipAddress" },
+      startTime: { name: "startTime" },
+      endTime: { name: "endTime" },
+      recurrenceRule: { name: "ShipRegion" },
+
       // subject: {
       //   name: "clientName",
       //   validation: {
@@ -29,7 +35,6 @@ const getEventSettings = (appointments, clients, calendarSettings) => {
     },
     resourceColorField: calendarSettings.bookingColor,
   };
-
 };
 
 export { getEventSettings };

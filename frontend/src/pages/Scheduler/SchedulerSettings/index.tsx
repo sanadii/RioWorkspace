@@ -1,7 +1,7 @@
 // Components/Hooks/index.js
 
 // Data
-export { useScheduleData } from "./useScheduleData";
+export { useDataManager } from "./useDataManager";
 export { getEventSettings } from "./eventSettings";
 
 // Templates

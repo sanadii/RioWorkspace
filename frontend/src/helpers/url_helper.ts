@@ -45,14 +45,27 @@ export const ADD_EXPENSE = "/finance/addExpense";
 export const UPDATE_EXPENSE = "/finance/updateExpense";
 export const DELETE_EXPENSE = "/finance/deleteExpense";
 
+
+
+// Schedule
+export const GET_SCHEDULE = "/appointments/getSchedule";
+
 // Appointments
 export const GET_APPOINTMENTS = "/appointments/getAppointments";
 export const ADD_APPOINTMENT = "/appointments/addAppointment";
 export const UPDATE_APPOINTMENT = "/appointments/updateAppointment";
 export const DELETE_APPOINTMENT = "/appointments/deleteAppointment";
 
+// AppointmentServices
+export const GET_APPOINTMENT_SERVICES = "/appointments/getAppointmentServices";
+export const ADD_APPOINTMENT_SERVICE = "/appointments/addAppointmentService";
+export const UPDATE_APPOINTMENT_SERVICE = "/appointments/updateAppointmentService";
+export const DELETE_APPOINTMENT_SERVICE = "/appointments/deleteAppointmentService";
+
 // Clients
 export const GET_CLIENTS = "/clients/getClients";
+export const GET_CLIENT_SEARCH = "/clients/getClientSearch";
+export const GET_CLIENT_INFO = "/clients/getClientInfo";
 export const ADD_CLIENT = "/clients/addClient";
 export const UPDATE_CLIENT = "/clients/updateClient";
 export const DELETE_CLIENT = "/clients/deleteClient";

@@ -6,7 +6,7 @@ const EditorStatusComponent = ({ statusRef }) => {
   const [isListOpen, setIsListOpen] = useState(false);
   const [appointmentConfirmed, setAppointmentConfirmed] = useState(false);
 
-  console.log("appointmentConfirmed:", appointmentConfirmed);
+  // console.log("appointmentConfirmed:", appointmentConfirmed);
   const handlePencilledInClick = () => {
     setIsListOpen(false);
     setAppointmentConfirmed(false);

@@ -1,46 +1,22 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getAppointments, getClients, getAllStaff, getServices, getResources } from "store/actions";
-import { appointmentsSelector, clientsSelector, servicesSelector, resourceSelector, staffSelector } from "Selectors";
+import { useState, useEffect } from "react";
+import { DataManager, UrlAdaptor } from "@syncfusion/ej2-data";
 
-const DataSource = () => {
-  const dispatch = useDispatch();
-  const { appointments } = useSelector(appointmentsSelector);
-  const { clients } = useSelector(clientsSelector);
-  const { services } = useSelector(servicesSelector);
-  const { resources } = useSelector(resourceSelector);
-  const { staff } = useSelector(staffSelector);
-
-  const [dataSource, setDataSource] = useState({
-    appointmentData: [],
-    // appServiceData: [],
-    clientData: [],
-    serviceData: [],
-    staffData: [],
-    resourceData: [],
-  });
+const useDataManager = () => {
+  const baseApiUrl = process.env.REACT_APP_PUBLIC_URL;
+  const [dataManager, setDataManager] = useState(null);
 
   useEffect(() => {
-    // Fetch data if not already loaded
-    if (!appointments.length || !clients.length || !services.length || !staff.length) {
-      dispatch(getAppointments());
-      dispatch(getAllStaff());
-      dispatch(getServices());
-      dispatch(getClients());
-      dispatch(getResources());
-    } else {
-      // Set the data in state
-      setDataSource({
-        appointmentData: appointments,
-        clientData: clients,
-        serviceData: services,
-        resourceData: resources,
-        staffData: staff,
-      });
-    }
-  }, [dispatch, appointments, clients, services, resources, staff,]);
+    const manager = new DataManager({
+      url: `${baseApiUrl}appointments/getScheduleData`,
+      insertUrl: `${baseApiUrl}appointments/addAppointment`,
+      updateUrl: `${baseApiUrl}appointments/updateAppointment`,
+      removeUrl: `${baseApiUrl}appointments/deleteAppointment`,
+      adaptor: new UrlAdaptor(),
+    });
+    setDataManager(manager);
+  }, [baseApiUrl]);
 
-  return dataSource;
+  return dataManager;
 };
 
-export default DataSource;
+export default useDataManager;

@@ -24,8 +24,9 @@ class Command(BaseCommand):
             call_command('create_staff')
             call_command('create_services')
             call_command('create_resources')
-            call_command('create_clients')
-            call_command('create_appointments')
+            # call_command('create_clients')
+            call_command('import_clients')
+            # call_command('create_appointments')
 
             # Create a superuser
             UserModel.objects.create_superuser('sanad', 'esanad@gmail.com', 'I4ksb@11782')

@@ -4,14 +4,16 @@ from workspace.models.staff import Staff
 from workspace.models.resources import ResourceItem
 from workspace.models.services import Service
 
-# Service Model
+
 class AppointmentService(models.Model):
+    # appointment = models.ForeignKey(Appointment, on_delete=models.CASCADE)
     service = models.ForeignKey(Service, on_delete=models.CASCADE)
     price = models.DecimalField(max_digits=10, decimal_places=2)
+    start_time = models.DateTimeField()
+    end_time = models.DateTimeField()
     duration = models.PositiveIntegerField(default=30)
     staff = models.ForeignKey(Staff, on_delete=models.CASCADE)
     resources = models.ManyToManyField(ResourceItem, blank=True)
-    match_resources = models.BooleanField(default=False)
 
     def __str__(self):
         return str(self.service)
@@ -19,19 +21,16 @@ class AppointmentService(models.Model):
     class Meta:
         db_table = "appointment_service"
 
+
+
 # Appointment Model
 class Appointment(models.Model):
     client = models.ForeignKey(Client, on_delete=models.CASCADE)
-    appointment_date = models.DateTimeField()
-    services = models.ManyToManyField(AppointmentService)
-    subject = models.CharField(max_length=200)
-    location = models.CharField(max_length=200)
+    date = models.DateTimeField()
     start_time = models.DateTimeField()
     end_time = models.DateTimeField()
-    category_color = models.CharField(max_length=100)
-    staff = models.ForeignKey(Staff, on_delete=models.CASCADE)
-    is_all_day = models.BooleanField(default=False)
     recurrence_rule = models.CharField(max_length=255, null=True, blank=True)
+    services = models.ManyToManyField(AppointmentService, related_name='appointments')
 
     def __str__(self):
         return f"Appointment with {self.client} on {self.appointment_date}"
@@ -43,7 +42,12 @@ class Appointment(models.Model):
     class Meta:
         db_table = "appointment"
 
+
+# Service Model
+
 # Service Provider Model
+
+
 class ServiceProvider(models.Model):
     service = models.ForeignKey(AppointmentService, on_delete=models.CASCADE)
     employee = models.ForeignKey(Staff, on_delete=models.CASCADE)

@@ -79,15 +79,27 @@ export const addExpense = (expense : any) => api.create(url.ADD_EXPENSE, expense
 export const updateExpense = (expense : any) => api.update(url.UPDATE_EXPENSE + '/' + expense.id, expense); //+ '/' + Expense._id
 export const deleteExpense = (expense : any) => api.delete(url.DELETE_EXPENSE + '/' + expense); //+ '/' + Expense 
 
+
+// Appointments
+export const getSchedule = () => api.get(url.GET_SCHEDULE);
+
 // Appointments
 export const getAppointments = () => api.get(url.GET_APPOINTMENTS);
 export const addAppointment = (appointment : any) => api.create(url.ADD_APPOINTMENT, appointment);
 export const updateAppointment = (appointment : any) => api.update(url.UPDATE_APPOINTMENT + '/' + appointment.id, appointment); //+ '/' + Appointment._id
 export const deleteAppointment = (appointment : any) => api.delete(url.DELETE_APPOINTMENT + '/' + appointment); //+ '/' + Appointment 
 
+// AppointmentServices
+export const getAppointmentServices = () => api.get(url.GET_APPOINTMENT_SERVICES);
+export const addAppointmentService = (appointmentService : any) => api.create(url.ADD_APPOINTMENT_SERVICE, appointmentService);
+export const updateAppointmentService = (appointmentService : any) => api.update(url.UPDATE_APPOINTMENT_SERVICE + '/' + appointmentService.id, appointmentService); //+ '/' + AppointmentService._id
+export const deleteAppointmentService = (appointmentService : any) => api.delete(url.DELETE_APPOINTMENT_SERVICE + '/' + appointmentService); //+ '/' + AppointmentService 
+
+
 // Clients
 export const getClients = () => api.get(url.GET_CLIENTS);
-// export const getClient = () => api.get(url.GET_CLIENT);
+export const getClientSearch = (client : any) => api.get(url.GET_CLIENT_SEARCH, client);
+export const getClientInfo = (client : any) => api.get(url.GET_CLIENT_INFO, client);
 export const addClient = (client : any) => api.create(url.ADD_CLIENT, client);
 export const updateClient = (client : any) => api.update(url.UPDATE_CLIENT + '/' + client.id, client); //+ '/' + Client._id
 export const deleteClient = (client : any) => api.delete(url.DELETE_CLIENT + '/' + client); //+ '/' + Client 

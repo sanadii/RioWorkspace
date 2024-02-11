@@ -6,6 +6,8 @@ import 'react-toastify/dist/ReactToastify.css';
 // Client Redux States
 import {
   GET_CLIENTS,
+  GET_CLIENT_SEARCH,
+  GET_CLIENT_INFO,
   ADD_CLIENT,
   DELETE_CLIENT,
   UPDATE_CLIENT
@@ -25,18 +27,38 @@ import {
 //Include Both Helper File with needed methods
 import {
   getClients as getClientsApi,
+  getClientSearch as getClientSearchApi,
+  getClientInfo as getClientInfoApi,
   addClient,
   updateClient,
   deleteClient
 } from "helpers/backend_helper";
 
-function* getClients() {
+function* getClients({ payload: client }) {
 
   try {
-    const response = yield call(getClientsApi);
+    const response = yield call(getClientsApi, client);
     yield put(ClientApiResponseSuccess(GET_CLIENTS, response.data));
   } catch (error) {
     yield put(ClientApiResponseError(GET_CLIENTS, error));
+  }
+}
+
+function* getClientSearch({ payload: client }) {
+  try {
+    const response = yield call(getClientSearchApi, client);
+    yield put(ClientApiResponseSuccess(GET_CLIENT_SEARCH, response.data));
+  } catch (error) {
+    yield put(ClientApiResponseError(GET_CLIENT_SEARCH, error));
+  }
+}
+
+function* getClientInfo({ payload: client }) {
+  try {
+    const response = yield call(getClientInfoApi, client);
+    yield put(ClientApiResponseSuccess(GET_CLIENT_INFO, response.data));
+  } catch (error) {
+    yield put(ClientApiResponseError(GET_CLIENT_INFO, error));
   }
 }
 
@@ -75,8 +97,18 @@ function* onDeleteClient({ payload: client }) {
   }
 }
 
+// Whatchers
 export function* watchGetClients() {
   yield takeEvery(GET_CLIENTS, getClients);
+}
+
+
+export function* watchGetClientSearch() {
+  yield takeEvery(GET_CLIENT_SEARCH, getClientSearch);
+}
+
+export function* watchGetClientInfo() {
+  yield takeEvery(GET_CLIENT_INFO, getClientInfo);
 }
 
 export function* watchUpdateClient() {
@@ -94,6 +126,8 @@ export function* watchAddClient() {
 function* ClientSaga() {
   yield all([
     fork(watchGetClients),
+    fork(watchGetClientSearch),
+    fork(watchGetClientInfo),
     fork(watchAddClient),
     fork(watchDeleteClient),
     fork(watchUpdateClient),

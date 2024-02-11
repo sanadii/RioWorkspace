@@ -1,5 +1,7 @@
 import {
   GET_CLIENTS,
+  GET_CLIENT_SEARCH,
+  GET_CLIENT_INFO,
   API_RESPONSE_SUCCESS,
   API_RESPONSE_ERROR,
 
@@ -27,6 +29,16 @@ export const ClientApiResponseError = (actionType, error) => ({
 
 export const getClients = () => ({
   type: GET_CLIENTS,
+});
+
+export const getClientSearch = client => ({
+  type: GET_CLIENT_SEARCH,
+  payload: client
+});
+
+export const getClientInfo = client => ({
+  type: GET_CLIENT_INFO,
+  payload: client
 });
 
 export const updateClient = client => ({

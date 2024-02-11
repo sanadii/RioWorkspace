@@ -17,40 +17,26 @@ type ServiceItem = {
   price: string;
 };
 
-const EditorServiceComponenet = ({ args, services, staff, serviceRef }) => {
+const EditorServiceComponent = ({ args, services, staff, serviceRef }) => {
+  const startTime = args.data.StartTime;
+
   const [serviceList, setServiceList] = useState<ServiceItem[]>([
-    { id: 1, service: null, staff: null, startTime: new Date(), endTime: new Date(), duration: "", price: "" },
+    { id: 1, service: null, staff: null, startTime: startTime, endTime: new Date(), duration: "", price: "" },
   ]);
-
-  const startTime = args.data.StartTime; // Extract start time
-  const [serviceStartTime, setServiceStartTime] = useState(startTime);
-
-  // const endTime = args.data.EndTime; // Extract end time
-
-  // const startDate = args.data.StartTime.toLocaleDateString(); // Extract start date
-  // const startTime = args.data.StartTime.toLocaleTimeString(); // Extract start time
-  // const endDate = args.data.EndTime.toLocaleDateString(); // Extract end date
-  // const endTime = args.data.EndTime.toLocaleTimeString(); // Extract end time
-
-  // console.log("Start Date: ", startDate);
-  // console.log("Start Time: ", startTime);
-  // console.log("End Date: ", endDate);
-  // console.log("End Time: ", endTime);
-
-  const minTime = new Date();
-  minTime.setHours(10, 0, 0); // Set minimum time to 10:00 AM
-
-  const maxTime = new Date();
-  maxTime.setHours(20, 0, 0); // Set maximum time to 8:00 PM
-
-  const [autoPopulated, setAutoPopulated] = useState<boolean>(false);
 
   serviceRef.current = serviceList;
 
-  console.log("autoPopulated: ", autoPopulated);
-  console.log("serviceList: ", serviceList);
-  console.log("serviceRef: ", serviceRef);
+  const [serviceStartTime, setServiceStartTime] = useState(startTime);
+  const [autoPopulated, setAutoPopulated] = useState<boolean>(false);
 
+  // TimePicker Settings
+  const minTime = new Date();
+  minTime.setHours(10, 0, 0);
+
+  const maxTime = new Date();
+  maxTime.setHours(20, 0, 0);
+
+  // Form Field Functions
   const formatDuration = (minutes) => {
     const hours = Math.floor(minutes / 60);
     const mins = minutes % 60;
@@ -156,21 +142,47 @@ const EditorServiceComponenet = ({ args, services, staff, serviceRef }) => {
     return totalPrice.toFixed(2); // Round to 2 decimal places
   };
 
-  const addServiceTable = () => {
-    console.log("serviceList.length:", serviceList.length);
-    const previousEndTime = serviceList.length > 1 ? serviceList[serviceList.length - 1].endTime : startTime; // Get the end time of the last service or set it to the current time if there are no services
+  const calcualteTotalTime = () => {
+    let totalTimeDuration = 0;
+
+    // Step 1: Iterate through each item in the serviceList
+    serviceList.forEach((serviceItem) => {
+      // Step 2: Sum up the duration of each service item
+      totalTimeDuration += parseFloat(serviceItem.duration) || 0; // Ensure duration is always a number
+    });
+
+    // Step 3: Convert the total duration to Hh:Mm format
+    const hours = Math.floor(totalTimeDuration / 60);
+    const minutes = totalTimeDuration % 60;
+    const formattedTotalTime = `${hours.toString().padStart(2, "0")}:${minutes.toString().padStart(2, "0")}`;
+
+    // Step 4: Return the formatted total time
+    return formattedTotalTime;
+  };
+
+  const handleAddService = () => {
+    const previousEndTime = serviceList.length > 0 ? serviceList[serviceList.length - 1].endTime : startTime; // Get the end time of the last service or set it to the current time if there are no services
     const newServiceList = [
       ...serviceList,
       { id: 1, service: null, staff: null, startTime: previousEndTime, endTime: startTime, duration: "", price: "" },
     ];
     setServiceList(newServiceList);
-    setServiceStartTime(previousEndTime); // Set the serviceStartTime to the start time of the last service
+    setServiceStartTime(previousEndTime);
+  };
+
+  const handleDeleteService = (index) => {
+    // Implement row deletion logic here
+    // For example, remove the row from the serviceList array
+    const updatedServiceList = [...serviceList];
+    updatedServiceList.splice(index, 1);
+    // Update the state with the new serviceList
+    setServiceList(updatedServiceList);
   };
 
   return (
-    <Row>
+    <React.Fragment>
       <h5>Services</h5>
-      <Table className="table-cell-background-grey">
+      <Table className="table-responsive table-cell-background-grey">
         <tbody>
           {serviceList.map((serviceItem, serviceIndex) => (
             <tr key={serviceIndex} className="services">
@@ -200,7 +212,7 @@ const EditorServiceComponenet = ({ args, services, staff, serviceRef }) => {
                 <TimePickerComponent
                   id={`startTime-${serviceIndex}`}
                   placeholder="Select a Start Time"
-                  value={serviceStartTime}
+                  value={serviceItem.startTime || serviceStartTime}
                   step={15}
                   min={minTime}
                   max={maxTime}
@@ -230,13 +242,17 @@ const EditorServiceComponenet = ({ args, services, staff, serviceRef }) => {
                   id={`price-${serviceIndex}`}
                   placeholder="Price"
                   value={serviceItem.price}
+                  type="number"
                   change={(e) => !autoPopulated && handleServicePriceChange(e.value, serviceIndex)}
                 />
               </td>
-              <td>
-                <Button color="danger" className="btn-icon">
-                  <i className="ri-delete-bin-5-line" />{" "}
-                </Button>
+              <td className="justify-content-center align-items-center">
+                <button
+                  className="btn btn-sm text-danger remove-list"
+                  onClick={() => handleDeleteService(serviceIndex)}
+                >
+                  <i className="ri-delete-bin-line"></i>
+                </button>
               </td>
             </tr>
           ))}
@@ -246,10 +262,10 @@ const EditorServiceComponenet = ({ args, services, staff, serviceRef }) => {
           <td></td>
           <td></td>
           <td>
-            <h5>Time: 15 mins</h5>
+            <b>Duration: {calcualteTotalTime()} Hrs</b>
           </td>
           <td>
-            <h5>Total: {calculateTotalPrice()} KD</h5>
+            <b>Total: {calculateTotalPrice()} KD</b>
           </td>
           <td></td>
         </tr>
@@ -257,12 +273,12 @@ const EditorServiceComponenet = ({ args, services, staff, serviceRef }) => {
 
       <Row>
         <Col lg={6}>
-          <ButtonComponent onClick={addServiceTable}>Add More Service</ButtonComponent>
+          <ButtonComponent onClick={handleAddService}>Add More Service</ButtonComponent>
         </Col>
         <Col lg={6}></Col>
       </Row>
-    </Row>
+    </React.Fragment>
   );
 };
 
-export { EditorServiceComponenet };
+export { EditorServiceComponent };

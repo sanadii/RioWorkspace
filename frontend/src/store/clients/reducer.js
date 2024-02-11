@@ -1,8 +1,9 @@
 import {
-  GET_CLIENTS,
   API_RESPONSE_SUCCESS,
   API_RESPONSE_ERROR,
-
+  GET_CLIENTS,
+  GET_CLIENT_SEARCH,
+  GET_CLIENT_INFO,
   ADD_CLIENT_SUCCESS,
   ADD_CLIENT_FAIL,
   UPDATE_CLIENT_SUCCESS,
@@ -13,6 +14,8 @@ import {
 
 const INIT_STATE = {
   clients: [],
+  clientSearch: [],
+  clientInfo: [],
   error: {},
 };
 
@@ -27,9 +30,25 @@ const Client = (state = INIT_STATE, action) => {
             isClientCreated: false,
             isClientSuccess: true
           };
+        case GET_CLIENT_SEARCH:
+          return {
+            ...state,
+            clientSearch: action.payload.data,
+            isClientCreated: false,
+            isClientSearchSuccess: true
+          };
+        case GET_CLIENT_INFO:
+          return {
+            ...state,
+            clientInfo: action.payload.data,
+            isClientCreated: false,
+            isClientSuccess: true
+          };
+
         default:
           return { ...state };
       }
+
     case API_RESPONSE_ERROR:
       switch (action.payload.actionType) {
         case GET_CLIENTS:
@@ -39,6 +58,21 @@ const Client = (state = INIT_STATE, action) => {
             isClientCreated: false,
             isClientSuccess: false
           };
+        case GET_CLIENT_INFO:
+          return {
+            ...state,
+            error: action.payload.error,
+            isClientCreated: false,
+            isClientInfoSuccess: false
+          };
+          case GET_CLIENT_SEARCH:
+            return {
+              ...state,
+              error: action.payload.error,
+              isClientCreated: false,
+              isClientSearchSuccess: false
+            };
+
         default:
           return { ...state };
       }

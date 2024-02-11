@@ -19,13 +19,42 @@ import {
   WorkWeek,
   ViewDirective,
   ViewsDirective,
+  EventSettingsModel,
   DragAndDrop,
   Resize,
   PopupOpenEventArgs,
+
+  // New Features
+  TimelineViews,
+  TimelineMonth,
+  ActionEventArgs,
+  CellClickEventArgs,
+  TimeScaleModel,
+  GroupModel,
+  ResourcesDirective,
+  ResourceDirective,
+  getWeekFirstDate,
+  addDays,
+  View,
+  PopupCloseEventArgs,
+  type EventRenderedArgs,
+  type EJ2Instance,
 } from "@syncfusion/ej2-react-schedule";
 import { DialogComponent } from "@syncfusion/ej2-react-popups";
 
-import { L10n, createElement } from "@syncfusion/ej2-base";
+import {
+  closest,
+  Browser,
+  L10n,
+  Internationalization,
+  extend,
+  isNullOrUndefined,
+  createElement,
+} from "@syncfusion/ej2-base";
+import { DropDownListComponent, ComboBox } from "@syncfusion/ej2-react-dropdowns";
+import { Query, Predicate, DataManager, UrlAdaptor } from "@syncfusion/ej2-data";
+
+import { Button, ButtonComponent } from "@syncfusion/ej2-react-buttons";
 
 // React Scheduler
 import { calendarSettings, onDragStart, onResizeStart } from "./SchedulerSettings/SchedulerSettings";
@@ -56,18 +85,19 @@ L10n.load({
   },
 });
 
+const baseApiUrl = process.env.REACT_APP_PUBLIC_URL;
+
 const Scheduler = () => {
   // Revised
   const dispatch = useDispatch();
-  const { appointments, services, staff } = useDataManager();
-  const eventSettings = getEventSettings(appointments, calendarSettings);
 
-  // console.log("appointmentData :", appointmentData);
-  // console.log("serviceData :", serviceData);
-  // console.log("staffData :", staffData);
+  const { dataManager } = useDataManager();
 
-  // Templates
-  const quickInfoTemplates = getQuickInfoTemplates(appointments);
+  console.log("dataManager: ", dataManager);
+  const eventSettings = getEventSettings(dataManager.appointment, calendarSettings);
+  const [selectedService, setSelectedService] = useState(null);
+
+  const quickInfoTemplates = getQuickInfoTemplates(dataManager?.clients, dataManager?.services, dataManager?.staff);
 
   // New Features
   const specialistObj = useRef<DialogComponent>(null);
@@ -119,8 +149,8 @@ const Scheduler = () => {
             ReactDOM.render(
               <EditorComponent
                 args={args}
-                services={services}
-                staff={staff}
+                services={dataManager?.services}
+                staff={dataManager?.staff}
                 clientRef={clientRef}
                 serviceRef={serviceRef}
                 productRef={productRef}
@@ -156,40 +186,40 @@ const Scheduler = () => {
   //   }
   // };
 
-  // const onActionBegin = (args: ActionEventArgs): void => {
-  //   if (args.requestType === "eventCreate" || args.requestType === "eventChange") {
-  //     const data: Record<string, any> =
-  //       args.requestType === "eventCreate"
-  //         ? (args.data as Record<string, any>[])[0]
-  //         : (args.changedRecords as Record<string, any>[])[0];
-  //     if (clientRef.current) {
-  //       data["clientData"] = clientRef.current;
-  //     }
+  const onActionBegin = (args: ActionEventArgs): void => {
+    if (args.requestType === "eventCreate" || args.requestType === "eventChange") {
+      const data: Record<string, any> =
+        args.requestType === "eventCreate"
+          ? (args.data as Record<string, any>[])[0]
+          : (args.changedRecords as Record<string, any>[])[0];
+      if (clientRef.current) {
+        data["clientData"] = clientRef.current;
+      }
 
-  //     if (serviceRef.current) {
-  //       data["serviceData"] = serviceRef.current;
-  //     }
-  //     let eventCollection: Record<string, any>[] = scheduleObj.current.eventBase.filterEvents(
-  //       data["StartTime"] as Date,
-  //       data["EndTime"] as Date
-  //     );
-  //     const predicate: Predicate = new Predicate("Id", "notequal", data["Id"] as number)
-  //       .and(new Predicate("DepartmentId", "equal", data["DepartmentId"] as number))
-  //       .and(new Predicate("DoctorId", "equal", data["DoctorId"] as number))
-  //       .and(new Predicate("Id", "notequal", data["RecurrenceID"] as number));
-  //     eventCollection = new DataManager({ json: eventCollection }).executeLocal(new Query().where(predicate));
-  //     if (eventCollection.length > 0) {
-  //       args.cancel = true;
-  //     }
-  //   }
-  // };
+      if (serviceRef.current) {
+        data["serviceData"] = serviceRef.current;
+      }
+      let eventCollection: Record<string, any>[] = scheduleObj.current.eventBase.filterEvents(
+        data["StartTime"] as Date,
+        data["EndTime"] as Date
+      );
+      const predicate: Predicate = new Predicate("Id", "notequal", data["Id"] as number)
+        .and(new Predicate("DepartmentId", "equal", data["DepartmentId"] as number))
+        .and(new Predicate("DoctorId", "equal", data["DoctorId"] as number))
+        .and(new Predicate("Id", "notequal", data["RecurrenceID"] as number));
+      eventCollection = new DataManager({ json: eventCollection }).executeLocal(new Query().where(predicate));
+      if (eventCollection.length > 0) {
+        args.cancel = true;
+      }
+    }
+  };
 
-  // const onActionComplete = (args: ActionEventArgs): void => {
-  //   console.log("args: ", args);
-  //   if (args.requestType === "eventCreated") {
-  //     dispatch(addAppointment(args.addedRecords[0]));
-  //   }
-  // };
+  const onActionComplete = (args: ActionEventArgs): void => {
+    console.log("args: ", args);
+    if (args.requestType === "eventCreated") {
+      dispatch(addAppointment(args.addedRecords[0]));
+    }
+  };
 
   const onEventRendered = (args: Record<string, any>): void => {
     if (args.element.classList.contains("e-appointment")) {
@@ -202,16 +232,16 @@ const Scheduler = () => {
     }
   };
 
-  // const onAddService = (): void => {
-  //   addEditServiceObj.current.onAddService();
-  // };
+  const onAddService = (): void => {
+    addEditServiceObj.current.onAddService();
+  };
 
-  // const onEventCheck = (args: Record<string, any>): boolean => {
-  //   let eventObj: Record<string, any> = args.data instanceof Array ? args.data[0] : args.data;
-  //   const today = new Date();
-  //   today.setDate(today.getDate() - 1);
-  //   return eventObj.CheckIn < today;
-  // };
+  const onEventCheck = (args: Record<string, any>): boolean => {
+    let eventObj: Record<string, any> = args.data instanceof Array ? args.data[0] : args.data;
+    const today = new Date();
+    today.setDate(today.getDate() - 1);
+    return eventObj.CheckIn < today;
+  };
 
   return (
     <React.Fragment>
@@ -236,7 +266,7 @@ const Scheduler = () => {
           popupOpen={onPopupOpen}
           // popupOpen={(args) => onPopupOpen(args, clients, clientRef, comboBox, onAddClient, scheduleObj)}
           views={["Day", "Week", "Month"]}
-          // selectedDate={new Date(2024, 2, 2)}
+          selectedDate={new Date(2024, 2, 2)}
           dragStart={onDragStart}
           resizeStart={onResizeStart}
           // New Features
@@ -248,8 +278,8 @@ const Scheduler = () => {
           editorTemplate={EditorTemplate}
           eventRendered={onEventRendered}
           // Actions
-          // actionBegin={onActionBegin}
-          // actionComplete={onActionComplete}
+          actionBegin={onActionBegin}
+          actionComplete={onActionComplete}
 
           // cellTemplate={cellTemplate}
         >

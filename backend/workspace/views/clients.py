@@ -5,6 +5,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.exceptions import NotFound
 from rest_framework.permissions import AllowAny, IsAuthenticated
+from django.db.models import Q  # Import Q for complex lookups
 
 # Apps
 from workspace.models.clients import Client
@@ -15,6 +16,37 @@ class GetClients(APIView):
         revenues = Client.objects.all()  # Adjust the query as needed
         serializer = ClientSerializer(revenues, many=True)
         return Response({'data': serializer.data}, status=status.HTTP_200_OK)
+
+
+class GetClientSearch(APIView):
+    def get(self, request):
+        client_search = request.GET.get('client', '').strip()
+        
+        if client_search.isdigit():
+            clients = Client.objects.filter(mobile__icontains=client_search)
+            if not clients.exists():
+                return Response({"data": [], "count": 0, "code": 404}, status=status.HTTP_404_NOT_FOUND)
+        else:
+            # Split the client_search into words
+            keywords = client_search.split()
+            # Filter clients by first name, last name, or mobile number
+            clients = Client.objects.filter(
+                Q(first_name__icontains=client_search) | 
+                Q(last_name__icontains=client_search) | 
+                Q()
+            )
+            for keyword in keywords:
+                # Filter clients by mobile field
+                clients = clients | Client.objects.filter(mobile__icontains=keyword)
+        
+        # Get the first 10 entries
+        clients = clients[:10]
+                
+        serializer = ClientSerializer(clients, many=True)
+        client_count = clients.count()  # Get the count of clients
+
+        return Response({"data": serializer.data, "count": client_count, "code": 200}, status=status.HTTP_200_OK)
+
 
 class AddClient(CreateAPIView):
     queryset = Client.objects.all()

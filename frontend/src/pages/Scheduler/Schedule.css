@@ -11,8 +11,19 @@
 @import "@syncfusion/ej2-icons/styles/tailwind.css";
 @import '@syncfusion/ej2-notifications/styles/tailwind.css';
 
+.service-table {
+  border-radius: 50%!important;
+  padding: 1em!important;
+}
+
+table {
+  border-radius: 50%!important;
+  padding: 1em!important;
+}
+
 .table tr td {
   padding: .2em;
+
 }
 
 .app-scheduler.e-schedule .e-table-wrap .e-resource-column-wrap .e-resource-column-table .e-resource-cells.e-parent-node {
@@ -104,4 +115,9 @@
     grid-template-columns: 1fr;
   }
 }
+
+.delete-cell {
+  text-align: center; /* Center align the content */
+}
+
 
