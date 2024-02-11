@@ -28,8 +28,10 @@ import { DialogComponent } from "@syncfusion/ej2-react-popups";
 import { L10n, createElement } from "@syncfusion/ej2-base";
 
 // React Scheduler
-import { calendarSettings, onDragStart, onResizeStart } from "./SchedulerSettings/SchedulerSettings";
 import {
+  calendarSettings,
+  onDragStart,
+  onResizeStart,
   getEventSettings,
   // EditorTemplate,
   DateHeaderTemplate,
@@ -59,19 +61,29 @@ L10n.load({
 const Scheduler = () => {
   // Revised
   const dispatch = useDispatch();
+  const scheduleObj = useRef<ScheduleComponent | null>(null);
+
   const { appointments, services, staff } = useDataManager();
   const eventSettings = getEventSettings(appointments, calendarSettings);
 
   // console.log("appointmentData :", appointmentData);
   // console.log("serviceData :", serviceData);
   // console.log("staffData :", staffData);
+  
+  // Working - Commented
+  const appointmentRef = {
+    clientRef: useRef(null),
+    serviceRef: useRef([]),
+    statusRef: useRef([]),
+    productRef: useRef([]),
+    packageRef: useRef([])
+};
+
 
   // Templates
-  const quickInfoTemplates = getQuickInfoTemplates(appointments);
+  const quickInfoTemplates = getQuickInfoTemplates(scheduleObj, appointmentRef);
 
   // New Features
-  const specialistObj = useRef<DialogComponent>(null);
-  const scheduleObj = useRef<ScheduleComponent | null>(null);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const currentDate = useRef(selectedDate);
 
@@ -93,15 +105,14 @@ const Scheduler = () => {
     // }
   };
 
-  // Working - Commented
-  const clientRef = useRef(null);
-  const serviceRef = useRef([]);
-  const statusRef = useRef([]);
-  const productRef = useRef([]);
-  const packageRef = useRef([]);
+  // const clientRef = useRef(null);
+  // const serviceRef = useRef([]);
+  // const statusRef = useRef([]);
+  // const productRef = useRef([]);
+  // const packageRef = useRef([]);
 
   const onPopupOpen = (args: PopupOpenEventArgs): void => {
-    console.log("args: ", args);
+    // console.log("scheduleObj: ", scheduleObj);
     if (args.type === "Editor") {
       // additional field customization
       if (!args.element.querySelector(".custom-field-row")) {
@@ -121,11 +132,11 @@ const Scheduler = () => {
                 args={args}
                 services={services}
                 staff={staff}
-                clientRef={clientRef}
-                serviceRef={serviceRef}
-                productRef={productRef}
-                packageRef={packageRef}
-                statusRef={statusRef}
+                clientRef={appointmentRef.clientRef}
+                serviceRef={appointmentRef.serviceRef}
+                productRef={appointmentRef.productRef}
+                packageRef={appointmentRef.packageRef}
+                statusRef={appointmentRef.statusRef}
               />,
               editorComponent
             );
