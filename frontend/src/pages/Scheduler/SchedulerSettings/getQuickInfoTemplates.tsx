@@ -1,66 +1,12 @@
-import { extend, Internationalization, isNullOrUndefined, closest } from "@syncfusion/ej2-base";
-import { calendarSettings } from "../SchedulerSettings";
-import { clientsSelector, servicesSelector, staffSelector } from "Selectors";
 import { ButtonComponent } from "@syncfusion/ej2-react-buttons";
+import { buttonClickActions } from "../SchedulerSettings";
 
-type AddObject = {
-  id: number;
-  clientName: string;
-  clientMobile: Number;
-  startTime: Date;
-  endTime: Date;
-};
-
-const buttonClickActions = (e, scheduleObj, appointmentRef) => {
-  const quickPopup = closest(e.target, ".e-quick-popup-wrapper");
-  console.log("appointmentRef:", appointmentRef);
-  console.log("123 scheduleObj: ", scheduleObj);
-  const clientRef = appointmentRef.clientRef;
-
-  const getSlotData = (): AddObject => {
-    const addObj: AddObject = {
-      id: scheduleObj.current.active.eventData.event.id,
-      // Subject: isNullOrUndefined(titleObj.current?.value) ? 'Add title' : titleObj.current.value,
-      clientName: scheduleObj.current.active.eventData.event.clientName,
-      clientMobile: 123,
-      startTime: new Date(scheduleObj.current.activeCellsData.startTime),
-      endTime: new Date(scheduleObj.current.activeCellsData.endTime),
-    };
-
-    console.log("addObj: ", addObj)
-    return addObj;
-  };
-
-  if (!scheduleObj || !scheduleObj.current || !scheduleObj.current.activeEventData) {
-    console.error("scheduleObj or its properties are undefined.");
-    return;
-  }
-
-  if (e.target.id === "add") {
-    const addObj = getSlotData();
-    scheduleObj.current.addEvent(addObj);
-  } else if (e.target.id === "delete") {
-    const eventDetails = scheduleObj.current.activeEventData.event;
-    let currentAction = "Delete";
-    if (eventDetails.RecurrenceRule) {
-      currentAction = "DeleteOccurrence";
-    }
-    scheduleObj.current.deleteEvent(eventDetails, currentAction);
-  } else {
-    const isCellPopup = quickPopup.firstElementChild.classList.contains("e-cell-popup");
-    const eventDetails = isCellPopup ? getSlotData() : scheduleObj.current.activeEventData.event;
-    let currentAction = isCellPopup ? "Add" : "Save";
-    if (eventDetails.RecurrenceRule) {
-      currentAction = "EditOccurrence";
-    }
-    scheduleObj.current.openEditor(eventDetails, currentAction, true);
-  }
-  scheduleObj.current.closeQuickInfoPopup();
-};
-
-const getQuickInfoTemplates = (scheduleObj, appointmentRef) => {
-  console.log("appointmentRef: ", appointmentRef);
+const getQuickInfoTemplates = (scheduleObj, clientRef) => {
   const headerTemplate = (props) => {
+    // console.log("scheduleObj: ", scheduleObj);
+    // console.log("clientRef: ", clientRef);
+    // console.log("props: ", props)
+
     const clientName = props.clientName;
     const clientMobile = props.clientMobile;
 
@@ -128,14 +74,14 @@ const getQuickInfoTemplates = (scheduleObj, appointmentRef) => {
               id="more-details"
               cssClass="e-flat"
               content="More Details"
-              onClick={(e) => buttonClickActions(e, scheduleObj, appointmentRef)}
+              onClick={(e) => buttonClickActions(e, scheduleObj, props)}
             />
             <ButtonComponent
               id="add"
               cssClass="e-flat"
               content="Add"
               isPrimary={true}
-              onClick={(e) => buttonClickActions(e, scheduleObj, appointmentRef)}
+              onClick={(e) => buttonClickActions(e, scheduleObj, clientRef)}
             />
           </div>
         ) : (
@@ -146,21 +92,21 @@ const getQuickInfoTemplates = (scheduleObj, appointmentRef) => {
                   id="edit"
                   // cssClass="e-flat"
                   content="Edit"
-                  onClick={(e) => buttonClickActions(e, scheduleObj, appointmentRef)}
+                  onClick={(e) => buttonClickActions(e, scheduleObj, clientRef)}
                 />
                 <ButtonComponent
                   id="reschedule"
                   cssClass="e-flat"
                   content="Reschedule"
                   isPrimary={true}
-                  onClick={(e) => buttonClickActions(e, scheduleObj, appointmentRef)}
+                  onClick={(e) => buttonClickActions(e, scheduleObj, clientRef)}
                 />
                 <ButtonComponent
                   id="book-next"
                   // cssClass="e-flat"
                   content="Book Next"
                   isPrimary={true}
-                  onClick={(e) => buttonClickActions(e, scheduleObj, appointmentRef)}
+                  onClick={(e) => buttonClickActions(e, scheduleObj, clientRef)}
                 />
               </p>
             </div>
@@ -169,21 +115,21 @@ const getQuickInfoTemplates = (scheduleObj, appointmentRef) => {
                 id="delete"
                 // cssClass="e-flat"
                 content="Delete"
-                onClick={(e) => buttonClickActions(e, scheduleObj, appointmentRef)}
+                onClick={(e) => buttonClickActions(e, scheduleObj, clientRef)}
               />
               <ButtonComponent
                 id="cancel"
                 // cssClass="e-flat"
                 content="Cancel"
                 isPrimary={true}
-                onClick={(e) => buttonClickActions(e, scheduleObj, appointmentRef)}
+                onClick={(e) => buttonClickActions(e, scheduleObj, clientRef)}
               />
               <ButtonComponent
                 id="book-next"
                 // cssClass="e-flat"
                 content="Book Next"
                 isPrimary={true}
-                onClick={(e) => buttonClickActions(e, scheduleObj, appointmentRef)}
+                onClick={(e) => buttonClickActions(e, scheduleObj, clientRef)}
               />
             </div>
           </div>

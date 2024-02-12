@@ -69,20 +69,24 @@ const Scheduler = () => {
   // console.log("appointmentData :", appointmentData);
   // console.log("serviceData :", serviceData);
   // console.log("staffData :", staffData);
-  
-  // Working - Commented
-  const appointmentRef = {
-    clientRef: useRef(null),
-    serviceRef: useRef([]),
-    statusRef: useRef([]),
-    productRef: useRef([]),
-    packageRef: useRef([])
-};
 
+  // Working - Commented
+  //   const appointmentRef = {
+  //     clientRef: useRef(null),
+  //     serviceRef: useRef([]),
+  //     statusRef: useRef([]),
+  //     productRef: useRef([]),
+  //     packageRef: useRef([])
+  // };
+
+  const clientRef = useRef(null);
+  const serviceRef = useRef([]);
+  const statusRef = useRef([]);
+  const productRef = useRef([]);
+  const packageRef = useRef([]);
 
   // Templates
-  const quickInfoTemplates = getQuickInfoTemplates(scheduleObj, appointmentRef);
-
+  const quickInfoTemplates = getQuickInfoTemplates(scheduleObj, clientRef);
   // New Features
   const [selectedDate, setSelectedDate] = useState(new Date());
   const currentDate = useRef(selectedDate);
@@ -132,11 +136,11 @@ const Scheduler = () => {
                 args={args}
                 services={services}
                 staff={staff}
-                clientRef={appointmentRef.clientRef}
-                serviceRef={appointmentRef.serviceRef}
-                productRef={appointmentRef.productRef}
-                packageRef={appointmentRef.packageRef}
-                statusRef={appointmentRef.statusRef}
+                clientRef={clientRef}
+                serviceRef={serviceRef}
+                productRef={productRef}
+                packageRef={packageRef}
+                statusRef={statusRef}
               />,
               editorComponent
             );

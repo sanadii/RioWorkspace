@@ -15,3 +15,4 @@ export { DateHeaderTemplate } from "./DateHeaderTemplate";
 export { onPopupOpen } from "./onPopupOpen";
 export { calendarSettings, onDragStart, onResizeStart } from "./SchedulerActions";
 
+export { buttonClickActions } from "./buttonClickActions";

@@ -19,17 +19,17 @@ const EditorClientComponent = ({ args, clientRef }) => {
   const dispatch = useDispatch();
   const [inputValue, setInputValue] = useState("");
   const { clientSearch } = useSelector(clientsSelector);
-  const startDate = args?.data?.StartTime ? args.data.StartTime.toLocaleDateString() : '';
+  const startDate = args?.data?.StartTime ? args.data.StartTime.toLocaleDateString() : "";
 
   const [clientDetails, setClientDetails] = useState<ClientItem>({
-    id: null,
-    name: "",
-    mobile: "",
+    id: clientRef.current.id,
+    name: clientRef.current.clientName,
+    mobile: clientRef.current.clientMobile,
     date_of_birth: "null",
   });
 
-  clientRef.current = clientDetails;
-  console.log("clientDetails: ", clientDetails);
+  // clientRef.current = clientDetails;
+  console.log("clientRef.current: ", clientRef.current);
 
   const handleClientMobileChange = (event) => {
     setClientDetails((prevState) => ({
@@ -72,6 +72,7 @@ const EditorClientComponent = ({ args, clientRef }) => {
     dispatch(getClientSearch(clientSearched));
   };
 
+  console.log("clientRef.name: ", clientRef.name);
   return (
     <Row>
       <div className="d-flex">
@@ -84,6 +85,7 @@ const EditorClientComponent = ({ args, clientRef }) => {
           <tr>
             <td>
               <ComboBoxComponent
+                value={clientRef.current.clientName}
                 dataSource={clientSearch}
                 allowFiltering={true}
                 fields={{ text: "name", value: "id" }}
@@ -96,7 +98,7 @@ const EditorClientComponent = ({ args, clientRef }) => {
               <TextBoxComponent
                 id="clientMobile"
                 placeholder="Mobile"
-                value={clientDetails.mobile}
+                value={clientRef.current.clientMobile}
                 // change={(e) => !autoPopulated && handleServicePriceChange(e.value, serviceIndex)}
                 change={(e) => handleClientMobileChange(e.value)}
 
