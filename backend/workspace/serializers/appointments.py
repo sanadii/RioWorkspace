@@ -12,62 +12,11 @@ class AppointmentServiceSerializer (serializers.ModelSerializer):
             model = AppointmentService
             fields = '__all__'
 
-# class AppointmentSerializer(serializers.ModelSerializer):
-#     client_id = serializers.IntegerField(source='client.id', read_only=True)
-#     client_name = serializers.SerializerMethodField(read_only=True)
-#     services = AppointmentServiceSerializer(many=True)
-
-
-#     def create(self, validated_data):
-#         services_data = validated_data.pop('services')
-#         appointment = Appointment.objects.create(**validated_data)
-#         for service_data in services_data:
-#             appointment_service = AppointmentService.objects.create(**service_data)
-#             ServiceProvider.objects.create(service=appointment_service, employee=appointment.staff)
-#         return appointment
-
-#     class Meta:
-#         model = Appointment
-#         # fields = '__all__'  # You can also list specific fields along with 'client_id' and 'client_name'
-
-#     # If you need to include additional logic or fields, you can define them here
-
-#         fields = [
-#             'id', 'client_id', 'client_name', 'services',
-#             # 'appointment_date', 'start_time', 'end_time',
-#         ]
-
-#     def get_client_name(self, obj):
-#         # Concatenate first name and last name of the client
-#         return f"{obj.client.first_name} {obj.client.last_name}".strip()
-
-# class AppointmentSerializer(serializers.ModelSerializer):
-#     client_id = serializers.IntegerField(source='client.id', read_only=True)  # Change this line
-#     client_name = serializers.SerializerMethodField(read_only=True)
-#     services = AppointmentServiceSerializer(many=True)
-
-#     def create(self, validated_data):
-#         services_data = validated_data.pop('services')
-#         appointment = Appointment.objects.create(**validated_data)
-#         for service_data in services_data:
-#             appointment_service = AppointmentService.objects.create(**service_data)
-#             ServiceProvider.objects.create(service=appointment_service, employee=appointment.staff)
-#         return appointment
-
-#     class Meta:
-#         model = Appointment
-#         fields = [
-#             'id', 'client_id', 'client_name', 'services',
-#         ]
-
-#     def get_client_name(self, obj):
-#         return f"{obj.client.first_name} {obj.client.last_name}".strip()
-
 class AppointmentSerializer(serializers.ModelSerializer):
     client = serializers.SerializerMethodField()
     client_name = serializers.SerializerMethodField(read_only=True)
     client_mobile = serializers.SerializerMethodField(read_only=True)
-    services = AppointmentServiceSerializer(many=True)
+    services = AppointmentServiceSerializer(many=True, required=False)  # Make services not required
 
     def get_client(self, obj):
         # Serialize the client object to a dictionary with desired fields
@@ -82,8 +31,9 @@ class AppointmentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Appointment
         fields = [
-            'id', 'client', 'services', 'client_name', 'client_mobile',
-             'start_time', 'end_time'
+            'id', 'start_time', 'end_time',
+            'client', 'client_name', 'client_mobile',
+            'services',
         ]
 
     def get_client_name(self, obj):
@@ -93,6 +43,18 @@ class AppointmentSerializer(serializers.ModelSerializer):
     def get_client_mobile(self, obj):
         # Concatenate first name and last name of the client
         return f"{obj.client.mobile}".strip()
+
+    def create(self, validated_data):
+        client_id = validated_data.pop('client', None)
+        if client_id is not None:
+            client = Client.objects.get(id=client_id)
+            validated_data['client'] = client
+        else:
+            raise serializers.ValidationError("Client ID is required.")
+
+        appointment = Appointment.objects.create(**validated_data)
+        # ... handle services and other related fields ...
+        return appointment
 
 class ServiceProviderSerializer(serializers.ModelSerializer):
     class Meta:

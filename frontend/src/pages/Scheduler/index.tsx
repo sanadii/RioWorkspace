@@ -4,8 +4,8 @@ import "./SchedulerSettings/scheduler.css";
 import ReactDOM from "react-dom";
 
 // Redux and selectors
-import { addAppointment } from "store/actions";
 import { useDispatch } from "react-redux";
+import { addAppointment, updateAppointment, deleteAppointment } from "store/actions";
 
 // @syncfusion
 import {
@@ -22,6 +22,7 @@ import {
   DragAndDrop,
   Resize,
   PopupOpenEventArgs,
+  ActionEventArgs,
 } from "@syncfusion/ej2-react-schedule";
 import { DialogComponent } from "@syncfusion/ej2-react-popups";
 
@@ -30,24 +31,22 @@ import { L10n, createElement } from "@syncfusion/ej2-base";
 // React Scheduler
 import {
   calendarSettings,
-  onDragStart,
-  onResizeStart,
   getEventSettings,
-  // EditorTemplate,
   DateHeaderTemplate,
-  getQuickInfoTemplates,
+  useQuickInfoTemplates,
   useDataManager,
-  // onPopupOpen,
   eventTemplate,
 } from "./SchedulerSettings";
 
-import EditorComponent from "./EditorComponent";
-import EditorTemplate from "./EditorComponent/EditorTemplate";
+import { onDragStart, onResizeStart } from "./SchedulerActions";
+
+import EditorTemplate from "./EditorTemplate";
 
 import { errorPlacement, updateActiveItem, loadImage, getString } from "Components/Utils/util";
 
 import doctorsIcon from "assets/Icons/Doctors.svg";
 import "./schedule.css";
+import { ActionArgs } from "@syncfusion/ej2-react-grids";
 
 L10n.load({
   "en-US": {
@@ -59,10 +58,11 @@ L10n.load({
 });
 
 const Scheduler = () => {
-  // Revised
   const dispatch = useDispatch();
-  const scheduleObj = useRef<ScheduleComponent | null>(null);
 
+  // Revised
+  const scheduleObj = useRef<ScheduleComponent | null>(null);
+  // console.log("scheduleObj: ", scheduleObj);
   const { appointments, services, staff } = useDataManager();
   const eventSettings = getEventSettings(appointments, calendarSettings);
 
@@ -79,6 +79,7 @@ const Scheduler = () => {
   //     packageRef: useRef([])
   // };
 
+  const appointmentRef = useRef(null);
   const clientRef = useRef(null);
   const serviceRef = useRef([]);
   const statusRef = useRef([]);
@@ -86,7 +87,7 @@ const Scheduler = () => {
   const packageRef = useRef([]);
 
   // Templates
-  const quickInfoTemplates = getQuickInfoTemplates(scheduleObj, clientRef);
+  const quickInfoTemplates = useQuickInfoTemplates(scheduleObj, clientRef);
   // New Features
   const [selectedDate, setSelectedDate] = useState(new Date());
   const currentDate = useRef(selectedDate);
@@ -119,57 +120,37 @@ const Scheduler = () => {
     // console.log("scheduleObj: ", scheduleObj);
     if (args.type === "Editor") {
       // additional field customization
-      if (!args.element.querySelector(".custom-field-row")) {
-        const row: HTMLElement = createElement("div", { className: "custom-field-row" });
-        const formElement: HTMLElement = args.element.querySelector(".e-schedule-form");
-        if (formElement) {
-          // Check if formElement exists
-          const firstChild: Element | null = formElement.firstElementChild;
-          if (firstChild) {
-            // Check if firstChild exists
-            firstChild.insertBefore(row, args.element.querySelector(".e-title-location-row"));
-
-            // Render Client Component
-            const editorComponent: HTMLElement = createElement("div", { className: "field-element-container" });
-            ReactDOM.render(
-              <EditorComponent
-                args={args}
-                services={services}
-                staff={staff}
-                clientRef={clientRef}
-                serviceRef={serviceRef}
-                productRef={productRef}
-                packageRef={packageRef}
-                statusRef={statusRef}
-              />,
-              editorComponent
-            );
-            row.appendChild(editorComponent);
-          }
-        }
+    }
+    if (args.type === "QuickInfo") {
+      if (args.target.classList.contains("e-work-cells") || args.target.classList.contains("e-header-cells")) {
+        scheduleObj.current.closeQuickInfoPopup();
+        args.cancel = true;
+      } else if (args.target.classList.contains("e-appointment")) {
+        (args.element as HTMLElement).style.boxShadow = `1px 2px 5px 0 ${
+          (args.target as HTMLElement).style.backgroundColor
+        }`;
       }
     }
   };
 
-  // const onPopupOpen = (args: PopupOpenEventArgs): void => {
-  //   if (args.type === "Editor") {
-  //     // additional field customization
-  //     if (!args.element.querySelector(".custom-field-row")) {
-  //       const row: HTMLElement = createElement("div", { className: "custom-field-row" });
-  //       const formElement: HTMLElement = args.element.querySelector(".e-schedule-form");
-  //       formElement.firstChild.insertBefore(row, args.element.querySelector(".e-title-location-row"));
-  //       const container: HTMLElement = createElement("div", { className: "custom-field-container" });
-  //       // const serviceContainer: HTMLElement = createElement("div", { className: "custom-field-container" });
+  const onActionBegin = (args: ActionEventArgs): void => {
+    console.log("onActionBegin called", args);
 
-  //       // Render the custom React component within the container
-  //       ReactDOM.render(<ClientFieldElement clients={clients} clientRef={clientRef} />, container);
-  //       // ReactDOM.render(<ServiceFieldElement services={services} serviceRef={serviceRef} />, serviceContainer);
+    if (args.requestType === "eventCreate") {
+      const newEvent = {
+        appointment: appointmentRef.current,
+        client: clientRef.current,
+        services: serviceRef.current,
+        product: productRef.current,
+        package: packageRef.current,
+        status: statusRef.current,
+      };
+      console.log("newEvent", newEvent);
 
-  //       row.appendChild(container);
-  //       // row.appendChild(serviceContainer);
-  //     }
-  //   }
-  // };
+      // Dispatch the addAppointment action with the new event data
+      dispatch(addAppointment(newEvent));
+    }
+  };
 
   // const onActionBegin = (args: ActionEventArgs): void => {
   //   if (args.requestType === "eventCreate" || args.requestType === "eventChange") {
@@ -207,6 +188,8 @@ const Scheduler = () => {
   // };
 
   const onEventRendered = (args: Record<string, any>): void => {
+    console.log("onEventRendered is called");
+
     if (args.element.classList.contains("e-appointment")) {
       const data: Record<string, any> = args.data as Record<string, any>;
       // Check if the appointment is even
@@ -217,6 +200,47 @@ const Scheduler = () => {
     }
   };
 
+  const onActionComplete = (args: ActionEventArgs): void => {
+    if (args.requestType === "eventCreated") {
+      // Manually construct the event data from refs or state
+      const newEvent = {
+        appointment: appointmentRef.current,
+        client: clientRef.current,
+        services: serviceRef.current,
+        product: productRef.current,
+        package: packageRef.current,
+        status: statusRef.current,
+      };
+
+      // Check if you can directly modify args.addedRecords
+      if (Array.isArray(args.addedRecords)) {
+        args.addedRecords[0] = newEvent;
+      }
+
+      // Dispatch the addAppointment action with the new event data
+      dispatch(addAppointment(newEvent));
+    }
+  };
+
+  const onCreated = (args: Record<string, any>): void => {
+    console.log("onCreated is called");
+    const newEvent = {
+      appointment: appointmentRef.current,
+      client: clientRef.current,
+      services: serviceRef.current,
+      product: productRef.current,
+      package: packageRef.current,
+      status: statusRef.current,
+    };
+
+    // Check if you can directly modify args.addedRecords
+    if (Array.isArray(args.addedRecords)) {
+      args.addedRecords[0] = newEvent;
+    }
+
+    // Dispatch the addAppointment action with the new event data
+    dispatch(addAppointment(newEvent));
+  };
   // const onAddService = (): void => {
   //   addEditServiceObj.current.onAddService();
   // };
@@ -227,6 +251,8 @@ const Scheduler = () => {
   //   today.setDate(today.getDate() - 1);
   //   return eventObj.CheckIn < today;
   // };
+
+  // const dataToCheck = data as Record<string, any>[] }
 
   return (
     <React.Fragment>
@@ -248,24 +274,34 @@ const Scheduler = () => {
           timeScale={calendarSettings.timeScale}
           // // The data to show
           eventSettings={eventSettings}
-          popupOpen={onPopupOpen}
-          // popupOpen={(args) => onPopupOpen(args, clients, clientRef, comboBox, onAddClient, scheduleObj)}
+          // popupOpen={onPopupOpen}
           views={["Day", "Week", "Month"]}
-          // selectedDate={new Date(2024, 2, 2)}
           dragStart={onDragStart}
           resizeStart={onResizeStart}
-          // New Features
-          navigating={onNavigation}
-          // Date Header
+          // // New Features
+          // navigating={onNavigation}
+          // // Date Header
           quickInfoTemplates={quickInfoTemplates}
-          // Templates
-          dateHeaderTemplate={DateHeaderTemplate}
-          editorTemplate={EditorTemplate}
-          eventRendered={onEventRendered}
-          // Actions
-          // actionBegin={onActionBegin}
+          // // Templates
+          // dateHeaderTemplate={DateHeaderTemplate}
+          editorTemplate={(args) => (
+            <EditorTemplate
+              args={args}
+              services={services}
+              staff={staff}
+              appointmentRef={appointmentRef}
+              clientRef={clientRef}
+              serviceRef={serviceRef}
+              productRef={productRef}
+              packageRef={packageRef}
+              statusRef={statusRef}
+            />
+          )}
+          // eventRendered={onEventRendered}
+          // // Actions
+          actionBegin={onActionBegin}
           // actionComplete={onActionComplete}
-
+          // created={onCreated}
           // cellTemplate={cellTemplate}
         >
           <ViewsDirective>

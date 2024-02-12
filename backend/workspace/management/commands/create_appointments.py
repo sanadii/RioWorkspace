@@ -24,7 +24,7 @@ class Command(BaseCommand):
             service_start_time = timezone.now() + timedelta(days=random.randint(-7, 30))
             service_end_time = service_start_time + timedelta(minutes=service.duration)
 
-            appointment_service = AppointmentService.objects.create(
+            services = AppointmentService.objects.create(
                 service=service,
                 price=service.price,
                 start_time=service_start_time,
@@ -50,6 +50,6 @@ class Command(BaseCommand):
 
                 # Add random services to the appointment
                 services_to_add = AppointmentService.objects.order_by('?')[:random.randint(1, 3)]
-                appointment.appointment_service.add(*services_to_add)
+                appointment.services.add(*services_to_add)
 
         self.stdout.write(self.style.SUCCESS('Successfully populated the database with sample data'))

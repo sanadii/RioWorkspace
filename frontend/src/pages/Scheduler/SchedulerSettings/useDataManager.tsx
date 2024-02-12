@@ -16,23 +16,7 @@ const useDataManager = () => {
       dispatch(getSchedule());
     }
   }, [dispatch, appointments]);
-
-  // const appointmentData = new DataManager({
-  //   json: appointments || [],
-  //   adaptor: new JsonAdaptor(),
-  // });
-
-  // const serviceData = new DataManager({
-  //   json: services || [],
-  //   adaptor: new JsonAdaptor(),
-  // });
-
-  // // Initialize DataManager for staff if they are to be used as resources
-  // const staffData = new DataManager({
-  //   json: staff || [],
-  //   adaptor: new JsonAdaptor(),
-  // });
-
+  
   return { appointments, services, staff };
 };
 

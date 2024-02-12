@@ -1,5 +1,6 @@
 from django.http import JsonResponse
 from django.utils.dateparse import parse_datetime
+from django.shortcuts import get_object_or_404
 
 from rest_framework.views import APIView
 from rest_framework.generics import UpdateAPIView, DestroyAPIView, CreateAPIView
@@ -12,11 +13,13 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 # Apps
 from workspace.models.appointments import Appointment, AppointmentService
 from workspace.models.staff import Staff
+from workspace.models.clients import Client
 from workspace.models.services import Service
 
 from workspace.serializers.appointments import AppointmentSerializer, AppointmentServiceSerializer, ScheduleSerializer
 from workspace.serializers.staff import StaffSerializer
 from workspace.serializers.services import ServiceSerializer
+from workspace.serializers.clients import ClientSerializer
 
 
 class GetAppointments(APIView):
@@ -66,11 +69,33 @@ class GetScheduleData(APIView):
 
 class AddAppointment(APIView):
     def post(self, request):
-        serializer = AppointmentSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        # Extract client and appointment data from request
+        client_data = request.data.get('client')
+        appointment_data = request.data.get('appointment')
+
+        # Handle client
+        if 'id' in client_data and client_data['id']:
+            # Fetch existing client
+            client = get_object_or_404(Client, id=client_data['id'])
+        else:
+            # Create new client
+            client_serializer = ClientSerializer(data=client_data)
+            if client_serializer.is_valid():
+                client = client_serializer.save()
+            else:
+                return Response(client_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+        # Set client ID for the appointment
+        appointment_data['client'] = client.id
+
+        # Create appointment
+        appointment_serializer = AppointmentSerializer(data=appointment_data)
+        if appointment_serializer.is_valid():
+            appointment = appointment_serializer.save()
+            return Response(appointment_serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            return Response(appointment_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 # class AddAppointment(CreateAPIView):
 #     queryset = Appointment.objects.all()

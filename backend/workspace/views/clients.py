@@ -20,7 +20,7 @@ class GetClients(APIView):
 
 class GetClientSearch(APIView):
     def get(self, request):
-        client_search = request.GET.get('client', '').strip()
+        client_search = request.GET.get('clientName', '').strip()
         
         if client_search.isdigit():
             clients = Client.objects.filter(mobile__icontains=client_search)

@@ -8,7 +8,6 @@ import { TimePickerComponent } from "@syncfusion/ej2-react-calendars";
 
 // Define the type for a service item
 type ServiceItem = {
-  id: number;
   service: number;
   staff: number;
   startTime: Date; // Change the type to Date
@@ -18,10 +17,11 @@ type ServiceItem = {
 };
 
 const EditorServiceComponent = ({ args, services, staff, serviceRef }) => {
-  const startTime = args.data.StartTime;
+  const startTime = args.startTime;
+  console.log("startTime: ", startTime)
 
   const [serviceList, setServiceList] = useState<ServiceItem[]>([
-    { id: 1, service: null, staff: null, startTime: startTime, endTime: new Date(), duration: "", price: "" },
+    { service: null, staff: null, startTime: startTime, endTime: new Date(), duration: "", price: "" },
   ]);
 
   serviceRef.current = serviceList;
@@ -50,17 +50,20 @@ const EditorServiceComponent = ({ args, services, staff, serviceRef }) => {
 
   const handleAutoPopulation = (e, serviceIndex) => {
     const selectedService = e.itemData;
-
+console.log("selectedService: ", selectedService)
     setServiceList((prevServiceList) => {
       const updatedServiceList = [...prevServiceList];
       const updatedServiceItem = {
         ...updatedServiceList[serviceIndex],
-        service: selectedService ? selectedService.id : null,
+        id: selectedService ? selectedService.id : null,
         duration: selectedService ? selectedService.duration : 0,
         price: selectedService ? selectedService.price : 0,
         startTime: startTime,
+        // endTime: endTime,
       };
       updatedServiceList[serviceIndex] = updatedServiceItem;
+      console.log("updatedServiceList: ", updatedServiceList)
+
       return updatedServiceList;
     });
     setAutoPopulated(false); // Reset autoPopulated to false after the auto-population
@@ -164,7 +167,7 @@ const EditorServiceComponent = ({ args, services, staff, serviceRef }) => {
     const previousEndTime = serviceList.length > 0 ? serviceList[serviceList.length - 1].endTime : startTime; // Get the end time of the last service or set it to the current time if there are no services
     const newServiceList = [
       ...serviceList,
-      { id: 1, service: null, staff: null, startTime: previousEndTime, endTime: startTime, duration: "", price: "" },
+      {service: null, staff: null, startTime: previousEndTime, endTime: startTime, duration: "", price: "" },
     ];
     setServiceList(newServiceList);
     setServiceStartTime(previousEndTime);

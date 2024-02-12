@@ -5,14 +5,10 @@ export { useDataManager } from "./useDataManager";
 export { getEventSettings } from "./eventSettings";
 
 // Templates
-export { getQuickInfoTemplates } from "./getQuickInfoTemplates";
+export { useQuickInfoTemplates } from "./useQuickInfoTemplates";
 export { eventTemplate } from "./eventTemplate";
 
 // Common
 export { DateHeaderTemplate } from "./DateHeaderTemplate";
 
-// Actions
-export { onPopupOpen } from "./onPopupOpen";
-export { calendarSettings, onDragStart, onResizeStart } from "./SchedulerActions";
-
-export { buttonClickActions } from "./buttonClickActions";
+export { calendarSettings } from "./calendarSettings";
