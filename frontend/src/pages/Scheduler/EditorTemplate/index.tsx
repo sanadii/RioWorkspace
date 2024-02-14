@@ -12,6 +12,7 @@ const EditorTemplate = ({
   args,
   services,
   staff,
+  clients,
   appointmentRef,
   clientRef,
   serviceRef,
@@ -21,7 +22,7 @@ const EditorTemplate = ({
 }) => {
   return (
     <React.Fragment>
-      <EditorClientComponent args={args} appointmentRef={appointmentRef} clientRef={clientRef} />
+      <EditorClientComponent args={args} clients={clients} appointmentRef={appointmentRef} clientRef={clientRef} />
 
       <EditorServiceComponent args={args} services={services} staff={staff} serviceRef={serviceRef} />
 

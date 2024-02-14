@@ -63,7 +63,7 @@ const Scheduler = () => {
   // Revised
   const scheduleObj = useRef<ScheduleComponent | null>(null);
   // console.log("scheduleObj: ", scheduleObj);
-  const { appointments, services, staff } = useDataManager();
+  const { appointments, services, staff, clients } = useDataManager();
   const eventSettings = getEventSettings(appointments, calendarSettings);
 
   // console.log("appointmentData :", appointmentData);
@@ -254,6 +254,24 @@ const Scheduler = () => {
 
   // const dataToCheck = data as Record<string, any>[] }
 
+  const editorTemplate = (args) => {
+    // services, staff, and other refs should be defined or obtained from the context/state/hooks
+    return (
+      <EditorTemplate
+        args={args}
+        services={services}
+        staff={staff}
+        clients={clients}
+        appointmentRef={appointmentRef}
+        clientRef={clientRef}
+        serviceRef={serviceRef}
+        packageRef={packageRef}
+        productRef={productRef}
+        statusRef={statusRef}
+      />
+    );
+  };
+
   return (
     <React.Fragment>
       <div className="page-content">
@@ -284,19 +302,7 @@ const Scheduler = () => {
           quickInfoTemplates={quickInfoTemplates}
           // // Templates
           // dateHeaderTemplate={DateHeaderTemplate}
-          editorTemplate={(args) => (
-            <EditorTemplate
-              args={args}
-              services={services}
-              staff={staff}
-              appointmentRef={appointmentRef}
-              clientRef={clientRef}
-              serviceRef={serviceRef}
-              productRef={productRef}
-              packageRef={packageRef}
-              statusRef={statusRef}
-            />
-          )}
+          editorTemplate={editorTemplate}
           // eventRendered={onEventRendered}
           // // Actions
           actionBegin={onActionBegin}

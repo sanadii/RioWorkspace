@@ -14,10 +14,11 @@ const useDataManager = () => {
   useEffect(() => {
     if (!appointments || appointments.length === 0) {
       dispatch(getSchedule());
+      dispatch(getClients());
     }
   }, [dispatch, appointments]);
   
-  return { appointments, services, staff };
+  return { appointments, services, staff, clients };
 };
 
 export { useDataManager };

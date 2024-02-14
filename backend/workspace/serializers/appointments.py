@@ -15,7 +15,7 @@ class AppointmentServiceSerializer (serializers.ModelSerializer):
 class AppointmentSerializer(serializers.ModelSerializer):
     client = serializers.SerializerMethodField()
     client_name = serializers.SerializerMethodField(read_only=True)
-    client_mobile = serializers.SerializerMethodField(read_only=True)
+    client_mobile = serializers.SerializerMethodField(read_only=True, required=False)
     services = AppointmentServiceSerializer(many=True, required=False)  # Make services not required
 
     def get_client(self, obj):

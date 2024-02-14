@@ -20,13 +20,13 @@ type ClientItem = {
   mobile: string;
 };
 
-const EditorClientComponent = ({ args, appointmentRef, clientRef }) => {
+const EditorClientComponent = ({ args, clients, appointmentRef, clientRef }) => {
   const dispatch = useDispatch();
 
   const [inputValue, setInputValue] = useState("");
   const { clientSearch } = useSelector(clientsSelector);
   const [isDisplayClientDetails, setIsDisplayClientDetails] = useState(false);
-  console.log("isDisplayClientDetails: ", isDisplayClientDetails);
+  // console.log("isDisplayClientDetails: ", isDisplayClientDetails);
   function getAppointmentDate(date) {
     if (!date) return "";
 
@@ -48,17 +48,35 @@ const EditorClientComponent = ({ args, appointmentRef, clientRef }) => {
     endTime: args.endTime || "",
   });
 
-  appointmentRef.current = appointmentDetails;
-console.log("appointmentRef.current: ", appointmentRef.current)
   // Use optional chaining to safely access properties of clientRef.current
   const [clientDetails, setClientDetails] = useState<ClientItem>({
     id: clientRef.current?.id || null,
-    name: clientRef.current?.clientName || "",
-    mobile: clientRef.current?.clientMobile || "",
-    dateOfBirth: "", // Assuming you want to initialize this as an empty string
+    name: clientRef.current?.name || "",
+    mobile: clientRef.current?.mobile || "",
+    dateOfBirth: clientRef.current?.dateOfBirth || "",
   });
 
+  appointmentRef.current = appointmentDetails;
   clientRef.current = clientDetails;
+
+  appointmentRef.current.clientId = clientDetails.id;
+  console.log("clientDetails: ", clientDetails);
+  console.log("clientRef.current: ", clientRef.current);
+
+  const onClientNameChange = (event) => {
+    const selectedClient = event.itemData;
+
+    setClientDetails((prevState) => ({
+      ...prevState,
+      id: Number.isInteger(selectedClient.id) ? selectedClient.id : null,
+      name: selectedClient.name,
+      mobile: selectedClient.mobile ?? "",
+    }));
+
+    setIsDisplayClientDetails(true);
+    // Set input value to the selected client
+    // setInputValue(selectedClient ? selectedClient.name : "");
+  };
 
   const handleClientMobileChange = (event) => {
     setClientDetails((prevState) => ({
@@ -67,29 +85,11 @@ console.log("appointmentRef.current: ", appointmentRef.current)
     }));
   };
 
-
   const handleClientBirthdayChange = (event) => {
     setClientDetails((prevState) => ({
       ...prevState,
       dateOfBirth: event ? event : "",
     }));
-  };
-
-  const onClientNameChange = (event) => {
-    const selectedClient = event.itemData;
-
-    if (selectedClient) {
-      setClientDetails((prevState) => ({
-        ...prevState,
-        id: Number.isInteger(selectedClient.id) ? selectedClient.id : null,
-        name: selectedClient.name,
-        mobile: selectedClient.mobile,
-      }));
-    }
-
-    setIsDisplayClientDetails(true);
-    // Set input value to the selected client
-    // setInputValue(selectedClient ? selectedClient.name : "");
   };
 
   const onFiltering = (e) => {
@@ -100,7 +100,7 @@ console.log("appointmentRef.current: ", appointmentRef.current)
     const clientSearched = {
       client: e.text,
     };
-    dispatch(getClientSearch(clientSearched));
+    // dispatch(getClientSearch(clientSearched));
   };
 
   return (
@@ -124,7 +124,7 @@ console.log("appointmentRef.current: ", appointmentRef.current)
             <td>
               <ComboBoxComponent
                 value={clientRef.current?.id || ""}
-                dataSource={clientSearch}
+                dataSource={clients}
                 allowFiltering={true}
                 fields={{ text: "name", value: "id" }}
                 change={onClientNameChange}
@@ -136,7 +136,7 @@ console.log("appointmentRef.current: ", appointmentRef.current)
               <TextBoxComponent
                 id="clientMobile"
                 placeholder="Mobile"
-                value={clientRef.current?.mobile || ""}
+                // value={clientRef.current?.mobile || ""}
                 change={(e) => handleClientMobileChange(e.value)}
               />
             </td>
