@@ -9,7 +9,7 @@ STATUS_CHOICES = [
 class Client(models.Model):
     # Main client information
     date_added = models.DateTimeField(auto_now_add=True)
-    first_name = models.CharField(max_length=100)
+    first_name = models.CharField(max_length=100, blank=True, null=True)
     last_name = models.CharField(max_length=100, blank=True, null=True)
     mobile = models.CharField(max_length=15, blank=True, null=True)
     email = models.EmailField(blank=True, null=True)

@@ -1,4 +1,66 @@
 //
+// Scheduler Font - Timely
+// 
+
+@font-face {
+  font-family: DomaineDisplay;
+  src: url("../../fonts/DomaineDisplayWeb-Regular.woff");
+  src: local('domaine-display-regular'), url("../../fonts/DomaineDisplayWeb-Regular.woff") format("woff");
+  font-weight: 300
+}
+
+// @font-face {
+//   font-family: DomaineDisplay;
+//   src: url("../../fonts/DomaineDisplayWeb-Bold.woff");
+//   src: local('domaine-display-bold'), url("../../fonts/DomaineDisplayWeb-Bold.woff") format("woff");
+//   font-weight: 700
+// }
+
+// @font-face {
+//   font-family: DomaineText;
+//   src: url("../../fonts/DomaineTextWeb-Regular.woff");
+//   src: local('domaine-text-regular'), url("../../fonts/DomaineTextWeb-Regular.woff") format("woff");
+//   font-weight: 300
+// }
+
+
+
+// @font-face {
+//   font-family: Lato;
+//   src: url("../../fonts/lato-light.woff");
+//   src: local('lato-light'), url("../../fonts/lato-light.woff") format("woff");
+//   font-weight: 300
+// }
+
+@font-face {
+  font-family: Lato;
+  src: url("../../fonts/lato-regular.woff");
+  src: local('lato-regular'), url("../../fonts/lato-regular.woff") format("woff");
+  font-weight: 400
+}
+
+@font-face {
+  font-family: Lato;
+  src: url("../../fonts/lato-italic.woff");
+  src: local('lato-italic'), url("../../fonts/lato-italic.woff") format("woff");
+  font-weight: 400;
+  font-style: italic
+}
+
+@font-face {
+  font-family: Lato;
+  src: url("../../fonts/lato-bold.woff");
+  src: local('lato-bold'), url("../../fonts/lato-bold.woff") format("woff");
+  font-weight: 700
+}
+
+// @font-face {
+//   font-family: Lato;
+//   src: url("../../fonts/lato-black.woff");
+//   src: local('lato-black'), url("../../fonts/lato-black.woff") format("woff");
+//   font-weight: 900
+// } 
+//
 // Google font - Poppins
 //
 

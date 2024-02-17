@@ -11,14 +11,18 @@ type AddObject = {
   endTime: Date;
 };
 
-const useButtonClickActions = (scheduleObj, clientRef) => {
+const useButtonClickActions = (scheduleObj) => {
+  // console.log("what is the scheduleObj?", scheduleObj);
+
   const dispatch = useDispatch();
+  console.log("are we calling useButtonClickActions?", scheduleObj);
 
   const buttonClickActions = (e) => {
     if (!scheduleObj?.current) {
       console.error("Scheduler object is not defined.");
       return;
     }
+    // console.log("ARE WE?", scheduleObj);
 
     const quickPopup = closest(e.target, ".e-quick-popup-wrapper");
 
@@ -42,7 +46,7 @@ const useButtonClickActions = (scheduleObj, clientRef) => {
     // Acions
     // Handles the edit action
 
-    const handleEditAction = (e, scheduleObj, clientRef, quickPopup, getSlotData) => {
+    const handleEditAction = (e, scheduleObj, quickPopup, getSlotData) => {
       const activeEventData = scheduleObj.current.activeEventData;
       if (!activeEventData) {
         console.error("No active event data found.");
@@ -50,13 +54,13 @@ const useButtonClickActions = (scheduleObj, clientRef) => {
       }
 
       const currentEvent = activeEventData.event;
-      clientRef.current = {
-        id: currentEvent.id,
-        clientName: currentEvent.clientName,
-        clientMobile: currentEvent.clientMobile,
-        startTime: new Date(currentEvent.startTime),
-        endTime: new Date(currentEvent.endTime),
-      };
+      // clientRef.current = {
+      //   id: currentEvent.id,
+      //   clientName: currentEvent.clientName,
+      //   clientMobile: currentEvent.clientMobile,
+      //   startTime: new Date(currentEvent.startTime),
+      //   endTime: new Date(currentEvent.endTime),
+      // };
 
       const isCellPopup = quickPopup.firstElementChild?.classList.contains("e-cell-popup");
       const eventDetails = isCellPopup ? getSlotData() : activeEventData.event;
@@ -69,6 +73,20 @@ const useButtonClickActions = (scheduleObj, clientRef) => {
     };
 
     // Handles the delete action
+    const handleUpdateAction = () => {
+      const eventDetails = scheduleObj.current.activeEventData?.event;
+      if (!eventDetails) {
+        console.error("No active event data found for update.");
+        return;
+      }
+
+      // Dispatch the updateAppointment action with the event details
+      dispatch(updateAppointment(eventDetails));
+
+      // Close the dialogue or perform additional actions as needed
+      // ...
+    };
+
     const handleDeleteAction = (scheduleObj) => {
       const eventDetails = scheduleObj.current.activeEventData?.event;
       if (!eventDetails) {
@@ -85,20 +103,37 @@ const useButtonClickActions = (scheduleObj, clientRef) => {
       scheduleObj.current.deleteEvent(eventDetails, currentAction);
     };
 
+    // Handles the cancel action (closing the dialogue)
+    const handleCancelAction = () => {
+      // Close the dialogue or perform additional actions as needed
+      scheduleObj.current.closeQuickInfoPopup(); // Assuming this closes the dialogue
+    };
+
+    console.log("e.target.id", e.target.id);
     // Handle different button actions
     switch (e.target.id) {
       case "edit":
-        handleEditAction(e, scheduleObj, clientRef, quickPopup, getSlotData);
+        handleEditAction(e, scheduleObj, quickPopup, getSlotData);
         break;
       case "add":
         const addObj = getSlotData();
         // if (addObj) scheduleObj.current.addEvent(addObj);
         break;
+      case "update":
+        // const addObj = getSlotData();
+        // console.log("are we updating?", e.target.id);
+        handleUpdateAction();
+        break;
       case "delete":
         handleDeleteAction(scheduleObj);
+        // console.log("are we delete?", e.target.id);
         break;
+      case "cancel":
+        handleCancelAction();
+        break;
+
       default:
-        // Handle other actions or ignore
+        // console.log("nothing will happen");
         break;
     }
 

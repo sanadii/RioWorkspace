@@ -14,14 +14,13 @@ const getEventSettings = (appointments, calendarSettings) => {
       // subject: { name: "clientName", title: "clientName" },
       // title: { name: "serviceName", title: "serviceName" },
       id: "id",
-      // client: { name: "client" },
-      services: { name: "services" },
-      subject: { name: "client" },
-      location: { name: "ShipCountry" },
-      description: { name: "ShipAddress" },
+      subject: { name: "client", title: "Client" },
       startTime: { name: "startTime" },
       endTime: { name: "endTime" },
-      recurrenceRule: { name: "ShipRegion" },
+      description: { name: "notes" },
+
+      // services: { name: "services" },
+      // location: { name: "ShipCountry" },
 
       // subject: {
       //   name: "clientName",

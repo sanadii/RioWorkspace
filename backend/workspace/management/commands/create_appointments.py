@@ -35,17 +35,25 @@ class Command(BaseCommand):
 
         # Create sample appointments
         for i in range(30):
-            random_start_time = timezone.now() + timedelta(days=random.randint(-7, 30), hours=random.randint(8, 16))
+            # Generate a random date
+            random_date = timezone.now() + timedelta(days=random.randint(-7, 7))
+
+            # Set specific time range (10 AM to 8 PM)
+            random_hour = random.randint(10, 19)  # 19 is used because range is exclusive at the end
+            random_minute = random.randint(0, 59)
+            random_start_time = random_date.replace(hour=random_hour, minute=random_minute, second=0, microsecond=0)
+
+            # Calculate random end time based on duration
             duration = timedelta(hours=random.randint(1, 3))
             random_end_time = random_start_time + duration
 
             # Ensure the appointment is within the specified time range
-            if one_week_ago <= random_start_time <= thirty_days_from_now:
+            if one_week_ago <= random_start_time <= thirty_days_from_now and random_end_time.hour < 20:
                 appointment = Appointment.objects.create(
                     client=Client.objects.order_by('?').first(),
-                    date=random_start_time,
                     start_time=random_start_time,
-                    end_time=random_end_time
+                    end_time=random_end_time,
+                    status=random.randint(1, 6)  # Assign a random status
                 )
 
                 # Add random services to the appointment

@@ -18,7 +18,7 @@ class Command(BaseCommand):
 
         data = pd.read_csv(csv_file_path)
 
-        date_formats = ['%Y-%m-%d %I:%M%p', '%Y-%m-%d']  # Add more formats as needed
+        date_formats = ['%Y-%m-%d %I:%M%p', '%Y-%m-%d', '%m/%d/%Y']  # Added '%m/%d/%Y'
 
         for _, row in data.iterrows():
             # Debugging line for processing information
@@ -34,6 +34,7 @@ class Command(BaseCommand):
                         continue
                 if date_of_birth is None:
                     self.stdout.write(self.style.WARNING(f"Invalid date format for {row['first_name']} {row['last_name']}"))
+
 
             client = Client(
                 first_name=row['first_name'],

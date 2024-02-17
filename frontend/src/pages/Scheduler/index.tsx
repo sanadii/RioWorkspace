@@ -21,7 +21,10 @@ import {
   ViewsDirective,
   DragAndDrop,
   Resize,
-  PopupOpenEventArgs,
+  type EJ2Instance,
+  type EventRenderedArgs,
+  type PopupOpenEventArgs,
+  type PopupCloseEventArgs,
   ActionEventArgs,
 } from "@syncfusion/ej2-react-schedule";
 import { DialogComponent } from "@syncfusion/ej2-react-popups";
@@ -48,6 +51,8 @@ import doctorsIcon from "assets/Icons/Doctors.svg";
 import "./schedule.css";
 import { ActionArgs } from "@syncfusion/ej2-react-grids";
 
+import { AppointmentStatusOptions } from "Components/constants";
+
 L10n.load({
   "en-US": {
     schedule: {
@@ -70,24 +75,10 @@ const Scheduler = () => {
   // console.log("serviceData :", serviceData);
   // console.log("staffData :", staffData);
 
-  // Working - Commented
-  //   const appointmentRef = {
-  //     clientRef: useRef(null),
-  //     serviceRef: useRef([]),
-  //     statusRef: useRef([]),
-  //     productRef: useRef([]),
-  //     packageRef: useRef([])
-  // };
-
   const appointmentRef = useRef(null);
-  const clientRef = useRef(null);
-  const serviceRef = useRef([]);
-  const statusRef = useRef([]);
-  const productRef = useRef([]);
-  const packageRef = useRef([]);
 
   // Templates
-  const quickInfoTemplates = useQuickInfoTemplates(scheduleObj, clientRef);
+  const quickInfoTemplates = useQuickInfoTemplates(scheduleObj);
   // New Features
   const [selectedDate, setSelectedDate] = useState(new Date());
   const currentDate = useRef(selectedDate);
@@ -110,14 +101,8 @@ const Scheduler = () => {
     // }
   };
 
-  // const clientRef = useRef(null);
-  // const serviceRef = useRef([]);
-  // const statusRef = useRef([]);
-  // const productRef = useRef([]);
-  // const packageRef = useRef([]);
-
   const onPopupOpen = (args: PopupOpenEventArgs): void => {
-    // console.log("scheduleObj: ", scheduleObj);
+    console.log("scheduleObj: ", args);
     if (args.type === "Editor") {
       // additional field customization
     }
@@ -133,22 +118,117 @@ const Scheduler = () => {
     }
   };
 
+  const onPopupClose = (args: PopupCloseEventArgs): void => {
+    if (args.type === "Editor" && args.data) {
+      const formElement: any = args.element.querySelectorAll(".custom-event-editor .e-lib[data-name]");
+      const elements: HTMLElement[] = Array.from<HTMLElement>(formElement);
+      const eventObj: Record<string, any> = args.data as Record<string, any>;
+
+      // Process form fields
+      for (const element of elements) {
+        const fieldName: string = element.dataset.name as string;
+        const instance: any = (element as EJ2Instance).ej2_instances[0];
+        if (instance) {
+          eventObj[fieldName] = instance.value;
+        }
+      }
+
+      // Add appointment details to the event object
+      eventObj["id"] = appointmentRef.current.id;
+      eventObj["startTime"] = appointmentRef.current.startTime;
+      eventObj["endTime"] = appointmentRef.current.endTime;
+
+      args.data = eventObj;
+    }
+  };
+
+  // const clientRef = useRef(null);
+  // const serviceRef = useRef([]);
+  // const statusRef = useRef([]);
+  // const productRef = useRef([]);
+  // const packageRef = useRef([]);
+
   const onActionBegin = (args: ActionEventArgs): void => {
-    console.log("onActionBegin called", args);
+    let slotAvail: boolean = false;
+    if (["eventCreate", "eventChange", "eventRemove"].includes(args.requestType)) {
+      args.cancel = true;
+      switch (args.requestType) {
+        case "eventCreate":
+          args.addedRecords?.forEach((data: Record<string, any>) => {
+            if (scheduleObj.current?.isSlotAvailable(data)) {
+              slotAvail = true;
+              data.startTime = data.startTime.toISOString();
+              data.endTime = data.endTime.toISOString();
+              // dispatch(addData(data));
+            }
+          });
 
-    if (args.requestType === "eventCreate") {
-      const newEvent = {
-        appointment: appointmentRef.current,
-        client: clientRef.current,
-        services: serviceRef.current,
-        product: productRef.current,
-        package: packageRef.current,
-        status: statusRef.current,
-      };
-      console.log("newEvent", newEvent);
+          const newEvent = appointmentRef.current;
+          console.log("newEvent", newEvent);
 
-      // Dispatch the addAppointment action with the new event data
-      dispatch(addAppointment(newEvent));
+          // Dispatch the addAppointment action with the new event data
+          dispatch(addAppointment(newEvent));
+          console.log(args);
+          args.addedRecords?.forEach((data: Record<string, any>) => {
+            // if (scheduleObj.current?.isSlotAvailable(data)) {
+            //   slotAvail = true;
+            //   data.CheckIn = data.CheckIn.toISOString();
+            //   data.CheckOut = data.CheckOut.toISOString();
+            //   dispatch(addAppointment(newEvent));
+            // toastObj.current.content = "Booking has been created successfully.";
+            // toastObj.current.cssClass = "e-toast-success";
+            // toastObj.current.show();
+            // }
+          });
+          break;
+        case "eventChange":
+          args.changedRecords?.forEach((data: Record<string, any>) => {
+            if (scheduleObj.current?.isSlotAvailable(data)) {
+              slotAvail = true;
+              data.startTime = data.startTime.toISOString();
+              data.endTime = data.endTime.toISOString();
+              // dispatch(updateData(data));
+              // toastObj.current.content = "Booking has been updated successfully.";
+              // toastObj.current.cssClass = "e-toast-success";
+              // toastObj.current.show();
+            }
+
+            const updatedEvent = appointmentRef.current;
+            console.log("updatedEvent", updatedEvent);
+
+            // Dispatch the addAppointment action with the new event data
+            dispatch(updateAppointment(updatedEvent));
+            console.log(args);
+            args.addedRecords?.forEach((data: Record<string, any>) => {
+              // if (scheduleObj.current?.isSlotAvailable(data)) {
+              //   slotAvail = true;
+              //   data.CheckIn = data.CheckIn.toISOString();
+              //   data.CheckOut = data.CheckOut.toISOString();
+              //   dispatch(addAppointment(newEvent));
+              // toastObj.current.content = "Booking has been created successfully.";
+              // toastObj.current.cssClass = "e-toast-success";
+              // toastObj.current.show();
+              // }
+            });
+          });
+          break;
+        case "eventRemove":
+          args.deletedRecords?.forEach((data: Record<string, any>) => {
+            slotAvail = true;
+            data.startTime = data.startTime.toISOString();
+            data.endTime = data.endTime.toISOString();
+            dispatch(deleteAppointment(data));
+            // toastObj.current.content = "Booking has been deleted successfully.";
+            // toastObj.current.cssClass = "e-toast-success";
+            // toastObj.current.show();
+          });
+          break;
+      }
+      if (!slotAvail) {
+        // toastObj.current.content = "Room not available for booking on the selected Dates.";
+        // toastObj.current.cssClass = "e-toast-warning";
+        // toastObj.current.show();
+      }
     }
   };
 
@@ -187,29 +267,56 @@ const Scheduler = () => {
   //   }
   // };
 
-  const onEventRendered = (args: Record<string, any>): void => {
-    console.log("onEventRendered is called");
 
-    if (args.element.classList.contains("e-appointment")) {
-      const data: Record<string, any> = args.data as Record<string, any>;
-      // Check if the appointment is even
-      args.element.style.backgroundColor = "#F4FCFA";
-      args.element.style.color = "#000000";
-      args.element.style.border = "1px solid #7cca7c";
-      args.element.style.borderLeft = "3px solid #7cca7c";
+  const onEventRendered = (args: EventRenderedArgs): void => {
+    // Common classes to be added to all events
+    const commonClasses = ['fc-event', 'fc-event-skin', 'fc-event-vert'];
+  
+    // Add common classes to the event element
+    args.element.classList.add(...commonClasses);
+  
+    // Additional logic based on status
+    const status: number = args.data.status;
+    const statusOption = AppointmentStatusOptions.find(option => option.id === status);
+  
+    if (statusOption) {
+      // Add specific classes based on the status
+      args.element.classList.add(...statusOption.className.split(' '));
+      args.element.style.backgroundColor = statusOption.color;
+      args.element.style.borderColor = statusOption.color;
     }
   };
+  
+    
+  const getAppointmentStatusClass = (status: number): string | null => {
+    const statusOption = AppointmentStatusOptions.find(option => option.id === status);
+    return statusOption ? statusOption.className : null;
+  };
+
+  
+  const getBorderColor = (status: number): string => {
+    const statusOption = AppointmentStatusOptions.find(option => option.id === status);
+    return statusOption ? statusOption.badgeClass : "#000";
+  };
+  
+  // const onEventRendered = (args: Record<string, any>): void => {
+  //   console.log("onEventRendered is called");
+
+  //   if (args.element.classList.contains("e-appointment")) {
+  //     const data: Record<string, any> = args.data as Record<string, any>;
+  //     // Check if the appointment is even
+  //     args.element.style.backgroundColor = "#F4FCFA";
+  //     args.element.style.color = "#000000";
+  //     args.element.style.border = "1px solid #7cca7c";
+  //     args.element.style.borderLeft = "3px solid #7cca7c";
+  //   }
+  // };
 
   const onActionComplete = (args: ActionEventArgs): void => {
     if (args.requestType === "eventCreated") {
       // Manually construct the event data from refs or state
       const newEvent = {
         appointment: appointmentRef.current,
-        client: clientRef.current,
-        services: serviceRef.current,
-        product: productRef.current,
-        package: packageRef.current,
-        status: statusRef.current,
       };
 
       // Check if you can directly modify args.addedRecords
@@ -226,11 +333,6 @@ const Scheduler = () => {
     console.log("onCreated is called");
     const newEvent = {
       appointment: appointmentRef.current,
-      client: clientRef.current,
-      services: serviceRef.current,
-      product: productRef.current,
-      package: packageRef.current,
-      status: statusRef.current,
     };
 
     // Check if you can directly modify args.addedRecords
@@ -241,6 +343,7 @@ const Scheduler = () => {
     // Dispatch the addAppointment action with the new event data
     dispatch(addAppointment(newEvent));
   };
+
   // const onAddService = (): void => {
   //   addEditServiceObj.current.onAddService();
   // };
@@ -254,20 +357,17 @@ const Scheduler = () => {
 
   // const dataToCheck = data as Record<string, any>[] }
 
-  const editorTemplate = (args) => {
+  const editorTemplate = (data: Record<string, any>): React.JSX.Element => {
     // services, staff, and other refs should be defined or obtained from the context/state/hooks
     return (
       <EditorTemplate
-        args={args}
+        scheduleObj={scheduleObj}
+        // scheduleObj={scheduleObj.current} // passing the current value of scheduleObj ref
+        data={data}
         services={services}
         staff={staff}
         clients={clients}
         appointmentRef={appointmentRef}
-        clientRef={clientRef}
-        serviceRef={serviceRef}
-        packageRef={packageRef}
-        productRef={productRef}
-        statusRef={statusRef}
       />
     );
   };
@@ -292,28 +392,29 @@ const Scheduler = () => {
           timeScale={calendarSettings.timeScale}
           // // The data to show
           eventSettings={eventSettings}
-          // popupOpen={onPopupOpen}
+          popupOpen={onPopupOpen}
           views={["Day", "Week", "Month"]}
           dragStart={onDragStart}
           resizeStart={onResizeStart}
-          // // New Features
-          // navigating={onNavigation}
-          // // Date Header
+          // // // New Features
+          navigating={onNavigation}
+          // // // Date Header
+          popupClose={onPopupClose}
           quickInfoTemplates={quickInfoTemplates}
-          // // Templates
-          // dateHeaderTemplate={DateHeaderTemplate}
+          // // // Templates
+          dateHeaderTemplate={DateHeaderTemplate}
           editorTemplate={editorTemplate}
-          // eventRendered={onEventRendered}
-          // // Actions
+          eventRendered={onEventRendered}
+          // // // Actions
           actionBegin={onActionBegin}
           // actionComplete={onActionComplete}
           // created={onCreated}
           // cellTemplate={cellTemplate}
         >
           <ViewsDirective>
-            <ViewDirective option="Day" />
-            <ViewDirective option="Week" />
-            <ViewDirective option="WorkWeek" />
+            <ViewDirective option="Day" eventTemplate={eventTemplate} />
+            <ViewDirective option="Week" eventTemplate={eventTemplate} />
+            <ViewDirective option="WorkWeek" eventTemplate={eventTemplate} />
             <ViewDirective option="Month" />
           </ViewsDirective>
 

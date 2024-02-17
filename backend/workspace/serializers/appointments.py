@@ -1,60 +1,86 @@
 from rest_framework import serializers
+from django.shortcuts import get_object_or_404
+
 from workspace.models.appointments import Appointment, AppointmentService, ServiceProvider
 from workspace.models.clients import Client
 from workspace.models.staff import Staff
+from workspace.models.services import Service
 
-class AppointmentServiceSerializer (serializers.ModelSerializer):
-        service_id = serializers.IntegerField(source='service.id', read_only=True)
-        name = serializers.CharField(source='service.name', read_only=True)
-        duration = serializers.IntegerField(source='service.duration', read_only=True)
-        price = serializers.IntegerField(source='service.price', read_only=True)
-        class Meta:
-            model = AppointmentService
-            fields = '__all__'
+
+
+from workspace.serializers.clients import ClientSerializer
+from workspace.serializers.services import ServiceSerializer
+from workspace.serializers.staff import StaffSerializer
+
+# class AppointmentServiceSerializer (serializers.ModelSerializer):
+#         service_id = serializers.IntegerField(source='service.id', read_only=True)
+#         name = serializers.CharField(source='service.name', read_only=True)
+#         duration = serializers.IntegerField(source='service.duration', read_only=True)
+#         price = serializers.IntegerField(source='service.price', read_only=True)
+#         class Meta:
+#             model = AppointmentService
+#             fields = '__all__'
+
+class AppointmentServiceSerializer(serializers.ModelSerializer):
+    # Assuming you have a serializer for the Service model
+    service_id = serializers.IntegerField(source='service.id', read_only=True)
+    name = serializers.CharField(source='service.name', read_only=True)
+
+    service = serializers.PrimaryKeyRelatedField(queryset=Service.objects.all())
+    staff = serializers.PrimaryKeyRelatedField(queryset=Staff.objects.all())
+
+    class Meta:
+        model = AppointmentService
+        fields = ['service', 'staff', 'start_time', 'end_time', 'duration', 'price',
+                  'service_id', 'name']
+
 
 class AppointmentSerializer(serializers.ModelSerializer):
-    client = serializers.SerializerMethodField()
-    client_name = serializers.SerializerMethodField(read_only=True)
-    client_mobile = serializers.SerializerMethodField(read_only=True, required=False)
-    services = AppointmentServiceSerializer(many=True, required=False)  # Make services not required
-
-    def get_client(self, obj):
-        # Serialize the client object to a dictionary with desired fields
-        client_obj = obj.client
-        return {
-            'id': client_obj.id,
-            'first_name': client_obj.first_name,
-            'last_name': client_obj.last_name,
-            # Add more fields as needed
-        }
+    client_id = serializers.IntegerField(write_only=True)
+    client = ClientSerializer(read_only=True)
+    services = AppointmentServiceSerializer(many=True, required=False)
 
     class Meta:
         model = Appointment
-        fields = [
-            'id', 'start_time', 'end_time',
-            'client', 'client_name', 'client_mobile',
-            'services',
-        ]
-
-    def get_client_name(self, obj):
-        # Concatenate first name and last name of the client
-        return f"{obj.client.first_name} {obj.client.last_name}".strip()
-
-    def get_client_mobile(self, obj):
-        # Concatenate first name and last name of the client
-        return f"{obj.client.mobile}".strip()
+        fields = ['id', 'start_time', 'end_time', 'status', 'client', 'client_id', 'services']
 
     def create(self, validated_data):
-        client_id = validated_data.pop('client', None)
-        if client_id is not None:
-            client = Client.objects.get(id=client_id)
-            validated_data['client'] = client
-        else:
-            raise serializers.ValidationError("Client ID is required.")
+        services_data = validated_data.pop('services', [])
+        client_id = validated_data.pop('client_id')
+        client = get_object_or_404(Client, id=client_id)
+        appointment = Appointment.objects.create(client=client, **validated_data)
 
-        appointment = Appointment.objects.create(**validated_data)
-        # ... handle services and other related fields ...
+        for service_data in services_data:
+            # Create each AppointmentService instance
+            service_instance = AppointmentService.objects.create(**service_data)
+            # Add the service instance to the appointment
+            appointment.services.add(service_instance)
+
         return appointment
+
+    def update(self, instance, validated_data):
+        services_data = validated_data.pop('services', [])
+        instance.start_time = validated_data.get('start_time', instance.start_time)
+        instance.end_time = validated_data.get('end_time', instance.end_time)
+        instance.status = validated_data.get('status', instance.status)
+        instance.save()
+
+        # Update or create services
+        for service_data in services_data:
+            service_id = service_data.get('id', None)
+            if service_id:
+                # Update existing service
+                service_instance = AppointmentService.objects.get(id=service_id, appointment=instance)
+                for attr, value in service_data.items():
+                    setattr(service_instance, attr, value)
+                service_instance.save()
+            else:
+                # Create new service
+                # Ensure that you're assigning the appointment to the correct field
+                AppointmentService.objects.create(**service_data, appointment=instance)
+
+        return instance
+
 
 class ServiceProviderSerializer(serializers.ModelSerializer):
     class Meta:

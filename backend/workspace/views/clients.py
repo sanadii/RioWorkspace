@@ -13,8 +13,8 @@ from workspace.serializers.clients import ClientSerializer
 
 class GetClients(APIView):
     def get(self, request, format=None):
-        revenues = Client.objects.all()  # Adjust the query as needed
-        serializer = ClientSerializer(revenues, many=True)
+        clients = Client.objects.all()  # Adjust the query as needed
+        serializer = ClientSerializer(clients, many=True)
         return Response({'data': serializer.data}, status=status.HTTP_200_OK)
 
 

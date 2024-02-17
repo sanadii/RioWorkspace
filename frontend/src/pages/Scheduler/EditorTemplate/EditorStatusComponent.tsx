@@ -1,84 +1,90 @@
 import React, { useState } from "react";
 import { Button, ButtonGroup, Col, Row } from "reactstrap";
+import { AppointmentStatusOptions } from "Components/constants";
 
-const EditorStatusComponent = ({ statusRef }) => {
-  const [selectedStatus, setSelectedStatus] = useState(1);
-  const [isListOpen, setIsListOpen] = useState(false);
-  const [appointmentConfirmed, setAppointmentConfirmed] = useState(false);
+const EditorStatusComponent = ({ data, appointmentDetails, setAppointmentDetails }) => {
+  const [appointmentConfirmed, setAppointmentConfirmed] = useState(data.status !== 1 ? true : false);
 
-  // console.log("appointmentConfirmed:", appointmentConfirmed);
   const handlePencilledInClick = () => {
-    setIsListOpen(false);
     setAppointmentConfirmed(false);
-    setSelectedStatus(0);
+    setAppointmentDetails((prevState) => ({
+      ...prevState,
+      status: 1,
+    }));
   };
 
   const handleConfirmedClick = () => {
-    setIsListOpen(true);
     setAppointmentConfirmed(true);
-    setSelectedStatus(1);
+    setAppointmentDetails((prevState) => ({
+      ...prevState,
+      status: 2,
+    }));
   };
 
   const handleOptionSelect = (value) => {
-    setSelectedStatus(value);
     console.log("Selected value:", value);
-  };
-
-  const statusOptions = {
-    2: "Not started",
-    3: "Arrived",
-    4: "Started",
-    5: "Completed",
-    6: "Did not show",
+    setAppointmentDetails((prevState) => ({
+      ...prevState,
+      status: value,
+    }));
   };
 
   return (
-    <Row className="mt-3">
-      <Col lg={8} className="d-flex">
-        <Button
-          className={appointmentConfirmed ? "btn-soft-secondary" : "btn-secondary mb-0"}
-          id="btncheck1"
-          onClick={handlePencilledInClick}
-        >
-          Pencilled-in
-        </Button>
-        <Button
-          className={!appointmentConfirmed ? "btn-soft-secondary" : "btn-secondary mb-0"}
-          id="btncheck2"
-          onClick={handleConfirmedClick}
-        >
-          Confirmed
-        </Button>
-        {isListOpen && (
-          <select
-            id="appointment-confirmed-status"
-            name="appointmentConfirmationStatus"
-            className="form-select"
-            onChange={(e) => handleOptionSelect(Number(e.target.value))}
-          >
-            {Object.entries(statusOptions).map(([key, value]) => (
-              <option key={key} value={key}>
-                {value}
-              </option>
-            ))}
-          </select>
-        )}
-      </Col>
-      <Col lg={4}>
-        <div className="d-flex justify-content-end align-items-center">
-          <div className="ms-2">
-            <input type="hidden" className="save-and-add-deposit-value" value="false" />
-            <div className="booking-status__invoice">
-              <div className="add-deposit-container">
-                <Button color="primary" outline>
-                  Add deposit
+    <React.Fragment>
+      <div id="appointment-modal-extras" className="add-appt__extras">
+        <div className="add-appt__row add-appt__row-booking-status">
+          <div className="add-appt__icon add-appt__icon-status" title="Booking status"></div>
+          <div className="add-appt__booking-status booking-status">
+            <div className="booking-status__options">
+              <span className="button-group me-2" data-toggle="buttons-radio">
+                <Button
+                  className={`booking-type ${appointmentConfirmed ? "btn-soft-secondary" : "btn-secondary"}`}
+                  id="btncheck1"
+                  onClick={handlePencilledInClick}
+                >
+                  Pencilled-in
                 </Button>
+                <Button
+                  className={`booking-type ${!appointmentConfirmed ? "btn-soft-secondary" : "btn-secondary"}`}
+                  id="btncheck2"
+                  onClick={handleConfirmedClick}
+                >
+                  Confirmed
+                </Button>
+              </span>
+
+              {appointmentConfirmed && (
+                <select
+                  id="appointment-confirmed-status"
+                  name="appointmentConfirmationStatus"
+                  className="booking-confirmation-status form-control"
+                  onChange={(e) => handleOptionSelect(Number(e.target.value))}
+                >
+                  {AppointmentStatusOptions.filter((option) => option.id !== 1).map((option) => (
+                    <option key={option.id} value={option.id}>
+                      {option.name}
+                    </option>
+                  ))}
+                </select>
+              )}
+              <div className="booking-status__deposits-break"></div>
+              <div className="booking-status__right">
+                <div className="booking-status__deposits">
+                  <input type="hidden" className="deposit-amount" value="0" />
+                  <div className="booking-status__invoice">
+                    <div className="add-deposit-container">
+                      <Button color="primary" outline>
+                        Add deposit
+                      </Button>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </Col>
-    </Row>
+      </div>
+    </React.Fragment>
   );
 };
 

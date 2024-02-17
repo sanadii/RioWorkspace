@@ -4,6 +4,16 @@ from workspace.models.staff import Staff
 from workspace.models.resources import ResourceItem
 from workspace.models.services import Service
 
+STATUS_CHOICES = [
+    (1, 'pencilled-in'),
+    (2, 'not-started'),
+    (3, 'arrived'),
+    (4, 'started'),
+    (5, 'finished'),
+    (6, 'did-not-show'),
+    (7, 'cancelled'),
+]
+
 
 class AppointmentService(models.Model):
     service = models.ForeignKey(Service, on_delete=models.CASCADE)
@@ -25,14 +35,14 @@ class AppointmentService(models.Model):
 # Appointment Model
 class Appointment(models.Model):
     client = models.ForeignKey(Client, on_delete=models.CASCADE)
-    date = models.DateTimeField()
     start_time = models.DateTimeField()
     end_time = models.DateTimeField()
-    recurrence_rule = models.CharField(max_length=255, null=True, blank=True)
+    status = models.IntegerField(choices=STATUS_CHOICES, default=1, blank=True, null=True)
     services = models.ManyToManyField(AppointmentService, related_name='appointments')
+    # recurrence_rule = models.CharField(max_length=255, null=True, blank=True)
 
     def __str__(self):
-        return f"Appointment with {self.client} on {self.appointment_date}"
+        return f"Appointment with {self.client} on {self.start_time}"
 
     def allocate_resources(self):
         # Logic to allocate resources based on minimize_switching and match_resources settings

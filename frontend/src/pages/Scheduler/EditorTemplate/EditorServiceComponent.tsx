@@ -1,30 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { DropDownListComponent } from "@syncfusion/ej2-react-dropdowns";
 import { TextBoxComponent } from "@syncfusion/ej2-react-inputs";
-import { Link } from "react-router-dom";
 import { ButtonComponent } from "@syncfusion/ej2-react-buttons";
 import { Table, Row, Col, Button, Input, Label, ButtonGroup } from "reactstrap";
 import { TimePickerComponent } from "@syncfusion/ej2-react-calendars";
 
-// Define the type for a service item
-type ServiceItem = {
-  service: number;
-  staff: number;
-  startTime: Date; // Change the type to Date
-  endTime: Date; // Change the type to Date
-  duration: string;
-  price: string;
-};
+const EditorServiceComponent = ({ data, services, staff, serviceDetails, setServiceDetails }) => {
 
-const EditorServiceComponent = ({ args, services, staff, serviceRef }) => {
-  const startTime = args.startTime;
-  console.log("startTime: ", startTime)
-
-  const [serviceList, setServiceList] = useState<ServiceItem[]>([
-    { service: null, staff: null, startTime: startTime, endTime: new Date(), duration: "", price: "" },
-  ]);
-
-  serviceRef.current = serviceList;
+  const startTime = data.startTime;
+  // console.log("startTime: ", startTime)
 
   const [serviceStartTime, setServiceStartTime] = useState(startTime);
   const [autoPopulated, setAutoPopulated] = useState<boolean>(false);
@@ -35,6 +19,20 @@ const EditorServiceComponent = ({ args, services, staff, serviceRef }) => {
 
   const maxTime = new Date();
   maxTime.setHours(20, 0, 0);
+
+  useEffect(() => {
+    if (data && data.services) {
+      const initialServices = data.services.map(service => ({
+        service: service.serviceId, // Assuming serviceId is the ID of the service
+        staff: service.staff, // Assuming staff is the ID of the staff
+        startTime: new Date(service.startTime), // Convert to Date object if necessary
+        endTime: new Date(service.endTime), // Convert to Date object if necessary
+        duration: service.duration,
+        price: service.price.toString(), // Convert to string if necessary
+      }));
+      setServiceDetails(initialServices);
+    }
+  }, [data, setServiceDetails]);
 
   // Form Field Functions
   const formatDuration = (minutes) => {
@@ -50,19 +48,18 @@ const EditorServiceComponent = ({ args, services, staff, serviceRef }) => {
 
   const handleAutoPopulation = (e, serviceIndex) => {
     const selectedService = e.itemData;
-console.log("selectedService: ", selectedService)
-    setServiceList((prevServiceList) => {
+    // console.log("selectedService: ", selectedService)
+    setServiceDetails((prevServiceList) => {
       const updatedServiceList = [...prevServiceList];
       const updatedServiceItem = {
         ...updatedServiceList[serviceIndex],
-        id: selectedService ? selectedService.id : null,
+        service: selectedService ? selectedService.id : null,
         duration: selectedService ? selectedService.duration : 0,
         price: selectedService ? selectedService.price : 0,
         startTime: startTime,
-        // endTime: endTime,
       };
       updatedServiceList[serviceIndex] = updatedServiceItem;
-      console.log("updatedServiceList: ", updatedServiceList)
+      // console.log("updatedServiceList: ", updatedServiceList)
 
       return updatedServiceList;
     });
@@ -70,16 +67,16 @@ console.log("selectedService: ", selectedService)
   };
 
   const handleStaffChange = (serviceObj, serviceIndex) => {
-    const updatedServiceList = [...serviceList];
+    const updatedServiceList = [...serviceDetails];
     updatedServiceList[serviceIndex] = {
       ...updatedServiceList[serviceIndex],
       staff: serviceObj.itemData ? serviceObj.itemData.id : null,
     };
-    setServiceList(updatedServiceList);
+    setServiceDetails(updatedServiceList);
   };
 
   const handleStartTimeChange = (serviceObj, serviceIndex) => {
-    const updatedServiceList = [...serviceList];
+    const updatedServiceList = [...serviceDetails];
     const startTimeValue = serviceObj.value; // Get the new start time value
     const durationValue = updatedServiceList[serviceIndex].duration; // Get the duration value in minutes
 
@@ -93,14 +90,14 @@ console.log("selectedService: ", selectedService)
         startTime: startTimeValue,
         endTime: endTime,
       };
-      setServiceList(updatedServiceList);
+      setServiceDetails(updatedServiceList);
     } else {
       console.error("Duration value is not a number");
     }
   };
 
   const handleServiceDurationChange = (serviceObj, serviceIndex) => {
-    const updatedServiceList = [...serviceList];
+    const updatedServiceList = [...serviceDetails];
     const durationValue = serviceObj.itemData ? serviceObj.itemData.value : ""; // Duration value in minutes
     const startTimeValue = updatedServiceList[serviceIndex].startTime; // Start time value
     const startTime = new Date(startTimeValue); // Convert start time to Date object
@@ -111,11 +108,11 @@ console.log("selectedService: ", selectedService)
       duration: durationValue,
       endTime: endTime,
     };
-    setServiceList(updatedServiceList);
+    setServiceDetails(updatedServiceList);
   };
 
   const handleServicePriceChange = (serviceObj, serviceIndex) => {
-    setServiceList((prevServiceList) => {
+    setServiceDetails((prevServiceList) => {
       const updatedServiceList = [...prevServiceList];
       updatedServiceList[serviceIndex] = {
         ...updatedServiceList[serviceIndex],
@@ -139,7 +136,7 @@ console.log("selectedService: ", selectedService)
 
   const calculateTotalPrice = () => {
     let totalPrice = 0;
-    serviceList.forEach((serviceItem) => {
+    serviceDetails.forEach((serviceItem) => {
       totalPrice += parseFloat(serviceItem.price) || 0; // Ensure price is always a number
     });
     return totalPrice.toFixed(2); // Round to 2 decimal places
@@ -148,8 +145,8 @@ console.log("selectedService: ", selectedService)
   const calcualteTotalTime = () => {
     let totalTimeDuration = 0;
 
-    // Step 1: Iterate through each item in the serviceList
-    serviceList.forEach((serviceItem) => {
+    // Step 1: Iterate through each item in the serviceDetails
+    serviceDetails.forEach((serviceItem) => {
       // Step 2: Sum up the duration of each service item
       totalTimeDuration += parseFloat(serviceItem.duration) || 0; // Ensure duration is always a number
     });
@@ -164,122 +161,132 @@ console.log("selectedService: ", selectedService)
   };
 
   const handleAddService = () => {
-    const previousEndTime = serviceList.length > 0 ? serviceList[serviceList.length - 1].endTime : startTime; // Get the end time of the last service or set it to the current time if there are no services
+    const previousEndTime = serviceDetails.length > 0 ? serviceDetails[serviceDetails.length - 1].endTime : startTime; // Get the end time of the last service or set it to the current time if there are no services
     const newServiceList = [
-      ...serviceList,
-      {service: null, staff: null, startTime: previousEndTime, endTime: startTime, duration: "", price: "" },
+      ...serviceDetails,
+      { service: null, staff: null, startTime: previousEndTime, endTime: startTime, duration: "", price: "" },
     ];
-    setServiceList(newServiceList);
+    setServiceDetails(newServiceList);
     setServiceStartTime(previousEndTime);
   };
 
   const handleDeleteService = (index) => {
-    // Implement row deletion logic here
-    // For example, remove the row from the serviceList array
-    const updatedServiceList = [...serviceList];
+    const updatedServiceList = [...serviceDetails];
     updatedServiceList.splice(index, 1);
-    // Update the state with the new serviceList
-    setServiceList(updatedServiceList);
+
+    // Update the state with the new serviceDetails
+    setServiceDetails(updatedServiceList);
   };
 
   return (
     <React.Fragment>
-      <h5>Services</h5>
-      <Table className="table-responsive table-cell-background-grey">
-        <tbody>
-          {serviceList.map((serviceItem, serviceIndex) => (
-            <tr key={serviceIndex} className="services">
-              <td>
-                <DropDownListComponent
-                  id={`servic-${serviceIndex}`}
-                  dataSource={services}
-                  fields={{ text: "name", value: "id" }}
-                  change={(e) => handleServiceChange(e, serviceIndex)}
-                  placeholder="Select a Service"
-                  allowFiltering={true}
-                  value={serviceItem.service}
-                />
-              </td>
-              <td>
-                <DropDownListComponent
-                  id={`servicStaff-${serviceIndex}`}
-                  dataSource={staff}
-                  fields={{ text: "name", value: "id" }}
-                  change={(e) => !autoPopulated && handleStaffChange(e, serviceIndex)}
-                  placeholder="Select a Staff"
-                  allowFiltering={true}
-                  value={serviceItem.staff}
-                />
-              </td>
-              <td>
-                <TimePickerComponent
-                  id={`startTime-${serviceIndex}`}
-                  placeholder="Select a Start Time"
-                  value={serviceItem.startTime || serviceStartTime}
-                  step={15}
-                  min={minTime}
-                  max={maxTime}
-                  format="hh:mm a" // Set the time format to 'hh:mm AM/PM'
-                  change={(e) => !autoPopulated && handleStartTimeChange(e, serviceIndex)}
-                />
-              </td>
+      <div className="d-flex mb-8">
+        <div className="add-appt__icon add-appt__icon-service" title="Date"></div>
+        <div className="add-appt__date-time">
+          <Table className="table-responsive table-cell-background-grey">
+            <thead>
+              <th>Service</th>
+              <th>Staff</th>
+              <th>Start at</th>
+              <th>Duration</th>
+              <th>Price</th>
+            </thead>
+            <tbody>
+              {serviceDetails.map((serviceItem, serviceIndex) => (
+                <tr key={serviceIndex} className="services">
+                  <td>
+                    <DropDownListComponent
+                      id={`servic-${serviceIndex}`}
+                      dataSource={services}
+                      fields={{ text: "name", value: "id" }}
+                      change={(e) => handleServiceChange(e, serviceIndex)}
+                      placeholder="Select a Service"
+                      allowFiltering={true}
+                      value={serviceItem.service}
+                    />
+                  </td>
+                  <td>
+                    <DropDownListComponent
+                      id={`servicStaff-${serviceIndex}`}
+                      dataSource={staff}
+                      fields={{ text: "name", value: "id" }}
+                      change={(e) => !autoPopulated && handleStaffChange(e, serviceIndex)}
+                      placeholder="Select a Staff"
+                      allowFiltering={true}
+                      value={serviceItem.staff}
+                    />
+                  </td>
+                  <td>
+                    <TimePickerComponent
+                      id={`startTime-${serviceIndex}`}
+                      placeholder="Select a Start Time"
+                      value={serviceItem.startTime || serviceStartTime}
+                      step={15}
+                      min={minTime}
+                      max={maxTime}
+                      format="hh:mm a" // Set the time format to 'hh:mm AM/PM'
+                      change={(e) => !autoPopulated && handleStartTimeChange(e, serviceIndex)}
+                    />
+                  </td>
 
-              {/* <td>
+                  {/* <td>
                 <DropDownListComponent
                   id={`serviceResource-${serviceIndex}`}
                   allowFiltering={true}
                   value={serviceItem.staff}
                 />
               </td> */}
+                  <td>
+                    <DropDownListComponent
+                      id={`serviceDuration-${serviceIndex}`}
+                      dataSource={generateDurationOptions()}
+                      placeholder="Select Duration"
+                      value={formatDuration(serviceItem.duration) || 0}
+                      change={(e) => !autoPopulated && handleServiceDurationChange(e, serviceIndex)}
+                    />
+                  </td>
+                  <td>
+                    <TextBoxComponent
+                      id={`price-${serviceIndex}`}
+                      placeholder="Price"
+                      value={serviceItem.price}
+                      type="number"
+                      change={(e) => !autoPopulated && handleServicePriceChange(e.value, serviceIndex)}
+                    />
+                  </td>
+                  <td className="justify-content-center align-items-center">
+                    <button
+                      className="btn btn-sm text-danger remove-list"
+                      onClick={() => handleDeleteService(serviceIndex)}
+                    >
+                      <i className="ri-delete-bin-line"></i>
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+            <tr className="mt-3">
+              <td></td>
+              <td></td>
+              <td></td>
               <td>
-                <DropDownListComponent
-                  id={`serviceDuration-${serviceIndex}`}
-                  dataSource={generateDurationOptions()}
-                  placeholder="Select Duration"
-                  value={formatDuration(serviceItem.duration) || 0}
-                  change={(e) => !autoPopulated && handleServiceDurationChange(e, serviceIndex)}
-                />
+                <b>Duration: {calcualteTotalTime()} Hrs</b>
               </td>
               <td>
-                <TextBoxComponent
-                  id={`price-${serviceIndex}`}
-                  placeholder="Price"
-                  value={serviceItem.price}
-                  type="number"
-                  change={(e) => !autoPopulated && handleServicePriceChange(e.value, serviceIndex)}
-                />
+                <b>Total: {calculateTotalPrice()} KD</b>
               </td>
-              <td className="justify-content-center align-items-center">
-                <button
-                  className="btn btn-sm text-danger remove-list"
-                  onClick={() => handleDeleteService(serviceIndex)}
-                >
-                  <i className="ri-delete-bin-line"></i>
-                </button>
-              </td>
+              <td></td>
             </tr>
-          ))}
-        </tbody>
-        <tr className="mt-3">
-          <td></td>
-          <td></td>
-          <td></td>
-          <td>
-            <b>Duration: {calcualteTotalTime()} Hrs</b>
-          </td>
-          <td>
-            <b>Total: {calculateTotalPrice()} KD</b>
-          </td>
-          <td></td>
-        </tr>
-      </Table>
+          </Table>
 
-      <Row>
-        <Col lg={6}>
-          <ButtonComponent onClick={handleAddService}>Add More Service</ButtonComponent>
-        </Col>
-        <Col lg={6}></Col>
-      </Row>
+          <Row>
+            <Col lg={6}>
+              <ButtonComponent onClick={handleAddService}>Add More Service</ButtonComponent>
+            </Col>
+            <Col lg={6}></Col>
+          </Row>
+        </div>
+      </div>
     </React.Fragment>
   );
 };

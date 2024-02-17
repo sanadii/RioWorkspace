@@ -1,17 +1,15 @@
-import React, { useEffect, useState, useRef } from "react";
+import React from "react";
 import { Internationalization } from "@syncfusion/ej2-base";
 
 // Header
-const intl: Internationalization = new Internationalization();
+const intl = new Internationalization();
 
-const getDateHeaderDay = (value: Date): string => intl.formatDate(value, { skeleton: "E" });
-const getDateHeaderDate = (value: Date): string => intl.formatDate(value, { skeleton: "d" });
+const getFormattedDate = (value: Date): string => intl.formatDate(value, { format: 'E dd MMM' });
 
 export const DateHeaderTemplate = (props: any): React.JSX.Element => {
   return (
-    <React.Fragment>
-      <div style={{ display: "flex", justifyContent: "center" }}>{getDateHeaderDay(props.date)}</div>
-      <div style={{ display: "flex", justifyContent: "center" }}>{getDateHeaderDate(props.date)}</div>
-    </React.Fragment>
+    <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+      {getFormattedDate(props.date)} <i className="ri-time-line" style={{ marginLeft: '5px' }}></i>
+    </div>
   );
 };

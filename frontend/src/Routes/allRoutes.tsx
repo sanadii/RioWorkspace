@@ -3,7 +3,6 @@ import { Navigate } from "react-router-dom";
 
 //Dashboard
 import Scheduler from "../pages/Scheduler";
-import Calendar from "../pages/Calendar";
 
 // Revenues
 import RevenueList from "../pages/Revenues/RevenueList";
@@ -69,9 +68,6 @@ const authProtectedRoutes = [
   { path: "/schedule", component: <Scheduler /> },
   { path: "/dashboard", component: <Scheduler /> },
   { path: "/index", component: <Scheduler /> },
-
-  // Test Calendar
-  { path: "/calendar", component: <Calendar /> },
 
   //Revenues
   { path: "/revenues", component: <RevenueList /> },

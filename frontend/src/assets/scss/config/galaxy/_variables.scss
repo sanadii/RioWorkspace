@@ -12,8 +12,8 @@ $variable-prefix: vz-; // Deprecated in v5.2.0 for the shorter `$prefix`
 $prefix: $variable-prefix;
 
 // Font Family
-$font-family-primary: 'Saira', sans-serif;
-$font-family-secondary: 'Saira', sans-serif;
+$font-family-primary: "DomaineDisplay", "DomaineText", Lato, sans-serif; // Update with your font families
+$font-family-secondary: 'Lato' ,sans-serif;
 
 //custom variables managed by
 //light mode

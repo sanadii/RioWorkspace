@@ -9,8 +9,8 @@ import {
   createElement,
 } from "@syncfusion/ej2-base";
 
-const getBorderColor = (roomId: number, floorId: number): string => {
-  const key: string = `${roomId}_${floorId}`;
+const getBorderColor = (status: number): string => {
+  const key: string = `${status}`;
   // return borderColor[key] || '#000';
   return "#000";
 };
@@ -52,32 +52,95 @@ const SvgIcon = (props: Record<string, any>) => {
 
 const instance: Internationalization = new Internationalization();
 
+const eventAppointmentStatusColor = (data: Record<string, any>): React.JSX.Element => {
+  const imageColor: string = getBorderColor(data.status);
+  return (
+    <div className="template-wrap">
+      <SvgIcon color={imageColor} subject={data.GuestName} child={data.Child} adult={data.Adults} night={data.Nights} />
+    </div>
+  );
+};
+
 const getTimeString = (value: Date) => {
   return instance.formatDate(value, { skeleton: "hm" });
 };
 
 export const eventTemplate = (props) => {
+  console.log("props::: ", props);
   return (
-    <div className="template-wrap" style={{ background: props.SecondaryColor }}>
-      <div className="subject" style={{ background: props.PrimaryColor }}>
-        <strong>{props.clientName}</strong> {getTimeString(props.StartTime)}
-      </div>
-      <div className="time" style={{ background: props.PrimaryColor }}>
-        {" "}
-        {/* {getTimeString(props.StartTime)} - {getTimeString(props.EndTime)} */}
-        <div>
+    // <div className="template-wrap" style={{ background: props.SecondaryColor }}>
+    //    <div className="subject" style={{ background: props.PrimaryColor }}>
+
+    <div
+      className="
+
+    "
+    >
+      <div className="fc-event-content">
+        <div className="fc-event-title">
+          <b className="fc-customer-name tip-init"> {props.client.name}</b>
+        </div>
+        <div
+          className="fc-event-notes"
+          // style="color: #13846e"
+        >
+          <i className="fc-completed-icon tip-init" data-original-title="Appointment completed" data-placement="left">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16">
+              <path
+                fill="none"
+                fill-rule="evenodd"
+                stroke="#13846e"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="1.5"
+                d="M14 2.5L7.703 12.625c-.283.455-.716.738-1.186.78-.47.04-.931-.167-1.266-.568L2 8.916"
+              ></path>
+            </svg>
+          </i>
+          <i className="fc-paid-icon tip-init" data-original-title="Invoice paid" data-placement="left">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16">
+              <path
+                fill="none"
+                fill-rule="evenodd"
+                stroke="#13846e"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="1.5"
+                d="M15 10l-1.93 4.629a.667.667 0 0 1-.949.321L10 13.73m-4.806-3.578c.427.56 1.1.876 1.804.848C8.103 11 9 10.328 9 9.5s-.894-1.499-1.999-1.499C5.897 8.001 5 7.329 5 6.5 5 5.67 5.897 5 7.001 5a2.157 2.157 0 0 1 1.804.848M7 11.001V12m0-8v.999M7 15H2.333A1.333 1.333 0 0 1 1 13.667V2.333C1 1.597 1.597 1 2.333 1H9.29c.33 0 .646.121.891.341l2.377 2.133c.282.253.443.614.443.993V7"
+              ></path>
+            </svg>
+          </i>
+          <i className="fc-comment-icon tip-init" data-original-title="Comment or note" data-placement="left">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16">
+              <path
+                fill="none"
+                fill-rule="evenodd"
+                stroke="#13846e"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="1.5"
+                d="M1.932 7.515a6.528 6.528 0 0 0 .985 3.456L1 15l4.025-1.918a6.524 6.524 0 0 0 8.99-2.099 6.537 6.537 0 0 0-2.097-8.998A6.524 6.524 0 0 0 8.46 1a6.521 6.521 0 0 0-6.528 6.515z"
+              ></path>
+            </svg>
+          </i>
+        </div>
+        <span>
+          <i className="fc-new-customer">(new) &nbsp;</i> {getTimeString(props.startTime)}
+        </span>
+
+        {/* <div className="fc-event-body">Rinsage<span className="fc-price"> - K.D.28</span><br></div></div> */}
+
+        <div className="fc-event-body">
           {props.services.map((service, index) => (
-            <div style={{ whiteSpace: "normal", wordWrap: "break-word" }}>
-              <h6>
-                {service.name}
-                <span> - {service.price}</span>
-              </h6>
+            <div key={service.id} className="fc-event-body" style={{ whiteSpace: "normal", wordWrap: "break-word" }}>
+              {service.name} -<span>{service.price}</span>
             </div>
           ))}
         </div>
       </div>
       <div className="event-description">{props.Description}</div>
       <div className="footer" style={{ background: props.PrimaryColor }}></div>
+      <div className="fc-event-bg"></div>
     </div>
   );
 };

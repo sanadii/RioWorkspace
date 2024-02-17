@@ -2,7 +2,13 @@ import { extend, Internationalization, isNullOrUndefined, closest } from "@syncf
 import { ButtonComponent } from "@syncfusion/ej2-react-buttons";
 import { useButtonClickActions } from "../SchedulerActions";
 
-const useQuickInfoTemplates = (scheduleObj, clientRef) => {
+const useQuickInfoTemplates = (scheduleObj) => {
+  const currentAppointment = scheduleObj.current?.activeEventData?.event;
+  console.log("currentAppointment: ", currentAppointment);
+  console.log("currentAppointment: 2 ", scheduleObj.current?.activeEventData);
+  console.log("currentAppointment: 3 ", scheduleObj.current?.activeEventData?.event);
+  console.log("currentAppointment: ", currentAppointment);
+  console.log("WHAT IS THE SCHEDULEQUICK?", scheduleObj);
   const intl = new Internationalization();
 
   const getHeaderTitle = (data) => {
@@ -17,15 +23,15 @@ const useQuickInfoTemplates = (scheduleObj, clientRef) => {
     );
   };
 
-  const buttonClickActions = useButtonClickActions(scheduleObj, clientRef);
+  const buttonClickActions = useButtonClickActions(scheduleObj);
 
   const headerTemplate = (props) => {
-    // console.log("scheduleObj: ", scheduleObj);
+    console.log("headerTemplate scheduleObj: ", scheduleObj);
     // console.log("clientRef: ", clientRef);
-    // console.log("props: ", props)
+    console.log(" headerTemplateprops: ", props);
 
-    const clientName = props.clientName;
-    const clientMobile = props.clientMobile;
+    const clientName = props.client?.name;
+    const clientMobile = props.client?.mobile;
 
     return (
       <div className="quick-info-header-content h5 p-3 bg-grey">
@@ -42,7 +48,7 @@ const useQuickInfoTemplates = (scheduleObj, clientRef) => {
                 <i className="ri-booklet-line"></i> {clientName}
               </h5>
             </div>
-            <div>
+            <div className="fc-event-body">
               <h6>
                 <i className="ri-contacts-line"></i> {clientMobile}
               </h6>
@@ -66,11 +72,7 @@ const useQuickInfoTemplates = (scheduleObj, clientRef) => {
       <div className="event-content">
         {props.elementType === "cell" ? (
           <div className="cell-footer p-2">
-            <ButtonComponent
-              id="add-busy-time"
-              content="Add Busy Time"
-              onClick={(e) => buttonClickActions(e)}
-            />
+            <ButtonComponent id="add-busy-time" content="Add Busy Time" onClick={(e) => buttonClickActions(e)} />
             <ButtonComponent
               id="add"
               content="Add Appointment"
@@ -81,13 +83,11 @@ const useQuickInfoTemplates = (scheduleObj, clientRef) => {
         ) : (
           <div>
             {services.map((service) => (
-              <div key={service.id}>
-                <div>
-                  <b>{service.name}</b>
-                </div>
-                <p>
-                  {service.staff}: {startTime} - {endTime}
-                </p>
+              <div key={service.id} className="fc-event-body">
+                {service.name} -
+                <span>
+                  {service.staff}: {startTime}
+                </span>
               </div>
             ))}
           </div>
