@@ -31,7 +31,7 @@ class AppointmentServiceSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = AppointmentService
-        fields = ['service', 'staff', 'start_time', 'end_time', 'duration', 'price',
+        fields = ['id', 'service', 'staff', 'start_time', 'end_time', 'duration', 'price',
                   'service_id', 'name']
 
 
@@ -60,25 +60,37 @@ class AppointmentSerializer(serializers.ModelSerializer):
 
     def update(self, instance, validated_data):
         services_data = validated_data.pop('services', [])
+        existing_service_ids = [service.id for service in instance.services.all()]
+        updated_service_ids = []
+
         instance.start_time = validated_data.get('start_time', instance.start_time)
         instance.end_time = validated_data.get('end_time', instance.end_time)
         instance.status = validated_data.get('status', instance.status)
         instance.save()
 
-        # Update or create services
         for service_data in services_data:
-            service_id = service_data.get('id', None)
+            service_id = service_data.get('id')
             if service_id:
-                # Update existing service
-                service_instance = AppointmentService.objects.get(id=service_id, appointment=instance)
+                updated_service_ids.append(service_id)
+                service_instance = AppointmentService.objects.get(id=service_id)
+                # Update the existing service instance
                 for attr, value in service_data.items():
                     setattr(service_instance, attr, value)
                 service_instance.save()
             else:
-                # Create new service
-                # Ensure that you're assigning the appointment to the correct field
-                AppointmentService.objects.create(**service_data, appointment=instance)
+                # Create a new service instance and add it to the appointment
+                new_service = AppointmentService.objects.create(**service_data)
+                instance.services.add(new_service)
 
+        # Remove services that are no longer associated with the appointment
+        for service_id in existing_service_ids:
+            if service_id not in updated_service_ids:
+                instance.services.remove(service_id)
+
+        # Update other fields of Appointment instance
+        # ...
+
+        instance.save()
         return instance
 
 

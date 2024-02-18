@@ -103,31 +103,29 @@ const useQuickInfoTemplates = (scheduleObj) => {
           <></>
         ) : (
           <div className="event-footer">
-            <div>
-              <p>
-                <ButtonComponent
-                  id="edit"
-                  // cssClass="e-flat"
-                  content="Edit"
-                  onClick={(e) => buttonClickActions(e)}
-                />
-                <ButtonComponent
-                  id="reschedule"
-                  cssClass="e-flat"
-                  content="Reschedule"
-                  isPrimary={true}
-                  onClick={(e) => buttonClickActions(e)}
-                />
-                <ButtonComponent
-                  id="book-next"
-                  // cssClass="e-flat"
-                  content="Book Next"
-                  isPrimary={true}
-                  onClick={(e) => buttonClickActions(e)}
-                />
-              </p>
+            <div className="calendar-balloon__action-buttons action-buttons">
+              <ButtonComponent
+                id="edit"
+                // cssClass="e-flat"
+                content="Edit"
+                onClick={(e) => buttonClickActions(e)}
+              />
+              <ButtonComponent
+                id="reschedule"
+                cssClass="e-flat"
+                content="Reschedule"
+                isPrimary={true}
+                onClick={(e) => buttonClickActions(e)}
+              />
+              <ButtonComponent
+                id="book-next"
+                // cssClass="e-flat"
+                content="Book Next"
+                isPrimary={true}
+                onClick={(e) => buttonClickActions(e)}
+              />
             </div>
-            <div>
+            <div className="btn-group status-buttons">
               <ButtonComponent
                 id="delete"
                 // cssClass="e-flat"

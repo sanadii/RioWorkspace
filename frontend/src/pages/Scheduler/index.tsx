@@ -107,17 +107,25 @@ const Scheduler = () => {
       // additional field customization
     }
     if (args.type === "QuickInfo") {
+      // Check if the target is a work cell or header cell
       if (args.target.classList.contains("e-work-cells") || args.target.classList.contains("e-header-cells")) {
         scheduleObj.current.closeQuickInfoPopup();
         args.cancel = true;
       } else if (args.target.classList.contains("e-appointment")) {
+        // Style the appointment element
         (args.element as HTMLElement).style.boxShadow = `1px 2px 5px 0 ${
           (args.target as HTMLElement).style.backgroundColor
         }`;
+  
+        // Find the e-event-popup element and add a class to it
+        const eventPopup = args.element.querySelector('.e-event-popup');
+        if (eventPopup) {
+          eventPopup.classList.add('e-event-popup-inner');
+        }
       }
     }
   };
-
+    
   const onPopupClose = (args: PopupCloseEventArgs): void => {
     if (args.type === "Editor" && args.data) {
       const formElement: any = args.element.querySelectorAll(".custom-event-editor .e-lib[data-name]");
@@ -170,15 +178,7 @@ const Scheduler = () => {
           dispatch(addAppointment(newEvent));
           console.log(args);
           args.addedRecords?.forEach((data: Record<string, any>) => {
-            // if (scheduleObj.current?.isSlotAvailable(data)) {
-            //   slotAvail = true;
-            //   data.CheckIn = data.CheckIn.toISOString();
-            //   data.CheckOut = data.CheckOut.toISOString();
-            //   dispatch(addAppointment(newEvent));
-            // toastObj.current.content = "Booking has been created successfully.";
-            // toastObj.current.cssClass = "e-toast-success";
-            // toastObj.current.show();
-            // }
+
           });
           break;
         case "eventChange":
@@ -187,10 +187,6 @@ const Scheduler = () => {
               slotAvail = true;
               data.startTime = data.startTime.toISOString();
               data.endTime = data.endTime.toISOString();
-              // dispatch(updateData(data));
-              // toastObj.current.content = "Booking has been updated successfully.";
-              // toastObj.current.cssClass = "e-toast-success";
-              // toastObj.current.show();
             }
 
             const updatedEvent = appointmentRef.current;

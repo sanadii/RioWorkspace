@@ -17,6 +17,7 @@ type ClientItem = {
 
 // Define the type for a service item
 type ServiceItem = {
+  id: number;
   service: number;
   staff: number;
   startTime: Date; // Change the type to Date
@@ -41,7 +42,7 @@ const EditorTemplate = ({ data, scheduleObj, services, staff, clients, appointme
   const productRef = useRef([]);
   const packageRef = useRef([]);
 
-  console.log("scheduleObj: ", scheduleObj);
+  // console.log("scheduleObj: ", scheduleObj);
   // Set Appointment Details
   const [appointmentDetails, setAppointmentDetails] = useState<AppointmentItem>({
     id: data.id || null,
@@ -52,7 +53,7 @@ const EditorTemplate = ({ data, scheduleObj, services, staff, clients, appointme
     services: data.services || [],
   });
 
-  console.log("appointmentDetails: ", appointmentDetails);
+  console.log("appointmentDetails Services: ", appointmentDetails.services);
   
   // Set Client Details
   const [clientDetails, setClientDetails] = useState<ClientItem>({
@@ -65,6 +66,7 @@ const EditorTemplate = ({ data, scheduleObj, services, staff, clients, appointme
 
   const [serviceDetails, setServiceDetails] = useState<ServiceItem[]>([
     {
+      id: data.service?.id || null,
       service: data.service?.service || null,
       staff: data.service?.staffId || null,
       startTime: data.startTime,
@@ -74,7 +76,6 @@ const EditorTemplate = ({ data, scheduleObj, services, staff, clients, appointme
     },
   ]);
 
-  console.log("data serviceDetails: ", data)
 
   appointmentRef.current = appointmentDetails;
   clientRef.current = clientDetails;
@@ -92,7 +93,7 @@ const EditorTemplate = ({ data, scheduleObj, services, staff, clients, appointme
     }
   }, [clientRef.current, serviceRef.current]); // Dependency array includes clientRef.current
 
-  console.log("appointmentRef.current: ", appointmentRef.current);
+  console.log("appointmentRef.current.services: ", appointmentRef.current.services);
 
   return (
     <React.Fragment>

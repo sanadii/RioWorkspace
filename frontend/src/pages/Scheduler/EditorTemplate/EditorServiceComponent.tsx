@@ -23,6 +23,7 @@ const EditorServiceComponent = ({ data, services, staff, serviceDetails, setServ
   useEffect(() => {
     if (data && data.services) {
       const initialServices = data.services.map(service => ({
+        id: service.id, // Assuming serviceId is the ID of the service
         service: service.serviceId, // Assuming serviceId is the ID of the service
         staff: service.staff, // Assuming staff is the ID of the staff
         startTime: new Date(service.startTime), // Convert to Date object if necessary
