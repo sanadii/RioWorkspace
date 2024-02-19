@@ -380,31 +380,31 @@ const Scheduler = () => {
           cssClass={"staff-appointment-planner"}
           // showWeekend={false}
 
-          // // Calendar Settings Props
+          // Calendar Settings Props
           startHour={calendarSettings.calendar["start"]}
           endHour={calendarSettings.calendar["end"]}
           currentView={calendarSettings.currentView}
           firstDayOfWeek={calendarSettings.firstDayOfWeek}
           timeScale={calendarSettings.timeScale}
-          // // The data to show
+          // The data to show
           eventSettings={eventSettings}
           popupOpen={onPopupOpen}
           views={["Day", "Week", "Month"]}
           dragStart={onDragStart}
           resizeStart={onResizeStart}
-          // // // New Features
+          // New Features
           navigating={onNavigation}
-          // // // Date Header
+          // Date Header
           popupClose={onPopupClose}
           quickInfoTemplates={quickInfoTemplates}
-          // // // Templates
+          // Templates
           dateHeaderTemplate={DateHeaderTemplate}
           editorTemplate={editorTemplate}
           eventRendered={onEventRendered}
-          // // // Actions
+          // Actions
           actionBegin={onActionBegin}
-          // actionComplete={onActionComplete}
-          // created={onCreated}
+          actionComplete={onActionComplete}
+          created={onCreated}
           // cellTemplate={cellTemplate}
         >
           <ViewsDirective>
