@@ -4,6 +4,7 @@ import {
 
   GET_SCHEDULE,
   GET_APPOINTMENTS,
+  GET_APPOINTMENT,
   UPDATE_APPOINTMENT,
   UPDATE_APPOINTMENT_SUCCESS,
   UPDATE_APPOINTMENT_FAIL,
@@ -45,6 +46,12 @@ export const getSchedule = () => ({
 
 export const getAppointments = () => ({
   type: GET_APPOINTMENTS,
+});
+
+export const getAppointment = (appointment) => ({
+  type: GET_APPOINTMENT,
+  payload: appointment,
+
 });
 
 export const updateAppointment = appointment => ({

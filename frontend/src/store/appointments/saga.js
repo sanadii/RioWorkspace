@@ -9,6 +9,7 @@ import {
 
   // Appointments
   GET_APPOINTMENTS,
+  GET_APPOINTMENT,
   ADD_APPOINTMENT,
   DELETE_APPOINTMENT,
   UPDATE_APPOINTMENT,
@@ -51,6 +52,7 @@ import {
 
   // Appointments
   getAppointments as getAppointmentsApi,
+  getAppointment as getAppointmentApi,
   addAppointment,
   updateAppointment,
   deleteAppointment,
@@ -81,6 +83,16 @@ function* getAppointments() {
     yield put(AppointmentApiResponseSuccess(GET_APPOINTMENTS, response.data));
   } catch (error) {
     yield put(AppointmentApiResponseError(GET_APPOINTMENTS, error));
+  }
+}
+
+function* getAppointment() {
+
+  try {
+    const response = yield call(getAppointmentApi);
+    yield put(AppointmentApiResponseSuccess(GET_APPOINTMENT, response.data));
+  } catch (error) {
+    yield put(AppointmentApiResponseError(GET_APPOINTMENT, error));
   }
 }
 
@@ -178,6 +190,10 @@ export function* watchGetAppointments() {
   yield takeEvery(GET_APPOINTMENTS, getAppointments);
 }
 
+export function* watchGetAppointment() {
+  yield takeEvery(GET_APPOINTMENT, getAppointment);
+}
+
 export function* watchUpdateAppointment() {
   yield takeEvery(UPDATE_APPOINTMENT, onUpdateAppointment);
 }
@@ -215,6 +231,7 @@ function* AppointmentSaga() {
 
     // Appointment
     fork(watchGetAppointments),
+    fork(watchGetAppointment),
     fork(watchAddAppointment),
     fork(watchDeleteAppointment),
     fork(watchUpdateAppointment),

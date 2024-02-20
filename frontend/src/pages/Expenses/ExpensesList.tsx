@@ -1,40 +1,19 @@
 import React, { useState, useEffect, useMemo, useCallback } from "react";
 import moment from "moment";
-
 import { CardBody, Row, Col, Card, Container, CardHeader } from "reactstrap";
-
 import { Link } from "react-router-dom";
-
-
-import {
-  Notes,
-  Date,
-  Amount,
-  StatusExpenses as Status,
-  Name,
-} from "Components/Common/Table/TableColumns";
-
+import { Notes, Date, Amount, StatusExpenses as Status, Name } from "Components/Common/Table/TableColumns";
 import { getExpenses, deleteExpense } from "store/actions";
 
-
 //Import Components, Constants, Hooks.
-import {
-  Loader,
-  DeleteModal,
-  BreadCrumb,
-  TableContainer,
-  TableContainerHeader,
-} from "Components/Common";
-
+import { Loader, DeleteModal, BreadCrumb, TableContainer, TableContainerHeader } from "Components/Common";
 import ExpenseModal from "./ExpenseModal";
-
 //Import actions
 
 //redux
 import { useSelector, useDispatch } from "react-redux";
 import { expenseSelector } from "Selectors";
 import { useDelete } from "Components/Hooks";
-
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -112,14 +91,7 @@ const ExpenseList = () => {
   const columns = useMemo(
     () => [
       {
-        header: (
-          <input
-            type="checkbox"
-            id="checkBoxAll"
-            className="form-check-input"
-            onClick={() => checkedAll()}
-          />
-        ),
+        header: <input type="checkbox" id="checkBoxAll" className="form-check-input" onClick={() => checkedAll()} />,
         cell: (cell: any) => {
           return (
             <input
@@ -166,7 +138,7 @@ const ExpenseList = () => {
         cell: (cell: any) => {
           return <Name {...cell} />;
         },
-      }, 
+      },
       {
         header: "Category",
         accessorKey: "category",
@@ -174,7 +146,7 @@ const ExpenseList = () => {
         cell: (cell: any) => {
           return <Name {...cell} />;
         },
-      }, 
+      },
       {
         header: "Status",
         accessorKey: "status",
@@ -221,11 +193,7 @@ const ExpenseList = () => {
   return (
     <React.Fragment>
       <div className="page-content">
-        <DeleteModal
-          show={deleteModal}
-          onDeleteClick={handleDeleteItem}
-          onCloseClick={() => setDeleteModal(false)}
-        />
+        <DeleteModal show={deleteModal} onDeleteClick={handleDeleteItem} onCloseClick={() => setDeleteModal(false)} />
         <DeleteModal
           show={deleteModalMulti}
           onDeleteClick={() => {
@@ -234,13 +202,7 @@ const ExpenseList = () => {
           }}
           onCloseClick={() => setDeleteModalMulti(false)}
         />
-        <ExpenseModal
-          modal={modal}
-          toggle={toggle}
-          expense={expense}
-          isEdit={isEdit}
-          setModal={setModal}
-        />
+        <ExpenseModal modal={modal} toggle={toggle} expense={expense} isEdit={isEdit} setModal={setModal} />
 
         <Container fluid>
           <BreadCrumb title="Daily Revenue" pageTitle="Daily Revenue" />
@@ -253,19 +215,12 @@ const ExpenseList = () => {
                     <div className="flex-shrink-0">
                       <div className="d-flex gap-2 flex-wrap">
                         {isMultiDeleteButton && (
-                          <button
-                            className="btn btn-primary me-1"
-                            onClick={() => setDeleteModalMulti(true)}
-                          >
+                          <button className="btn btn-primary me-1" onClick={() => setDeleteModalMulti(true)}>
                             <i className="ri-delete-bin-2-line"></i>
                           </button>
                         )}
-                        <Link
-                          to="/apps-Expenses-create"
-                          className="btn btn-primary"
-                        >
-                          <i className="ri-add-line align-bottom me-1"></i>{" "}
-                          Create expense
+                        <Link to="/apps-Expenses-create" className="btn btn-primary">
+                          <i className="ri-add-line align-bottom me-1"></i> Create expense
                         </Link>
                       </div>
                     </div>

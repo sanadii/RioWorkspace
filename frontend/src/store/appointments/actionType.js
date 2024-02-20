@@ -7,6 +7,7 @@ export const GET_SCHEDULE = "GET_SCHEDULE";
 
 // Appointments
 export const GET_APPOINTMENTS = "GET_APPOINTMENTS";
+export const GET_APPOINTMENT = "GET_APPOINTMENT";
 
 // Add Appointment
 export const ADD_APPOINTMENT = "ADD_APPOINTMENT";

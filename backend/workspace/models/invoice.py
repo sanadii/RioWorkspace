@@ -1,7 +1,7 @@
 from django.db import models
 from workspace.models.appointments import Appointment
 from workspace.models.products import Product
-from workspace.models.services import Package
+from workspace.models.packages import Package
 
 class Invoice(models.Model):
     # Define choices for the status field

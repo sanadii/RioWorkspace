@@ -6,6 +6,7 @@ import {
 
   // Appointments
   GET_APPOINTMENTS,
+  GET_APPOINTMENT,
   ADD_APPOINTMENT_SUCCESS,
   ADD_APPOINTMENT_FAIL,
   UPDATE_APPOINTMENT_SUCCESS,
@@ -50,6 +51,15 @@ const Appointments = (state = INIT_STATE, action) => {
             isAppointmentCreated: false,
             isAppointmentSuccess: true
           };
+
+        case GET_APPOINTMENT:
+          return {
+            ...state,
+            appointment: action.payload.data,
+            isAppointmentCreated: false,
+            isAppointmentSuccess: true
+          };
+
         case GET_APPOINTMENT_SERVICES:
           return {
             ...state,
@@ -70,6 +80,13 @@ const Appointments = (state = INIT_STATE, action) => {
             isScheduleSuccess: false
           };
         case GET_APPOINTMENTS:
+          return {
+            ...state,
+            error: action.payload.error,
+            isAppointmentCreated: false,
+            isAppointmentSuccess: false
+          };
+        case GET_APPOINTMENT:
           return {
             ...state,
             error: action.payload.error,

@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Container, Row, Col, Card, CardBody, TabContent, TabPane, Nav, NavItem, NavLink } from "reactstrap";
-import classnames from "classnames";
+import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { getClient } from "store/actions";
+import classnames from "classnames";
+import { getAppointment, getClient } from "store/actions";
+
+
+import { Container, Row, Col, Card, CardBody, TabContent, TabPane, Nav, NavItem, NavLink } from "reactstrap";
 
 import { ServicesTab, ServicesSide } from "./ServicesTab";
 import ProductsTab from "./ProductsTab";
@@ -12,22 +14,27 @@ import VouchersTab from "./VouchersTab";
 import CreditTab from "./CreditTab";
 import PackagesTab from "./PackagesTab";
 
+import { appointmentsSelector, servicesSelector } from "Selectors";
+
 const Invoice = () => {
   const dispatch = useDispatch();
+
+  const { appointments } = useSelector(appointmentsSelector);
+  const { services } = useSelector(servicesSelector);
+
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
-  const appointmentId = queryParams.get('appointmentId');
-  const clientId = queryParams.get('clientId');
+  const appointmentId = queryParams.get("appointmentId");
+  console.log("appointmentId: ", appointmentId)
+  const clientId = queryParams.get("clientId");
 
   const [activeTab, setActiveTab] = useState("1");
 
   useEffect(() => {
-    if (appointmentId && clientId) {
-      // dispatch(getAppointment(appointmentId));
-      dispatch(getClient(clientId));
+    if (appointmentId) {
+      dispatch(getAppointment(appointmentId));
     }
-  }, [appointmentId, clientId]);
-
+  }, [appointmentId]);
 
   const toggle = (tab) => {
     if (activeTab !== tab) setActiveTab(tab);

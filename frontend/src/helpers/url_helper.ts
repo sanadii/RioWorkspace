@@ -52,6 +52,7 @@ export const GET_SCHEDULE = "/appointments/getSchedule";
 
 // Appointments
 export const GET_APPOINTMENTS = "/appointments/getAppointments";
+export const GET_APPOINTMENT = "/appointments/getAppointment";
 export const ADD_APPOINTMENT = "/appointments/addAppointment";
 export const UPDATE_APPOINTMENT = "/appointments/updateAppointment";
 export const DELETE_APPOINTMENT = "/appointments/deleteAppointment";

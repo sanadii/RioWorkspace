@@ -3,7 +3,7 @@ import { Navigate } from "react-router-dom";
 
 //Dashboard
 import Scheduler from "../pages/Scheduler";
-import Invoice from "../pages/Scheduler/Invoice";
+import Invoice from "../pages/Invoice";
 // Revenues
 import RevenueList from "../pages/Revenues/RevenueList";
 import RevenueCreate from "../pages/Revenues/RevenueCreate";
