@@ -12,7 +12,8 @@ $color_3: var(--tui-charcoal-100);
 $color_4: #fff;
 $color_5: var(--tui-midnight-500);
 $color_6: var(--tui-midnight-600);
-$color_7: var(--tui-midnight-100);
+// $color_7: var(--tui-midnight-100);
+$color_7: #2bc270;
 $color_8: #2bc270;
 $color_9: #5bc0de;
 $color_10: #f0ad4e;
@@ -240,9 +241,7 @@ $background-color_3: #f4f4f4;
 $background-color_4: #f7f7f7;
 $background-color_5: #eee0fc;
 $background-color_6: #d5d5d5;
-$background-color_7: #696cd1;
 $background-color_8: #7cca7c;
-$background-color_9: #96a6a6;
 $background-color_10: #eee;
 $background-color_11: rgba(243,194,191,.54902);
 $background-color_12: #000;
@@ -253,7 +252,6 @@ $border-color_1: #f5cff8;
 $border-color_2: #aaa;
 $border-color_3: transparent;
 $border-color_4: #000;
-$border-color_5: rgba(0,179,240,.8);
 $border-color_6: #121619;
 $border-color_7: #e1e1e1;
 $border-top-color_1: #d3d3d3;
@@ -714,7 +712,7 @@ body.full-page-flexpane {
 			height: 22px;
 		}
 		th.fc-column-header.fc-today {
-			background-color: $background-color_7;
+			background-color: $primary-bg-subtle;
 			color: $color_7;
 			a {
 				color: $color_7;
@@ -1250,7 +1248,7 @@ html {
 			height: 22px;
 		}
 		.e-header-cells.e-current-day {
-			background-color: $background-color_7;
+			background-color: $primary-bg-subtle;
 			color: $color_7;
 			font-weight: 500;
 		}
@@ -1471,7 +1469,7 @@ html {
 }
 .e-appointment.fc-busy {
 	border-radius: 3px;
-	background-color: $background-color_9;
+	background-color: $primary-bg-subtle;
 	border: 1px solid transparent;
 	border-left: 3px solid #96a6a6;
 	opacity: .8;
@@ -1860,13 +1858,13 @@ html {
 	z-index: 999;
 }
 .fc-group-highlight {
-	border-color: $border-color_5 !important;
+	border-color: $primary-border-light !important;
 	border-style: solid !important;
 	.fc-event-inner {
 		background-color: $background-color_13;
 	}
 	.fc-padding {
-		border-color: $border-color_5 !important;
+		border-color: $primary-border-light !important;
 		background-color: $background-color_14 !important;
 	}
 }
@@ -2593,6 +2591,8 @@ $background-color_5: rgba(0,0,0,.6);
 			float: left;
 			margin-top: 12px;
 			align-items: center;
+			flex: 1;
+
 		}
 		i {
 			margin-right: 4px;
@@ -2798,7 +2798,8 @@ a[rel=popover] {
 		button {
 			flex: 1;
 			width: auto;
-			margin: 0 1px;
+			margin: 0 4px;
+			border-radius: 2px;
 		}
 	}
 	.calendar-balloon__icon {
@@ -3049,15 +3050,24 @@ a[rel=popover] {
 	}
 }
 
-$background-color_1: var(--tui-charcoal-100);
-$background-color_2: var(--tui-charcoal-200);
-$background-color_3: var(--tui-charcoal-500);
-$background-color_4: var(--tui-midnight-500);
-$background-color_5: var(--tui-midnight-600);
+// $background-color_1: var(--tui-charcoal-100);
+// $background-color_2: var(--tui-charcoal-200);
+// $background-color_3: var(--tui-charcoal-500);
+// $background-color_4: var(--tui-midnight-500);
+// $background-color_5: var(--tui-midnight-600);
+$background-color_1: #fff;
+$background-color_2: #fff;
+$background-color_3: #fff;
+$background-color_4: #fff;
+$background-color_5: #fff;
+
 $background-color_6: #fff;
-$background-color_7: var(--tui-midnight-100);
-$background-color_8: var(--tui-midnight-200);
-$background-color_9: var(--tui-charcoal-600);
+$background-color_8: #fff;
+
+// $primary: var(--tui-midnight-100);
+// $background-color_8: var(--tui-midnight-200);
+// $primary: var(--tui-charcoal-600);
+
 $background-color_10: #2bc270;
 $background-color_11: #229858;
 $background-color_12: #5bc0de;
@@ -3079,14 +3089,24 @@ $background-color_27: #e6e6e6;
 $background-color_28: #696cd1;
 $background-color_29: #4246c5;
 $background-color_30: #5c5fc1;
-$border-color_1: var(--tui-charcoal-100);
-$border-color_2: var(--tui-charcoal-200);
-$border-color_3: var(--tui-midnight-500);
-$border-color_4: var(--tui-midnight-600);
-$border-color_5: var(--tui-midnight-100);
-$border-color_6: var(--tui-midnight-200);
-$border-color_7: var(--tui-charcoal-500);
-$border-color_8: var(--tui-charcoal-600);
+
+// TUI
+$border-color_1: #6a7982;
+$border-color_2: #6a7982;
+$border-color_3: #232c31;
+$border-color_4: #232c31;
+$border-color_6: #232c31;
+$border-color_7: #535f66;
+$border-color_8: #535f66;
+
+// $border-color_1: var(--tui-charcoal-100);
+// $border-color_2: var(--tui-charcoal-200);
+// $border-color_3: var(--tui-midnight-500);
+// $border-color_4: var(--tui-midnight-600);
+// $border-color_6: var(--tui-midnight-200);
+// $border-color_7: var(--tui-charcoal-500);
+// $border-color_8: var(--tui-charcoal-600);
+
 $border-color_9: #29b76a;
 $border-color_10: #1e854d;
 $border-color_11: #46b8da;
@@ -3290,24 +3310,25 @@ fieldset[disabled] {
 		border-color: $border-color_3;
 	}
 	.btn-primary-light {
-		background-color: $background-color_7;
-		border-color: $border-color_5;
+		color: $primary;
+		background-color: $primary-bg-subtle;
+		border-color: $primary-border-light;
 		&:active {
-			background-color: $background-color_7;
-			border-color: $border-color_5;
+			background-color: $primary-bg-subtle;
+			border-color: $primary-border-light;
 		}
 		&:focus {
-			background-color: $background-color_7;
-			border-color: $border-color_5;
+			background-color: $primary-bg-subtle;
+			border-color: $primary-border-light;
 		}
 		&:hover {
-			background-color: $background-color_7;
-			border-color: $border-color_5;
+			background-color: $primary-bg-subtle;
+			border-color: $primary-border-light;
 		}
 	}
 	.btn-primary-light.active {
-		background-color: $background-color_7;
-		border-color: $border-color_5;
+		background-color: $primary-bg-subtle;
+		border-color: $primary-border-light;
 	}
 	.btn-secondary {
 		background-color: $background-color_3;
@@ -3430,8 +3451,8 @@ fieldset[disabled] {
 		border-color: $border-color_15;
 	}
 	.btn-outline-danger {
-		background-color: $background-color_18;
-		border-color: $border-color_17;
+		background-color: $white;
+		border-color: $danger;
 		&:active {
 			background-color: $background-color_18;
 			border-color: $border-color_17;
@@ -3645,7 +3666,7 @@ fieldset[disabled] {
 	}
 	>.dropdown-toggle.btn-secondary {
 		color: $color_4;
-		background-color: $background-color_9;
+		background-color: $primary-bg-subtle;
 		border-color: $border-color_8;
 		background-image: none;
 	}
@@ -3810,79 +3831,79 @@ fieldset[disabled] {
 	}
 }
 .btn-primary[disabled].active {
-	background-color: $background-color_4;
-	border-color: $border-color_3;
+	background-color: $primary;
+	border-color: $primary-300;
 }
 .btn-primary-light {
-	color: $color_6;
-	background-color: $background-color_7;
-	border-color: $border-color_5;
+	// color: $primary;
+	background-color: $primary-200;
+	border-color: $primary-border-light;
 	&:active {
-		color: $color_6;
-		background-color: $background-color_8;
-		border-color: $border-color_6;
+		// color: $primary;
+		background-color: $primary-300;
+		border-color: $primary-border-light;
 		background-image: none;
 	}
 	&:focus {
-		color: $color_6;
-		background-color: $background-color_8;
-		border-color: $border-color_6;
+		// color: $primary;
+		background-color: $primary-300;
+		border-color: $primary-border-light;
 	}
 	&:hover {
-		color: $color_6;
-		background-color: $background-color_8;
-		border-color: $border-color_6;
+		// color: $primary;
+		background-color: $primary-300;
+		border-color: $primary-border-light;
 	}
 	.badge {
-		color: $color_7;
-		background-color: $background-color_5;
+		// color: $primary;
+		background-color: $primary-300;
 	}
 }
 .btn-primary-light.active {
-	color: $color_6;
-	background-color: $background-color_8;
-	border-color: $border-color_6;
+	color: $primary;
+	background-color: $primary-200;
+	border-color: $primary-border-light;
 	background-image: none;
 }
 .btn-primary-light.disabled {
-	background-color: $background-color_7;
-	border-color: $border-color_5;
+	background-color: $primary-bg-subtle;
+	border-color: $primary-border-light;
 	&:active {
-		background-color: $background-color_7;
-		border-color: $border-color_5;
+		background-color: $primary-bg-subtle;
+		border-color: $primary-border-light;
 	}
 	&:focus {
-		background-color: $background-color_7;
-		border-color: $border-color_5;
+		background-color: $primary-bg-subtle;
+		border-color: $primary-border-light;
 	}
 	&:hover {
-		background-color: $background-color_7;
-		border-color: $border-color_5;
+		background-color: $primary-bg-subtle;
+		border-color: $primary-border-light;
 	}
 }
 .btn-primary-light.disabled.active {
-	background-color: $background-color_7;
-	border-color: $border-color_5;
+	background-color: $primary-bg-subtle;
+	border-color: $primary-border-light;
 }
 .btn-primary-light[disabled] {
-	background-color: $background-color_7;
-	border-color: $border-color_5;
+	background-color: $primary-bg-subtle;
+	border-color: $primary-border-light;
 	&:active {
-		background-color: $background-color_7;
-		border-color: $border-color_5;
+		background-color: $primary-bg-subtle;
+		border-color: $primary-border-light;
 	}
 	&:focus {
-		background-color: $background-color_7;
-		border-color: $border-color_5;
+		background-color: $primary-bg-subtle;
+		border-color: $primary-border-light;
 	}
 	&:hover {
-		background-color: $background-color_7;
-		border-color: $border-color_5;
+		background-color: $primary-bg-subtle;
+		border-color: $primary-border-light;
 	}
 }
 .btn-primary-light[disabled].active {
-	background-color: $background-color_7;
-	border-color: $border-color_5;
+	background-color: $primary-bg-subtle;
+	border-color: $primary-border-light;
 }
 .btn-secondary {
 	color: $color_4;
@@ -3890,18 +3911,18 @@ fieldset[disabled] {
 	border-color: $border-color_7;
 	&:active {
 		color: $color_4;
-		background-color: $background-color_9;
+		background-color: $primary-bg-subtle;
 		border-color: $border-color_8;
 		background-image: none;
 	}
 	&:focus {
 		color: $color_4;
-		background-color: $background-color_9;
+		background-color: $primary-bg-subtle;
 		border-color: $border-color_8;
 	}
 	&:hover {
 		color: $color_4;
-		background-color: $background-color_9;
+		background-color: $primary-bg-subtle;
 		border-color: $border-color_8;
 	}
 	.badge {
@@ -3911,7 +3932,7 @@ fieldset[disabled] {
 }
 .btn-secondary.active {
 	color: $color_4;
-	background-color: $background-color_9;
+	background-color: $primary-bg-subtle;
 	border-color: $border-color_8;
 	background-image: none;
 }
@@ -4311,34 +4332,34 @@ fieldset[disabled] {
 	border-color: $border-color_15;
 }
 .btn-outline-danger {
-	color: $color_11;
-	background-color: $background-color_18;
-	border-color: $border-color_17;
+	color: $danger;
+	background-color: $white;
+	border-color: $danger;
 	&:active {
-		color: $color_11;
-		background-color: $background-color_18;
-		border-color: $border-color_18;
+		color: $white;
+		background-color: $danger;
+		border-color: $danger;
 		background-image: none;
 	}
 	&:focus {
-		color: $color_11;
-		background-color: $background-color_18;
-		border-color: $border-color_18;
+		color: $white;
+		background-color: $danger;
+		border-color: $danger;
 	}
 	&:hover {
-		color: $color_11;
-		background-color: $background-color_18;
-		border-color: $border-color_18;
+		color: $white;
+		background-color: $danger;
+		border-color: $danger;
 	}
 	.badge {
-		color: $color_12;
-		background-color: $background-color_16;
+		color: $white;
+		background-color: $danger;
 	}
 }
 .btn-outline-danger.active {
-	color: $color_11;
-	background-color: $background-color_18;
-	border-color: $border-color_18;
+	color: $white;
+	background-color: $danger;
+	border-color: $danger;
 	background-image: none;
 }
 .btn-outline-danger.disabled {
@@ -5240,7 +5261,7 @@ a.quickbooks-connect-button {
 	display: inline-block;
 	vertical-align: middle;
 	border-radius: 4px;
-	background-color: $background-color_1;
+	background-color: $grey;
 	>.btn {
 		position: relative;
 		float: left;

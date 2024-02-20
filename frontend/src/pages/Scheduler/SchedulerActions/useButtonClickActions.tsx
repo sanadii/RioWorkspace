@@ -1,5 +1,6 @@
 import { closest } from "@syncfusion/ej2-base";
 import { useDispatch } from "react-redux";
+import { useNavigate } from 'react-router-dom';
 import { addAppointment, updateAppointment, deleteAppointment } from "store/actions";
 
 // Define the structure of the event object
@@ -13,7 +14,7 @@ type AddObject = {
 
 const useButtonClickActions = (scheduleObj) => {
   // console.log("what is the scheduleObj?", scheduleObj);
-
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   console.log("are we calling useButtonClickActions?", scheduleObj);
 
@@ -75,16 +76,14 @@ const useButtonClickActions = (scheduleObj) => {
     // Handles the delete action
     const handleUpdateAction = () => {
       const eventDetails = scheduleObj.current.activeEventData?.event;
-      if (!eventDetails) {
-        console.error("No active event data found for update.");
-        return;
-      }
-
-      // Dispatch the updateAppointment action with the event details
       dispatch(updateAppointment(eventDetails));
+    };
 
-      // Close the dialogue or perform additional actions as needed
-      // ...
+    const handleConfirmAction = () => {
+      scheduleObj.current.activeEventData.event.status = 2;
+      console.log("scheduleObj.current: ", scheduleObj.current.activeEventData);
+      const eventDetails = scheduleObj.current.activeEventData?.event;
+      dispatch(updateAppointment(eventDetails));
     };
 
     const handleDeleteAction = (scheduleObj) => {
@@ -109,6 +108,14 @@ const useButtonClickActions = (scheduleObj) => {
       scheduleObj.current.closeQuickInfoPopup(); // Assuming this closes the dialogue
     };
 
+    // Handles the Checkout (closing the dialogue)
+    const handleCheckOutAction = () => {
+      const appointmentId = scheduleObj.current.activeEventData?.event.id;
+      const clientId = scheduleObj.current.activeEventData?.event.client.id;
+  
+      navigate(`/invoice?appointmentId=${appointmentId}&clientId=${clientId}`);
+      scheduleObj.current.closeQuickInfoPopup();    };
+
     console.log("e.target.id", e.target.id);
     // Handle different button actions
     switch (e.target.id) {
@@ -124,6 +131,13 @@ const useButtonClickActions = (scheduleObj) => {
         // console.log("are we updating?", e.target.id);
         handleUpdateAction();
         break;
+
+      case "confirm":
+        // const addObj = getSlotData();
+        // console.log("are we updating?", e.target.id);
+        handleConfirmAction();
+        break;
+
       case "delete":
         handleDeleteAction(scheduleObj);
         // console.log("are we delete?", e.target.id);
@@ -131,7 +145,9 @@ const useButtonClickActions = (scheduleObj) => {
       case "cancel":
         handleCancelAction();
         break;
-
+      case "checkOut":
+        handleCheckOutAction();
+        break;
       default:
         // console.log("nothing will happen");
         break;

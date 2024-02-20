@@ -67,7 +67,7 @@ $grays: (
 // scss-docs-start color-variables
 $blue: #4788ff;
 $indigo: #405189;
-$purple: #ad64f1;
+$purple: #696cd1;
 $pink: #f672a7;
 $red: #ee6352;
 $orange: #f1963b;
@@ -75,6 +75,10 @@ $yellow: #ffca5b;
 $green: #7CCA7C;
 $teal: #02a8b5;
 $cyan: #3fa7d6;
+$purpul: #696cd1;
+$white: #ffffff;
+$grey: #b8b8b8;
+
 // scss-docs-end color-variables
 
 // scss-docs-start colors-map
@@ -96,7 +100,7 @@ $colors: (
 // scss-docs-end colors-map
 
 // scss-docs-start theme-color-variables
-$primary: $purple-400;
+$primary: $purple;
 $secondary: $blue;
 $success: $green;
 $info: $cyan;
@@ -114,7 +118,19 @@ $min-contrast-ratio: 1.75;
 $color-contrast-dark: $black;
 $color-contrast-light: $white;
 
+
+
 // fusv-disable
+$primary-100: tint-color($primary, 80%);
+$primary-200: tint-color($primary, 60%);
+$primary-300: tint-color($primary, 40%);
+$primary-400: tint-color($primary, 20%);
+$primary-500: $primary;
+$primary-600: shade-color($primary, 20%);
+$primary-700: shade-color($primary, 40%);
+$primary-800: shade-color($primary, 60%);
+$primary-900: shade-color($primary, 80%);
+
 $blue-100: tint-color($blue, 80%);
 $blue-200: tint-color($blue, 60%);
 $blue-300: tint-color($blue, 40%);
@@ -385,6 +401,17 @@ $danger-border-subtle: tint-color($danger, 60%);
 $light-border-subtle: $gray-200;
 $grey-border-subtle: $gray-300;
 $dark-border-subtle: $gray-500;
+
+
+$primary-border-light: tint-color($primary, 80%);
+$secondary-border-light: tint-color($secondary, 80%);
+$success-border-light: tint-color($success, 80%);
+$info-border-light: tint-color($info, 80%);
+$warning-border-light: tint-color($warning, 80%);
+$danger-border-light: tint-color($danger, 80%);
+$light-border-light: $gray-200;
+$grey-border-light: $gray-300;
+$dark-border-light: $gray-500;
 // scss-docs-end theme-border-subtle-variables
 
 // Characters which are escaped by the escape-svg function
@@ -1801,3 +1828,34 @@ $kbd-bg: var(--#{$prefix}body-color);
 $nested-kbd-font-weight: null; // Deprecated in v5.2.0, removing in v6
 
 $pre-color: null;
+
+
+
+// font-size: 16px;
+// line-height: 24px;
+// font-family: Lato,-apple-system,system-ui,BlinkMacSystemFont,segoe ui,Roboto,helvetica neue,Arial,sans-serif;
+// font-weight: 400;
+// --tui-midnight-800: #212379;
+// --tui-midnight-700: #343796;
+// --tui-midnight-600: #4c4fb3;
+// --tui-midnight-500: #696cd1;
+// --tui-midnight-400: #9c9ef0;
+// --tui-midnight-300: #c4c6ff;
+// --tui-midnight-200: #dbdcff;
+// --tui-midnight-100: #ebebff;
+// --tui-midnight-50: #f5f5ff;
+// --tui-charcoal-800: #0a1425;
+// --tui-charcoal-700: #232b30;
+// --tui-charcoal-600: #2f3940;
+// --tui-charcoal-500: #39464e;
+// --tui-charcoal-400: #85939c;
+// --tui-charcoal-300: #b1b9be;
+// --tui-charcoal-200: #cdd2d5;
+// --tui-charcoal-100: #e3e6e8;
+// --tui-charcoal-50: #f4f4f4;
+// --tui-box-shadow-xl: 0px 30px 60px -30px #39464e33, 0px 50px 90px -20px #39464e1a;
+// --tui-box-shadow-lg: 0px 18px 36px -18px #39464e33, 0px 30px 60px -12px #39464e1a;
+// --tui-box-shadow-md: 0px 8px 16px -8px #39464e33, 0px 13px 27px -5px #39464e1a;
+// --tui-box-shadow-sm: 0px 3px 7px -3px #39464e33, 0px 6px 12px -2px #39464e1a;
+// --tui-focus-box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25)
+// }

@@ -8,9 +8,9 @@ const Navdata = () => {
   const [isApps, setIsApps] = useState(false);
   const [iscurrentState, setIscurrentState] = useState("Scheduler");
 
-  // Scheduler Calendar
+  // Scheduler Invoice
   const [isScheduler, setIsScheduler] = useState(false);
-  const [isCalendar, setIsCalendar] = useState(false);
+  const [isInvoice, setIsInvoice] = useState(false);
 
   // Finance
   const [isRevenues, setIsRevenues] = useState(false);
@@ -46,12 +46,12 @@ const Navdata = () => {
       setIsDashboard(false);
     }
 
-    // Scheduler Calendar
+    // Scheduler Invoice
     if (iscurrentState !== "Scheduler") {
       setIsScheduler(false);
     }
-    if (iscurrentState !== "Calendar") {
-      setIsCalendar(false);
+    if (iscurrentState !== "Invoice") {
+      setIsInvoice(false);
     }
 
     if (iscurrentState !== "Staff") {
@@ -81,10 +81,10 @@ const Navdata = () => {
     if (iscurrentState !== "Apps") {
       setIsApps(false);
     }
-  }, [history, iscurrentState, isDashboard, isScheduler, isCalendar, isRevenues, isExpenses, isApps]);
+  }, [history, iscurrentState, isDashboard, isScheduler, isInvoice, isRevenues, isExpenses, isApps]);
 
   const menuItems: any = [
-    // Scheduler Calendar
+    // Scheduler Invoice
     {
       label: "Scheduler",
       isHeader: true,
@@ -103,15 +103,15 @@ const Navdata = () => {
       },
     },
     {
-      id: "calendar",
-      label: "Calendar",
+      id: "invoice",
+      label: "Invoice",
       icon: "ri-dashboard-2-line",
-      link: "/calendar",
-      stateVariables: isCalendar,
+      link: "/invoice",
+      stateVariables: isInvoice,
       click: function (e: any) {
         e.preventDefault();
-        setIsCalendar(!isCalendar);
-        setIscurrentState("Calendar");
+        setIsInvoice(!isInvoice);
+        setIscurrentState("Invoice");
         updateIconSidebar(e);
       },
     },

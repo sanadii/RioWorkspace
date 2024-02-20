@@ -1,7 +1,7 @@
 import {
   GET_CLIENTS,
   GET_CLIENT_SEARCH,
-  GET_CLIENT_INFO,
+  GET_CLIENT,
   API_RESPONSE_SUCCESS,
   API_RESPONSE_ERROR,
 
@@ -36,8 +36,8 @@ export const getClientSearch = client => ({
   payload: client
 });
 
-export const getClientInfo = client => ({
-  type: GET_CLIENT_INFO,
+export const getClient = client => ({
+  type: GET_CLIENT,
   payload: client
 });
 

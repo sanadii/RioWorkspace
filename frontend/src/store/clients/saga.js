@@ -7,7 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import {
   GET_CLIENTS,
   GET_CLIENT_SEARCH,
-  GET_CLIENT_INFO,
+  GET_CLIENT,
   ADD_CLIENT,
   DELETE_CLIENT,
   UPDATE_CLIENT
@@ -28,7 +28,7 @@ import {
 import {
   getClients as getClientsApi,
   getClientSearch as getClientSearchApi,
-  getClientInfo as getClientInfoApi,
+  getClient as getClientApi,
   addClient,
   updateClient,
   deleteClient
@@ -53,12 +53,12 @@ function* getClientSearch({ payload: client }) {
   }
 }
 
-function* getClientInfo({ payload: client }) {
+function* getClient({ payload: client }) {
   try {
-    const response = yield call(getClientInfoApi, client);
-    yield put(ClientApiResponseSuccess(GET_CLIENT_INFO, response.data));
+    const response = yield call(getClientApi, client);
+    yield put(ClientApiResponseSuccess(GET_CLIENT, response.data));
   } catch (error) {
-    yield put(ClientApiResponseError(GET_CLIENT_INFO, error));
+    yield put(ClientApiResponseError(GET_CLIENT, error));
   }
 }
 
@@ -107,8 +107,8 @@ export function* watchGetClientSearch() {
   yield takeEvery(GET_CLIENT_SEARCH, getClientSearch);
 }
 
-export function* watchGetClientInfo() {
-  yield takeEvery(GET_CLIENT_INFO, getClientInfo);
+export function* watchGetClient() {
+  yield takeEvery(GET_CLIENT, getClient);
 }
 
 export function* watchUpdateClient() {
@@ -127,7 +127,7 @@ function* ClientSaga() {
   yield all([
     fork(watchGetClients),
     fork(watchGetClientSearch),
-    fork(watchGetClientInfo),
+    fork(watchGetClient),
     fork(watchAddClient),
     fork(watchDeleteClient),
     fork(watchUpdateClient),

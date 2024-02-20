@@ -4,7 +4,7 @@ export const API_RESPONSE_ERROR = "API_RESPONSE_ERROR";
 
 export const GET_CLIENTS = "GET_CLIENTS";
 export const GET_CLIENT_SEARCH = "GET_CLIENT_SEARCH";
-export const GET_CLIENT_INFO = "GET_CLIENT_INFO";
+export const GET_CLIENT = "GET_CLIENT";
 
 // Add Client
 export const ADD_CLIENT = "ADD_CLIENT";

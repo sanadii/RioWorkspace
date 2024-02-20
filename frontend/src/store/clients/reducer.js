@@ -3,7 +3,7 @@ import {
   API_RESPONSE_ERROR,
   GET_CLIENTS,
   GET_CLIENT_SEARCH,
-  GET_CLIENT_INFO,
+  GET_CLIENT,
   ADD_CLIENT_SUCCESS,
   ADD_CLIENT_FAIL,
   UPDATE_CLIENT_SUCCESS,
@@ -37,7 +37,7 @@ const Client = (state = INIT_STATE, action) => {
             isClientCreated: false,
             isClientSearchSuccess: true
           };
-        case GET_CLIENT_INFO:
+        case GET_CLIENT:
           return {
             ...state,
             clientInfo: action.payload.data,
@@ -58,7 +58,7 @@ const Client = (state = INIT_STATE, action) => {
             isClientCreated: false,
             isClientSuccess: false
           };
-        case GET_CLIENT_INFO:
+        case GET_CLIENT:
           return {
             ...state,
             error: action.payload.error,

@@ -332,7 +332,7 @@ const Scheduler = () => {
     };
 
     // Check if you can directly modify args.addedRecords
-    if (Array.isArray(args.addedRecords)) {
+    if (Array.isArray(args?.addedRecords)) {
       args.addedRecords[0] = newEvent;
     }
 

@@ -32,6 +32,7 @@ const useQuickInfoTemplates = (scheduleObj) => {
 
     const clientName = props.client?.name;
     const clientMobile = props.client?.mobile;
+    const appointmentStatus = props.status;
 
     return (
       <h3 className="popover-title">
@@ -45,14 +46,14 @@ const useQuickInfoTemplates = (scheduleObj) => {
         </a>
         &nbsp;
         <a
-          className="customer-edit modal-open bln-close"
+          className="customer-edit bln-close"
           title="Edit customer"
           href="/customer/customeredit/70716693?tab=details&amp;fromCalendar=true"
         >
           <i className="ri-edit-line"></i>
         </a>
         <a
-          className="customer-edit modal-open bln-close"
+          className="customer-edit bln-close"
           title="Send an SMS or email"
           href="/message/adhoccontactcustomer/70716693?bookingId=384951115"
         >
@@ -147,55 +148,83 @@ const useQuickInfoTemplates = (scheduleObj) => {
   };
 
   const footerTemplate = (props) => {
+    const appointmentStatus = props.status;
+
     return (
       <div className="quick-info-footer">
         {props.elementType === "cell" ? (
           <></>
         ) : (
           <div className="event-footer">
+            <p>status: {appointmentStatus}</p>
             <div className="calendar-balloon__action-buttons">
               <ButtonComponent
                 id="edit"
-                // cssClass="e-flat"
+                className="btn btn-primary-light btn-small bln-close"
                 content="Edit"
                 onClick={(e) => buttonClickActions(e)}
               />
               <ButtonComponent
                 id="reschedule"
-                cssClass="e-flat"
                 content="Reschedule"
-                isPrimary={true}
+                className="btn btn-primary-light btn-small bln-close"
                 onClick={(e) => buttonClickActions(e)}
               />
               <ButtonComponent
                 id="book-next"
-                // cssClass="e-flat"
                 content="Book Next"
-                isPrimary={true}
+                className="btn btn-primary-light btn-small bln-close"
                 onClick={(e) => buttonClickActions(e)}
               />
             </div>
+            {appointmentStatus !== 1 && (
+              <div className="calendar-balloon__action-buttons">
+                <ButtonComponent
+                  id="arrive"
+                  className="btn btn-small btn-primary bln-close ajaxer accept"
+                  content="Arrived"
+                  onClick={(e) => buttonClickActions(e)}
+                />
+                <ButtonComponent
+                  id="complete"
+                  className="btn btn-small btn-primary bln-close ajaxer accept"
+                  content="complete"
+                  onClick={(e) => buttonClickActions(e)}
+                />
+              </div>
+            )}
             <div className="calendar-balloon__action-buttons">
+              {appointmentStatus === 1 ? (
+                <>
+                  <ButtonComponent
+                    id="confirm"
+                    className="btn btn-small btn-primary bln-close ajaxer accept"
+                    content="Confirm"
+                    onClick={(e) => buttonClickActions(e)}
+                  />
+                  <ButtonComponent
+                    id="decline"
+                    className="btn btn-small btn-secondary-light bln-close ajaxer accept"
+                    iconPosition="Left"
+                    iconCss="ri-close-line"
+                    content="Decline"
+                    onClick={(e) => buttonClickActions(e)}
+                  />
+                </>
+              ) : appointmentStatus === 1 ? (
+                <p>Invoice</p>
+              ) : (
+                <ButtonComponent
+                  id="checkOut"
+                  className="btn btn-small btn-primary bln-close ajaxer accept"
+                  content="Checkout"
+                  onClick={(e) => buttonClickActions(e)}
+                />
+              )}
               <ButtonComponent
                 id="delete"
-                // cssClass="e-flat"
-                content="Delete"
-                onClick={(e) => buttonClickActions(e)}
-              />
-
-              <ButtonComponent
-                id="decline"
-                iconPosition= 'Left'
-                iconCss= 'ri-close-line'
-                content="Decline"
-                cssClass="e-grey"
-                onClick={(e) => buttonClickActions(e)}
-              />
-              <ButtonComponent
-                id="cancel"
-                cssClass="e-danger e-outline"
+                className="btn btn-small btn-outline-danger cancel-link bln-close"
                 content="Cancel"
-                isPrimary={true}
                 onClick={(e) => buttonClickActions(e)}
               />
             </div>

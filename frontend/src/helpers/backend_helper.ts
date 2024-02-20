@@ -99,7 +99,7 @@ export const deleteAppointmentService = (appointmentService : any) => api.delete
 // Clients
 export const getClients = () => api.get(url.GET_CLIENTS);
 export const getClientSearch = (client : any) => api.get(url.GET_CLIENT_SEARCH, client);
-export const getClientInfo = (client : any) => api.get(url.GET_CLIENT_INFO, client);
+export const getClient = (client : any) => api.get(url.GET_CLIENT, client);
 export const addClient = (client : any) => api.create(url.ADD_CLIENT, client);
 export const updateClient = (client : any) => api.update(url.UPDATE_CLIENT + '/' + client.id, client); //+ '/' + Client._id
 export const deleteClient = (client : any) => api.delete(url.DELETE_CLIENT + '/' + client); //+ '/' + Client 

@@ -65,7 +65,7 @@ export const DELETE_APPOINTMENT_SERVICE = "/appointments/deleteAppointmentServic
 // Clients
 export const GET_CLIENTS = "/clients/getClients";
 export const GET_CLIENT_SEARCH = "/clients/getClientSearch";
-export const GET_CLIENT_INFO = "/clients/getClientInfo";
+export const GET_CLIENT = "/clients/getClient";
 export const ADD_CLIENT = "/clients/addClient";
 export const UPDATE_CLIENT = "/clients/updateClient";
 export const DELETE_CLIENT = "/clients/deleteClient";

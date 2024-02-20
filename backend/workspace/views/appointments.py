@@ -31,6 +31,9 @@ class GetAppointments(APIView):
         return Response({'data': serializer.data}, status=status.HTTP_200_OK)
 
 
+class GetAppointmentDetails(APIView):
+    def get(self, request, format=None):
+
 class GetScheduleData(APIView):
     def get(self, request, format=None):
         # Parse start and end dates from the query parameters
