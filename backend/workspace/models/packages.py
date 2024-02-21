@@ -28,7 +28,7 @@ class Package(models.Model):
     redemption_end_date = models.DateField(null=True, blank=True)
     send_expiry_email = models.BooleanField(default=False)
     photo = models.ImageField(upload_to='packages/', null=True, blank=True)
-    items = models.ManyToManyField(PackageItem, through='PackageItem')
+    items = models.ManyToManyField('PackageItem', through='PackageItemAssociation', related_name='packages')
 
     def __str__(self):
         return self.name
@@ -43,6 +43,11 @@ class Package(models.Model):
     class Meta:
         verbose_name = 'Package'
         verbose_name_plural = 'Packages'
-        db_table = "Packages"
+        db_table = "Package"
 
+class PackageItemAssociation(models.Model):
+    package = models.ForeignKey(Package, on_delete=models.CASCADE)
+    package_item = models.ForeignKey(PackageItem, on_delete=models.CASCADE)
 
+    class Meta:
+        db_table = 'package_item_association'

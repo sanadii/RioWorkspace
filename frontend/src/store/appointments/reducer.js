@@ -26,6 +26,7 @@ import {
 
 const INIT_STATE = {
   appointments: [],
+  appointment: [],
   appointmentServicess: [],
   error: {},
 };

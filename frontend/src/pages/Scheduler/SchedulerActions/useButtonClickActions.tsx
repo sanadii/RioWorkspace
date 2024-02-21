@@ -113,7 +113,7 @@ const useButtonClickActions = (scheduleObj) => {
       const appointmentId = scheduleObj.current.activeEventData?.event.id;
       const clientId = scheduleObj.current.activeEventData?.event.client.id;
   
-      navigate(`/invoice?appointmentId=${appointmentId}&clientId=${clientId}`);
+      navigate(`/invoice?appointmentId=${appointmentId}`);
       scheduleObj.current.closeQuickInfoPopup();    };
 
     console.log("e.target.id", e.target.id);

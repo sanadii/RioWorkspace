@@ -86,7 +86,7 @@ export const getSchedule = () => api.get(url.GET_SCHEDULE);
 // Appointments
 // export const getAppointment = () => api.get(url.GET_APPOINTMENT);
 export const getAppointments = () => api.get(url.GET_APPOINTMENTS);
-export const getAppointment = (appointment : any) => api.get(url.GET_APPOINTMENT + '/' + appointment, appointment); //+ '/' + Appointment._id
+export const getAppointment = (appointmentId) => api.get(`${url.GET_APPOINTMENT}/${appointmentId}`);
 export const addAppointment = (appointment : any) => api.create(url.ADD_APPOINTMENT, appointment);
 export const updateAppointment = (appointment : any) => api.update(url.UPDATE_APPOINTMENT + '/' + appointment.id, appointment); //+ '/' + Appointment._id
 export const deleteAppointment = (appointment : any) => api.delete(url.DELETE_APPOINTMENT + '/' + appointment); //+ '/' + Appointment 

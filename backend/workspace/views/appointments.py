@@ -36,19 +36,15 @@ class GetAppointment(APIView):
     Retrieve a specific appointment by ID.
     """
 
-    def get(self, request, format=None):
-        appointment_id = request.query_params.get('appointmentId')
-        
-        if not appointment_id:
-            return Response({"error": "Appointment ID is required."}, status=status.HTTP_400_BAD_REQUEST)
-
+    def get(self, request, id, format=None):  # Add 'id' as an argument here
         try:
-            appointment = Appointment.objects.get(id=appointment_id)
+            appointment = Appointment.objects.get(id=id)  # Use the 'id' argument
         except Appointment.DoesNotExist:
             return Response({"error": "Appointment not found."}, status=status.HTTP_404_NOT_FOUND)
 
         serializer = AppointmentSerializer(appointment)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response({'data': serializer.data}, status=status.HTTP_200_OK)
+
 
 class GetScheduleData(APIView):
     def get(self, request, format=None):

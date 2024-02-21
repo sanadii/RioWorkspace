@@ -1,17 +1,17 @@
 import React, { useState } from "react";
 import { Container, Row, Col, Card, CardBody, TabContent, TabPane } from "reactstrap";
 
-const ProductsTab = () => {
+const AppointmentTab = () => {
   return (
     <React.Fragment>
       <div className="page-content">
         <Container fluid>
-          <h2>ProductsTab</h2>
-          <p>ProductsTab</p>
+          <h2>AppointmentsTab</h2>
+          <p>AppointmentsTab</p>
         </Container>
       </div>
     </React.Fragment>
   );
 };
 
-export default ProductsTab;
+export default AppointmentTab;

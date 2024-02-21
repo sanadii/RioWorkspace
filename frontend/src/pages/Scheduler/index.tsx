@@ -42,13 +42,9 @@ import {
 } from "./SchedulerSettings";
 
 import { onDragStart, onResizeStart } from "./SchedulerActions";
-
 import EditorTemplate from "./EditorTemplate";
-
 import { errorPlacement, updateActiveItem, loadImage, getString } from "Components/Utils/util";
-
 import doctorsIcon from "assets/Icons/Doctors.svg";
-import "./schedule.css";
 import { ActionArgs } from "@syncfusion/ej2-react-grids";
 
 import { AppointmentStatusOptions } from "Components/constants";

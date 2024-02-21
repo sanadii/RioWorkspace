@@ -86,10 +86,10 @@ function* getAppointments() {
   }
 }
 
-function* getAppointment() {
+function* getAppointment({ payload: appointment }) {
 
   try {
-    const response = yield call(getAppointmentApi);
+    const response = yield call(getAppointmentApi, appointment);
     yield put(AppointmentApiResponseSuccess(GET_APPOINTMENT, response.data));
   } catch (error) {
     yield put(AppointmentApiResponseError(GET_APPOINTMENT, error));

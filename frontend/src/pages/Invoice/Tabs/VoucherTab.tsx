@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Container, Row, Col, Card, CardBody, TabContent, TabPane } from "reactstrap";
 
-const ServicesTab = () => {
+const VoucherTab = () => {
   return (
     <React.Fragment>
       <Container fluid>
@@ -12,8 +12,4 @@ const ServicesTab = () => {
   );
 };
 
-const ServicesSide = () => {
-  return <p>Service Side Tab</p>;
-};
-
-export { ServicesTab, ServicesSide };
+export default VoucherTab;
