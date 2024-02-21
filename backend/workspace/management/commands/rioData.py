@@ -2,6 +2,7 @@ from django.core.management.base import BaseCommand
 from django.core.management import call_command
 from django.contrib.auth import get_user_model
 from workspace.models.appointments import AppointmentService, Appointment
+from workspace.models.clients import Client, ClientAdditionalInfo, ClientNotification
 
 UserModel = get_user_model()
 
@@ -10,6 +11,7 @@ class Command(BaseCommand):
 
     def add_arguments(self, parser):
         parser.add_argument('--refresh-all', action='store_true', help='Refresh all data in the database')
+        parser.add_argument('--refresh-clients', action='store_true', help='Refresh all clients data')
         parser.add_argument('--refresh-appointments', action='store_true', help='Refresh all appointment data')
 
     def handle(self, *args, **options):
@@ -32,9 +34,16 @@ class Command(BaseCommand):
             UserModel.objects.create_superuser('sanad', 'esanad@gmail.com', 'I4ksb@11782')
             self.stdout.write(self.style.SUCCESS('All data refreshed and superuser created'))
 
+        if options['refresh_clients']:
+            self.stdout.write(self.style.WARNING('Refreshing client data...'))
+            ClientNotification.objects.all().delete()
+            ClientAdditionalInfo.objects.all().delete()
+            Client.objects.all().delete()
+            call_command('create_clients')
+            self.stdout.write(self.style.SUCCESS('New client data created'))
+
         if options['refresh_appointments']:
             self.stdout.write(self.style.WARNING('Refreshing appointment data...'))
             AppointmentService.objects.all().delete()
             Appointment.objects.all().delete()
             call_command('create_appointments')
-            self.stdout.write(self.style.SUCCESS('New appointment data created'))

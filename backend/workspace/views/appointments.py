@@ -45,7 +45,6 @@ class GetAppointment(APIView):
         serializer = AppointmentSerializer(appointment)
         return Response({'data': serializer.data}, status=status.HTTP_200_OK)
 
-
 class GetScheduleData(APIView):
     def get(self, request, format=None):
         # Parse start and end dates from the query parameters
@@ -71,9 +70,9 @@ class GetScheduleData(APIView):
         services = Service.objects.all()
         service_serializer = ServiceSerializer(services, many=True)
 
-        # Fetch all staff (assuming no date filtering for staff)
-        staff = Staff.objects.all()
-        staff_serializer = StaffSerializer(staff, many=True)
+        # Fetch only staff who are commissionable and active
+        commissionable_active_staff = Staff.objects.filter(commissionable=True, active=True)
+        staff_serializer = StaffSerializer(commissionable_active_staff, many=True)
 
         response_data = {
             'appointments': appointment_serializer.data,

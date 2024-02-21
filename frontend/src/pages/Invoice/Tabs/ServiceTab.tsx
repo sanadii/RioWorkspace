@@ -19,15 +19,24 @@ interface Service {
   price: string;
 }
 
+interface Staff {
+  id: Number;
+  name: string;
+  bookable: boolean;
+}
+
 interface ServiceTabProps {
   serviceList: any; // existing type
   services: Service[]; // add this line
+  staff: Staff[]; // add this line
   setServiceList: Dispatch<any>; // existing type
 }
 
-const ServiceTab: React.FC<ServiceTabProps> = ({ serviceList, services, setServiceList }) => {
+const ServiceTab: React.FC<ServiceTabProps> = ({ services, staff, serviceList, setServiceList }) => {
   const [selectedService, setSelectedService] = useState<Service | null>(null);
   const [modal, setModal] = useState<boolean>(false);
+
+  const bookableStaff = staff.filter(staffMember => staffMember.bookable);
 
   const groupServicesByCategory = (services: Service[]) => {
     return services.reduce((acc: Record<string, Service[]>, service: Service) => {
@@ -98,12 +107,13 @@ const ServiceTab: React.FC<ServiceTabProps> = ({ serviceList, services, setServi
       id: "staff-field",
       name: "staff",
       label: "Staff",
-      type: "select",
-      options: services.map((item) => ({
+      type: "imageSelect",
+      options: bookableStaff.map((item) => ({
         id: item.id,
         label: item.name,
         value: item.id,
       })),
+      // onClick: setSelectedServiceStaff (id) 
     },
     {
       id: "price-field",
@@ -117,7 +127,7 @@ const ServiceTab: React.FC<ServiceTabProps> = ({ serviceList, services, setServi
     <React.Fragment>
       <div>
         <Modal id="showModal" isOpen={modal} toggle={toggle} centered>
-          <ModalHeader> {selectedService.name}</ModalHeader>{" "}
+          <ModalHeader> {selectedService?.name} - {selectedService?.price} - {selectedService?.duration}</ModalHeader>{" "}
           <ModalBody>
             <Formik
               initialValues={{ staff: "", price: "" }}

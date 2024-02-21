@@ -20,12 +20,15 @@ interface InvoiceSidebarProps {
 
 const InvoiceSidebar: React.FC<InvoiceSidebarProps> = ({ appointment, client, startTime, serviceList }) => {
   console.log("serviceList:", serviceList);
+  const appointmentStartTime = appointment.startTime;
+  const clientName = appointment.client?.name;
+  const clientMobile = appointment.client?.mobile;
 
   return ( 
     <React.Fragment>
-      <h2>{appointment.client.name}</h2>
-      <h6>{appointment.client.mobile}</h6>
-      <h5>{appointment.startTime}</h5>
+      <h2>{clientName}</h2>
+      <h6>{clientMobile}</h6>
+      <h5>{appointmentStartTime}</h5>
 
       <Card>
         {serviceList && (

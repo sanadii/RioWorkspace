@@ -3,6 +3,9 @@ import { Row, Col, Label, Input, FormFeedback } from "reactstrap";
 import Flatpickr from "react-flatpickr";
 import defaultAvatar from '../../../assets/images/users/default.jpg';
 import config from '../../../config';
+import { Link } from 'react-router-dom';
+
+import defaultAvataor from "assets/images/users/default.jpg"
 
 const { api } = config;
 
@@ -164,6 +167,49 @@ const FormFields = ({ field, validation, inLineStyle }) => {
                             ))}
                     </Input>
                 );
+            case 'imageSelect':
+                console.log('Options:', field.options); // Log the options array
+
+                return (
+
+                    <div className="d-flex center">
+                        {field.options && field.options.filter((option) => option.id !== 3)
+                            .map((option) => (
+                                <div key={option.value} className="avatar-group flex-nowrap">
+                                    <div className="avatar-group-item">
+                                        <div
+                                            className="d-inline-block"
+                                            onClick={option.onClick}
+                                        >
+                                            <img src={option.image || defaultAvatar} alt="" className="rounded-circle avatar-sm" />
+                                            <b>{option.name}</b>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))
+                        }
+                    </div>
+                    // <Input
+                    //     type="select"
+                    //     className="form-control"
+                    //     name={name}
+                    //     id={id}
+                    //     onChange={validation.handleChange}
+                    //     onBlur={validation.handleBlur}
+                    //     value={validation.values[name] || ""}
+                    //     invalid={validation.touched[name] && validation.errors[name]}
+
+                    // >
+                    //     {/* <option value="">-- Choose --</option> */}
+                    //     {field.options &&
+                    //         field.options.map((option) => (
+                    //             <option key={option.value} value={option.value}>
+                    //                 {option.label}
+                    //             </option>
+                    //         ))}
+                    // </Input>
+                );
+
             case "image":
                 return (
                     <div className="profile-user position-relative d-inline-block mx-auto mb-4">

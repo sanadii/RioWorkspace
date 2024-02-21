@@ -55,4 +55,4 @@ class Commission(models.Model):
     
     class Meta:
         # managed = False
-        db_table = "finance_comission"
+        db_table = "finance_commission"

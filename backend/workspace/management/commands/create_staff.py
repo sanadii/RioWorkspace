@@ -1,38 +1,47 @@
+import csv
+import os
 from django.core.management.base import BaseCommand
 from workspace.models.staff import Staff
 
 class Command(BaseCommand):
-    help = 'Create sample staff'
+    help = 'Create sample staff from CSV file'
 
     def handle(self, *args, **options):
-        # List of staff names with default salary value
-        staff_data = [
-            {"name": "Laura", "salary": 1000.00},
-            {"name": "Sanad", "salary": 800.00},
-            {"name": "Sheryl", "salary": 1200.00},
-            {"name": "Neia", "salary": 900.00},
-            {"name": "Coney", "salary": 1100.00},
-            {"name": "Gana", "salary": 950.00},
-            {"name": "Ethiopia", "salary": 850.00},
-            {"name": "Ludimila", "salary": 1050.00},
-            {"name": "Indiana", "salary": 1000.00},
-            {"name": "Sandra", "salary": 900.00},
-            {"name": "Maritess", "salary": 1100.00},
-            {"name": "Ma Bilita", "salary": 850.00},
-            {"name": "Erica", "salary": 950.00},
-            {"name": "Catarine", "salary": 1000.00},
-            {"name": "Jane", "salary": 950.00},
-            {"name": "Larissa", "salary": 900.00},
-            {"name": "Ana Paula", "salary": 1050.00},
-            {"name": "Receptionist", "salary": 850.00},
-            {"name": "Pamela", "salary": 1000.00}
-        ]
+        # Path to the CSV file
+        csv_file_path = os.path.join(os.path.dirname(__file__), 'data', 'rio_staff.csv')
+        if not os.path.isfile(csv_file_path):
+            self.stdout.write(self.style.ERROR('CSV file not found. Please specify a valid file path.'))
+            return
 
-        for staff_info in staff_data:
-            # Create a staff instance for each staff info
-            staff, created = Staff.objects.get_or_create(name=staff_info["name"], salary=staff_info["salary"])
+        try:
+            with open(csv_file_path, newline='', encoding='utf-8') as csvfile:
+                reader = csv.DictReader(csvfile)
+                total_rows = sum(1 for row in reader)  # Count total rows
+                csvfile.seek(0)  # Reset file pointer to the beginning
+                reader = csv.DictReader(csvfile)  # Reinitialize reader
 
-            if created:
-                self.stdout.write(self.style.SUCCESS(f'Successfully created staff: {staff_info["name"]}'))
-            else:
-                self.stdout.write(self.style.WARNING(f'Staff already exists: {staff_info["name"]}'))
+                self.stdout.write(self.style.SUCCESS(f'Starting import of {total_rows} staff members...'))
+
+                for index, row in enumerate(reader):
+                    progress = (index + 1) / total_rows * 100
+                    self.stdout.write(f"\rImporting staff... {progress:.2f}% completed", ending='')  # Update progress
+                    self.stdout.flush()  # Clear the buffer
+
+                    # Extract staff information from each row
+                    name = row['name']
+                    salary = float(row['salary'])
+                    active = row['active'].lower() == 'true'
+                    bookable = row['bookable'].lower() == 'true'
+                    commissionable = row['commissionable'].lower() == 'true'
+
+                    # Create or update staff instance
+                    staff, created = Staff.objects.update_or_create(
+                        name=name,
+                        defaults={'salary': salary, 'active': active, 'bookable': bookable, 'commissionable': commissionable}
+                    )
+
+                self.stdout.write("\n")  # Move to the next line after completion
+                self.stdout.write(self.style.SUCCESS('Successfully imported staff members'))
+
+        except FileNotFoundError:
+            self.stdout.write(self.style.ERROR('CSV file not found. Please check the file path.'))

@@ -12,7 +12,7 @@ import { ServiceTab, ProductTab, AppointmentTab, VoucherTab, CreditTab, PackageT
 
 const Invoice = () => {
   const dispatch = useDispatch();
-  const { appointment, services } = useSelector(appointmentsSelector);
+  const { appointment, services, staff } = useSelector(appointmentsSelector);
   console.log("services: ", services);
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
@@ -58,7 +58,7 @@ const Invoice = () => {
               <Col lg={8}>
                 <InvoiceNav activeTab={activeTab} onTabClick={toggleTab} />
                 <TabContent activeTab={activeTab}>
-                  <ServiceTab services={services} serviceList={serviceList} setServiceList={setServiceList} />
+                  <ServiceTab services={services} staff={staff} serviceList={serviceList} setServiceList={setServiceList} />
                   <ProductTab />
                   <AppointmentTab />
                   <VoucherTab />
