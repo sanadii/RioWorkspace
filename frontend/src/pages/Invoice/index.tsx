@@ -6,12 +6,12 @@ import { Container, Row, Col, Card, CardBody, TabContent, TabPane, Nav, NavItem,
 
 import { settingOptionsSelector, appointmentsSelector } from "Selectors";
 import InvoiceNav from "./InvoiceNav";
-import InvoiceSidebar from "./InvoiceSidebar";
+import Summary from "./Summary";
 import { ServiceTab, ProductTab, AppointmentTab, VoucherTab, CreditTab, PackageTab } from "./Tabs";
 
 const Invoice = () => {
   const dispatch = useDispatch();
-  const { appointment, services, staff } = useSelector(appointmentsSelector);
+  const { appointment, services, products, packages, staff } = useSelector(appointmentsSelector);
   const { discountOptions } = useSelector(settingOptionsSelector);
 
   const location = useLocation();
@@ -36,6 +36,8 @@ const Invoice = () => {
 
   const [activeTab, setActiveTab] = useState("1");
   const [serviceList, setServiceList] = useState([]);
+  const [packageList, setPackageList] = useState([]);
+  const [productList, setProductList] = useState([]);
 
   useEffect(() => {
     const appointmentServices = appointment.services;
@@ -52,41 +54,73 @@ const Invoice = () => {
   return (
     <React.Fragment>
       <div className="page-content">
-        <Card>
+        <Container fluid>
           {appointmentId && services && (
-            <Row className="p4">
-              <Col lg={8}>
+            <div className="sale__body">
+              <div className="sale__adding-col">
                 <InvoiceNav activeTab={activeTab} onTabClick={toggleTab} />
                 <TabContent activeTab={activeTab}>
-                  <ServiceTab
-                    services={services}
-                    staff={staff}
-                    serviceList={serviceList}
-                    setServiceList={setServiceList}
-                  />
-                  <ProductTab />
-                  <AppointmentTab />
-                  <VoucherTab />
-                  <CreditTab />
-                  <PackageTab />
+                  <TabPane tabId="1">
+                    <ServiceTab
+                      services={services}
+                      staff={staff}
+                      serviceList={serviceList}
+                      setServiceList={setServiceList}
+                    />
+                  </TabPane>
+                  <TabPane tabId="2">
+                    <div className="sale__products-grid">
+                      <ProductTab
+                        products={products}
+                        staff={staff}
+                        productList={productList}
+                        setProductList={setProductList}
+                      />
+                    </div>
+                  </TabPane>
+                  <TabPane tabId="3">
+                    <div className="sale__packages-grid">
+                      <PackageTab
+                        packages={packages}
+                        staff={staff}
+                        packageList={packageList}
+                        setPackageList={setPackageList}
+                      />
+                    </div>
+                  </TabPane>
+                  <TabPane tabId="4">
+                    <VoucherTab />
+                  </TabPane>
+                  <TabPane tabId="5">
+                    <CreditTab />
+                  </TabPane>
+                  <TabPane tabId="6">
+                    <AppointmentTab />
+                  </TabPane>
                 </TabContent>
-              </Col>
-
-              <Col lg={4}>
-                <InvoiceSidebar
+              </div>
+              <div className="sale__summary-col">
+                <Summary
                   appointment={appointment}
                   staff={staff}
                   services={services}
+                  packages={packages}
+                  products={products}
                   client={appointment?.client}
                   startTime={appointment?.startTime}
                   serviceList={serviceList}
+                  packageList={packageList}
+                  productList={productList}
+
                   setServiceList={setServiceList}
+                  setPackageList={setPackageList}
+                  setProductList={setProductList}
                   discountOptions={discountOptions}
                 />
-              </Col>
-            </Row>
+              </div>
+            </div>
           )}
-        </Card>
+        </Container>
       </div>
     </React.Fragment>
   );

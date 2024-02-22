@@ -3,33 +3,26 @@ import { Modal, Form, ModalHeader, ModalBody, Button } from "reactstrap";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { FormFields } from "Components/Common";
-import { Service, InvoiceSidebarServiceModalProps } from "./InvoiceInterfaces"; // Adjust the path as necessary
+import { Product, SummaryProductModalProps } from "./InvoiceInterfaces"; // Adjust the path as necessary
 
-const InvoiceSidebarServiceModal: React.FC<InvoiceSidebarServiceModalProps> = ({
+const SummaryProductModal: React.FC<SummaryProductModalProps> = ({
   modal,
   setModal,
   toggle,
-  selectedService,
-  setSelectedService,
-  serviceList,
+  selectedProduct,
+  productList,
   staff,
-  setServiceList,
+  setProductList,
   selectedIndex,
   discountOptions,
 }) => {
   const bookableStaff = staff.filter((staffMember) => staffMember.bookable);
-  const lastServiceEndTime =
-    selectedIndex > 0
-      ? new Date(serviceList[selectedIndex - 1].endTime)
-      : selectedIndex === 0
-      ? new Date()
-      : new Date(selectedService?.endTime);
 
-  const handleRemoveService = () => {
+  const handleRemoveProduct = () => {
     if (selectedIndex !== null) {
-      const updatedServiceList = [...serviceList];
-      updatedServiceList.splice(selectedIndex, 1);
-      setServiceList(updatedServiceList);
+      const updatedProductList = [...productList];
+      updatedProductList.splice(selectedIndex, 1);
+      setProductList(updatedProductList);
     }
     setModal(false);
   };
@@ -38,35 +31,32 @@ const InvoiceSidebarServiceModal: React.FC<InvoiceSidebarServiceModalProps> = ({
   const validation = useFormik({
     enableReinitialize: true,
     initialValues: {
-      id: selectedService?.id || null,
-      name: selectedService?.name || "",
-      duration: selectedService?.duration || null,
-      staff: selectedService?.staff || null,
-      price: selectedService?.price || 0,
-      discount: selectedService?.discount || 0,
+      id: selectedProduct?.id || null,
+      name: selectedProduct?.name || "",
+      duration: selectedProduct?.duration || null,
+      staff: selectedProduct?.staff || null,
+      price: selectedProduct?.price || 0,
+      discount: selectedProduct?.discount || 0,
     },
     validationSchema: Yup.object({
       staff: Yup.number().integer("Staff must be an integer").nullable().required("Staff is required"),
       price: Yup.number().positive("Price must be a positive number").nullable().required("Price is required"),
     }),
     onSubmit: (values) => {
-      const updatedService = {
+      const updatedProduct = {
         id: values.id,
         name: values.name,
-        duration: values.duration,
-        startTime: lastServiceEndTime,
-        endTime: new Date(lastServiceEndTime.getTime() + values.duration * 60000), // Assuming duration is in minutes
         staff: values.staff,
         price: parseFloat(values.price),
         discount: values.discount,
       };
 
       if (selectedIndex !== null) {
-        const updatedServiceList = [...serviceList];
-        updatedServiceList[selectedIndex] = updatedService;
-        setServiceList(updatedServiceList);
+        const updatedProductList = [...productList];
+        updatedProductList[selectedIndex] = updatedProduct;
+        setProductList(updatedProductList);
       } else {
-        setServiceList([...serviceList, updatedService]);
+        setProductList([...productList, updatedProduct]);
       }
 
       validation.resetForm();
@@ -109,7 +99,7 @@ const InvoiceSidebarServiceModal: React.FC<InvoiceSidebarServiceModalProps> = ({
 
   return (
     <Modal id="showModal" size="md" className="sale__modal" isOpen={modal} toggle={toggle} centered>
-      <div className="sale__modal-head">{selectedService?.name}</div>
+      <div className="sale__modal-head">{selectedProduct?.name}</div>
       <div className="sale__modal-body sale__modal-body--grey sale__edit-line-item">
         <Form
           className="tablelist-form"
@@ -131,7 +121,7 @@ const InvoiceSidebarServiceModal: React.FC<InvoiceSidebarServiceModalProps> = ({
             >
               Update
             </button>
-            <button className="sale__button-remove" onClick={handleRemoveService}>
+            <button className="sale__button-remove" onClick={handleRemoveProduct}>
               Remove
             </button>
             {/* <Button type="submit" className="btn btn-danger" id="add-btn">
@@ -144,4 +134,4 @@ const InvoiceSidebarServiceModal: React.FC<InvoiceSidebarServiceModalProps> = ({
   );
 };
 
-export default InvoiceSidebarServiceModal;
+export default SummaryProductModal;

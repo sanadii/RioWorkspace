@@ -4,56 +4,49 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { FormFields } from "Components/Common";
 
-import { Service, ServiceTabModalProps } from "../InvoiceInterfaces"; // Adjust the path as necessary
+import { Package, PackageTabModalProps } from "../InvoiceInterfaces"; // Adjust the path as necessary
 
-const ServiceTabModal: React.FC<ServiceTabModalProps> = ({
+const PackageTabModal: React.FC<PackageTabModalProps> = ({
   modal,
   setModal,
   toggle,
-  selectedService,
-  setSelectedService,
-  serviceList,
+  selectedPackage,
+  setSelectedPackage,
+  packageList,
   staff,
-  setServiceList,
+  setPackageList,
 }) => {
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
   const bookableStaff = staff.filter((staffMember) => staffMember.bookable);
 
-  const lastServiceEndTime =
-    serviceList.length > 0 ? new Date(serviceList[serviceList.length - 1].endTime) : new Date();
-
-  console.log("selectedService: ", selectedService);
+  console.log("selectedPackage: ", selectedPackage);
   const handleStaffSelection = (staffId: number) => {
     setSelectedOption(staffId);
-    if (selectedService) {
-      setSelectedService({ ...selectedService, staff: staffId.toString() });
+    if (selectedPackage) {
+      setSelectedPackage({ ...selectedPackage, staff: staffId.toString() });
     }
   };
 
   const validation = useFormik({
     enableReinitialize: true,
     initialValues: {
-      id: selectedService?.id || null,
-      name: selectedService?.name || "",
-      duration: selectedService?.duration || null,
-      staff: selectedService?.staff || null,
-      price: selectedService?.price || "0",
+      id: selectedPackage?.id || null,
+      name: selectedPackage?.name || "",
+      staff: selectedPackage?.staff || null,
+      price: selectedPackage?.price || "0",
     },
     validationSchema: Yup.object({
       staff: Yup.number().integer("Staff must be an integer").nullable().required("Staff is required"),
       price: Yup.number().positive("Price must be a positive number").nullable().required("Price is required"),
     }),
     onSubmit: (values) => {
-      const newService = {
+      const newPackage = {
         id: values.id,
         name: values.name,
-        duration: values.duration,
-        startTime: lastServiceEndTime,
-        endTime: new Date(lastServiceEndTime.getTime() + values.duration * 60000), // Assuming duration is in minutes
         staff: parseInt(values.staff, 10),
         price: parseFloat(values.price),
       };
-      setServiceList([...serviceList, newService]);
+      setPackageList([...packageList, newPackage]);
       setSelectedOption(null);
       validation.resetForm();
       toggle();
@@ -87,8 +80,8 @@ const ServiceTabModal: React.FC<ServiceTabModalProps> = ({
     <Modal id="showModal" className="sale__modal" isOpen={modal} toggle={toggle} centered>
       <div className="sale__modal-head">
         {" "}
-        {selectedService?.name} - {selectedService?.price} - {selectedService?.duration}
-      </div>{" "}
+        {selectedPackage?.name} - {selectedPackage?.price}
+      </div>
       <div className="sale__modal-body">
         <Form
           className="tablelist-form"
@@ -116,4 +109,4 @@ const ServiceTabModal: React.FC<ServiceTabModalProps> = ({
   );
 };
 
-export default ServiceTabModal;
+export default PackageTabModal;
