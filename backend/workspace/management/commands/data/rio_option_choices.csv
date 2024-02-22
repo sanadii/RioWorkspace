@@ -1,0 +1,28 @@
+id,name,value,config,category_id
+1,Cash,Cash,badge bg-info,1
+2,Credit,Credit,badge bg-primary,1
+3,Link,Link,badge bg-success,1
+4,Others,Others,badge bg-warning,1
+5,Pending,Pending,badge bg-info,2
+6,Paid,Paid,badge bg-success,2
+7,Pending,Pending,badge bg-info,3
+8,Reviewed,Reviewed,badge bg-primary,3
+9,Declined,Declined,badge bg-danger,3
+10,Utilities,Utilities,badge bg-info,4
+11,Salon Supplies,Salon Supplies,badge bg-primary,4
+12,Beauty Products,Beauty Products,badge bg-success,4
+13,Business Licensing,Business Licensing,badge bg-warning,4
+14,Construction/Remodeling,Construction/Remodeling,badge bg-info,4
+15,Advertisement Expenses,Advertisement Expenses,badge bg-primary,4
+16,Professional Services,Professional Services,badge bg-success,4
+17,Office Supplies,Office Supplies,badge bg-warning,4
+18,Travel and Transportation,Travel and Transportation,badge bg-info,4
+19,Miscellaneous,Miscellaneous,badge bg-primary,4
+20,Sanad,Sanad,badge bg-info,5
+21,Laura,Laura,badge bg-primary,5
+22,Other,Other,badge bg-success,5
+23,10% Discount,10,,6
+24,15% Discount,15,,6
+25,25% Discount,25,,6
+26,30%  Discount,30,,6
+27,50%  Discount,50,,6

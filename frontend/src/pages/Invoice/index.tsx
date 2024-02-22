@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
-import classnames from "classnames";
-import { getAppointment, getClients, getSchedule } from "store/actions";
+import { getAppointment, getClients, getSchedule, getSettingOptions } from "store/actions";
 import { Container, Row, Col, Card, CardBody, TabContent, TabPane, Nav, NavItem, NavLink } from "reactstrap";
 
-import { appointmentsSelector } from "Selectors";
+import { settingOptionsSelector, appointmentsSelector } from "Selectors";
 import InvoiceNav from "./InvoiceNav";
 import InvoiceSidebar from "./InvoiceSidebar";
 import { ServiceTab, ProductTab, AppointmentTab, VoucherTab, CreditTab, PackageTab } from "./Tabs";
@@ -13,7 +12,8 @@ import { ServiceTab, ProductTab, AppointmentTab, VoucherTab, CreditTab, PackageT
 const Invoice = () => {
   const dispatch = useDispatch();
   const { appointment, services, staff } = useSelector(appointmentsSelector);
-  console.log("services: ", services);
+  const { discountOptions } = useSelector(settingOptionsSelector);
+
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const appointmentId = queryParams.get("appointmentId");
@@ -42,8 +42,8 @@ const Invoice = () => {
     setServiceList(appointmentServices);
   }, [appointment]);
 
-  console.log("serviceList: ", serviceList);
-  console.log("appointment.services: ", appointment.services);
+  // console.log("serviceList: ", serviceList);
+  // console.log("appointment.services: ", appointment.services);
 
   const toggleTab = (tab) => {
     if (activeTab !== tab) setActiveTab(tab);
@@ -58,7 +58,12 @@ const Invoice = () => {
               <Col lg={8}>
                 <InvoiceNav activeTab={activeTab} onTabClick={toggleTab} />
                 <TabContent activeTab={activeTab}>
-                  <ServiceTab services={services} staff={staff} serviceList={serviceList} setServiceList={setServiceList} />
+                  <ServiceTab
+                    services={services}
+                    staff={staff}
+                    serviceList={serviceList}
+                    setServiceList={setServiceList}
+                  />
                   <ProductTab />
                   <AppointmentTab />
                   <VoucherTab />
@@ -70,9 +75,13 @@ const Invoice = () => {
               <Col lg={4}>
                 <InvoiceSidebar
                   appointment={appointment}
+                  staff={staff}
+                  services={services}
                   client={appointment?.client}
                   startTime={appointment?.startTime}
                   serviceList={serviceList}
+                  setServiceList={setServiceList}
+                  discountOptions={discountOptions}
                 />
               </Col>
             </Row>

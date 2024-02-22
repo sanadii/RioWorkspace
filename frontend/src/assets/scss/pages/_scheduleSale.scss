@@ -352,43 +352,6 @@
     margin-top: 22px
   }
   
-  .sale__modal {
-    margin: -15px
-  }
-  
-  .sale__modal-head {
-    color: #39464e;
-    padding: 16px;
-    font-size: 18px;
-    font-weight: 700;
-    text-align: center
-  }
-  
-  .sale__modal-body {
-    padding: 24px;
-    max-height: 75vh;
-    overflow: auto
-  }
-  
-  .sale__modal-body--grey {
-    background-color: #f5f5f5
-  }
-  
-  .sale__updated-sale-modal .alert {
-    margin: 0
-  }
-  
-  @media (max-width: 420px) {
-    .sale__modal {
-        display:flex;
-        flex-direction: column;
-        min-height: 100vh
-    }
-  
-    .sale__modal-body {
-        flex: 1
-    }
-  }
   
   .sale__label {
     padding-bottom: 8px;
@@ -994,33 +957,33 @@
     margin-right: 8px
   }
   
-  .sale__options-selector-staff-name {
-    padding-left: 32px
-  }
+  // .sale__options-selector-staff-name {
+  //   padding-left: 32px
+  // }
   
-  .sale__options-staff-list {
-    display: flex;
-    flex-wrap: wrap;
-    margin-top: 8px
-  }
+  // .sale__options-staff-list {
+  //   display: flex;
+  //   flex-wrap: wrap;
+  //   margin-top: 8px
+  // }
   
-  .sale__options-staff-item {
-    width: 33.33%;
-    padding-bottom: 16px;
-    text-align: center;
-    cursor: pointer
-  }
+  // .sale__options-staff-item {
+  //   width: 33.33%;
+  //   padding-bottom: 16px;
+  //   text-align: center;
+  //   cursor: pointer
+  // }
   
-  .sale__options-staff-item-name {
-    color: #6a7982;
-    margin-top: 8px;
-    font-size: 18px;
-    text-align: center
-  }
+  // .sale__options-staff-item-name {
+  //   color: #6a7982;
+  //   margin-top: 8px;
+  //   font-size: 18px;
+  //   text-align: center
+  // }
   
-  .sale__options-staff-item-avatar {
-    margin: 0 auto
-  }
+  // .sale__options-staff-item-avatar {
+  //   margin: 0 auto
+  // }
   
   .sale__options-remember-box {
     display: flex;
@@ -1285,59 +1248,9 @@
     flex-wrap: wrap
   }
   
-  .sale__service {
-    position: relative;
-    padding: 8px;
-    margin-bottom: 8px;
-    cursor: pointer
-  }
+
+
   
-  .sale__service-row {
-    display: flex;
-    line-height: 24px
-  }
-  
-  .sale__service-icon {
-    width: 32px;
-    margin-left: -10px
-  }
-  
-  .sale__service-icon svg {
-    width: 32px;
-    height: 32px
-  }
-  
-  .sale__service-details {
-    flex: 1;
-    display: flex;
-    flex-wrap: wrap
-  }
-  
-  .sale__service-name {
-    font-size: 18px;
-    font-weight: 700;
-    line-height: 32px;
-    flex: 1;
-  
-    span {
-      font-size: 12px;
-      color: $primary;
-    }
-  }
-  
-  
-  .sale__service-price {
-    text-align: right;
-    line-height: 32px;
-    flex: 1
-  }
-  
-  .sale__service-duration {
-    color: #6a7982;
-    font-style: italic;
-    flex: 1;
-    flex-basis: 100%
-  }
   
   @media (min-width: 770px) {
     .sale__products-grid .sale__product-items {
@@ -1809,14 +1722,14 @@
     opacity: .9
   }
   
-  .sale__item-icon,.sale__item-icon svg {
-    width: 32px;
-    height: 32px
-  }
+  // .sale__item-icon,.sale__item-icon svg {
+  //   width: 32px;
+  //   height: 32px
+  // }
   
-  .sale__item-icon svg {
-    margin-left: -4px
-  }
+  // .sale__item-icon svg {
+  //   margin-left: -4px
+  // }
   
   .sale__item-ball {
     width: 16px;
@@ -1842,26 +1755,7 @@
     margin-left: 8px;
     text-align: right
   }
-  
-  .sale__item-name {
-    flex: 1;
-    margin: 4px 0;
-    line-height: 24px;
-    font-size: 16px;
-    font-weight: 700
-  }
-  
-  .sale__item-price {
-    font-size: 16px;
-    line-height: 32px;
-    text-align: right
-  }
-  
-  .sale__item-price-old {
-    text-decoration: line-through;
-    color: #6a7982
-  }
-  
+   
   .sale__item-price-packaged-discount {
     color: #6a7982
   }
@@ -3154,3 +3048,154 @@
         margin-top: .5rem
     }
   }
+
+
+  
+// Invoice SideBar - Services
+.sale__service {
+  position: relative;
+  padding: 8px;
+  margin-bottom: 8px;
+  cursor: pointer;
+
+    
+  .sale__service-row {
+    display: flex;
+    line-height: 24px;
+    
+    .sale__item-icon,.sale__item-icon svg {
+        width: 32px;
+        height: 32px
+    }
+    .sale__item-icon svg {
+        margin-left: -4px
+    }
+
+    .sale__item-name {
+        flex: 1;
+        margin: 4px 0;
+        // line-height: 24px;
+        font-size: 16px;
+        font-weight: 700;
+        flex-grow: 1 !important;
+    }
+
+    .sale__item-price {
+        font-size: 16px;
+        line-height: 32px;
+        text-align: right;
+        flex-shrink: 0 !important;
+    }
+  
+    .sale__service-details {
+      flex: 1;
+      display: flex;
+      flex-wrap: wrap
+    }
+    
+    .sale__service-duration {
+      color: #6a7982;
+      font-style: italic;
+      flex: 1;
+      flex-basis: 100%
+    }
+    
+  }
+}
+
+
+// Modals
+// Scale up the modal
+@include media-breakpoint-up(md) {
+  .modal {
+    --#{$prefix}modal-margin: #{$modal-dialog-margin-y-sm-up};
+    --#{$prefix}modal-box-shadow: #{$modal-content-box-shadow-sm-up};
+  }
+
+  // Automatically set modal's width for larger viewports
+  .modal-dialog {
+    max-width: var(--#{$prefix}modal-width);
+    margin-right: auto;
+    margin-left: auto;
+  }
+
+  .modal-sm {
+    --#{$prefix}modal-width: #{$modal-sm};
+  }
+}
+
+.sale__modal {
+
+  .sale__modal-head {
+    color: #39464e;
+    padding: 16px;
+    font-size: 18px;
+    font-weight: 700;
+    text-align: center;
+  }
+
+  .sale__modal-body {
+    padding: 24px;
+    max-height: 75vh;
+    overflow: auto;
+    
+    .sale__continue-in-progress .sale__button-danger,.sale__edit-line-item .sale__button-danger {
+      margin-top: 16px;
+    }
+  }
+
+  .sale__modal-body--grey {
+    background-color: #f5f5f5;
+  }
+
+  .sale__button {
+    width:100%;
+    background-color: #39464E;
+    border-color: #39464E;
+    color: #fff;
+
+    &:hover {
+      background-color: #303B42;
+    border-color: #303B42;
+    color: #fff;
+    }
+  }
+
+  .sale__button-remove {
+    width: 100%;
+    color: #da4f49;
+    padding: 0;
+    margin: 0;
+    background: none;
+    border: none;
+    display: inline;
+    cursor: pointer;
+    margin-top: 16px;
+    
+    &:hover {
+      color: #d88481;
+    }
+  }
+  
+}
+.sale__updated-sale-modal .alert {
+  margin: 0;
+}
+
+
+  
+.sale__updated-sale-modal .alert {
+  margin: 0;
+}
+
+@media (max-width: 420px) {
+  .sale__modal {
+      display:flex;
+      flex-direction: column;
+      min-height: 100vh;
+  }
+
+  .sale__modal-body {
+      flex: 1;
+  }
+}

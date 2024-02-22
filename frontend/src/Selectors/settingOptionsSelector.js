@@ -9,14 +9,12 @@ export const settingOptionsSelector = createSelector(
     
     // Daily Revenues Selectors
     // RevenueStatusOptions: settingOptionsSelector.settingOptions.RevenueStatus,
-    ExpensesCategoryOptions: settingOptionsSelector.ExpensesCategory,
-    ExpensesStatusOptions: settingOptionsSelector.ExpensesStatus,
-    PaidByOptions: settingOptionsSelector.PaidBy,
-    TransactionStatusOptions: settingOptionsSelector.TransactionStatus,
+    ExpensesCategoryOptions: settingOptionsSelector.settingOptions?.ExpensesCategory,
+    ExpensesStatusOptions: settingOptionsSelector.settingOptions?.ExpensesStatus,
+    PaidByOptions: settingOptionsSelector.settingOptions?.PaidBy,
+    TransactionStatusOptions: settingOptionsSelector.settingOptions?.TransactionStatus,
+    discountOptions: settingOptionsSelector.settingOptions?.Discount,
     isSettingOptionsSuccess: settingOptionsSelector.isSettingOptionsSuccess,
     error: settingOptionsSelector.error,
-
-    
-
   })
 );

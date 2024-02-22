@@ -9,6 +9,9 @@ class OptionCategory(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        db_table = "option_category"
+
 # Option Choices Model
 class OptionChoices(models.Model):
     category = models.ForeignKey(OptionCategory, on_delete=models.CASCADE)
@@ -18,3 +21,6 @@ class OptionChoices(models.Model):
 
     def __str__(self):
         return f"{self.name} - ({self.category})"
+    
+    class Meta:
+        db_table = "option_choice"

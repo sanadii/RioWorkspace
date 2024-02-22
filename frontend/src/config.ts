@@ -10,6 +10,7 @@ interface FacebookConfig {
 
 interface ApiConfig {
   API_URL: string;
+  MEDIA_URL: string;
 }
 
 interface Config {
@@ -29,6 +30,7 @@ const config: Config = {
   },
   api: {
     API_URL: "http://127.0.0.1:8000",
+    MEDIA_URL: "http://127.0.0.1:8000",
   },
 };
 

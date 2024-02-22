@@ -48,3 +48,5 @@ class InvoicePackage(models.Model):
 
     class Meta:
         db_table = "invoice_package"
+
+

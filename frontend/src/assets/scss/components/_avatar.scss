@@ -45,20 +45,71 @@
 
 // avatar group
 .avatar-group {
-    padding-left: 12px;
     display: flex;
     flex-wrap: wrap;
+    padding-left: 12px;
+    cursor: pointer;
 
     .avatar-group-item {
-        margin-left: -12px;
+        margin-left: 4px;
         border: 2px solid var(--#{$prefix}secondary-bg);
         border-radius: 50%;
         transition: all 0.2s;
+        position: relative;
+        z-index: 1;
+        text-align: center;
 
-        &:hover {
-            position: relative;
-            transform: translateY(-2px);
-            z-index: 1;
+        &:hover, &.selected {
+
+            img {
+                transform: translateY(-2px);
+                z-index: 2;
+                border: 2px solid $secondary;
+            }
+
+            .avatar-group-name {
+                color: $secondary; 
+                font-weight: bold;
+            }
         }
+
+        .avatar-group-name {
+            color: #6a7982;
+            margin-top: 8px;
+            font-size: 14px;
+        }
+    
     }
+
 }
+
+
+
+
+  // .sale__options-selector-staff-name {
+  //   padding-left: 32px
+  // }
+  
+  // .sale__options-staff-list {
+  //   display: flex;
+  //   flex-wrap: wrap;
+  //   margin-top: 8px
+  // }
+  
+  // .sale__options-staff-item {
+  //   width: 33.33%;
+  //   padding-bottom: 16px;
+  //   text-align: center;
+  //   cursor: pointer
+  // }
+  
+  // .sale__options-staff-item-name {
+  //   color: #6a7982;
+  //   margin-top: 8px;
+  //   font-size: 18px;
+  //   text-align: center
+  // }
+  
+  // .sale__options-staff-item-avatar {
+  //   margin: 0 auto
+  // }

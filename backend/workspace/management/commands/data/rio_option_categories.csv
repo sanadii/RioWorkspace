@@ -1,0 +1,7 @@
+id,name,description,config
+1,TransactionStatus,Status for financial transactions,
+2,ExpensesStatus,Status for expenses,
+3,RevenueStatus,Status for daily revenue,
+4,ExpensesCategory,Categories for expenses,
+5,PaidBy,Methods of payment,
+6,Discount,Discount Options,
