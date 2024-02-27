@@ -24,3 +24,4 @@ class OptionChoices(models.Model):
     
     class Meta:
         db_table = "option_choice"
+

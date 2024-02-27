@@ -3,29 +3,18 @@ import { Modal, Form, Button } from "reactstrap";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { FormFields } from "Components/Common";
-import { Staff, Service, Product, Package } from "../../../interfaces/InvoiceInterfaces";
+import { Staff, Service, Product, Package, Voucher, SummaryItemModalProps } from "../../../interfaces/invoiceTypes";
 
-interface SummaryItemModalProps {
-  modal: boolean;
-  setModal: React.Dispatch<React.SetStateAction<boolean>>;
-  toggle: () => void;
-  selectedItem: Service | Product | Package;
-  itemList: Array<Service | Product | Package>;
-  staff: Staff[];
-  setItemList: React.Dispatch<React.SetStateAction<Array<Service | Product | Package>>>;
-  selectedIndex: number | null;
-  discountOptions: any[]; // Define this type more specifically if possible
-  itemType: "service" | "product" | "package";
-}
+
 
 const SummaryItemModal: React.FC<SummaryItemModalProps> = ({
   modal,
   setModal,
   toggle,
   selectedItem,
-  itemList,
+  invoiceItemList,
   staff,
-  setItemList,
+  setInvoiceItemList,
   selectedIndex,
   discountOptions,
   itemType,
@@ -34,9 +23,9 @@ const SummaryItemModal: React.FC<SummaryItemModalProps> = ({
 
   const handleRemoveItem = () => {
     if (selectedIndex !== null) {
-      const updatedItemList = [...itemList];
+      const updatedItemList = [...invoiceItemList];
       updatedItemList.splice(selectedIndex, 1);
-      setItemList(updatedItemList);
+      setInvoiceItemList(updatedItemList);
     }
     setModal(false);
   };
@@ -48,6 +37,7 @@ const SummaryItemModal: React.FC<SummaryItemModalProps> = ({
       name: selectedItem?.name || "",
       service: itemType === "service" ? (selectedItem as Service)?.id || null : undefined,
       package: itemType === "package" ? (selectedItem as Package)?.id || null : undefined,
+      voucher: itemType === "voucher" ? (selectedItem as Voucher)?.id || null : undefined,
       product: itemType === "product" ? (selectedItem as Product)?.id || null : undefined,
       duration: itemType === "service" ? (selectedItem as Service)?.service || null : undefined,
       staff: selectedItem?.staff || null,
@@ -64,6 +54,7 @@ const SummaryItemModal: React.FC<SummaryItemModalProps> = ({
         name: values.name,
         service: itemType === "service" ? values.id : undefined,
         package: itemType === "package" ? values.id : undefined,
+        voucher: itemType === "voucher" ? values.id : undefined,
         product: itemType === "product" ? values.id : undefined,
         duration: itemType === "service" ? values.duration : undefined,
         staff: values.staff,
@@ -72,11 +63,11 @@ const SummaryItemModal: React.FC<SummaryItemModalProps> = ({
       };
 
       if (selectedIndex !== null) {
-        const updatedItemList = [...itemList];
+        const updatedItemList = [...invoiceItemList];
         updatedItemList[selectedIndex] = updatedItem;
-        setItemList(updatedItemList);
+        setInvoiceItemList(updatedItemList);
       } else {
-        setItemList([...itemList, updatedItem]);
+        setInvoiceItemList([...invoiceItemList, updatedItem]);
       }
 
       validation.resetForm();

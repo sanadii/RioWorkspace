@@ -1,10 +1,10 @@
 import React, { useState, useCallback } from "react";
 import ItemTabModal from "./ItemTabModal";
-import { Service, Package, Product } from "../../../interfaces/InvoiceInterfaces";
+import { Service, Package, Product, Voucher } from "../../../interfaces/invoiceTypes";
 
-type Item = Service | Product | Package;
+type Item = Service | Product | Package | Voucher;
 
-const ItemTab = ({ items, staff, itemList, setItemList, itemType }) => {
+const ItemTab = ({ items, staff, invoiceItemList, setInvoiceItemList, itemType }) => {
   const [selectedItem, setSelectedItem] = useState(null);
   const [modal, setModal] = useState(false);
 
@@ -18,6 +18,7 @@ const ItemTab = ({ items, staff, itemList, setItemList, itemType }) => {
       return acc;
     }, {});
   };
+
 
   const itemsByCategory = groupItemsByCategory(items);
 
@@ -33,15 +34,15 @@ const ItemTab = ({ items, staff, itemList, setItemList, itemType }) => {
   return (
     <React.Fragment>
       <div>
-        <ItemTabModal
+      <ItemTabModal
           modal={modal}
           setModal={setModal}
           toggle={toggle}
           selectedItem={selectedItem}
           setSelectedItem={setSelectedItem}
-          itemList={itemList}
+          invoiceItemList={invoiceItemList}
           staff={staff}
-          setItemList={setItemList}
+          setInvoiceItemList={setInvoiceItemList}
           itemType={itemType}
         />
 

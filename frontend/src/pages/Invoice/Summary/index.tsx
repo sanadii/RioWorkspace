@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { Appointment, Service, Package, Product } from "interfaces"; // Adjust the path as necessary
+import { Appointment, Service, Package, Product, Voucher, Discount, SummaryProps } from "interfaces"; // Adjust the path as necessary
 import SummaryItemModal from "./SummaryItemModal";
 import { Button, Label } from "reactstrap";
-import { SummaryProps, Discount } from "../../../interfaces/InvoiceInterfaces"; // Adjust the path as necessary
 import SummaryItemList from "../SummaryItemList";
 import DiscountModal from "./DiscountModal";
 import { useDispatch, useSelector } from "react-redux";
@@ -11,12 +10,8 @@ import { updateAppointment } from "store/actions";
 const Summary: React.FC<SummaryProps> = ({
   appointment,
   staff,
-  serviceList,
-  packageList,
-  productList,
-  setServiceList,
-  setPackageList,
-  setProductList,
+  invoiceItemList,
+  setInvoiceItemList,
   discountOptions,
   setIspayment,
   isPayment,
@@ -31,6 +26,7 @@ const Summary: React.FC<SummaryProps> = ({
   const [selectedService, setSelectedService] = useState<Service | null>(null);
   const [selectedPackage, setSelectedPackage] = useState<Package | null>(null);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+  const [selectedVoucher, setSelectedVoucher] = useState<Voucher | null>(null);
   const [discountValue, setDiscountValue] = useState<Discount | null>(null);
   const [appointmentNote, setAppointmentNote] = useState(appointment.note || "");
   const [updatedAppointment, setUpdatedAppointment] = useState<Appointment | null>(null);
@@ -55,6 +51,12 @@ const Summary: React.FC<SummaryProps> = ({
     setSelectedIndex(index); // Set the index of the selected service
     setModal(true);
   };
+
+  const handleVoucherSelectionClick = (voucher: Voucher, index: number) => {
+    setSelectedVoucher(voucher);
+    setSelectedIndex(index); // Set the index of the selected service
+    setModal(true);
+  };
   const [modal, setModal] = useState<boolean>(false);
 
   const toggle = useCallback(() => {
@@ -67,14 +69,18 @@ const Summary: React.FC<SummaryProps> = ({
   }, [modal]);
 
   const calculateTotalPrice = (items) => {
+    if (!Array.isArray(items)) {
+      return 0; // Return 0 if items is not an array
+    }
     return items.reduce((total, item) => total + parseFloat(item.price || 0), 0);
   };
-
+  
   // Calculate total prices for services, packages, and products
-  const totalServicePrice = calculateTotalPrice(serviceList);
-  const totalPackagePrice = calculateTotalPrice(packageList);
-  const totalProductPrice = calculateTotalPrice(productList);
-
+  const totalServicePrice = calculateTotalPrice(invoiceItemList.serviceList);
+  const totalPackagePrice = calculateTotalPrice(invoiceItemList.packageList);
+  const totalProductPrice = calculateTotalPrice(invoiceItemList.productList);
+  const totalVoucherPrice = calculateTotalPrice(invoiceItemList.voucherList);
+  
   // Calculate overall total
   const overallTotal = totalServicePrice + totalPackagePrice + totalProductPrice;
 
@@ -83,16 +89,16 @@ const Summary: React.FC<SummaryProps> = ({
     if (appointment) {
       const newUpdatedAppointment = {
         ...appointment,
-        services: serviceList,
-        packages: packageList,
-        products: productList,
+        services: invoiceItemList.serviceList,
+        packages: invoiceItemList.packageList,
+        products: invoiceItemList.productList,
         discount: discountValue,
         note: appointmentNote,
         // Add any other details you need to update
       };
       setUpdatedAppointment(newUpdatedAppointment);
     }
-  }, [appointment, serviceList, packageList, productList, appointmentNote, discountValue]);
+  }, [appointment, invoiceItemList, appointmentNote, discountValue]);
 
   const handleAddNoteClick = () => {
     setIsAddingNote(true);
@@ -143,22 +149,29 @@ const Summary: React.FC<SummaryProps> = ({
         <div className="sale__summary-items">
           <SummaryItemList
             title="Services"
-            itemList={serviceList}
+            invoiceItemList={invoiceItemList?.serviceList || []}
             onItemClick={handleServiceSelectionClick}
             iconPath="M11.75 9.75h8.5a2 2 0 012 2v8.5a2 2 0 01-2 2h-8.5a2 2 0 01-2-2v-8.5a2 2 0 012-2zm1 .75v11"
           />
 
           <SummaryItemList
             title="Packages"
-            itemList={packageList}
+            invoiceItemList={invoiceItemList.packageList || []}
             onItemClick={handlePackageSelectionClick}
             iconPath="M11.75 9.75h8.5a2 2 0 012 2v8.5a2 2 0 01-2 2h-8.5a2 2 0 01-2-2v-8.5a2 2 0 012-2zm1 .75v11"
           />
 
           <SummaryItemList
             title="Products"
-            itemList={productList}
+            invoiceItemList={invoiceItemList.productList || []}
             onItemClick={handleProductSelectionClick}
+            iconPath="M11.75 9.75h8.5a2 2 0 012 2v8.5a2 2 0 01-2 2h-8.5a2 2 0 01-2-2v-8.5a2 2 0 012-2zm1 .75v11"
+          />
+
+          <SummaryItemList
+            title="voucher"
+            invoiceItemList={invoiceItemList.voucherList || []}
+            onItemClick={handleVoucherSelectionClick}
             iconPath="M11.75 9.75h8.5a2 2 0 012 2v8.5a2 2 0 01-2 2h-8.5a2 2 0 01-2-2v-8.5a2 2 0 012-2zm1 .75v11"
           />
         </div>
@@ -233,9 +246,9 @@ const Summary: React.FC<SummaryProps> = ({
         setModal={setModal}
         toggle={toggle}
         selectedItem={selectedService}
-        itemList={serviceList}
+        invoiceItemList={invoiceItemList.serviceList}
         staff={staff}
-        setItemList={setServiceList}
+        setInvoiceItemList={setInvoiceItemList}
         selectedIndex={selectedIndex}
         discountOptions={discountOptions}
         itemType="service"
@@ -246,9 +259,9 @@ const Summary: React.FC<SummaryProps> = ({
         setModal={setModal}
         toggle={toggle}
         selectedItem={selectedPackage}
-        itemList={packageList}
+        invoiceItemList={invoiceItemList.packageList}
         staff={staff}
-        setItemList={setPackageList}
+        setInvoiceItemList={setInvoiceItemList}
         selectedIndex={selectedIndex}
         discountOptions={discountOptions}
         itemType="package"
@@ -259,14 +272,26 @@ const Summary: React.FC<SummaryProps> = ({
         setModal={setModal}
         toggle={toggle}
         selectedItem={selectedProduct}
-        itemList={productList}
+        invoiceItemList={invoiceItemList.productList}
         staff={staff}
-        setItemList={setProductList}
+        setInvoiceItemList={setInvoiceItemList}
         selectedIndex={selectedIndex}
         discountOptions={discountOptions}
         itemType="product"
       />
 
+      <SummaryItemModal
+        modal={modal}
+        setModal={setModal}
+        toggle={toggle}
+        selectedItem={selectedVoucher}
+        invoiceItemList={invoiceItemList.voucherList}
+        staff={staff}
+        setInvoiceItemList={setInvoiceItemList}
+        selectedIndex={selectedIndex}
+        discountOptions={discountOptions}
+        itemType="voucher"
+      />
       <DiscountModal
         discountOptions={discountOptions}
         modal={modal}

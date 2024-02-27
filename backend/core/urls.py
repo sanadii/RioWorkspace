@@ -17,4 +17,5 @@ urlpatterns = [
     path('packages/', include('workspace.urls.packages')),
     path('products/', include('workspace.urls.products')),
     path('clients/', include('workspace.urls.clients')),
+    path('vouchers/', include('workspace.urls.vouchers')),
 ]

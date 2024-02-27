@@ -14,6 +14,7 @@ export const appointmentsSelector = createSelector(
     services: appointmentsSelector.services,
     products: appointmentsSelector.products,
     packages: appointmentsSelector.packages,
+    vouchers: appointmentsSelector.vouchers,
     appointmentServices: appointmentsSelector.appointmentServices,
     isAppointmentSuccess: appointmentsSelector.isAppointmentSuccess,
     error: appointmentsSelector.error,

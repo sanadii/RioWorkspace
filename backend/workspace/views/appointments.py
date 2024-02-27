@@ -19,12 +19,15 @@ from workspace.models.clients import Client
 from workspace.models.services import Service
 from workspace.models.products import Product
 from workspace.models.packages import Package
+from workspace.models.vouchers import Voucher
 
 from workspace.serializers.appointments import AppointmentSerializer, AppointmentServiceSerializer, ScheduleSerializer
 from workspace.serializers.staff import StaffSerializer
 from workspace.serializers.services import ServiceSerializer
 from workspace.serializers.products import ProductSerializer
 from workspace.serializers.packages import PackageSerializer
+from workspace.serializers.vouchers import VoucherSerializer
+
 
 
 class GetAppointments(APIView):
@@ -85,6 +88,10 @@ class GetScheduleData(APIView):
         packages = Package.objects.all()
         package_serializer = PackageSerializer(packages, many=True)
 
+        # Fetch all vouchers (assuming no date filtering for services)
+        vouchers = Voucher.objects.all()
+        voucher_serializer = VoucherSerializer(vouchers, many=True)
+
 
         response_data = {
             'appointments': appointment_serializer.data,
@@ -92,6 +99,7 @@ class GetScheduleData(APIView):
             'staff': staff_serializer.data,
             'products': product_serializer.data,
             'packages': package_serializer.data,
+            'vouchers': voucher_serializer.data,
         }
 
         return Response({'data': response_data}, status=status.HTTP_200_OK)

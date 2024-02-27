@@ -26,3 +26,6 @@ id,name,value,config,category_id
 25,25% Discount,25,,6
 26,30%  Discount,30,,6
 27,50%  Discount,50,,6
+28, Default, Ddefault Terms,,6
+28, None, No Terms,,6
+28, Custom, Custom Terms,,6

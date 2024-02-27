@@ -43,6 +43,7 @@ const Appointments = (state = INIT_STATE, action) => {
             services: action.payload.data.services,
             packages: action.payload.data.packages,
             products: action.payload.data.products,
+            vouchers: action.payload.data.vouchers,
             isAppointmentCreated: false,
             isAppointmentSuccess: true
           };

@@ -1,3 +1,3 @@
 // interfaces/index.ts
-export * from './InvoiceInterfaces';
+export * from './invoiceTypes';
 // export * from './AppointmentInterfaces';

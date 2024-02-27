@@ -158,6 +158,8 @@ STATUS_CHOICES = [
 ]
 
 
+
+
 class AppointmentService(models.Model):
     service = models.ForeignKey(Service, on_delete=models.CASCADE)
     price = models.DecimalField(max_digits=10, decimal_places=2)

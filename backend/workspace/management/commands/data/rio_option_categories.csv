@@ -5,3 +5,4 @@ id,name,description,config
 4,ExpensesCategory,Categories for expenses,
 5,PaidBy,Methods of payment,
 6,Discount,Discount Options,
+6,Term,This will appear on the gift voucher PDF. The default terms can be edited on the main settings page.,

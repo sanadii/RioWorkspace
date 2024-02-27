@@ -3,19 +3,7 @@ import { Modal, Form, Button } from "reactstrap";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { FormFields } from "Components/Common";
-import { Staff } from "../../../interfaces/InvoiceInterfaces"; // Adjust the path as necessary
-
-interface ItemTabModalProps {
-  modal: boolean;
-  setModal: React.Dispatch<React.SetStateAction<boolean>>;
-  toggle: () => void;
-  selectedItem: any; // Adjust the type as necessary
-  setSelectedItem: React.Dispatch<any>; // Adjust the type as necessary
-  itemList: any[]; // Adjust the type as necessary
-  staff: Staff[];
-  setItemList: React.Dispatch<any>; // Adjust the type as necessary
-  itemType: "service" | "product" | "package";
-}
+import { Staff, ItemTabModalProps } from "../../../interfaces/invoiceTypes"; // Adjust the path as necessary
 
 const ItemTabModal: React.FC<ItemTabModalProps> = ({
   modal,
@@ -23,15 +11,16 @@ const ItemTabModal: React.FC<ItemTabModalProps> = ({
   toggle,
   selectedItem,
   setSelectedItem,
-  itemList,
+  invoiceItemList = [], // Provide a default empty array
   staff,
-  setItemList,
+  setInvoiceItemList,
   itemType,
 }) => {
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
   const bookableStaff = staff.filter((staffMember) => staffMember.bookable);
 
-  const lastItemEndTime = itemList.length > 0 ? new Date(itemList[itemList.length - 1].endTime) : new Date();
+  const lastItemEndTime =
+    invoiceItemList.length > 0 ? new Date(invoiceItemList[invoiceItemList.length - 1].endTime) : new Date();
 
   const handleStaffSelection = (staffId: number) => {
     setSelectedOption(staffId);
@@ -53,7 +42,6 @@ const ItemTabModal: React.FC<ItemTabModalProps> = ({
       ...(itemType === "product" && {
         quantity: selectedItem?.quantity || 1,
       }),
-  
     },
     validationSchema: Yup.object({
       staff: Yup.number().integer("Staff must be an integer").nullable().required("Staff is required"),
@@ -82,7 +70,7 @@ const ItemTabModal: React.FC<ItemTabModalProps> = ({
           quantity: values.quantity,
         }),
       };
-      setItemList([...itemList, newItem]);
+      setInvoiceItemList([...invoiceItemList, newItem]);
       setSelectedOption(null);
       validation.resetForm();
       toggle();
