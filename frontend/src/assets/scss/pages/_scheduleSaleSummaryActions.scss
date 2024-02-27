@@ -1,0 +1,61 @@
+.sale__overlay--complete .sale__summary .sale__summary-actions,
+.sale__overlay--payment .sale__summary .sale__summary-actions {
+    position: static;
+    flex: 1;
+    padding: 0;
+    background: none;
+    box-shadow: none;
+    margin: 0
+}
+
+
+.sale__summary-actions {
+    margin: 16px 0 0;
+    padding: 8px 16px 16px
+}
+
+.sale__summary-actions,
+.sale__summary-extras {
+    bottom: 0;
+    box-shadow: 0 0 8px rgba(0, 0, 0, .1);
+    background-color: #fff
+}
+
+
+.sale__summary-actions-more {
+    display: flex;
+    font-size: 16px;
+    padding: 8px 0 16px
+}
+
+.sale__summary-options {
+    flex: 2;
+    text-align: left
+}
+
+.sale__summary-tax {
+    flex: 1;
+    text-align: right
+}
+
+.sale__summary-checkout-button {
+    width: 100%;
+    height: 48px;
+    font-size: 20px;
+    font-weight: 700;
+    background-color: $primary;
+    border-color: $primary-border-light;
+}
+
+.sale__button-link--underlined {
+    text-decoration: underline
+}
+
+.sale__button-link {
+    padding: 0;
+    margin: 0;
+    background: none;
+    border: none;
+    display: inline;
+    cursor: pointer
+  }

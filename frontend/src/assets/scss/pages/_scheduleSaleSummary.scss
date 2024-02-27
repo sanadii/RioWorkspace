@@ -1,0 +1,580 @@
+// Sale Summary
+@media (min-width: 770px) {
+  .sale__summary {
+    background: none;
+
+    .sale__summary-customer {
+      box-shadow: none;
+      background: none;
+      padding: 0
+    }
+
+    .sale__summary-appointment {
+      line-height: 32px;
+
+      h5 {
+        font-weight: 700;
+      }
+
+      .sale__items-group-start-date {
+        font-size: 14px
+      }
+    }
+
+
+    .sale__category {
+      h4 {
+        font-weight: 700;
+        color: $primary;
+      }
+    }
+
+    // Sale Item
+    .sale__items {
+      list-style: none;
+      padding: 0;
+      margin: 0
+    }
+
+    .sale__item {
+      display: flex;
+      background-color: #fff;
+      cursor: pointer;
+      transition: background .2s
+    }
+
+    .sale__item * {
+      opacity: 1;
+      transition: opacity .2s
+    }
+
+    .sale__item.sale__item--pending {
+      background-color: #dbdcff !important
+    }
+
+    .sale__item.sale__item--pending * {
+      opacity: 0
+    }
+
+    .sale__item.sale__item--deleted {
+      background-color: #fee7e5 !important;
+      pointer-events: none
+    }
+
+    .sale__item.sale__item--deleted * {
+      opacity: 0
+    }
+
+    .sale__item.sale__item--disabled {
+      background-color: #f8f8f8
+    }
+
+    .sale__item.sale__item--disabled * {
+      opacity: .9
+    }
+
+
+    .sale__item-ball {
+      width: 16px;
+      height: 16px;
+      margin-top: 4px;
+      border-radius: 8px
+    }
+
+    .sale__item-details {
+      flex: 1
+    }
+
+
+
+
+
+    .sale__item-price-packaged-discount {
+      color: #6a7982
+    }
+
+    .sale__item-discount-name {
+      color: #6a7982;
+      font-style: italic
+    }
+
+    .sale__item-redemption-discount-warning {
+      color: #6a7982;
+      margin-left: .5rem
+    }
+
+    .sale__item-staff {
+      font-size: 16px;
+      font-style: italic;
+      color: #6a7982
+    }
+
+    .sale__item-description {
+      font-size: 14px;
+      font-style: italic;
+      color: #6a7982
+    }
+
+    .sale__item-errors {
+      font-size: 12px;
+      line-height: 18px;
+      color: #da4f49
+    }
+
+    .sale__item {
+      padding: 4px;
+      background: none;
+
+      .sale__item-row {
+        display: flex;
+        flex: 1 0;
+
+        &:not(:last-child) {
+          border-bottom: solid 1px #dddddd;
+        }
+
+        .sale__item-left {
+          flex: 1;
+
+          h5 {
+            font-weight: 700;
+          }
+        }
+
+        .sale__item-right {
+          min-width: 36px;
+          margin-left: 8px;
+          text-align: right
+        }
+
+        .sale__item-price {
+          font-size: 16px;
+          line-height: 32px;
+          text-align: right;
+        }
+      }
+    }
+
+    // Sale Item
+    .sale__items {
+      list-style: none;
+      padding: 0;
+      margin: 0
+    }
+
+    .sale__item {
+      display: flex;
+      background-color: #fff;
+      cursor: pointer;
+      transition: background .2s
+    }
+
+    .sale__item * {
+      opacity: 1;
+      transition: opacity .2s
+    }
+
+    .sale__item.sale__item--pending {
+      background-color: #dbdcff !important
+    }
+
+    .sale__item.sale__item--pending * {
+      opacity: 0
+    }
+
+    .sale__item.sale__item--deleted {
+      background-color: #fee7e5 !important;
+      pointer-events: none
+    }
+
+    .sale__item.sale__item--deleted * {
+      opacity: 0
+    }
+
+    .sale__item.sale__item--disabled {
+      background-color: #f8f8f8
+    }
+
+    .sale__item.sale__item--disabled * {
+      opacity: .9
+    }
+
+
+    .sale__item-ball {
+      width: 16px;
+      height: 16px;
+      margin-top: 4px;
+      border-radius: 8px
+    }
+
+    .sale__item-details {
+      flex: 1
+    }
+
+
+
+
+
+    .sale__item-price-packaged-discount {
+      color: #6a7982
+    }
+
+    .sale__item-discount-name {
+      color: #6a7982;
+      font-style: italic
+    }
+
+    .sale__item-redemption-discount-warning {
+      color: #6a7982;
+      margin-left: .5rem
+    }
+
+    .sale__item-staff {
+      font-size: 16px;
+      font-style: italic;
+      color: #6a7982
+    }
+
+    .sale__item-description {
+      font-size: 14px;
+      font-style: italic;
+      color: #6a7982
+    }
+
+    .sale__item-errors {
+      font-size: 12px;
+      line-height: 18px;
+      color: #da4f49
+    }
+
+    .sale__summary-items {
+      flex: 1;
+      padding: 16px 0 0
+    }
+
+
+    .sale__summary-items .sale__item-description,
+    .sale__summary-items .sale__item-staff {
+      display: none
+    }
+
+    .sale__summary-items--description .sale__item-description,
+    .sale__summary-items--staff .sale__item-staff {
+      display: block
+    }
+
+    .sale__summary-add-more {
+      display: none
+    }
+
+    .sale__summary-actions {
+      margin: 0 -16px;
+      position: sticky
+    }
+  }
+}
+
+
+
+// Sale Customer
+.sale__customer-picker {
+  position: relative
+}
+
+.sale__customer-picker-heading {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 8px
+}
+
+.sale__customer-picker-heading .sale__heading--domaine {
+  margin: 0
+}
+
+.sale__customer-picker-heading-text {
+  position: relative;
+  line-height: 32px
+}
+
+.sale__customer-picker-heading-text button {
+  position: absolute;
+  display: block;
+  top: 0;
+  left: -40px;
+  width: 32px;
+  height: 32px;
+  cursor: pointer
+}
+
+.sale__customer-picker-heading-text svg {
+  width: 32px;
+  height: 32px
+}
+
+.sale__customer-picker--focused {
+  z-index: 100
+}
+
+.sale__customer-input-wrap {
+  position: relative
+}
+
+.sale__customer-input-clear {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  width: 40px;
+  height: 40px;
+  margin-top: -20px;
+  text-align: center;
+  line-height: 40px;
+  font-size: 22px;
+  cursor: pointer
+}
+
+.sale__customer-picker-selected {
+  position: relative;
+  display: flex
+}
+
+.sale__customer-picker-selected .sale__customer-picker-selected-name {
+  font-size: 18px;
+  line-height: 24px
+}
+
+.sale__customer-picker-selected .sale__customer-picker-selected-phone {
+  font-size: 14px;
+  line-height: 16px;
+  color: #6a7982
+}
+
+.sale__customer-picker-selected .sale__customer-picker-selected-remove {
+  width: 40px;
+  height: 34px;
+  font-size: 22px;
+  text-align: center;
+  line-height: 34px;
+  cursor: pointer
+}
+
+.alert.sale__customer-account-debt-warning {
+  display: flex;
+  align-items: center;
+  margin: 8px 0 0;
+  padding: 16px
+}
+
+.alert.sale__customer-account-debt-warning .sale__customer-account-debt-warning-text {
+  flex: 1
+}
+
+.sale__customer-picker-option {
+  cursor: pointer;
+  padding: 16px 0;
+  border-bottom: 1px solid rgba(0, 0, 0, .1)
+}
+
+.sale__customer-picker-option-name {
+  font-size: 18px;
+  line-height: 24px
+}
+
+.sale__customer-picker-option-email,
+.sale__customer-picker-option-phone {
+  font-size: 16px;
+  color: #6a7982
+}
+
+.sale__customer-picker-option--add {
+  font-size: 16px;
+  line-height: 34px;
+  font-weight: 700;
+  width: 100%
+}
+
+.sale__customer-picker-option--selected {
+  background-color: #ddd
+}
+
+.sale__customer-picker-options-wrap--dropdown {
+  position: fixed
+}
+
+.sale__customer-picker-options-wrap--dropdown .sale__customer-picker-options {
+  background-color: #fff;
+  border-radius: 0 0 4px 4px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, .1)
+}
+
+.sale__customer-picker-options-wrap--dropdown .sale__customer-picker-option {
+  padding: 8px;
+  border-bottom: 1px solid #eee
+}
+
+.sale__customer-picker-options-wrap--dropdown .sale__customer-picker-option:hover {
+  background-color: #eee
+}
+
+
+
+.sale__customer-picker-display-name-field-outer {
+  margin-top: 16px
+}
+
+.sale__credits {
+  max-width: 480px;
+  margin: 0 auto
+}
+
+.sale__customer .sale__heading--domaine {
+  display: none
+}
+
+.sale__customer .sale__customer-picker-selected-name {
+  flex: 1
+}
+
+.sale__customer .sale__customer-picker-customer-name {
+  font-size: 28px;
+  font-family: DomaineDisplay;
+  line-height: 32px
+}
+
+.sale__customer .sale__customer-picker-customer-status {
+  margin-left: 8px
+}
+
+.sale__customer .sale__customer-picker-selected-phone {
+  font-size: 16px;
+  line-height: 18px
+}
+
+.sale__customer--none-selected {
+  flex: 1;
+  border-radius: 8px;
+  padding: 16px;
+  background-color: #ebebff
+}
+
+.sale__customer-details {
+  position: relative
+}
+
+.sale__customer-balances {
+  margin-top: 8px;
+  display: flex;
+  flex-wrap: wrap
+}
+
+.sale__customer-balances .sale__customer-balance {
+  display: flex;
+  align-items: center;
+  height: 40px;
+  margin-right: 16px;
+  color: #6a7982;
+  line-height: 40px
+}
+
+.sale__customer-balances .sale__customer-balance>div {
+  width: 40px
+}
+
+.sale__customer-balances .sale__customer-balance--loading {
+  height: 18px;
+  line-height: 18px;
+  padding: 11px 0
+}
+
+.sale__customer-balances .sale__customer-balance--danger {
+  color: #da4f49
+}
+
+.sale__customer-balances svg {
+  display: block;
+  width: 40px;
+  height: 40px
+}
+
+.sale__customer-balance-icon {
+  margin-left: -10px;
+  width: 40px;
+  height: 40px
+}
+
+.sale__customer-clear {
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-size: 28px;
+  line-height: 34px;
+  cursor: pointer
+}
+
+.sale__customer-search>div {
+  max-height: none
+}
+
+.sale__customer-search input {
+  width: 100%
+}
+
+
+.sale__summary-customer {
+  padding: 16px;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, .1)
+}
+
+.sale__summary-customer--selecting {
+  flex: 1;
+  display: flex;
+  margin-bottom: 16px
+}
+
+.sale__summary-customer--selecting .sale__customer-picker {
+  margin-bottom: 0
+}
+
+.sale__summary-customer--selecting .sale__customer-picker-options {
+  margin-top: 8px
+}
+
+.sale__summary-customer--selecting .sale__customer-picker-option--selected {
+  background-color: #fff;
+  margin: 0 -16px;
+  padding: 16px;
+  border-bottom: none
+}
+
+.sale__summary-customer--selecting .sale__customer-picker-option--selected+.sale__customer-picker-option {
+  border-top: 1px solid rgba(0, 0, 0, .1)
+}
+
+.sale__summary-customer--selecting+div,
+.sale__summary-customer--selecting+div+div,
+.sale__summary-customer--selecting+div+div+div {
+  display: none
+}
+
+.sale__overlay--adding .sale__items-group-title,
+.sale__overlay--viewing .sale__items-group-title {
+  line-height: 32px
+}
+
+
+// Sale Summary Notes
+.sale__summary-note {
+  padding-top: 8px;
+  margin-bottom: 8px;
+  border-top: 1px solid #ddd;
+
+  .sale__summary-note-label {
+    display: flex label {
+      flex: 1
+    }
+  }
+
+  .sale__summary-note textarea {
+    resize: vertical
+  }
+}

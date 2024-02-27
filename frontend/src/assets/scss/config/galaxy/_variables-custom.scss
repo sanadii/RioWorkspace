@@ -134,6 +134,11 @@ $navbar-brand-box-width: 240px;
 $boxed-layout-width: 1300px;
 $boxed-body-bg: darken($body-bg, 4%);
 
+// Wide layout width
+$wide-layout-width: 100vw;
+$wide-body-bg: darken($body-bg, 4%);
+
+
 // Footer
 $footer-height: 60px;
 $footer-bg: $white;

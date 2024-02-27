@@ -1,0 +1,22 @@
+
+// Prefix for :root CSS variables
+
+$variable-prefix: vz-; // Deprecated in v5.2.0 for the shorter `$prefix`
+$prefix: $variable-prefix;
+
+// Font Family
+$font-family-primary: "DomaineDisplay", "DomaineText", Lato, sans-serif; // Update with your font families
+$font-family-secondary: 'Lato' ,sans-serif;
+
+//custom variables managed by
+//light mode
+$galaxy-body-img: true;
+$sidebar-mode: true;
+$sidebar-gradient-mode: true;
+$sidebar-img: true;
+
+//dark mode
+$galaxy-body-img-dark: true;
+$topbar-dark-mode: true;
+$sidebar-dark-mode: true;
+$sidebar-gradient-dark-mode: false;

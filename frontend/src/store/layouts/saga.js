@@ -72,9 +72,11 @@ function* changeLeftSidebarTheme({ payload: theme }) {
  */
 function* changeLayoutWidth({ payload: layoutWidth }) {
     try {
-        if (layoutWidth === 'lg') {
+        if (layoutWidth === 'wide') {
+            yield call(changeHTMLAttribute, "data-layout-width", "wide");
+        } else if (layoutWidth === 'lg') {
             yield call(changeHTMLAttribute, "data-layout-width", "fluid");
-        } else {
+        } else if (layoutWidth === 'boxed') {
             yield call(changeHTMLAttribute, "data-layout-width", "boxed");
         }
         // yield call(changeHTMLAttribute, "data-sidebar-size", layoutWidth);

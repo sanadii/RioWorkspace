@@ -1,0 +1,40 @@
+<div className="sale__body">
+  <div className="sale__adding-col">
+    <div className="sale__nav-head"></div>
+
+    <!-- Sale Adding - Navigation -->
+    <div className="sale__adding-navigation bg-secondary-light">
+      <div class="sale__adding-head">
+        <div class="sale__adding-container">
+          <div class="sale__tabs">
+            <button class="sale__button-link sale__tab sale__tab--active">
+              Nav Items
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div className="sale__items-list sale__items-grid ">
+      <div className="sale__modal-head">selectedService.name</div>
+      <div className="sale__modal-body sale__modal-body--grey sale__edit-line-item">
+        <Form>
+          <Fields></Fields>
+          <div className="hstack flex-wrap gap-2">
+            <button
+              className="btn-primary-charcoal btn sale__button button-module_btn-width-fit__Q4Slu button-module_btn-primary-charcoal__2P0M6"
+            >
+              Update
+            </button>
+            <button className="sale__button-remove" onClick={handleRemoveService}>
+              Remove
+            </button>
+          </div>
+        </Form>
+      </div>
+    </div>
+  </div>
+    <div className="sale__summary-col"></div>
+    <div className="sale__payment-col"></div>
+  </div>
+</div>

@@ -3,6 +3,8 @@ from workspace.models.clients import Client
 from workspace.models.staff import Staff
 from workspace.models.resources import ResourceItem
 from workspace.models.services import Service
+from workspace.models.packages import Package
+from workspace.models.products import Product
 
 # Invoice
 # {
@@ -172,14 +174,47 @@ class AppointmentService(models.Model):
         db_table = "appointment_service"
 
 
+class AppointmentPackage(models.Model):
+    package = models.ForeignKey(Package, on_delete=models.CASCADE)
+    price = models.DecimalField(max_digits=10, decimal_places=2)
+    staff = models.ForeignKey(Staff, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return str(self.package)
+
+    class Meta:
+        db_table = "appointment_package"
+
+
+class AppointmentProduct(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    price = models.DecimalField(max_digits=10, decimal_places=2)
+    quantity = models.PositiveIntegerField(default=1)
+    staff = models.ForeignKey(Staff, on_delete=models.CASCADE)
+    # Additional fields specific to products can be added here
+
+    def __str__(self):
+        return str(self.product)
+
+    class Meta:
+        db_table = "appointment_product"
+
+
+
 
 # Appointment Model
 class Appointment(models.Model):
     client = models.ForeignKey(Client, on_delete=models.CASCADE)
     start_time = models.DateTimeField()
     end_time = models.DateTimeField()
-    status = models.IntegerField(choices=STATUS_CHOICES, default=1, blank=True, null=True)
-    services = models.ManyToManyField(AppointmentService, related_name='appointments')
+    status = models.IntegerField(
+        choices=STATUS_CHOICES, default=1, blank=True, null=True)
+    services = models.ManyToManyField(
+        AppointmentService, related_name='appointments_service')
+    packages = models.ManyToManyField(
+        AppointmentPackage, related_name='appointments_package')
+    products = models.ManyToManyField(
+        AppointmentProduct, related_name='appointments_product')
 
     def __str__(self):
         return f"Appointment with {self.client} on {self.start_time}"
@@ -191,6 +226,19 @@ class Appointment(models.Model):
     class Meta:
         db_table = "appointment"
 
+
+class AppointmentNote(models.Model):
+    appointment = models.OneToOneField(Appointment, related_name='note', on_delete=models.CASCADE)
+    note = models.TextField()
+
+    def __str__(self):
+        return f"Note for {self.appointment}"
+
+    def __str__(self):
+        return str(self.appointment.client.first_name)
+
+    class Meta:
+        db_table = "appointment_note"
 
 # Service Model
 
@@ -207,10 +255,13 @@ class ServiceProvider(models.Model):
     class Meta:
         db_table = "service_provider"
 
+
 class Invoice(models.Model):
     appointment = models.ForeignKey(Appointment, on_delete=models.CASCADE)
-    account_type = models.CharField(max_length=100, choices=[('revenue', 'Revenue')])
-    invoice_type = models.CharField(max_length=100, choices=[('appointment', 'Appointment'), ('product', 'Product'), ('package', 'Package')])
+    account_type = models.CharField(
+        max_length=100, choices=[('revenue', 'Revenue')])
+    invoice_type = models.CharField(max_length=100, choices=[(
+        'appointment', 'Appointment'), ('product', 'Product'), ('package', 'Package')])
     description = models.TextField()
     quantity = models.PositiveIntegerField(default=1)
     unit_price = models.DecimalField(max_digits=10, decimal_places=2)
@@ -227,7 +278,8 @@ class Invoice(models.Model):
 
 class Transaction(models.Model):
     invoice = models.ForeignKey(Invoice, on_delete=models.CASCADE)
-    transaction_type = models.CharField(max_length=100, choices=[('cash', 'Cash'), ('credit', 'Credit'), ('link', 'Link'), ('others', 'Others')])
+    transaction_type = models.CharField(max_length=100, choices=[(
+        'cash', 'Cash'), ('credit', 'Credit'), ('link', 'Link'), ('others', 'Others')])
     amount = models.DecimalField(max_digits=10, decimal_places=2)
     transaction_date = models.DateTimeField(auto_now_add=True)
 
@@ -236,4 +288,3 @@ class Transaction(models.Model):
 
     class Meta:
         db_table = "transaction"
-

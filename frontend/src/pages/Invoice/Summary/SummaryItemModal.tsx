@@ -1,62 +1,82 @@
 import React, { useState } from "react";
-import { Modal, Form, ModalHeader, ModalBody, Button } from "reactstrap";
+import { Modal, Form, Button } from "reactstrap";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { FormFields } from "Components/Common";
-import { Product, SummaryProductModalProps } from "./InvoiceInterfaces"; // Adjust the path as necessary
+import { Staff, Service, Product, Package } from "../../../interfaces/InvoiceInterfaces";
 
-const SummaryProductModal: React.FC<SummaryProductModalProps> = ({
+interface SummaryItemModalProps {
+  modal: boolean;
+  setModal: React.Dispatch<React.SetStateAction<boolean>>;
+  toggle: () => void;
+  selectedItem: Service | Product | Package;
+  itemList: Array<Service | Product | Package>;
+  staff: Staff[];
+  setItemList: React.Dispatch<React.SetStateAction<Array<Service | Product | Package>>>;
+  selectedIndex: number | null;
+  discountOptions: any[]; // Define this type more specifically if possible
+  itemType: "service" | "product" | "package";
+}
+
+const SummaryItemModal: React.FC<SummaryItemModalProps> = ({
   modal,
   setModal,
   toggle,
-  selectedProduct,
-  productList,
+  selectedItem,
+  itemList,
   staff,
-  setProductList,
+  setItemList,
   selectedIndex,
   discountOptions,
+  itemType,
 }) => {
   const bookableStaff = staff.filter((staffMember) => staffMember.bookable);
 
-  const handleRemoveProduct = () => {
+  const handleRemoveItem = () => {
     if (selectedIndex !== null) {
-      const updatedProductList = [...productList];
-      updatedProductList.splice(selectedIndex, 1);
-      setProductList(updatedProductList);
+      const updatedItemList = [...itemList];
+      updatedItemList.splice(selectedIndex, 1);
+      setItemList(updatedItemList);
     }
     setModal(false);
   };
 
-  console.log("selectedIndex: ", selectedIndex)
   const validation = useFormik({
     enableReinitialize: true,
     initialValues: {
-      id: selectedProduct?.id || null,
-      name: selectedProduct?.name || "",
-      duration: selectedProduct?.duration || null,
-      staff: selectedProduct?.staff || null,
-      price: selectedProduct?.price || 0,
-      discount: selectedProduct?.discount || 0,
+      id: null,
+      name: selectedItem?.name || "",
+      service: itemType === "service" ? (selectedItem as Service)?.id || null : undefined,
+      package: itemType === "package" ? (selectedItem as Package)?.id || null : undefined,
+      product: itemType === "product" ? (selectedItem as Product)?.id || null : undefined,
+      duration: itemType === "service" ? (selectedItem as Service)?.service || null : undefined,
+      staff: selectedItem?.staff || null,
+      price: selectedItem?.price || 0,
+      discount: selectedItem?.discount || 0,
     },
     validationSchema: Yup.object({
       staff: Yup.number().integer("Staff must be an integer").nullable().required("Staff is required"),
       price: Yup.number().positive("Price must be a positive number").nullable().required("Price is required"),
     }),
     onSubmit: (values) => {
-      const updatedProduct = {
-        id: values.id,
+      const updatedItem = {
+        id: null,
         name: values.name,
+        service: itemType === "service" ? values.id : undefined,
+        package: itemType === "package" ? values.id : undefined,
+        product: itemType === "product" ? values.id : undefined,
+        duration: itemType === "service" ? values.duration : undefined,
         staff: values.staff,
-        price: parseFloat(values.price),
+        price: values.price,
         discount: values.discount,
       };
 
       if (selectedIndex !== null) {
-        const updatedProductList = [...productList];
-        updatedProductList[selectedIndex] = updatedProduct;
-        setProductList(updatedProductList);
+        const updatedItemList = [...itemList];
+        updatedItemList[selectedIndex] = updatedItem;
+        setItemList(updatedItemList);
       } else {
-        setProductList([...productList, updatedProduct]);
+        setItemList([...itemList, updatedItem]);
       }
 
       validation.resetForm();
@@ -78,10 +98,9 @@ const SummaryProductModal: React.FC<SummaryProductModalProps> = ({
       label: "Staff",
       type: "select",
       options: bookableStaff.map((item) => ({
-        id: item.id, // This should already be a number
+        id: item.id,
         label: item.name,
-        value: item.id.toString(), // Convert to string if necessary
-        image: item.image,
+        value: item.id.toString(),
       })),
     },
     {
@@ -99,7 +118,7 @@ const SummaryProductModal: React.FC<SummaryProductModalProps> = ({
 
   return (
     <Modal id="showModal" size="md" className="sale__modal" isOpen={modal} toggle={toggle} centered>
-      <div className="sale__modal-head">{selectedProduct?.name}</div>
+      <div className="sale__modal-head">{selectedItem?.name}</div>
       <div className="sale__modal-body sale__modal-body--grey sale__edit-line-item">
         <Form
           className="tablelist-form"
@@ -121,12 +140,9 @@ const SummaryProductModal: React.FC<SummaryProductModalProps> = ({
             >
               Update
             </button>
-            <button className="sale__button-remove" onClick={handleRemoveProduct}>
+            <button className="sale__button-remove" onClick={handleRemoveItem}>
               Remove
             </button>
-            {/* <Button type="submit" className="btn btn-danger" id="add-btn">
-              Delete
-            </Button> */}
           </div>
         </Form>
       </div>
@@ -134,4 +150,4 @@ const SummaryProductModal: React.FC<SummaryProductModalProps> = ({
   );
 };
 
-export default SummaryProductModal;
+export default SummaryItemModal;

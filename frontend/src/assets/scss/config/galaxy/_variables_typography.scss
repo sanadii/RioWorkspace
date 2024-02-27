@@ -1,0 +1,141 @@
+
+
+// Typography
+//
+// Font, line-height, and color for body text, headings, and more.
+
+// scss-docs-start font-variables
+// stylelint-disable value-keyword-case
+$font-family-sans-serif: $font-family-primary;
+$font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+// stylelint-enable value-keyword-case
+$font-family-base: var(--#{$prefix}font-sans-serif);
+$font-family-code: var(--#{$prefix}font-monospace);
+
+// $font-size-root affects the value of `rem`, which is used for as well font sizes, paddings, and margins
+// $font-size-base affects the font size of the body text
+$font-size-root: null;
+$font-size-base: 1rem ; // was 8512rem
+$font-size-sm: $font-size-base * 1; //was .875
+$font-size-lg: $font-size-base * 1.25;
+
+$font-weight-lighter: lighter;
+$font-weight-light: 300;
+$font-weight-normal: 400;
+$font-weight-medium: 500;
+$font-weight-semibold: 600;
+$font-weight-bold: 700;
+$font-weight-bolder: bolder;
+
+$font-weight-base: $font-weight-normal;
+
+$line-height-base: 1.5;
+$line-height-sm: 1.25;
+$line-height-lg: 2;
+
+$h1-font-size: $font-size-base * 2.5;
+$h2-font-size: $font-size-base * 2;
+$h3-font-size: $font-size-base * 1.75;
+$h4-font-size: $font-size-base * 1.5;
+$h5-font-size: $font-size-base * 1.25;
+$h6-font-size: $font-size-base;
+// scss-docs-end font-variables
+
+// scss-docs-start font-sizes
+$font-sizes: (
+  1: $h1-font-size,
+  2: $h2-font-size,
+  3: $h3-font-size,
+  4: $h4-font-size,
+  5: $h5-font-size,
+  6: $h6-font-size
+);
+// scss-docs-end font-sizes
+
+// scss-docs-start headings-variables
+$headings-margin-bottom: $spacer * .5;
+$headings-font-family: $font-family-primary;
+$headings-font-style: null;
+$headings-font-weight: $font-weight-medium;
+$headings-line-height: 1.2;
+$headings-color: $gray-700;
+// scss-docs-end headings-variables
+
+// scss-docs-start display-headings
+$display-font-sizes: (
+  1: 5rem,
+  2: 4.5rem,
+  3: 4rem,
+  4: 3.5rem,
+  5: 3rem,
+  6: 2.5rem
+);
+
+$display-font-family: null;
+$display-font-style: null;
+$display-font-weight: 300;
+$display-line-height: $headings-line-height;
+// scss-docs-end display-headings
+
+//Font size custom
+$font-size-custom: (
+  10: 10px,
+  11: 11px,
+  12: 12px,
+  13: 13px,
+  14: 14px,
+  15: 15px,
+  16: 16px,
+  17: 17px,
+  18: 18px,
+  19: 19px,
+  20: 20px,
+  21: 21px,
+  22: 22px,
+  23: 23px,
+  24: 24px,
+  36: 36px,
+  48: 48px
+);
+
+// scss-docs-start type-variables
+$lead-font-size: $font-size-base * 1.25;
+$lead-font-weight: 300;
+
+$small-font-size: .875em;
+
+$sub-sup-font-size: .75em;
+
+// fusv-disable
+$text-muted: var(--#{$prefix}secondary-color); // Deprecated in 5.3.0
+// fusv-enable
+
+$initialism-font-size: $small-font-size;
+
+$blockquote-margin-y: $spacer;
+$blockquote-font-size: $font-size-base * 1.1;
+$blockquote-footer-color: $gray-600;
+$blockquote-footer-font-size: $small-font-size;
+
+$hr-margin-y: $spacer;
+$hr-color: inherit;
+// fusv-disable
+$hr-bg-color: null; // Deprecated in v5.2.0
+$hr-height: null; // Deprecated in v5.2.0
+// fusv-enable
+
+$hr-border-color: null; // Allows for inherited colors
+$hr-border-width: var(--#{$prefix}border-width);
+$hr-opacity: .25;
+
+$legend-margin-bottom: .5rem;
+$legend-font-size: 1.5rem;
+$legend-font-weight: null;
+
+$dt-font-weight: $font-weight-semibold;
+
+$list-inline-padding: .5rem;
+
+$mark-padding: .2em;
+$mark-bg: #fcf8e3;
+// scss-docs-end type-variables

@@ -1,5 +1,5 @@
 import classnames from "classnames";
-import {Nav, NavItem, NavLink } from "reactstrap";
+import { Nav, NavItem, NavLink } from "reactstrap";
 
 const InvoiceNav = ({ activeTab, onTabClick }) => {
   const tabs = [
@@ -12,20 +12,16 @@ const InvoiceNav = ({ activeTab, onTabClick }) => {
   ];
 
   return (
-    <div className="sale__search-head bg-secondary-light">
-      <Nav pills className="animation-nav profile-nav gap-2 gap-lg-3 flex-grow-1" role="tablist">
-        {tabs.map((tab) => (
-          <NavItem key={tab.id} className="fs-14">
-            <NavLink
-              href={`#${tab.name.toLowerCase()}-tab`}
-              className={classnames({ active: activeTab === tab.id })}
-              onClick={() => onTabClick(tab.id)}
-            >
-              <h6 className="text-primary">{tab.name}</h6>
-            </NavLink>
-          </NavItem>
-        ))}
-      </Nav>
+    <div className="sale__adding-navigation">
+      {tabs.map((tab) => (
+        <button
+          key={tab.id}
+          className={`sale__button-link sale__tab ${activeTab === tab.id ? "sale__tab--active" : ""}`}
+          onClick={() => onTabClick(tab.id)}
+        >
+          {tab.name}
+        </button>
+      ))}
     </div>
   );
 };

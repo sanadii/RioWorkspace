@@ -9,7 +9,18 @@ File: Main Css File
 
 // Pages
 @import "./scheduler";
+@import "./_schedulerIcons";
 // @import "./schedule";
 @import "./scheduleSale";
-@import "./scheduleSaleProducts";
-@import "./scheduleSalePackages";
+@import "./_scheduleSaleBody";
+@import "./scheduleSaleAdding";
+@import "./_scheduleSaleSummary";
+@import "./_scheduleSaleSummaryActions";
+@import "./_scheduleSalePayment";
+
+
+// @import "./scheduleSaleSummary";
+
+
+// @import "./scheduleSaleProducts";
+// @import "./scheduleSalePackages";

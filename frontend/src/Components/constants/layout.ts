@@ -20,6 +20,7 @@ const leftSidebarTypes = {
 };
 
 const layoutWidthTypes = {
+  WIDE: "wide",
   FLUID: "lg",
   BOXED: "boxed",
 };

@@ -22,12 +22,13 @@
     "jsx": "react-jsx",
     "paths": {
       "syncfusion/*": ["syncfusion/*"],
+      "interfaces/*": ["interfaces/*"],
       "helpers/*": ["helpers/*"],
       "assets/*": ["assets/*"],
       "Components/*": ["Components/*"],
       "@/*": ["./*"]
     }
   },
-  "include": ["src/**/*", "**/*.ts", "**/*.tsx"],
+  "include": ["src/**/*", "**/*.ts", "**/*.tsx", "src/pages/Invoice/remove"],
   "exclude": ["node_modules"]
 }

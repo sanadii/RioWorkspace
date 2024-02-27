@@ -23,5 +23,6 @@ class Product(models.Model):
         return self.name
 
     class Meta:
-        # managed = False
+        verbose_name = 'Product'
+        verbose_name_plural = 'Products'
         db_table = "product"
