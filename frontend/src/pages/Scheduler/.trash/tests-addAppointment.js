@@ -18,7 +18,7 @@ import {
   useQuickInfoTemplates,
   useDataManager,
   eventTemplate,
-} from "./SchedulerSettings";
+} from "../SchedulerSettings";
 L10n.load({
   'en-US': {
     schedule: {

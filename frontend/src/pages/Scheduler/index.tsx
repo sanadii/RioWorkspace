@@ -375,7 +375,7 @@ const Scheduler = () => {
   };
 
   const cellTemplate = (props) => {
-    console.log('cellTemplate props:', props); // Debugging
+    console.log("cellTemplate props:", props); // Debugging
 
     if (props.type === "workCells") {
       return <div className="e-slot-time-inner" dangerouslySetInnerHTML={{ __html: getCellContent(props.date) }}></div>;
@@ -385,53 +385,51 @@ const Scheduler = () => {
 
   return (
     <React.Fragment>
-      <div className="page-content">
-        <BreadCrumb title="Appointment Scheduler" pageTitle="Appointment Scheduler" />
+      <BreadCrumb title="Appointment Scheduler" pageTitle="Appointment Scheduler" />
 
-        <ScheduleComponent
-          ref={scheduleObj}
-          width="100%"
-          // height="650px"
-          cssClass={"staff-appointment-planner"}
-          // showWeekend={false}
+      <ScheduleComponent
+        ref={scheduleObj}
+        width="100%"
+        // height="650px"
+        cssClass={"staff-appointment-planner"}
+        // showWeekend={false}
 
-          // Calendar Settings Props
-          startHour={calendarSettings.calendar["start"]}
-          endHour={calendarSettings.calendar["end"]}
-          currentView={calendarSettings.currentView}
-          firstDayOfWeek={calendarSettings.firstDayOfWeek}
-          timeScale={calendarSettings.timeScale}
-          // The data to show
-          eventSettings={eventSettings}
-          popupOpen={onPopupOpen}
-          views={["Day", "Week", "Month"]}
-          dragStart={onDragStart}
-          resizeStart={onResizeStart}
-          // New Features
-          navigating={onNavigation}
-          // Date Header
-          popupClose={onPopupClose}
-          quickInfoTemplates={quickInfoTemplates}
-          // Templates
-          dateHeaderTemplate={DateHeaderTemplate}
-          editorTemplate={editorTemplate}
-          eventRendered={onEventRendered}
-          // Actions
-          actionBegin={onActionBegin}
-          actionComplete={onActionComplete}
-          created={onCreated}
-          cellTemplate={cellTemplate}
-        >
-          <ViewsDirective>
-            <ViewDirective option="Day" eventTemplate={eventTemplate} />
-            <ViewDirective option="Week" eventTemplate={eventTemplate} />
-            <ViewDirective option="WorkWeek" eventTemplate={eventTemplate} />
-            <ViewDirective option="Month" />
-          </ViewsDirective>
+        // Calendar Settings Props
+        startHour={calendarSettings.calendar["start"]}
+        endHour={calendarSettings.calendar["end"]}
+        currentView={calendarSettings.currentView}
+        firstDayOfWeek={calendarSettings.firstDayOfWeek}
+        timeScale={calendarSettings.timeScale}
+        // The data to show
+        eventSettings={eventSettings}
+        popupOpen={onPopupOpen}
+        views={["Day", "Week", "Month"]}
+        dragStart={onDragStart}
+        resizeStart={onResizeStart}
+        // New Features
+        navigating={onNavigation}
+        // Date Header
+        popupClose={onPopupClose}
+        quickInfoTemplates={quickInfoTemplates}
+        // Templates
+        dateHeaderTemplate={DateHeaderTemplate}
+        editorTemplate={editorTemplate}
+        eventRendered={onEventRendered}
+        // Actions
+        actionBegin={onActionBegin}
+        actionComplete={onActionComplete}
+        created={onCreated}
+        cellTemplate={cellTemplate}
+      >
+        <ViewsDirective>
+          <ViewDirective option="Day" eventTemplate={eventTemplate} />
+          <ViewDirective option="Week" eventTemplate={eventTemplate} />
+          <ViewDirective option="WorkWeek" eventTemplate={eventTemplate} />
+          <ViewDirective option="Month" />
+        </ViewsDirective>
 
-          <Inject services={[Agenda, Day, Month, Week, WorkWeek, DragAndDrop, Resize]} />
-        </ScheduleComponent>
-      </div>
+        <Inject services={[Agenda, Day, Month, Week, WorkWeek, DragAndDrop, Resize]} />
+      </ScheduleComponent>
     </React.Fragment>
   );
 };

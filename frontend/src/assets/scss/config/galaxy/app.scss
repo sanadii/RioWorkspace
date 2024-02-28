@@ -98,9 +98,7 @@ File: Main Css File
 @import "../../plugins/flag-input";
 
 // Pages
-// @import "../../pages/scheduler";
-// @import "../../pages/schedule";
-@import "../../pages/scheduler/rio-workspace";
+@import "../../pages/scheduler/_scheduler";
 @import "../../pages/authentication";
 @import "../../pages/dashboard";
 @import "../../pages/timeline";

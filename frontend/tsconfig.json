@@ -29,6 +29,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["src/**/*", "**/*.ts", "**/*.tsx", "src/pages/Invoice/remove"],
+  "include": ["src/**/*", "**/*.ts", "**/*.tsx", "src/pages/Invoice/remove", "src/pages/Scheduler/.trash/tests-addAppointment.js", "src/pages/Scheduler/.trash/LiveSearch.tsx", "src/pages/Scheduler/.trash/LiveSearch copy.tsx", "src/pages/Scheduler/.trash/index-bk.tsx", "src/pages/Scheduler/.trash/index copy 2.tsx", "src/pages/Scheduler/.trash/index copy 3.tsx", "src/pages/Scheduler/.trash/index copy.tsx"],
   "exclude": ["node_modules"]
 }

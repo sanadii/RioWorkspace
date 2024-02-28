@@ -6,8 +6,8 @@ export const AppointmentStatusOptions = [
     name: "Pencilled In", 
     value: "pencilled-in", 
     badgeClass: "badge bg-info", 
-    className: "fc-pending fc-comment fc-event-inner fc-light-pink",
-    color: "#1abc9c" // Example color
+    className: "fc-pending fc-event-inner fc-light-green",
+    color: "#ffffff" // Example color
   },
   { 
     id: 2, 
@@ -54,3 +54,27 @@ export const AppointmentStatusOptions = [
     color: "#e74c3c" // Example color
   },
 ];
+
+
+// fc-event
+// fc-event-skin
+// fc-event-vert
+// fc-event-draggable
+// fc-booking-id-386395277
+// fc-group-307718949
+
+// To be removed
+// ui-draggable
+// ui-resizable"
+
+
+// Status
+// fc-event-start
+// fc-event-end
+// fc-booking
+// fc-pending                   pencilled-in
+// fc-completed
+// fc-paid
+// fc-comment
+
+
