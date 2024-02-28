@@ -16,6 +16,7 @@
 
 // Colors
 @import "./_variables_color";
+@import "./_variables_typography";
 
 // SVG
 @import "./_variables_svg";
@@ -23,14 +24,14 @@
 // Options
 @import "./_variables_option";
 
-// Typograpy
-@import "./_variables_typography";
-
 // Table
 @import "./_variables_table";
 
 // Buttons
 @import "./_variables_button";
+@import "./_variables_component";
+
+
 
 // Forms
 @import "./_variables_form";
@@ -43,3 +44,4 @@
 
 // Paginations
 @import "./_variables_pagination";
+

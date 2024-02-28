@@ -1,9 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { clientsSelector } from "Selectors";
+
 import { Modal, Form, Button } from "reactstrap";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { FormFields } from "Components/Common";
-import { Staff, ItemTabModalProps } from "../../../interfaces/invoiceTypes"; // Adjust the path as necessary
+import { Staff, ItemTabModalProps } from "../../../types/invoiceTypes"; // Adjust the path as necessary
+
+import { getClientSearch, getClients } from "store/actions";
+import Select from "react-select";
 
 const ItemTabModal: React.FC<ItemTabModalProps> = ({
   modal,
@@ -11,22 +17,65 @@ const ItemTabModal: React.FC<ItemTabModalProps> = ({
   toggle,
   selectedItem,
   setSelectedItem,
-  invoiceItemList = [], // Provide a default empty array
+  itemTypeList = [], // Provide a default empty array
   staff,
   setInvoiceItemList,
   itemType,
 }) => {
+  const dispatch = useDispatch();
+
+  const { clientSearch, clients } = useSelector(clientsSelector);
+
+  useEffect(() => {
+    if (!clients || clients.length === 0) {
+      dispatch(getClients());
+    }
+  }, [dispatch, clients]);
+
+  const clientOptions = clients.map((client) => ({
+    label: `${client.name} | ${client.mobile}`,
+    value: client.id,
+  }));
+
+  const [clientList, setClientList] = useState(clientSearch);
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
   const bookableStaff = staff.filter((staffMember) => staffMember.bookable);
 
   const lastItemEndTime =
-    invoiceItemList.length > 0 ? new Date(invoiceItemList[invoiceItemList.length - 1].endTime) : new Date();
+    itemTypeList.length > 0 ? new Date(itemTypeList[itemTypeList.length - 1].endTime) : new Date();
 
+  const handleClientSearch = (e) => {
+    dispatch(getClientSearch(e.value));
+  };
   const handleStaffSelection = (staffId: number) => {
     setSelectedOption(staffId);
     if (selectedItem) {
       setSelectedItem({ ...selectedItem, staff: staffId.toString() });
     }
+  };
+
+  const updateInvoiceItemList = (newItem, itemType) => {
+    setInvoiceItemList((prevItemList) => {
+      let updatedList;
+
+      switch (itemType) {
+        case "service":
+          updatedList = [...prevItemList.serviceList, newItem];
+          return { ...prevItemList, serviceList: updatedList };
+        case "product":
+          updatedList = [...prevItemList.productList, newItem];
+          return { ...prevItemList, productList: updatedList };
+        case "package":
+          updatedList = [...prevItemList.packageList, newItem];
+          return { ...prevItemList, packageList: updatedList };
+        case "voucher":
+          updatedList = [...prevItemList.voucherList, newItem];
+          return { ...prevItemList, voucherList: updatedList };
+        default:
+          // Handle unknown itemType or throw an error
+          return prevItemList;
+      }
+    });
   };
 
   const validation = useFormik({
@@ -70,7 +119,8 @@ const ItemTabModal: React.FC<ItemTabModalProps> = ({
           quantity: values.quantity,
         }),
       };
-      setInvoiceItemList([...invoiceItemList, newItem]);
+
+      updateInvoiceItemList(newItem, itemType);
       setSelectedOption(null);
       validation.resetForm();
       toggle();
@@ -108,6 +158,42 @@ const ItemTabModal: React.FC<ItemTabModalProps> = ({
           },
         ]
       : []),
+
+    // Voucher
+    ...(itemType === "voucher"
+      ? [
+          {
+            id: "to-field",
+            name: "to",
+            label: "To",
+            type: "select2",
+            options: clientOptions,
+            placeHolder: "Enter Recipient's Name.",
+          },
+          {
+            id: "from-field",
+            name: "from",
+            label: "From",
+            type: "select2",
+            options: clientOptions,
+            placeHolder: "Enter Sender's Name.",
+          },
+          {
+            id: "message-field",
+            name: "message",
+            label: "Message",
+            placeHolder: "Optional",
+            type: "text",
+          },
+          {
+            id: "code-field",
+            name: "code",
+            label: "Custom voucher code",
+            placeHolder: "Leave blank for a generated code",
+            type: "text",
+          },
+        ]
+      : []),
   ];
 
   return (
@@ -129,11 +215,15 @@ const ItemTabModal: React.FC<ItemTabModalProps> = ({
           ))}
 
           <div className="hstack flex-wrap gap-2">
-            <Button color="primary" onClick={() => setModal(false)}>
+            <button
+              type="submit"
+              className="btn-primary-charcoal btn sale__button-save button-module_btn-width-fit__Q4Slu button-module_btn-primary-charcoal__2P0M6"
+              id="add-btn"
+            >
+              Add To Sale
+            </button>
+            <button className="sale__button-link sale__button-cancel sale__button-full-width" onClick={() => toggle()}>
               Cancel
-            </Button>
-            <button type="submit" className="btn btn-success" id="add-btn">
-              Add To Invoice
             </button>
           </div>
         </Form>

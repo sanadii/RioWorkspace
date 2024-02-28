@@ -1,9 +1,15 @@
 import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { clientsSelector } from "Selectors";
+import { getClientSearch } from "store/actions";
+
 import { Row, Col, Label, Input, FormFeedback } from "reactstrap";
 import Flatpickr from "react-flatpickr";
 import defaultAvatar from "../../../assets/images/users/default.jpg";
 import config from "../../../config";
 import { Link } from "react-router-dom";
+import { ComboBoxComponent } from "@syncfusion/ej2-react-dropdowns";
+import Select from "react-select";
 
 const { api } = config;
 
@@ -19,10 +25,8 @@ interface FieldOption {
   image?: string;
   onClick?: () => void;
 
-  
   // text/number
   inputGroupText?: string;
-
 }
 
 interface Field {
@@ -56,7 +60,9 @@ interface FormFieldsProps {
 }
 
 const FormFields: React.FC<FormFieldsProps> = ({ field, validation, selectedOption, inLineStyle }) => {
-  const { id, label, name, type, colSize, icon, iconBg, inputGroupText } = field;
+  const { clientSearch } = useSelector(clientsSelector);
+
+  const { id, label, name, type, colSize, icon, iconBg, inputGroupText, options } = field;
   const imageValue = validation?.values.image;
   const [imageSrc, setImageSrc] = useState(defaultAvatar);
   const [passwordShow, setPasswordShow] = useState(false);
@@ -294,7 +300,48 @@ const FormFields: React.FC<FormFieldsProps> = ({ field, validation, selectedOpti
             value={validation.values.dueDate || ""}
           />
         );
+
+      case "select2":
+        return (
+          <Select
+            value={validation.values[name] || ""}
+            options={options}
+            id="choices-single-default"
+            className="select-flag-templating mb-0"
+          />
+
+          // <ComboBoxComponent
+          //   // value={id || name}
+          //   className="form-control"
+          //   // data-name="client"
+          //   dataSource={dataSource}
+          //   allowFiltering={true}
+          //   fields={{ text: "name", value: "id" }}
+          //   // change={onClientNameChange}
+          //   // change={validation.handleChange}
+          //   onChange={(e) => handleClientSearch(e)}
+          //   filtering={(e) => handleClientSearch(e)}
+          //   // onChange={validation.handleChange}
+
+          //   placeholder="Client Name"
+          // />
+
+          // <Flatpickr
+          //   name={name}
+          //   id={id}
+          //   className="form-control"
+          //   placeholder={`Choose ${label}`}
+          //   options={{
+          //     altInput: true,
+          //     altFormat: "Y-m-d",
+          //     dateFormat: "Y-m-d",
+          //   }}
+          //   onChange={(e) => dateformate(e)}
+          //   value={validation.values.dueDate || ""}
+          // />
+        );
       // ... other cases
+
       default:
         return null;
     }

@@ -183,6 +183,8 @@ $color_3: #6a7982;
           font-weight: 700;
           flex-grow: 1 !important;
 
+
+
           &.danger {
             color: $danger;
           }
@@ -193,6 +195,8 @@ $color_3: #6a7982;
           line-height: 32px;
           text-align: right;
           flex-shrink: 0 !important;
+          font-weight: 700;
+          color: $primary;
         }
 
         .sale__item-details {
@@ -222,12 +226,16 @@ $color_3: #6a7982;
       flex-wrap: wrap;
     }
 
+    .sale__item-name {
+      text-align: center;
+    }
+
     .sale__item {
       padding: 8px;
       width: 25%;
 
       .sale__item-row {
-        display:flex;
+        display: flex;
         flex-direction: column;
         flex-grow: 1;
         align-items: center;

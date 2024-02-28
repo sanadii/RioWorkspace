@@ -11,7 +11,7 @@ import ItemTab from "./ItemTab";
 import CreditTab from "./CreditTab";
 import AppointmentTab from "./AppointmentTab";
 
-import { InvoiceItemList } from "interfaces";
+import { InvoiceItemList } from "@/types";
 const Invoice = () => {
   const dispatch = useDispatch();
   const location = useLocation();
@@ -22,12 +22,7 @@ const Invoice = () => {
   const [isPayment, setIspayment] = useState(false);
   const [activeTab, setActiveTab] = useState("1");
 
-  const [invoiceItemList, setInvoiceItemList] = useState<InvoiceItemList>({
-    serviceList: [],
-    packageList: [],
-    productList: [],
-    voucherList: [],
-  });
+  const [invoiceItemList, setInvoiceItemList] = useState<InvoiceItemList>();
 
   useEffect(() => {
     if (appointment) {
@@ -40,10 +35,6 @@ const Invoice = () => {
     }
   }, [appointment]);
 
-  console.log("this is the initial settings of setInvoiceItemList: ", invoiceItemList);
-  console.log("this is the initial settings of invoiceItemList.productList: ", invoiceItemList.productList);
-
-
   useEffect(() => {
     if (appointmentId) {
       dispatch(getAppointment(appointmentId));
@@ -55,6 +46,13 @@ const Invoice = () => {
     if (activeTab !== tab) setActiveTab(tab);
   };
 
+  const tabConfig = [
+    { tabId: "1", itemType: "service", items: services, itemList: invoiceItemList?.serviceList },
+    { tabId: "2", itemType: "product", items: products, itemList: invoiceItemList?.productList },
+    { tabId: "3", itemType: "package", items: packages, itemList: invoiceItemList?.packageList },
+    { tabId: "4", itemType: "voucher", items: vouchers, itemList: invoiceItemList?.voucherList },
+  ];
+
   return (
     <React.Fragment>
       {appointmentId && services && invoiceItemList && (
@@ -63,50 +61,20 @@ const Invoice = () => {
             <div className="sale__adding-col">
               <InvoiceNav activeTab={activeTab} onTabClick={toggleTab} />
               <TabContent activeTab={activeTab}>
-                <TabPane tabId="1">
-                  <div className="sale__items-list">
-                    <ItemTab
-                      items={services}
-                      staff={staff}
-                      invoiceItemList={invoiceItemList.serviceList}
-                      setInvoiceItemList={setInvoiceItemList}
-                      itemType="service"
-                    />
-                  </div>
-                </TabPane>
-                <TabPane tabId="2">
-                  <div className="sale__items-grid">
-                    <ItemTab
-                      items={products}
-                      staff={staff}
-                      invoiceItemList={invoiceItemList.productList}
-                      setInvoiceItemList={setInvoiceItemList}
-                      itemType="product"
-                    />
-                  </div>
-                </TabPane>
-                <TabPane tabId="3">
-                  <div className="sale__items-grid">
-                    <ItemTab
-                      items={packages}
-                      staff={staff}
-                      invoiceItemList={invoiceItemList.packageList}
-                      setInvoiceItemList={setInvoiceItemList}
-                      itemType="package"
-                    />
-                  </div>
-                </TabPane>
-                <TabPane tabId="4">
-                  <div className="sale__items-grid">
-                    <ItemTab
-                      items={vouchers}
-                      staff={staff}
-                      invoiceItemList={invoiceItemList.voucherList}
-                      setInvoiceItemList={setInvoiceItemList}
-                      itemType="voucher"
-                    />
-                  </div>
-                </TabPane>
+                {/* Tabs for Services, Packages, Products, and Vouchers */}
+                {tabConfig.map(({ tabId, itemType, items, itemList }) => (
+                  <TabPane tabId={tabId} key={tabId}>
+                    <div className={`sale__items-${itemType === "service" ? "list" : "grid"}`}>
+                      <ItemTab
+                        items={items}
+                        staff={staff}
+                        itemTypeList={itemList}
+                        setInvoiceItemList={setInvoiceItemList}
+                        itemType={itemType}
+                      />
+                    </div>
+                  </TabPane>
+                ))}
                 <TabPane tabId="5">
                   <CreditTab />
                 </TabPane>
@@ -116,9 +84,7 @@ const Invoice = () => {
               </TabContent>
             </div>
           ) : (
-            <div className="sale__payment-col">
-              <Payment />
-            </div>
+            ""
           )}
           <div className="sale__summary-col">
             <Summary
@@ -127,17 +93,19 @@ const Invoice = () => {
               client={appointment?.client}
               startTime={appointment?.startTime}
               invoiceItemList={invoiceItemList}
-              setInvoiceItemList={(updatedList) => {
-                // Check if invoiceItemList is defined before updating
-                if (invoiceItemList) {
-                  setInvoiceItemList({ ...invoiceItemList, serviceList: updatedList });
-                }
-              }}
+              setInvoiceItemList={setInvoiceItemList}
               discountOptions={discountOptions}
               setIspayment={setIspayment}
               isPayment={isPayment}
             />
           </div>
+          {isPayment ? (
+            <div className="sale__payment-col">
+              <Payment />
+            </div>
+          ) : (
+            ""
+          )}
         </div>
       )}
     </React.Fragment>

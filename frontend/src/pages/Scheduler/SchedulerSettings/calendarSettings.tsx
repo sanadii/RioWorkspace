@@ -6,16 +6,18 @@ export class CalendarSettings {
   calendar: Record<string, any>;
   currentView: View;
   interval: number;
+  slotCount: number
   firstDayOfWeek: number;
   timeScale: TimeScaleModel;
 
   constructor() {
-    this.bookingColor = '#008000'; // Default value
-    this.calendar = { start: '10:00', end: '23:00' }; // Default value
-    this.currentView = 'Week'; // Default value
-    this.interval = 60; // Default value
-    this.firstDayOfWeek = 0; // Default value
-    this.timeScale = { enable: true, interval: this.interval }; // Using this.interval
+    this.bookingColor = '#008000';
+    this.calendar = { start: '10:00', end: '20:00' };
+    this.currentView = 'Week';
+    this.interval = 60;
+    this.slotCount = 4;
+    this.firstDayOfWeek = 0;
+    this.timeScale = { enable: true, interval: this.interval, slotCount: this.slotCount }; // Using this.interval
   }
 }
 

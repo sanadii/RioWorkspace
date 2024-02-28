@@ -112,16 +112,16 @@ const Scheduler = () => {
         (args.element as HTMLElement).style.boxShadow = `1px 2px 5px 0 ${
           (args.target as HTMLElement).style.backgroundColor
         }`;
-  
+
         // Find the e-event-popup element and add a class to it
-        const eventPopup = args.element.querySelector('.e-event-popup');
+        const eventPopup = args.element.querySelector(".e-event-popup");
         if (eventPopup) {
-          eventPopup.classList.add('e-event-popup-inner');
+          eventPopup.classList.add("e-event-popup-inner");
         }
       }
     }
   };
-    
+
   const onPopupClose = (args: PopupCloseEventArgs): void => {
     if (args.type === "Editor" && args.data) {
       const formElement: any = args.element.querySelectorAll(".custom-event-editor .e-lib[data-name]");
@@ -173,9 +173,7 @@ const Scheduler = () => {
           // Dispatch the addAppointment action with the new event data
           dispatch(addAppointment(newEvent));
           console.log(args);
-          args.addedRecords?.forEach((data: Record<string, any>) => {
-
-          });
+          args.addedRecords?.forEach((data: Record<string, any>) => {});
           break;
         case "eventChange":
           args.changedRecords?.forEach((data: Record<string, any>) => {
@@ -259,38 +257,35 @@ const Scheduler = () => {
   //   }
   // };
 
-
   const onEventRendered = (args: EventRenderedArgs): void => {
     // Common classes to be added to all events
-    const commonClasses = ['fc-event', 'fc-event-skin', 'fc-event-vert'];
-  
+    const commonClasses = ["fc-event", "fc-event-skin", "fc-event-vert"];
+
     // Add common classes to the event element
     args.element.classList.add(...commonClasses);
-  
+
     // Additional logic based on status
     const status: number = args.data.status;
-    const statusOption = AppointmentStatusOptions.find(option => option.id === status);
-  
+    const statusOption = AppointmentStatusOptions.find((option) => option.id === status);
+
     if (statusOption) {
       // Add specific classes based on the status
-      args.element.classList.add(...statusOption.className.split(' '));
+      args.element.classList.add(...statusOption.className.split(" "));
       args.element.style.backgroundColor = statusOption.color;
       args.element.style.borderColor = statusOption.color;
     }
   };
-  
-    
+
   const getAppointmentStatusClass = (status: number): string | null => {
-    const statusOption = AppointmentStatusOptions.find(option => option.id === status);
+    const statusOption = AppointmentStatusOptions.find((option) => option.id === status);
     return statusOption ? statusOption.className : null;
   };
 
-  
   const getBorderColor = (status: number): string => {
-    const statusOption = AppointmentStatusOptions.find(option => option.id === status);
+    const statusOption = AppointmentStatusOptions.find((option) => option.id === status);
     return statusOption ? statusOption.badgeClass : "#000";
   };
-  
+
   // const onEventRendered = (args: Record<string, any>): void => {
   //   console.log("onEventRendered is called");
 
@@ -364,6 +359,30 @@ const Scheduler = () => {
     );
   };
 
+  // i want to say if the cell is an hour, not fraction of an hour, show The Hour, like 11:00PM
+  const getCellContent = (date: Date) => {
+    // Check for specific dates and hours
+    if (date.getMinutes() === 0) {
+      // Format the hour in 12-hour format with AM/PM
+      let hours = date.getHours();
+      let ampm = hours >= 12 ? "pm" : "am";
+      hours = hours % 12;
+      hours = hours ? hours : 12; // the hour '0' should be '12'
+      return `${hours}:00${ampm}`;
+    } else {
+      return "";
+    }
+  };
+
+  const cellTemplate = (props) => {
+    console.log('cellTemplate props:', props); // Debugging
+
+    if (props.type === "workCells") {
+      return <div className="e-slot-time-inner" dangerouslySetInnerHTML={{ __html: getCellContent(props.date) }}></div>;
+    }
+    return;
+  };
+
   return (
     <React.Fragment>
       <div className="page-content">
@@ -372,7 +391,7 @@ const Scheduler = () => {
         <ScheduleComponent
           ref={scheduleObj}
           width="100%"
-          height="650px"
+          // height="650px"
           cssClass={"staff-appointment-planner"}
           // showWeekend={false}
 
@@ -401,7 +420,7 @@ const Scheduler = () => {
           actionBegin={onActionBegin}
           actionComplete={onActionComplete}
           created={onCreated}
-          // cellTemplate={cellTemplate}
+          cellTemplate={cellTemplate}
         >
           <ViewsDirective>
             <ViewDirective option="Day" eventTemplate={eventTemplate} />

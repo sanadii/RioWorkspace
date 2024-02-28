@@ -189,76 +189,6 @@
   box-shadow: none
 }
 
-.sale__button-row {
-  display: flex
-}
-
-.sale__button-row--right {
-  justify-content: flex-end
-}
-
-.sale__button {
-  height: 48px;
-  font-size: 20px
-}
-
-.sale__button--active {
-  background-color: #ddd
-}
-
-button.sale__button--l {
-  font-size: 20px;
-  height: 64px
-}
-
-button.sale__button--xl {
-  font-size: 24px;
-  height: 80px
-}
-
-.sale__button-full-width {
-  width: 100%
-}
-
-.sale__button-danger {
-  color: #da4f49
-}
-
-.sale__button-green,
-.sale__button-green:hover {
-  background-color: #55823e;
-  border-color: #55823e
-}
-
-.sale__button-white {
-  box-shadow: 0 0 8px rgba(0, 0, 0, .1)
-}
-
-.sale__button-white,
-.sale__button-white:hover {
-  background-color: #fff;
-  border-color: #fff;
-  color: #5c5fc1
-}
-
-.sale__button-midnight {
-  background-color: #696cd1;
-  border-color: #696cd1;
-  color: #fff
-}
-
-.sale__button-midnight:hover {
-  background-color: #5c5fc1;
-  border-color: #5c5fc1;
-  color: #fff
-}
-
-.sale__button-midnight-outline,
-.sale__button-midnight-outline:hover {
-  background-color: #fff;
-  border-color: #5c5fc1;
-  color: #5c5fc1
-}
 
 
 
@@ -1948,62 +1878,6 @@ input.sale__input--xl {
   }
 }
 
-.sale__modal {
-
-  .sale__modal-head {
-    color: #39464e;
-    padding: 16px;
-    font-size: 18px;
-    font-weight: 700;
-    text-align: center;
-  }
-
-  .sale__modal-body {
-    padding: 24px;
-    max-height: 75vh;
-    overflow: auto;
-    background-color: #f5f5f5;
-
-    .sale__continue-in-progress .sale__button-danger,
-    .sale__edit-line-item .sale__button-danger {
-      margin-top: 16px;
-    }
-  }
-
-  .sale__modal-body--grey {
-    background-color: #f5f5f5;
-  }
-
-  .sale__button {
-    width: 100%;
-    background-color: #39464E;
-    border-color: #39464E;
-    color: #fff;
-
-    &:hover {
-      background-color: #303B42;
-      border-color: #303B42;
-      color: #fff;
-    }
-  }
-
-  .sale__button-remove {
-    width: 100%;
-    color: #da4f49;
-    padding: 0;
-    margin: 0;
-    background: none;
-    border: none;
-    display: inline;
-    cursor: pointer;
-    margin-top: 16px;
-
-    &:hover {
-      color: #d88481;
-    }
-  }
-
-}
 
 .sale__updated-sale-modal .alert {
   margin: 0;
@@ -2015,17 +1889,8 @@ input.sale__input--xl {
   margin: 0;
 }
 
-@media (max-width: 420px) {
-  .sale__modal {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-  }
 
-  .sale__modal-body {
-    flex: 1;
-  }
-}
+
 
 
 

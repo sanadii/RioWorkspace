@@ -6,10 +6,10 @@ export type ItemTabModalProps = {
   toggle: () => void;
   selectedItem: any; // Adjust the type as necessary
   setSelectedItem: React.Dispatch<any>; // Adjust the type as necessary
-  invoiceItemList: any[]; // Adjust the type as necessary
+  itemTypeList: any[]; // Adjust the type as necessary
   staff: Staff[];
   setInvoiceItemList: React.Dispatch<any>; // Adjust the type as necessary
-  itemType: "service" | "product" | "package";
+  itemType: "service" | "product" | "package" | "voucher";
 };
 
 export interface Appointment {

@@ -3,7 +3,7 @@ import { Modal, Form, Button } from "reactstrap";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { FormFields } from "Components/Common";
-import { Staff, Service, Product, Package, Voucher, SummaryItemModalProps } from "../../../interfaces/invoiceTypes";
+import { Staff, Service, Product, Package, Voucher, SummaryItemModalProps } from "../../../types/invoiceTypes";
 
 
 

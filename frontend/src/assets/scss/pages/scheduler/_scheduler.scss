@@ -1,0 +1,90 @@
+// $color_4: #000;
+// $background-color_7: #fafafa;
+// $border-color_1: rgba(0, 0, 0, .12);
+
+// .e-schedule {
+// 	.e-vertical-view {
+// 		.e-work-cells {
+// 			font-size: 12px;
+// 			height: 20px;
+// 			text-align: center;
+// 			width: 36px;
+// 			background-color: $background-color_7;
+// 			border-color: $border-color_1;
+// 			border-style: solid;
+// 			border-width: 0 0 1px 1px;
+// 			padding: 0;
+
+// 			&:hover {
+// 				background: #f5f5f5;
+// 				color: $color_4;
+// 			}
+// 		}
+
+// 		.e-time-cells-wrap table td,
+// 		.e-work-cells {
+// 			font-size: 12px;
+// 			height: 20px;
+// 			text-align: center;
+// 		}
+
+// 	}
+// }
+
+
+
+.e-schedule {
+	.e-vertical-view {
+
+		.e-header-cells {
+			height: 32px;
+		}
+
+		.e-header-cells.e-current-day {
+			background-color: #696cd1;
+			color: #fff;
+		}
+
+
+		.e-work-cells {
+			// background-color: #fafafa;
+			border-color: #aaa;
+
+			// border-style: solid;
+			// border-width: 0 0 1px 1px;
+			// padding: 0;
+			&:not(.e-work-hours) {
+				background-color: #888F94;
+				color: #d5d5d5;
+			}
+
+			.e-slot-time-inner {
+				text-align: right;
+				padding-right: 8px;
+				color: grey;
+
+			}
+
+		}
+
+		// .e-schedule .e-vertical-view .e-work-cells {
+		// 	background-color: #888F94;
+		// 	border-color: rgba(0, 0, 0, .12);
+		// 	border-style: solid;
+		// 	border-width: 0 0 1px 1px;
+		// 	padding: 0;
+		// }
+
+		.e-time-cells-wrap table td,
+		.e-work-cells {
+			font-size: 12px;
+			height: 21px;
+			text-align: center;
+		}
+	}
+}
+
+.high-contrast .fc-agenda-slots tr.fc-minor td,
+.high-contrast .fc-agenda-slots tr.fc-minor th {
+	border-top-color: #d3d3d3;
+}
