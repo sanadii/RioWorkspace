@@ -19,6 +19,9 @@ $color_11: #da4f49;
 // some specifications
 // e-appointment-inner             => e-appointment-inner
 // Pages
+@import "./_schedulerToolbar";
+
+
 @import "./_schedulerIcons";
 @import "./_scheduleSale";
 @import "./_scheduleSaleBody";

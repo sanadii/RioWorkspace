@@ -4,11 +4,11 @@ import { useButtonClickActions } from "../SchedulerActions";
 
 const useQuickInfoTemplates = (scheduleObj) => {
   const currentAppointment = scheduleObj.current?.activeEventData?.event;
-  console.log("currentAppointment: ", currentAppointment);
-  console.log("currentAppointment: 2 ", scheduleObj.current?.activeEventData);
-  console.log("currentAppointment: 3 ", scheduleObj.current?.activeEventData?.event);
-  console.log("currentAppointment: ", currentAppointment);
-  console.log("WHAT IS THE SCHEDULEQUICK?", scheduleObj);
+  // console.log("currentAppointment: ", currentAppointment);
+  // console.log("currentAppointment: 2 ", scheduleObj.current?.activeEventData);
+  // console.log("currentAppointment: 3 ", scheduleObj.current?.activeEventData?.event);
+  // console.log("currentAppointment: ", currentAppointment);
+  // console.log("WHAT IS THE SCHEDULEQUICK?", scheduleObj);
   const intl = new Internationalization();
 
   const getHeaderTitle = (data) => {

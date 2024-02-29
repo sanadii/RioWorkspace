@@ -17,6 +17,8 @@ import {
   Month,
   Week,
   WorkWeek,
+  ToolbarItemsDirective,
+  ToolbarItemDirective,
   ViewDirective,
   ViewsDirective,
   DragAndDrop,
@@ -41,7 +43,7 @@ import {
   eventTemplate,
 } from "./SchedulerSettings";
 
-import { onDragStart, onResizeStart } from "./SchedulerActions";
+import { onDragStart, onResizeStart, useOnActionComplete } from "./SchedulerActions";
 import EditorTemplate from "./EditorTemplate";
 import { errorPlacement, updateActiveItem, loadImage, getString } from "Components/Utils/util";
 import doctorsIcon from "assets/Icons/Doctors.svg";
@@ -61,25 +63,26 @@ L10n.load({
 const Scheduler = () => {
   const dispatch = useDispatch();
 
+  // States and Refs
+  const [selectedDate, setSelectedDate] = useState(new Date());
+  const currentDate = useRef(selectedDate);
+  const addEditServiceObj = useRef(null);
+  const appointmentRef = useRef(null);
+
   // Revised
   const scheduleObj = useRef<ScheduleComponent | null>(null);
-  // console.log("scheduleObj: ", scheduleObj);
   const { appointments, services, staff, clients } = useDataManager();
+
+  // Settings
   const eventSettings = getEventSettings(appointments, calendarSettings);
-
-  // console.log("appointmentData :", appointmentData);
-  // console.log("serviceData :", serviceData);
-  // console.log("staffData :", staffData);
-
-  const appointmentRef = useRef(null);
 
   // Templates
   const quickInfoTemplates = useQuickInfoTemplates(scheduleObj);
-  // New Features
-  const [selectedDate, setSelectedDate] = useState(new Date());
-  const currentDate = useRef(selectedDate);
 
-  const addEditServiceObj = useRef(null);
+  // Actions
+  const onActionComplete = useOnActionComplete(appointmentRef);
+
+  // New Features
 
   // Now you can use calendarSettings in your component
   const onNavigation = (args: NavigatingEventArgs): void => {
@@ -145,12 +148,6 @@ const Scheduler = () => {
       args.data = eventObj;
     }
   };
-
-  // const clientRef = useRef(null);
-  // const serviceRef = useRef([]);
-  // const statusRef = useRef([]);
-  // const productRef = useRef([]);
-  // const packageRef = useRef([]);
 
   const onActionBegin = (args: ActionEventArgs): void => {
     let slotAvail: boolean = false;
@@ -250,31 +247,23 @@ const Scheduler = () => {
   //   }
   // };
 
-  // const onActionComplete = (args: ActionEventArgs): void => {
-  //   console.log("args: ", args);
-  //   if (args.requestType === "eventCreated") {
-  //     dispatch(addAppointment(args.addedRecords[0]));
-  //   }
-  // };
-
   const onEventRendered = (args: EventRenderedArgs): void => {
     // Common classes to be added to all events
     const commonClasses = ["fc-event", "fc-event-skin"];
 
     // Add common classes to the event element
-    args.element.querySelector('.e-appointment-details').classList.add(...commonClasses);
-
+    args.element.querySelector(".e-appointment-details").classList.add(...commonClasses);
 
     // Locate the child div inside 'e-appointment-details'
-    const childDiv = args.element.querySelector('.e-appointment-details > div');
+    const childDiv = args.element.querySelector(".e-appointment-details > div");
 
     // Check if the childDiv exists
     if (childDiv) {
-        // Add the 'fc-event-inner' class to the childDiv
-        childDiv.classList.add('e-appointment-inner');
+      // Add the 'fc-event-inner' class to the childDiv
+      childDiv.classList.add("e-appointment-inner");
     }
 
-    console.log("targetDiv: ", childDiv)
+    console.log("targetDiv: ", childDiv);
 
     // Additional logic based on status
     const status: number = args.data.status;
@@ -282,7 +271,7 @@ const Scheduler = () => {
     console.log("args.element: ", args.element);
     if (statusOption) {
       // Add specific classes based on the status
-      args.element.querySelector('.e-appointment-details').classList.add(...statusOption.className.split(" "));
+      args.element.querySelector(".e-appointment-details").classList.add(...statusOption.className.split(" "));
       args.element.style.backgroundColor = statusOption.color;
       args.element.style.borderColor = statusOption.color;
     }
@@ -310,23 +299,6 @@ const Scheduler = () => {
   //     args.element.style.borderLeft = "3px solid #7cca7c";
   //   }
   // };
-
-  const onActionComplete = (args: ActionEventArgs): void => {
-    if (args.requestType === "eventCreated") {
-      // Manually construct the event data from refs or state
-      const newEvent = {
-        appointment: appointmentRef.current,
-      };
-
-      // Check if you can directly modify args.addedRecords
-      if (Array.isArray(args.addedRecords)) {
-        args.addedRecords[0] = newEvent;
-      }
-
-      // Dispatch the addAppointment action with the new event data
-      dispatch(addAppointment(newEvent));
-    }
-  };
 
   const onCreated = (args: Record<string, any>): void => {
     console.log("onCreated is called");
@@ -387,7 +359,7 @@ const Scheduler = () => {
   };
 
   const cellTemplate = (props) => {
-    console.log("cellTemplate props:", props); // Debugging
+    // console.log("cellTemplate props:", props); // Debugging
 
     if (props.type === "workCells") {
       return <div className="e-slot-time-inner" dangerouslySetInnerHTML={{ __html: getCellContent(props.date) }}></div>;
@@ -428,19 +400,30 @@ const Scheduler = () => {
         editorTemplate={editorTemplate}
         eventRendered={onEventRendered}
         // Actions
+        cellTemplate={cellTemplate}
         actionBegin={onActionBegin}
         actionComplete={onActionComplete}
         created={onCreated}
-        cellTemplate={cellTemplate}
       >
         <ViewsDirective>
           <ViewDirective option="Day" eventTemplate={eventTemplate} />
           <ViewDirective option="Week" eventTemplate={eventTemplate} />
-          <ViewDirective option="WorkWeek" eventTemplate={eventTemplate} />
+          {/* <ViewDirective option="WorkWeek" eventTemplate={eventTemplate} /> */}
           <ViewDirective option="Month" />
         </ViewsDirective>
 
         <Inject services={[Agenda, Day, Month, Week, WorkWeek, DragAndDrop, Resize]} />
+        <ToolbarItemsDirective>
+          <ToolbarItemDirective name="Previous" align="Center"></ToolbarItemDirective>
+          <ToolbarItemDirective name="Today" align="Center"></ToolbarItemDirective>
+          <ToolbarItemDirective name="DateRangeText" align="Center"></ToolbarItemDirective>
+          <ToolbarItemDirective name="Next" align="Center"></ToolbarItemDirective>
+
+          <ToolbarItemDirective name="Views" align="Right"></ToolbarItemDirective>
+          {/* <ToolbarItemDirective align="Right" prefixIcon="user-icon" text="Nancy" cssClass="e-schedule-user-icon">
+            <h1> hello </h1>
+          </ToolbarItemDirective> */}
+        </ToolbarItemsDirective>
       </ScheduleComponent>
     </React.Fragment>
   );
