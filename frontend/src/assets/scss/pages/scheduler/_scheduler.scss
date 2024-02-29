@@ -13,10 +13,11 @@ $color_7: #2bc270;
 $background-color_1: #fff;
 $border-color_2: #6a7982;
 $border-color_6: #232c31;
+$color_11: #da4f49;
 
 
 // some specifications
-// fc-event-inner             => e-appointment-details
+// e-appointment-inner             => e-appointment-inner
 // Pages
 @import "./_schedulerIcons";
 @import "./_scheduleSale";
@@ -29,12 +30,50 @@ $border-color_6: #232c31;
 
 
 
-@import "./schedulerMore";
-@import "./_schedulerTimelyHeader";
-@import "./scheduleSaleSummary";
+// @import "./schedulerMore";
+// @import "./_schedulerTimelyHeader";
+// @import "./scheduleSaleSummary";
 
 
 
+// Timely
+// a.fc-event .fc-event-skin .fc-event-vert .fc-event-draggable .fc-event-start .fc-event-end  .fc-booking .fc-pending .fc-booking-id-374659198 .fc-group-298783919 .fc-comment .ui-draggable .ui-resizable
+// ├── div.fc-event-inner
+// │   ├── div.fc-event-head
+// │   ├── div.fc-event-content
+// │   │   ├── div.fc-event-title
+// │   │   │   ├── div.fc-event-notes
+// │   │   │   │   └── i.fc-comment-icon.tip-init
+// │   │   │   ├── b.fc-staff-name.tip-init
+// │   │   │   └── b.fc-customer-name.tip-init
+// │   │   │       └── span
+// │   │   └─ div.fc-event-body
+// │   │   		└── span.fc-price
+// │   └── div.e-appointment-bg
+// └── div.ui-resizable-handle.ui-resizable-s
+
+
+// Scheduler
+// div.e-appointment.fc-event.fc-event-skin.fc-event-vert.fc-pending.e-appointment-inner.fc-light-green.e-lib.e-draggable
+// ├── div.e-event-resize.e-top-handler
+// │   └── div.e-top-bottom-resize
+// ├── div.e-appointment-details		[fc-event]
+// │      └── div.e-appointment-inner
+// │			├── div.fc-event-head
+// │			├── div.fc-event-content
+// │			|	├── div.fc-event-title
+// │			|	│   ├── div.fc-event-notes
+// │			|	│   │   └── i.fc-comment-icon.tip-init
+// │            |   │   ├── b.fc-staff-name.tip-init
+// │            |   │   ├── b.fc-customer-name.tip-init
+// │            |   │   └── span
+// │            |   └── div.fc-event-body
+// │          	|		└── span.fc-price
+// |			└── div.e-appointment-bg
+// └── div.e-event-resize.e-bottom-handler
+//     └── div.e-top-bottom-resize
+
+// 0. Schedule
 .e-schedule {
 	.e-vertical-view {
 
@@ -42,7 +81,7 @@ $border-color_6: #232c31;
 		.e-header-cells {
 			line-height: 15px !important;
 			padding: 7px;
-			height: 32px;
+			height: 22px;
 		}
 
 		.e-header-cells.e-current-day {
@@ -72,17 +111,6 @@ $border-color_6: #232c31;
 			}
 		}
 
-		.e-day-wrapper {
-			// .fc-event-inner {
-			// 	position: relative;
-			// 	width: 100%;
-			// 	// height: 100%;
-			// 	border-style: solid;
-			// 	border-width: 0;
-			// 	overflow: hidden;
-			// }
-
-		}
 
 		.e-time-cells-wrap table td,
 		.e-work-cells {
@@ -93,56 +121,140 @@ $border-color_6: #232c31;
 	}
 }
 
-
-// Scheduler
-div.e-appointment.fc-event.fc-event-skin.fc-event-vert.fc-pending.fc-event-inner.fc-light-green.e-lib.e-draggable
-├── div.e-event-resize.e-top-handler
-│   └── div.e-top-bottom-resize
-├── div.e-appointment-details
-│   └── div
-│       └── div.fc-event-inner
-│           ├── div.fc-event-head
-│           └── div.fc-event-content
-│               ├── div.fc-event-title
-│               │   ├── div.fc-event-notes
-│               │   │   └── i.fc-comment-icon.tip-init
-│               │   ├── b.fc-staff-name.tip-init
-│               │   ├── b.fc-customer-name.tip-init
-│               │   └── span
-│               └── div.fc-event-body
-│                   ├── div.fc-event-body
-│                   └── div.fc-event-body
-├── div.fc-event-bg
-└── div.e-event-resize.e-bottom-handler
-    └── div.e-top-bottom-resize
-
-
-// Timely
-a.fc-event
-├── div.fc-event-inner
-│   ├── div.fc-event-head
-│   └── div.fc-event-content
-│       ├── div.fc-event-title
-│       │   ├── div.fc-event-notes
-│       │   │   └── i.fc-comment-icon.tip-init
-│       │   ├── b.fc-staff-name.tip-init
-│       │   └── b.fc-customer-name.tip-init
-│       │       └── span
-│       └── div.fc-event-body
-│           └── span.fc-price
-├── div.fc-event-bg
-└── div.ui-resizable-handle.ui-resizable-s
-
-.e-appointment {
-	color: $color_1;
-	background: #ffffff;
-	border: 1px solid #00000000;
+.e-schedule .e-vertical-view .e-day-wrapper .e-appointment {
 	border-left: 3px solid #7cca7c;
+	border: 0px
+}
 
-	.e-appointment-details {
-		.fc-booking.fc-has-pre-padding {
-			border-top-left-radius: 0;
-			border-top-right-radius: 0;
+// 00. Schedule
+.e-schedule .e-vertical-view .e-day-wrapper .e-appointment .e-appointment-details {
+	width: 100%;
+	height: 100%;
+	padding: 0px;
+
+	&.fc-pending .e-appointment-inner {
+		background-image: url(https://app.gettimely.com/images/calendar-pending-v3.png);
+	}
+
+
+	&.fc-arrived {
+		border-left: 3px dashed rgba(0, 0, 0, .5) !important;
+		opacity: 1 !important
+	}
+
+	&.fc-booking,
+	&.fc-recurring {
+		border-radius: 3px;
+		background-color: #7cca7c;
+		border: 1px solid transparent;
+		border-left: 3px solid #7cca7c;
+		opacity: .8;
+		filter: alpha(opacity=80);
+		-webkit-transform: translateZ(0);
+		-moz-transform: translateZ(0);
+		-ms-transform: translateZ(0);
+		-o-transform: translateZ(0);
+		transform: translateZ(0);
+		transition: transform .1s ease-in-out, opacity .1s ease-in-out
+	}
+
+	&.fc-booking.fc-completed {
+		.fc-padding {
+			&:after {
+				content: "";
+				background-color: $background-color_1;
+				width: 100%;
+				height: 100%;
+				display: block;
+				opacity: .8;
+			}
+		}
+	}
+
+	&.fc-pending {
+		border-left-width: 3px;
+		border-top: 1px dashed hsla(0, 0%, 100%, 0) !important;
+		border-right: 1px dashed hsla(0, 0%, 100%, 0) !important;
+		border-bottom: 1px dashed hsla(0, 0%, 100%, 0) !important;
+		-webkit-transform: translateZ(0);
+		-moz-transform: translateZ(0);
+		-ms-transform: translateZ(0);
+		-o-transform: translateZ(0);
+		transform: translateZ(0);
+		background-color: #1bbc9d
+	}
+
+
+
+	&.fc-light-pink {
+		background-image: url(../../../images/scheduler/calendar-pending-dark-pink.png);
+	}
+
+	&.fc-light-yellow {
+		background-image: url(../../../images/scheduler/calendar-pending-dark-yellow.png);
+	}
+
+	&.fc-light-blue {
+		background-image: url(../../../images/scheduler/calendar-pending-dark-blue.png);
+	}
+
+	&.fc-light-green {
+		background-image: url(../../../images/scheduler/calendar-pending-dark-green.png);
+	}
+
+	&.fc-lighten {
+		background-image: url(../../../images/scheduler/calendar-pending-lighten.png);
+	}
+
+	&.fc-pending.fc-group-highlight {
+		.e-appointment-inner {
+			background-image: url(https://app.gettimely.com/images/calendar-pending-v3.png);
+		}
+	}
+
+	&.fc-completed {
+		i.fc-completed-icon {
+			display: block;
+		}
+	}
+
+	&.fc-booking.fc-completed {
+		opacity: .8;
+	}
+
+	&.fc-booking.fc-completed,
+	&.fc-booking.fc-completed:hover,
+	&.fc-recurring.fc-completed,
+	&.fc-recurring.fc-completed:hover {
+		.e-appointment-bg {
+			opacity: 0.95;
+		}
+	}
+}
+
+// 2. div.fc-event-inner
+.e-appointment-inner {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	// border-style: solid;
+	overflow: hidden;
+
+	.fc-booking.fc-has-pre-padding {
+		border-top-left-radius: 0;
+		border-top-right-radius: 0;
+	}
+
+	.fc-event-content {
+		position: absolute;
+		z-index: 2;
+		width: 100%;
+		overflow: visible;
+		padding-right: 0;
+		box-sizing: border-box;
+
+		.fc-event-head {
+			display: none;
 		}
 
 		.fc-event-body,
@@ -152,7 +264,6 @@ a.fc-event
 
 		.fc-event-title {
 			color: $black;
-			font-weight: 700;
 			padding-top: 1px;
 			word-wrap: break-word;
 			-moz-hyphens: auto;
@@ -162,8 +273,10 @@ a.fc-event
 			-webkit-hyphenate-character: auto;
 
 			b {
+				font-weight: 700;
 				position: relative;
-				z-index: 3;
+				z-index: 2;
+
 			}
 
 			span {
@@ -177,15 +290,13 @@ a.fc-event
 				display: none;
 			}
 
-			.e-appointment.fc-event {
+			.e-appointment-details.fc-event {
 				cursor: pointer;
 				text-decoration: none;
 				margin-left: 0;
 			}
 
-			.fc-event-head {
-				display: none;
-			}
+
 
 			.fc-event-notes {
 				float: right;
@@ -197,132 +308,127 @@ a.fc-event
 		.fc-event-body {
 			color: $black;
 		}
+	}
 
 
+	.e-appointment-details.fc-booking.fc-completed {
+		opacity: .8;
 
-		.e-appointment.fc-booking.fc-completed {
-			opacity: .8;
+		.e-appointment-bg {
+			opacity: .95;
 
-			.fc-event-bg {
-				opacity: .95;
+			.fc-padding {
 
-				.fc-padding {
-
-					&:after {
-						content: "";
-						background-color: $background-color_1;
-						width: 100%;
-						// height: 100%;
-						display: block;
-						opacity: .8;
-					}
-				}
-
-
-				.e-appointment.fc-pending {
-					border-left-width: 3px;
-					border-top: 1px dashed hsla(0, 0%, 100%, 0) !important;
-					border-right: 1px dashed hsla(0, 0%, 100%, 0) !important;
-					border-bottom: 1px dashed hsla(0, 0%, 100%, 0) !important;
-					-webkit-transform: translateZ(0);
-					-moz-transform: translateZ(0);
-					-ms-transform: translateZ(0);
-					-o-transform: translateZ(0);
-					transform: translateZ(0);
-				}
-			}
-
-			.e-appointment.fc-completed {
-				i.fc-completed-icon {
-					display: block;
-				}
-
-				.fc-event {
-					border-style: solid;
-					cursor: default;
-					-webkit-border-radius: 0;
-					-moz-border-radius: 0;
-					border-radius: 0;
-					border-color: $border-color_2;
+				&:after {
+					content: "";
 					background-color: $background-color_1;
-					font-size: 13px;
-					line-height: 19px;
-					z-index: 2;
-
-					&:hover {
-						-webkit-box-shadow: 0 0 5px rgba(0, 0, 0, .25);
-						-moz-box-shadow: 0 0 5px rgba(0, 0, 0, .25);
-						box-shadow: 0 0 5px rgba(0, 0, 0, .25);
-						box-shadow: inset 0 8px 4px -7px hsla(0, 0%, 100%, .3), 0 8px 4px -8px rgba(33, 33, 33, .5);
-						z-index: 10000 !important;
-						opacity: 1;
-
-						.ui-resizable-handle {
-							display: block;
-						}
-
-						.fc-event-time {
-							color: $black;
-							font-weight: 400;
-							font-size: 12px;
-						}
-
-
-
-						.fc-event-draggable {
-							cursor: pointer;
-						}
-					}
-
-					.e-appointment.fc-event-inner {
-						background-image: url(https://app.gettimely.com/images/calendar-pending-v3.png);
-					}
-
-					.e-appointment.fc-light-pink {
-						background-image: url(https://app.gettimely.com/images/calendar-pending-dark-pink.png);
-					}
-
-					.e-appointment.fc-light-yellow {
-						background-image: url('../../../images/scheduler/calendar-pending-dark-yellow.png');
-					}
-
-					.e-appointment.fc-light-blue {
-						background-image: url(../../../images/scheduler/calendar-pending-dark-blue.png);
-					}
-
-					.e-appointment.fc-light-green {
-						background-image: url(../../../images/scheduler/calendar-pending-dark-green.png);
-					}
-
-					.e-appointment.fc-lighten {
-						background-image: url(../../../images/scheduler/calendar-pending-lighten.png);
-					}
-
-					.e-appointment.fc-pending.fc-group-highlight {
-						.fc-event-inner {
-							background-image: url(https://app.gettimely.com/images/calendar-pending-v3.png);
-						}
-
-
-					}
+					width: 100%;
+					// height: 100%;
+					display: block;
+					opacity: .8;
 				}
 			}
-		}
-
-		.fc-event-bg {
-			position: absolute;
-			z-index: 1;
-			top: 0;
-			left: 0;
-			width: 100%;
-			// height: 100%;
-			background: #fff;
-			opacity: .6;
-			filter: alpha(opacity=60);
 		}
 	}
 
 
-	// 
-	.e-event-resize e-bottom-handler {}
+	.e-appointment-details.fc-pending {
+		border-left-width: 3px;
+		border-top: 1px dashed hsla(0, 0%, 100%, 0) !important;
+		border-right: 1px dashed hsla(0, 0%, 100%, 0) !important;
+		border-bottom: 1px dashed hsla(0, 0%, 100%, 0) !important;
+		-webkit-transform: translateZ(0);
+		-moz-transform: translateZ(0);
+		-ms-transform: translateZ(0);
+		-o-transform: translateZ(0);
+		transform: translateZ(0);
+	}
 }
+
+.e-appointment-details.fc-completed {
+	i.fc-completed-icon {
+		display: block;
+	}
+
+	.fc-event {
+		border-style: solid;
+		cursor: default;
+		-webkit-border-radius: 0;
+		-moz-border-radius: 0;
+		border-radius: 0;
+		border-color: $border-color_2;
+		background-color: $background-color_1;
+		font-size: 13px;
+		line-height: 19px;
+		z-index: 2;
+
+		&:hover {
+			-webkit-box-shadow: 0 0 5px rgba(0, 0, 0, .25);
+			-moz-box-shadow: 0 0 5px rgba(0, 0, 0, .25);
+			box-shadow: 0 0 5px rgba(0, 0, 0, .25);
+			box-shadow: inset 0 8px 4px -7px hsla(0, 0%, 100%, .3), 0 8px 4px -8px rgba(33, 33, 33, .5);
+			z-index: 10000 !important;
+			opacity: 1;
+
+			.ui-resizable-handle {
+				display: block;
+			}
+
+			.fc-event-time {
+				color: $black;
+				font-weight: 400;
+				font-size: 12px;
+			}
+
+
+
+			.fc-event-draggable {
+				cursor: pointer;
+			}
+		}
+	}
+}
+
+
+
+
+
+// 3. div.e-appointment-bg
+.e-appointment-bg {
+	position: absolute;
+	z-index: 1;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: #fff;
+	opacity: 0.6;
+	filter: alpha(opacity=60);
+
+	.high-contrast & {
+		opacity: 0.5;
+		filter: alpha(opacity=50);
+	}
+
+	.fc-new-palette & {
+		opacity: 0.4;
+		filter: alpha(opacity=40);
+	}
+
+
+	.fc-padding-time .fc-event-inner & {
+		opacity: 0.8;
+	}
+
+	.fc-break-event .fc-event-inner & {
+		display: none;
+	}
+
+	.fc-select-helper &,
+	.fc-select-helper .fc-event-name {
+		display: none;
+	}
+}
+
+// 4. div.ui-resizable-handle.ui-resizable-s
+.e-event-resize e-bottom-handler {}

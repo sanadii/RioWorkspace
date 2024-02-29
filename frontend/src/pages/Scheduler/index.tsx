@@ -259,18 +259,30 @@ const Scheduler = () => {
 
   const onEventRendered = (args: EventRenderedArgs): void => {
     // Common classes to be added to all events
-    const commonClasses = ["fc-event", "fc-event-skin", "fc-event-vert"];
+    const commonClasses = ["fc-event", "fc-event-skin"];
 
     // Add common classes to the event element
-    args.element.classList.add(...commonClasses);
+    args.element.querySelector('.e-appointment-details').classList.add(...commonClasses);
+
+
+    // Locate the child div inside 'e-appointment-details'
+    const childDiv = args.element.querySelector('.e-appointment-details > div');
+
+    // Check if the childDiv exists
+    if (childDiv) {
+        // Add the 'fc-event-inner' class to the childDiv
+        childDiv.classList.add('e-appointment-inner');
+    }
+
+    console.log("targetDiv: ", childDiv)
 
     // Additional logic based on status
     const status: number = args.data.status;
     const statusOption = AppointmentStatusOptions.find((option) => option.id === status);
-
+    console.log("args.element: ", args.element);
     if (statusOption) {
       // Add specific classes based on the status
-      args.element.classList.add(...statusOption.className.split(" "));
+      args.element.querySelector('.e-appointment-details').classList.add(...statusOption.className.split(" "));
       args.element.style.backgroundColor = statusOption.color;
       args.element.style.borderColor = statusOption.color;
     }

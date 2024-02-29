@@ -1064,7 +1064,7 @@ html {
 	.fc-slot-time {
 		color: $color_15;
 	}
-	.e-appointment-details {
+	.e-appointment-inner {
 		.fc-event-bg {
 			opacity: .5;
 			filter: alpha(opacity=50);
@@ -1153,7 +1153,7 @@ html {
 .e-schedule {
 	.e-vertical-view {
 		.e-day-wrapper {
-			.fc-event-inner {
+			.e-appointment-inner {
 				position: relative;
 				width: 100%;
 				height: 100%;
@@ -1166,7 +1166,7 @@ html {
 				background: #ffffff;
 				border: 1px solid #00000000;
 				border-left: 3px solid #7cca7c;
-				.e-appointment-details {
+				.e-appointment-inner {
 					.fc-booking.fc-has-pre-padding {
 						border-top-left-radius: 0;
 						border-top-right-radius: 0;
@@ -1213,7 +1213,7 @@ html {
 				-o-transform: translateZ(0);
 				transform: translateZ(0);
 			}
-			.e-appointment.fc-event-inner {
+			.e-appointment.e-appointment-inner {
 				background-image: url(https://app.gettimely.com/images/calendar-pending-v3.png);
 			}
 			.e-appointment.fc-light-pink {
@@ -1232,7 +1232,7 @@ html {
 				background-image: url(../../../images/scheduler/calendar-pending-lighten.png);
 			}
 			.e-appointment.fc-pending.fc-group-highlight {
-				.fc-event-inner {
+				.e-appointment-inner {
 					background-image: url(https://app.gettimely.com/images/calendar-pending-v3.png);
 				}
 			}
@@ -1529,7 +1529,7 @@ html {
 	opacity: .5;
 	cursor: default;
 	pointer-events: none;
-	.fc-event-inner {
+	.e-appointment-inner {
 		display: block;
 		.fc-event-title {
 			color: $color_12;
@@ -1610,7 +1610,7 @@ html {
 			display: none;
 		}
 	}
-	.fc-event-inner {
+	.e-appointment-inner {
 		display: block;
 		.fc-event-title {
 			color: $color_12;
@@ -1678,7 +1678,7 @@ html {
 			display: none;
 		}
 	}
-	.fc-event-inner {
+	.e-appointment-inner {
 		display: none;
 	}
 	.ui-resizable-handle {
@@ -1860,7 +1860,7 @@ html {
 .fc-group-highlight {
 	border-color: $primary-border-light !important;
 	border-style: solid !important;
-	.fc-event-inner {
+	.e-appointment-inner {
 		background-color: $background-color_13;
 	}
 	.fc-padding {
@@ -1932,7 +1932,7 @@ html {
 			filter: alpha(opacity=40);
 		}
 	}
-	.e-appointment-details {
+	.e-appointment-inner {
 		.fc-event-bg {
 			opacity: .6;
 			filter: alpha(opacity=60);
@@ -2144,7 +2144,7 @@ table.fc-border-separate {
 	top: 1px;
 	right: 0;
 }
-.e-appointment-details {
+.e-appointment-inner {
 	.fc-event-content {
 		position: absolute;
 		z-index: 2;

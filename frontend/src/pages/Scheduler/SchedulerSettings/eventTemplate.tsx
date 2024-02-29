@@ -71,7 +71,7 @@ export const eventTemplate = (props) => {
     // <div className="template-wrap" style={{ background: props.SecondaryColor }}>
     //    <div className="subject" style={{ background: props.PrimaryColor }}>
 
-    <div className="fc-event-inner">
+    <React.Fragment>
       <div className="fc-event-head"> </div>
 
       <div className="fc-event-content">
@@ -107,16 +107,14 @@ export const eventTemplate = (props) => {
             <i className="fc-new-customer">(new) &nbsp;</i> {getTimeString(props.startTime)}
           </span>
         </div>
-        <div className="fc-event-body">
-          {props.services.map((service, index) => (
-            <div key={service.id} className="fc-event-body" style={{ whiteSpace: "normal", wordWrap: "break-word" }}>
-              {service.name} -<span>{service.price}</span>
-            </div>
-          ))}
-        </div>
+        {props.services.map((service, index) => (
+          <div key={service.id} className="fc-event-body" style={{ whiteSpace: "normal", wordWrap: "break-word" }}>
+            {service.name} -<span>{service.price}</span>
+          </div>
+        ))}
       </div>
-      <div className="fc-event-bg"></div>
-    </div>
+      <div className="e-appointment-bg"></div>
+    </React.Fragment>
   );
 };
 // export const eventTemplate = (data: Record<string, any>): React.JSX.Element => {

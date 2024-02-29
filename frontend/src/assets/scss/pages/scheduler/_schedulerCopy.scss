@@ -860,7 +860,7 @@ $border-bottom-color_2: rgba(0, 0, 0, .12);
         overflow: hidden;
         position: absolute;
 
-        .e-appointment-details {
+        .e-appointment-inner {
           -ms-flex: auto;
           flex: auto;
           padding: 0 4px;
@@ -971,7 +971,7 @@ $border-bottom-color_2: rgba(0, 0, 0, .12);
         overflow: hidden;
         position: absolute;
 
-        .e-appointment-details {
+        .e-appointment-inner {
           display: -ms-flexbox;
           display: flex;
           -ms-flex: auto;
@@ -1520,7 +1520,7 @@ $border-bottom-color_2: rgba(0, 0, 0, .12);
       overflow: hidden;
       position: absolute;
 
-      .e-appointment-details {
+      .e-appointment-inner {
         display: -ms-flexbox;
         display: flex;
         -ms-flex: auto;
@@ -1894,7 +1894,7 @@ $border-bottom-color_2: rgba(0, 0, 0, .12);
       overflow: hidden;
       position: absolute;
 
-      .e-appointment-details {
+      .e-appointment-inner {
         display: -ms-flexbox;
         display: flex;
         -ms-flex: auto;
@@ -2335,7 +2335,7 @@ $border-bottom-color_2: rgba(0, 0, 0, .12);
         overflow: hidden;
         position: absolute;
 
-        .e-appointment-details {
+        .e-appointment-inner {
           display: -ms-flexbox;
           display: flex;
           -ms-flex: auto;
@@ -2502,7 +2502,7 @@ $border-bottom-color_2: rgba(0, 0, 0, .12);
       overflow: hidden;
       position: absolute;
 
-      .e-appointment-details {
+      .e-appointment-inner {
         display: -ms-flexbox;
         display: flex;
         -ms-flex: auto;
@@ -2800,7 +2800,7 @@ $border-bottom-color_2: rgba(0, 0, 0, .12);
         display: none;
       }
 
-      .e-appointment-details {
+      .e-appointment-inner {
         display: -ms-flexbox;
         display: flex;
         -ms-flex: auto;
@@ -3655,7 +3655,7 @@ $border-bottom-color_2: rgba(0, 0, 0, .12);
   text-align: right;
 
   .e-vertical-view.e-timescale-disable {
-    .e-appointment-details {
+    .e-appointment-inner {
       text-align: right;
     }
   }
@@ -3663,7 +3663,7 @@ $border-bottom-color_2: rgba(0, 0, 0, .12);
   .e-vertical-view {
     .e-all-day-appointment-wrapper {
       .e-appointment {
-        .e-appointment-details {
+        .e-appointment-inner {
           padding: 1px 4px 1px 0;
         }
       }
@@ -3671,7 +3671,7 @@ $border-bottom-color_2: rgba(0, 0, 0, .12);
 
     .e-day-wrapper {
       .e-appointment {
-        .e-appointment-details {
+        .e-appointment-inner {
           line-height: 15px;
           text-align: right;
         }
@@ -3820,7 +3820,7 @@ $border-bottom-color_2: rgba(0, 0, 0, .12);
     }
 
     .e-appointment.e-schedule-event-clone {
-      .e-appointment-details {
+      .e-appointment-inner {
         .e-inner-wrap {
           text-align: right;
         }
@@ -3899,7 +3899,7 @@ $border-bottom-color_2: rgba(0, 0, 0, .12);
     }
 
     .e-appointment.e-schedule-event-clone {
-      .e-appointment-details {
+      .e-appointment-inner {
         .e-inner-wrap {
           text-align: right;
         }
@@ -6643,7 +6643,7 @@ $border-bottom-color_2: rgba(0, 0, 0, .12);
     display: none;
   }
 
-  .e-appointment-details {
+  .e-appointment-inner {
     -ms-flex: auto;
     flex: auto;
     overflow: hidden;
@@ -6685,7 +6685,7 @@ $border-bottom-color_2: rgba(0, 0, 0, .12);
 }
 
 .e-appointment.e-schedule-event-clone.e-month-event {
-  .e-appointment-details {
+  .e-appointment-inner {
     .e-subject {
       padding: 3px 2px;
     }
@@ -6699,7 +6699,7 @@ $border-bottom-color_2: rgba(0, 0, 0, .12);
 .e-vertical-view {
   .e-all-day-appointment-wrapper {
     .e-appointment.e-schedule-event-clone {
-      .e-appointment-details {
+      .e-appointment-inner {
         .e-subject {
           padding: 3px 0 1px 4px;
         }
