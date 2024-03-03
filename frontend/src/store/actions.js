@@ -9,6 +9,9 @@ export * from "./auth/users/action";
 export * from "./layouts/action";
 export * from "./settingOptions/action";
 
+// Calendar
+export * from "./calendar/actions";
+
 // Apps - Finance
 export * from "./revenues/action";
 export * from "./expenses/action";

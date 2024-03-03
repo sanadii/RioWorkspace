@@ -2,7 +2,9 @@ import React from "react";
 import { Navigate } from "react-router-dom";
 
 //Dashboard
-import Scheduler from "../pages/Scheduler";
+// import Scheduler from "../pages/Scheduler";
+import Calendar from "../pages/Calendar";
+
 import Invoice from "../pages/Invoice/";
 // Revenues
 import RevenueList from "../pages/Revenues/RevenueList";
@@ -65,10 +67,11 @@ import Logout from "../pages/Authentication/Logout";
 import Register from "../pages/Authentication/Register";
 
 const authProtectedRoutes = [
-  { path: "/schedule", component: <Scheduler /> },
+  // { path: "/schedule", component: <Scheduler /> },
   { path: "/invoice", component: <Invoice /> },
-  { path: "/dashboard", component: <Scheduler /> },
-  { path: "/index", component: <Scheduler /> },
+  // { path: "/dashboard", component: <Scheduler /> },
+  // { path: "/index", component: <Scheduler /> },
+  { path: "/calendar", component: <Calendar /> },
 
   //Revenues
   { path: "/revenues", component: <RevenueList /> },

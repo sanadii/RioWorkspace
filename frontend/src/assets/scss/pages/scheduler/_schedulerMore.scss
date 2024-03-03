@@ -881,7 +881,7 @@ html {
 		visibility: hidden;
 	}
 }
-.fc-header-section {
+.fc-toolbar-chunk {
 	padding: 10px 15px 10px 20px;
 	white-space: nowrap;
 	float: left;
@@ -2239,7 +2239,7 @@ td.fc-resourceName {
 		.fc-header-right {
 			order: 2;
 		}
-		.fc-header-center.fc-header-section {
+		.fc-header-center.fc-toolbar-chunk {
 			order: 3;
 			flex-basis: 100%;
 			padding-top: 0;
@@ -2262,7 +2262,7 @@ td.fc-resourceName {
 		.fa.fa-user {
 			display: inline-block !important;
 		}
-		.fc-header-section {
+		.fc-toolbar-chunk {
 			margin-left: 0 !important;
 		}
 	}
@@ -2272,7 +2272,7 @@ td.fc-resourceName {
 }
 .calendar--mobile {
 	.fc-header.fc-header--collapsed {
-		.fc-header-center.fc-header-section {
+		.fc-header-center.fc-toolbar-chunk {
 			order: 2;
 			flex-basis: unset;
 		}
@@ -2368,7 +2368,7 @@ td.fc-resourceName {
 		td {
 			padding: 10px 5px !important;
 		}
-		.fc-header-section {
+		.fc-toolbar-chunk {
 			padding: 10px 5px;
 		}
 	}
@@ -2410,7 +2410,7 @@ td.fc-resourceName {
 			td {
 				padding: 10px 5px !important;
 			}
-			.fc-header-section {
+			.fc-toolbar-chunk {
 				padding: 10px 5px;
 				.fc-button-title {
 					width: 100px;

@@ -11,6 +11,8 @@ import Users from "./auth/users/reducer";
 import Layout from "./layouts/reducer";
 import SettingOptions from "./settingOptions/reducer";
 
+// Calendar
+import Calendar from "./calendar/reducer";
 
 // Apps - Finance
 import Revenue from "./revenues/reducer";
@@ -50,6 +52,7 @@ const rootReducer = combineReducers({
     Revenue,
     Expense,
     Appointments,
+    Calendar,
 
     // Services
     Service,

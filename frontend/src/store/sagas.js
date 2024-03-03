@@ -17,6 +17,7 @@ import SettingOptionSaga from "./settingOptions/saga";
 import RevenueSaga from "./revenues/saga";
 import ExpenseSaga from "./expenses/saga";
 import AppointmentSaga from "./appointments/saga";
+import CalendarSaga from "./calendar/saga";
 
 // Clients
 import ClientSaga from "./clients/saga";
@@ -40,6 +41,9 @@ export default function* rootSaga() {
     // System / Settings
     fork(LayoutSaga),
     fork(SettingOptionSaga),
+
+    // Calendar
+    fork(CalendarSaga),
 
     // Apps - Finance
     fork(RevenueSaga),

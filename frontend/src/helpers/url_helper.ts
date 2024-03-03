@@ -16,10 +16,9 @@ export const CHANGE_USER_PASSWORD = "/account/changeUserPassword";
 export const DELETE_USER = "/account/deleteUser";
 
 
-
-
 //REGISTER
 export const POST_FAKE_REGISTER = "/auth/signup";
+
 
 //LOGIN
 export const POST_FAKE_LOGIN = "/auth/signin";
@@ -28,10 +27,19 @@ export const POST_FAKE_PASSWORD_FORGET = "/auth/forgot-password";
 export const POST_FAKE_JWT_PASSWORD_FORGET = "/jwt-forget-pwd";
 export const SOCIAL_LOGIN = "/social-login";
 
+
 //PROFILE
 export const POST_EDIT_JWT_PROFILE = "/post-jwt-profile";
 export const POST_EDIT_PROFILE = "/user";
 
+
+// Calendar
+export const GET_EVENTS = "/events";
+export const GET_CATEGORIES = "/categories";
+export const GET_UPCOMMINGEVENT = "/upcommingevents";
+export const ADD_NEW_EVENT = "/add/event";
+export const UPDATE_EVENT = "/update/event";
+export const DELETE_EVENT = "/delete/event";
 
 // Revenue
 export const GET_REVENUES = "/finance/getRevenues";

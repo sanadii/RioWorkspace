@@ -1,0 +1,269 @@
+// btn group
+.btn-group-vertical {
+    label {
+        margin-bottom: 0;
+    }
+}
+
+// btn group radio
+.btn-group.radio {
+    .btn {
+        border: none;
+    }
+
+    .btn-check:active+.btn-light,
+    .btn-check:checked+.btn-light,
+    .btn-light.active,
+    .btn-light.dropdown-toggle.show,
+    .btn-light:active {
+        background-color: rgba($info, 0.2);
+        color: $info;
+    }
+}
+
+
+.btn-check:active+.btn-light,
+.btn-check:checked+.btn-light,
+.btn-light.active,
+.btn-light.dropdown-toggle.show,
+.btn-light:active {
+    background-color: rgba($info, 0.2);
+    color: $info;
+}
+
+.btn-group-lg>.btn,
+.btn-large,
+.btn-lg {
+    padding: 10px 16px;
+    font-size: 20px;
+    line-height: 1.33;
+    border-radius: 4px;
+}
+
+.btn-group-sm>.btn,
+.btn-sm,
+.btn-small {
+    padding: 5px 10px;
+    font-size: 13px;
+    line-height: 1.5;
+    border-radius: 2px;
+}
+
+.btn-group-xs>.btn,
+.btn-xs {
+    padding: 1px 5px;
+    font-size: 13px;
+    line-height: 1.5;
+    border-radius: 2px;
+}
+
+.btn+.btn,
+.btn+.btn-group {
+    margin-left: 5px;
+}
+
+.btn-group,
+.btn-group-vertical {
+    position: relative;
+    display: inline-flex;
+    vertical-align: middle;
+}
+
+.btn-group-vertical>.btn,
+.btn-group>.btn {
+    position: relative;
+    float: left;
+}
+
+.btn-group-vertical>.btn.active,
+.btn-group-vertical>.btn:active,
+.btn-group-vertical>.btn:focus,
+.btn-group-vertical>.btn:hover,
+.btn-group>.btn.active,
+.btn-group>.btn:active,
+.btn-group>.btn:focus,
+.btn-group>.btn:hover {
+    z-index: 2;
+}
+
+.btn-group-vertical>.btn:focus,
+.btn-group>.btn:focus {
+    outline: 0;
+}
+
+.btn-group-vertical.btn-group-kebab,
+.btn-group.btn-group-kebab {
+    background: none;
+}
+
+.btn-group {
+    border-radius: 4px;
+    background-color: #e3e6e8;
+
+    &>.btn {
+        border-radius: 4px;
+
+        &.active {
+            font-weight: 700;
+            box-shadow: none;
+            background-color: #fff;
+            border-color: var(--tui-charcoal-100);
+            position: relative;
+
+            &:hover {
+                background-color: #fff;
+            }
+        }
+
+        &:not(.btn-primary):hover {
+            position: relative;
+            background-color: var(--tui-charcoal-200);
+        }
+
+        &+.dropdown-toggle {
+            padding-left: 8px;
+            padding-right: 8px;
+        }
+    }
+
+    &>.btn-group {
+        float: left;
+    }
+
+    &>.btn-lg {
+        &+.dropdown-toggle {
+            padding-left: 12px;
+            padding-right: 12px;
+        }
+    }
+
+    &.open {
+        .dropdown-toggle {
+            -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);
+            -moz-box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);
+            box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);
+
+            &.btn-link {
+                -webkit-box-shadow: none;
+                -moz-box-shadow: none;
+                box-shadow: none;
+            }
+        }
+    }
+}
+
+.btn-group .btn+.btn,
+.btn-group .btn+.btn-group,
+.btn-group .btn-group+.btn,
+.btn-group .btn-group+.btn-group {
+    margin-left: -1px;
+}
+
+.btn-group>.btn:not(.active)+.btn:not(.active, :hover):after {
+    content: "";
+    position: absolute;
+    top: 4px;
+    left: -1px;
+    bottom: 4px;
+    width: 1px;
+    border-left: 1px solid black;
+}
+
+.btn-group .btn:not(.btn-primary, .drop-container).active:before,
+.btn-group .btn:not(.btn-primary, .drop-container):hover:before {
+    content: "";
+    position: absolute;
+    top: -1px;
+    right: -1px;
+    bottom: -1px;
+    left: -1px;
+    border: 2px solid var(--tui-charcoal-100);
+    border-radius: 4px;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.btn-group--no-bg {
+    background: none;
+}
+
+.btn-toolbar {
+    margin-left: -5px;
+}
+
+.btn-toolbar .btn-group,
+.btn-toolbar .input-group {
+    float: left;
+}
+
+.btn-toolbar>.btn,
+.btn-toolbar>.btn-group,
+.btn-toolbar>.input-group {
+    margin-left: 5px;
+}
+
+.btn-group .dropdown-toggle:active,
+.btn-group.open .dropdown-toggle {
+    outline: 0;
+}
+
+.btn {
+    &.dropdown-toggle {
+        &.dropdown-toggle--kebab {
+            background-position: 50% 50%;
+            background-repeat: no-repeat;
+            background-size: 90%;
+            background-image: url("data:image/svg+xml; charset=utf-8, %3Csvg xmlns='http: //www.w3.org/2000/svg' width='32' height='32' %3E%3Cg fill='%2339464E' fill-rule='evenodd' %3E%3Ccircle cx='16' cy='24' r='2' /%3E%3Ccircle cx='16' cy='16' r='2' /%3E%3Ccircle cx='16' cy='8' r='2' /%3E%3C/g%3E%3C/svg%3E");
+
+        }
+    }
+}
+
+.btn-group-vertical>.btn,
+.btn-group-vertical>.btn-group,
+.btn-group-vertical>.btn-group>.btn {
+    display: block;
+    float: none;
+    width: 100%;
+    max-width: 100%;
+}
+
+.btn-group-vertical {
+    &>.btn-group {
+        &>.btn {
+            float: none;
+        }
+    }
+}
+
+.btn-group-vertical>.btn+.btn,
+.btn-group-vertical>.btn+.btn-group,
+.btn-group-vertical>.btn-group+.btn,
+.btn-group-vertical>.btn-group+.btn-group {
+    margin-top: -1px;
+    margin-left: 0;
+}
+
+.btn-group-justified {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: separate;
+
+    &>.btn-group {
+        .btn {
+            width: 100%;
+        }
+
+        .dropdown-menu {
+            left: auto;
+        }
+    }
+}
+
+.btn-group-justified>.btn,
+.btn-group-justified>.btn-group {
+    float: none;
+    display: table-cell;
+    width: 1%;
+}

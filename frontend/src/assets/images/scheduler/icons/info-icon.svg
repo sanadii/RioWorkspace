@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: sketchtool 63.1 (101010) - https://sketch.com -->
+    <title>8AA10ABC-903C-4CD2-9203-4EE1B6CCE80C</title>
+    <desc>Created with sketchtool.</desc>
+    <g id="v1.0-Add-ons-page" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
+        <g id="Icons-sheet" transform="translate(-56.000000, -116.000000)" stroke-width="2">
+            <g id="information-circle" transform="translate(57.000000, 117.000000)">
+                <circle id="Oval" stroke="#767676" cx="11" cy="11.001" r="11"></circle>
+                <path d="M13.5,16.005 L12,16.005 C11.4477153,16.005 11,15.5572847 11,15.005 L11,9.505 C11,9.22885763 10.7761424,9.005 10.5,9.005 L9,9.005" id="Path" stroke="#767676"></path>
+                <line x1="10.745" y1="5.504" x2="10.745" y2="5.504" id="Path" stroke="#999999"></line>
+                <path d="M10.745,5.5 C10.6069288,5.5 10.495,5.61192881 10.495,5.75 C10.495,5.88807119 10.6069288,6 10.745,6 C10.8830712,6 10.995,5.88807119 10.995,5.75 C10.995,5.61192881 10.8830712,5.5 10.745,5.5" id="Path" stroke="#767676"></path>
+            </g>
+        </g>
+    </g>
+</svg>

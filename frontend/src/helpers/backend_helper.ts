@@ -60,12 +60,17 @@ export const postJwtRegister = (url : string, data  :any) => {
 
 // Login Method
 export const postJwtLogin = (data : any) => api.create(url.POST_JWT_LOGIN, data);
-
-// postForgetPwd
 export const postJwtForgetPwd = (data : any) => api.create(url.POST_FAKE_JWT_PASSWORD_FORGET, data);
-
-// postSocialLogin
 export const postSocialLogin = (data : any) => api.create(url.SOCIAL_LOGIN, data);
+
+
+// Calendar
+export const getEvents = () => api.get(url.GET_EVENTS);
+export const getCategories = () => api.get(url.GET_CATEGORIES);
+export const getUpCommingEvent = () => api.get(url.GET_UPCOMMINGEVENT);
+export const addNewEvent = event => api.create(url.ADD_NEW_EVENT, event);
+export const updateEvent = event => api.put(url.UPDATE_EVENT, event);
+export const deleteEvent = event => api.delete(url.DELETE_EVENT, { headers: { event } });
 
 // Revenues
 export const getRevenues = () => api.get(url.GET_REVENUES);

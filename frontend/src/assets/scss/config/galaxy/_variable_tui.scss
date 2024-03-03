@@ -1,0 +1,3519 @@
+:is(tui-alert,tui-avatar,tui-badge,tui-button,tui-button-group,tui-card,tui-cards,tui-checkbox,tui-checkbox-group,tui-calendar,tui-date-input,tui-date-picker,tui-date-range-inputs,tui-date-range-picker,tui-dropdown-item,tui-dropdown,tui-atomic-icon,tui-icon,tui-icon-list,tui-inline-message,tui-label,tui-link,tui-marketing-card,tui-modal,tui-multi-select-option,tui-multi-select,tui-pagination,tui-popover,tui-radio,tui-radio-group,tui-segmented-control-item,tui-segmented-control,tui-select,tui-stepped-progress-bar-step,tui-stepped-progress-bar,tui-switch,tui-table,tui-tab-pane,tui-tab,tui-tabs,tui-tag,tui-text-area,tui-text-field,tui-toast,tui-toast-wrapper,tui-tooltip):not(.hydrated) {
+    display: none
+}
+
+:root {
+    --tui-base-border-width-0: 0;
+    --tui-base-border-width-10: 1px;
+    --tui-base-border-width-20: 2px;
+    --tui-base-border-width-40: 4px;
+    --tui-base-border-radius-0: 0;
+    --tui-base-border-radius-6: 0.063rem;
+    --tui-base-border-radius-12: 0.125rem;
+    --tui-base-border-radius-25: 0.25rem;
+    --tui-base-border-radius-50: 0.5rem;
+    --tui-base-border-radius-75: 0.75rem;
+    --tui-base-border-radius-root: 0.01rem;
+    --tui-base-border-radius-rounded: 62.5rem;
+    --tui-base-opacity-0: 0;
+    --tui-base-opacity-10: 0.1;
+    --tui-base-opacity-20: 0.2;
+    --tui-base-opacity-40: 0.4;
+    --tui-base-opacity-50: 0.5;
+    --tui-base-opacity-75: 0.75;
+    --tui-base-color-blue-midnight: #4F4DB0;
+    --tui-base-color-green-pine: #486F34;
+    --tui-base-color-yellow-honey: #8F6400;
+    --tui-base-color-red-brick: #B23E34;
+    --tui-base-color-red-coral: #FF3D4F;
+    --tui-base-color-grey-charcoal: #39464e;
+    --tui-base-color-basic-white: #FFFFFF;
+    --tui-base-color-basic-black: #000000;
+    --tui-base-color-basic-transparent: #FFFFFF00;
+    --tui-base-dimension-0: 0rem;
+    --tui-base-dimension-12: 0.125rem;
+    --tui-base-dimension-25: 0.25rem;
+    --tui-base-dimension-37: 0.375rem;
+    --tui-base-dimension-50: 0.5rem;
+    --tui-base-dimension-62: 0.625rem;
+    --tui-base-dimension-75: 0.75rem;
+    --tui-base-dimension-100: 1rem;
+    --tui-base-dimension-125: 1.25rem;
+    --tui-base-dimension-150: 1.5rem;
+    --tui-base-dimension-200: 2rem;
+    --tui-base-dimension-250: 2.5rem;
+    --tui-base-dimension-300: 3rem;
+    --tui-base-dimension-400: 4rem;
+    --tui-base-dimension-1250: 12.5rem;
+    --tui-base-dimension-1875: 18.75rem;
+    --tui-base-dimension-3000: 30rem;
+    --tui-base-dimension-4000: 40rem;
+    --tui-base-dimension-5500: 55rem;
+    --tui-base-dimension-root: 0.01rem;
+    --tui-base-space-scale: 1rem;
+    --tui-base-paragraph-spacing-0: 0;
+    --tui-base-paragraph-spacing-50: 0.03125rem;
+    --tui-base-paragraph-spacing-100: 0.0625rem;
+    --tui-base-paragraph-spacing-200: 0.125rem;
+    --tui-base-font-size-79: 0.79rem;
+    --tui-base-font-size-89: 0.889rem;
+    --tui-base-font-size-100: 1rem;
+    --tui-base-font-size-119: 1.188rem;
+    --tui-base-font-size-125: 1.25rem;
+    --tui-base-font-size-144: 1.438rem;
+    --tui-base-font-size-156: 1.563rem;
+    --tui-base-font-size-175: 1.75rem;
+    --tui-base-font-size-200: 2rem;
+    --tui-base-font-size-250: 2.5rem;
+    --tui-base-font-size-rem: 1rem;
+    --tui-base-line-height-75: 0.75rem;
+    --tui-base-line-height-100: 1rem;
+    --tui-base-line-height-125: 1.25rem;
+    --tui-base-line-height-150: 1.5rem;
+    --tui-base-line-height-175: 1.75rem;
+    --tui-base-line-height-200: 2rem;
+    --tui-base-line-height-225: 2.25rem;
+    --tui-base-line-height-250: 2.5rem;
+    --tui-base-line-height-275: 2.75rem;
+    --tui-base-line-height-300: 3rem;
+    --tui-base-letter-spacing-0: 0;
+    --tui-base-letter-spacing-10: 0.01em;
+    --tui-base-letter-spacing-15: 0.015em;
+    --tui-base-letter-spacing-20: 0.02em;
+    --tui-base-letter-spacing-30: 0.03em;
+    --tui-sem-preset-brand-base: #4F4DB0;
+    --tui-sem-preset-neutral-base: #39464e;
+    --tui-sem-preset-danger-base: #B23E34;
+    --tui-sem-preset-warning-base: #8F6400;
+    --tui-sem-preset-success-base: #486F34;
+    --tui-sem-preset-info-base: hsl(241 39.1% 53.6%);
+    --tui-sem-preset-brand-50: hsl(241 39.1% 96%);
+    --tui-sem-preset-brand-100: hsl(241 39.1% 91.9%);
+    --tui-sem-preset-brand-200: hsl(241 39.1% 87.9%);
+    --tui-sem-preset-brand-300: hsl(241 39.1% 83.9%);
+    --tui-sem-preset-brand-400: hsl(241 39.1% 69.8%);
+    --tui-sem-preset-brand-500: hsl(241 39.1% 61.7%);
+    --tui-sem-preset-brand-600: hsl(241 39.1% 57.7%);
+    --tui-sem-preset-brand-700: #4F4DB0;
+    --tui-sem-preset-brand-800: hsl(241 39.1% 39.7%);
+    --tui-sem-preset-brand-900: hsl(241 39.1% 29.8%);
+    --tui-sem-preset-neutral-0: hsl(0 0% 100%);
+    --tui-sem-preset-neutral-25: hsl(203 15.6% 97.1%);
+    --tui-sem-preset-neutral-50: hsl(203 15.6% 94.1%);
+    --tui-sem-preset-neutral-100: hsl(203 15.6% 88.2%);
+    --tui-sem-preset-neutral-200: hsl(203 15.6% 82.4%);
+    --tui-sem-preset-neutral-300: hsl(203 15.6% 76.5%);
+    --tui-sem-preset-neutral-400: hsl(203 15.6% 55.9%);
+    --tui-sem-preset-neutral-500: hsl(203 15.6% 44.1%);
+    --tui-sem-preset-neutral-600: hsl(203 15.6% 38.2%);
+    --tui-sem-preset-neutral-700: #39464e;
+    --tui-sem-preset-neutral-800: hsl(203 15.6% 21.2%);
+    --tui-sem-preset-neutral-900: hsl(203 15.6% 15.9%);
+    --tui-sem-preset-danger-50: hsl(4.76 54.8% 96.7%);
+    --tui-sem-preset-danger-100: hsl(4.76 54.8% 92.3%);
+    --tui-sem-preset-danger-200: hsl(4.76 54.8% 86.8%);
+    --tui-sem-preset-danger-300: hsl(4.76 54.8% 82.4%);
+    --tui-sem-preset-danger-400: hsl(4.76 54.8% 67.1%);
+    --tui-sem-preset-danger-500: hsl(4.76 54.8% 58.3%);
+    --tui-sem-preset-danger-600: hsl(4.76 54.8% 53.9%);
+    --tui-sem-preset-danger-700: #B23E34;
+    --tui-sem-preset-danger-800: hsl(4.76 54.8% 36.1%);
+    --tui-sem-preset-danger-900: hsl(4.76 54.8% 27.1%);
+    --tui-sem-preset-warning-50: hsl(42 100% 94.2%);
+    --tui-sem-preset-warning-100: hsl(42 100% 88.5%);
+    --tui-sem-preset-warning-200: hsl(42 100% 82.7%);
+    --tui-sem-preset-warning-300: hsl(42 100% 77%);
+    --tui-sem-preset-warning-400: hsl(42 100% 56.8%);
+    --tui-sem-preset-warning-500: hsl(42 100% 45.3%);
+    --tui-sem-preset-warning-600: hsl(42 100% 39.6%);
+    --tui-sem-preset-warning-700: #8F6400;
+    --tui-sem-preset-warning-800: hsl(42 100% 22.4%);
+    --tui-sem-preset-warning-900: hsl(42 100% 16.8%);
+    --tui-sem-preset-success-50: hsl(99.7 36.2% 94.6%);
+    --tui-sem-preset-success-100: hsl(99.7 36.2% 89.1%);
+    --tui-sem-preset-success-200: hsl(99.7 36.2% 83.7%);
+    --tui-sem-preset-success-300: hsl(99.7 36.2% 78.2%);
+    --tui-sem-preset-success-400: hsl(99.7 36.2% 59.2%);
+    --tui-sem-preset-success-500: hsl(99.7 36.2% 48.3%);
+    --tui-sem-preset-success-600: hsl(99.7 36.2% 42.8%);
+    --tui-sem-preset-success-700: #486F34;
+    --tui-sem-preset-success-800: hsl(99.7 36.2% 25.6%);
+    --tui-sem-preset-success-900: hsl(99.7 36.2% 19.2%);
+    --tui-sem-preset-info-50: hsl(241 39.1% 96.3%);
+    --tui-sem-preset-info-100: hsl(241 39.1% 92.6%);
+    --tui-sem-preset-info-200: hsl(241 39.1% 88.9%);
+    --tui-sem-preset-info-300: hsl(241 39.1% 85.2%);
+    --tui-sem-preset-info-400: hsl(241 39.1% 72.2%);
+    --tui-sem-preset-info-500: hsl(241 39.1% 64.7%);
+    --tui-sem-preset-info-600: hsl(241 39.1% 61%);
+    --tui-sem-preset-info-700: hsl(241 39.1% 53.6%);
+    --tui-sem-preset-info-800: hsl(241 39.1% 42.9%);
+    --tui-sem-preset-info-900: hsl(241 39.1% 32.2%);
+    --tui-sem-preset-other-transparent: #FFFFFF00;
+    --tui-sem-color-text-primary: hsl(203 15.6% 15.9%);
+    --tui-sem-color-text-secondary: #39464e;
+    --tui-sem-color-text-tertiary: hsl(203 15.6% 44.1%);
+    --tui-sem-color-text-disabled: hsl(203 15.6% 76.5%);
+    --tui-sem-color-text-disabled-emphasized: hsl(203 15.6% 55.9%);
+    --tui-sem-color-text-brand: #4F4DB0;
+    --tui-sem-color-text-selected: #4F4DB0;
+    --tui-sem-color-text-link-primary: #4F4DB0;
+    --tui-sem-color-text-success: #486F34;
+    --tui-sem-color-text-danger: #B23E34;
+    --tui-sem-color-text-warning: #8F6400;
+    --tui-sem-color-text-warning-inverse: hsl(42 100% 16.8%);
+    --tui-sem-color-text-info: hsl(241 39.1% 53.6%);
+    --tui-sem-color-text-inverse: hsl(0 0% 100%);
+    --tui-sem-color-icon-primary: #39464e;
+    --tui-sem-color-icon-secondary: hsl(203 15.6% 44.1%);
+    --tui-sem-color-icon-disabled: hsl(203 15.6% 76.5%);
+    --tui-sem-color-icon-brand: #4F4DB0;
+    --tui-sem-color-icon-success: #486F34;
+    --tui-sem-color-icon-danger: #B23E34;
+    --tui-sem-color-icon-warning: #8F6400;
+    --tui-sem-color-icon-warning-inverse: hsl(42 100% 16.8%);
+    --tui-sem-color-icon-info: hsl(241 39.1% 53.6%);
+    --tui-sem-color-icon-inverse: hsl(0 0% 100%);
+    --tui-sem-color-border-subtlest: hsl(203 15.6% 88.2%);
+    --tui-sem-color-border-subtle: hsl(203 15.6% 82.4%);
+    --tui-sem-color-border-default: hsl(203 15.6% 55.9%);
+    --tui-sem-color-border-emphasized: hsl(203 15.6% 44.1%);
+    --tui-sem-color-border-disabled: hsl(203 15.6% 82.4%);
+    --tui-sem-color-border-brand: #4F4DB0;
+    --tui-sem-color-border-selected: #4F4DB0;
+    --tui-sem-color-border-focused: hsl(241 39.1% 61.7%);
+    --tui-sem-color-border-inverse: hsl(0 0% 100%);
+    --tui-sem-color-border-transparent: #FFFFFF00;
+    --tui-sem-color-border-success-emphasized: #486F34;
+    --tui-sem-color-border-success-subtle: hsl(99.7 36.2% 89.1%);
+    --tui-sem-color-border-danger-emphasized: #B23E34;
+    --tui-sem-color-border-danger-subtle: hsl(4.76 54.8% 92.3%);
+    --tui-sem-color-border-warning-emphasized: #8F6400;
+    --tui-sem-color-border-warning-subtle: hsl(42 100% 88.5%);
+    --tui-sem-color-border-info-emphasized: hsl(241 39.1% 53.6%);
+    --tui-sem-color-border-info-subtle: hsl(241 39.1% 92.6%);
+    --tui-sem-color-background-transparent: #FFFFFF00;
+    --tui-sem-color-background-secondary: hsl(203 15.6% 97.1%);
+    --tui-sem-color-background-primary: hsl(0 0% 100%);
+    --tui-sem-color-background-disabled-default: hsl(203 15.6% 94.1%);
+    --tui-sem-color-background-disabled-emphasized: hsl(203 15.6% 88.2%);
+    --tui-sem-color-background-disabled-selected: hsl(203 15.6% 76.5%);
+    --tui-sem-color-background-success-emphasized: #486F34;
+    --tui-sem-color-background-success-emphasized-hovered: hsl(99.7 36.2% 25.6%);
+    --tui-sem-color-background-success-emphasized-pressed: hsl(99.7 36.2% 19.2%);
+    --tui-sem-color-background-success-subtle: hsl(99.7 36.2% 89.1%);
+    --tui-sem-color-background-success-subtle-hovered: hsl(99.7 36.2% 83.7%);
+    --tui-sem-color-background-success-subtle-pressed: hsl(99.7 36.2% 78.2%);
+    --tui-sem-color-background-success-subtle-container: hsl(99.7 36.2% 94.6%);
+    --tui-sem-color-background-danger-emphasized: #B23E34;
+    --tui-sem-color-background-danger-emphasized-hovered: hsl(4.76 54.8% 36.1%);
+    --tui-sem-color-background-danger-emphasized-pressed: hsl(4.76 54.8% 27.1%);
+    --tui-sem-color-background-danger-subtle: hsl(4.76 54.8% 92.3%);
+    --tui-sem-color-background-danger-subtle-hovered: hsl(4.76 54.8% 86.8%);
+    --tui-sem-color-background-danger-subtle-pressed: hsl(4.76 54.8% 82.4%);
+    --tui-sem-color-background-danger-subtle-container: hsl(4.76 54.8% 96.7%);
+    --tui-sem-color-background-warning-emphasized: hsl(42 100% 56.8%);
+    --tui-sem-color-background-warning-emphasized-hovered: hsl(42 100% 45.3%);
+    --tui-sem-color-background-warning-emphasized-pressed: hsl(42 100% 39.6%);
+    --tui-sem-color-background-warning-subtle: hsl(42 100% 88.5%);
+    --tui-sem-color-background-warning-subtle-hovered: hsl(42 100% 82.7%);
+    --tui-sem-color-background-warning-subtle-pressed: hsl(42 100% 77%);
+    --tui-sem-color-background-warning-subtle-container: hsl(42 100% 94.2%);
+    --tui-sem-color-background-info-emphasized: hsl(241 39.1% 53.6%);
+    --tui-sem-color-background-info-emphasized-hovered: hsl(241 39.1% 42.9%);
+    --tui-sem-color-background-info-emphasized-pressed: hsl(241 39.1% 32.2%);
+    --tui-sem-color-background-info-subtle: hsl(241 39.1% 92.6%);
+    --tui-sem-color-background-info-subtle-hovered: hsl(241 39.1% 88.9%);
+    --tui-sem-color-background-info-subtle-pressed: hsl(241 39.1% 85.2%);
+    --tui-sem-color-background-info-subtle-container: hsl(241 39.1% 96.3%);
+    --tui-sem-color-background-selected-emphasized: #4F4DB0;
+    --tui-sem-color-background-selected-emphasized-hovered: hsl(241 39.1% 39.7%);
+    --tui-sem-color-background-selected-emphasized-pressed: hsl(241 39.1% 29.8%);
+    --tui-sem-color-background-selected-subtle: hsl(241 39.1% 91.9%);
+    --tui-sem-color-background-selected-subtle-hovered: hsl(241 39.1% 87.9%);
+    --tui-sem-color-background-selected-subtle-pressed: hsl(241 39.1% 83.9%);
+    --tui-sem-color-background-brand-emphasized: #4F4DB0;
+    --tui-sem-color-background-brand-emphasized-hovered: hsl(241 39.1% 39.7%);
+    --tui-sem-color-background-brand-emphasized-pressed: hsl(241 39.1% 29.8%);
+    --tui-sem-color-background-brand-subtle: hsl(241 39.1% 91.9%);
+    --tui-sem-color-background-brand-subtle-hovered: hsl(241 39.1% 87.9%);
+    --tui-sem-color-background-brand-subtle-pressed: hsl(241 39.1% 83.9%);
+    --tui-sem-color-background-brand-subtle-container: hsl(241 39.1% 96%);
+    --tui-sem-color-background-neutral-emphasized: hsl(203 15.6% 38.2%);
+    --tui-sem-color-background-neutral-emphasized-hovered: #39464e;
+    --tui-sem-color-background-neutral-emphasized-pressed: hsl(203 15.6% 21.2%);
+    --tui-sem-color-background-neutral-subtle: hsl(203 15.6% 88.2%);
+    --tui-sem-color-background-neutral-subtle-hovered: hsl(203 15.6% 82.4%);
+    --tui-sem-color-background-neutral-subtle-pressed: hsl(203 15.6% 76.5%);
+    --tui-sem-color-background-neutral-subtle-container: hsl(203 15.6% 94.1%);
+    --tui-sem-color-background-neutral-subtlest: hsl(0 0% 100%);
+    --tui-sem-color-background-neutral-subtlest-hovered: hsl(203 15.6% 88.2%);
+    --tui-sem-color-background-neutral-subtlest-pressed: hsl(203 15.6% 82.4%);
+    --tui-sem-color-other-overlay: rgba(57, 70, 78, 0.5);
+    --tui-sem-color-other-skeleton: rgba(57, 70, 78, 0.1);
+    --tui-sem-font-interface-emphasized-xs: 700 0.79rem/1.25rem Lato;
+    --tui-sem-font-interface-emphasized-sm: 700 0.889rem/1.5rem Lato;
+    --tui-sem-font-interface-emphasized-md: 700 1rem/1.5rem Lato;
+    --tui-sem-font-interface-emphasized-lg: 700 1.188rem/1.75rem Lato;
+    --tui-sem-font-interface-default-xs: 400 0.79rem/1.25rem Lato;
+    --tui-sem-font-interface-default-sm: 400 0.889rem/1.5rem Lato;
+    --tui-sem-font-interface-default-md: 400 1rem/1.5rem Lato;
+    --tui-sem-font-interface-default-lg: 400 1.188rem/1.75rem Lato;
+    --tui-sem-font-interface-emphasized-uppercase-xs: 700 0.79rem/1.25rem Lato;
+    --tui-sem-font-interface-emphasized-uppercase-sm: 700 0.889rem/1.5rem Lato;
+    --tui-sem-font-interface-emphasized-uppercase-md: 700 1rem/1.5rem Lato;
+    --tui-sem-font-interface-emphasized-uppercase-lg: 700 1.188rem/1.75rem Lato;
+    --tui-sem-font-text-decoration-none: none;
+    --tui-sem-font-text-decoration-underline: underline;
+    --tui-sem-font-text-decoration-line-through: line-through;
+    --tui-sem-font-text-case-none: none;
+    --tui-sem-font-text-case-uppercase: uppercase;
+    --tui-sem-font-font-family-body: Lato;
+    --tui-sem-font-font-family-title: Lato;
+    --tui-sem-font-font-family-title-alternative: Domaine Display;
+    --tui-sem-font-font-family-interface: Lato;
+    --tui-sem-font-line-height-xs: 1.25rem;
+    --tui-sem-font-line-height-sm: 1.5rem;
+    --tui-sem-font-line-height-md: 1.75rem;
+    --tui-sem-font-line-height-lg: 2.25rem;
+    --tui-sem-font-font-size-xxs: 0.79rem;
+    --tui-sem-font-font-size-xs: 0.889rem;
+    --tui-sem-font-font-size-sm: 1rem;
+    --tui-sem-font-font-size-md: 1.188rem;
+    --tui-sem-font-font-size-lg: 1.438rem;
+    --tui-sem-font-font-size-xl: 1.75rem;
+    --tui-sem-font-paragraph-spacing-body: 0.125rem;
+    --tui-sem-font-paragraph-spacing-title: 0;
+    --tui-sem-font-paragraph-spacing-interface: 0.031rem;
+    --tui-sem-font-letter-spacing-positive-xxs: 0;
+    --tui-sem-font-letter-spacing-positive-xs: 0.01em;
+    --tui-sem-font-letter-spacing-positive-sm: 0.015em;
+    --tui-sem-font-letter-spacing-positive-md: 0.02em;
+    --tui-sem-font-letter-spacing-positive-lg: 0.03em;
+    --tui-sem-font-font-weight-body-default: 400;
+    --tui-sem-font-font-weight-body-emphasized: 700;
+    --tui-sem-font-font-weight-title-default: 700;
+    --tui-sem-font-font-weight-title-subtle: 400;
+    --tui-sem-font-font-weight-interface-default: 400;
+    --tui-sem-font-font-weight-interface-emphasized: 700;
+    --tui-sem-font-body-emphasized-xs: 700 0.79rem/1.25rem Lato;
+    --tui-sem-font-body-emphasized-sm: 700 0.889rem/1.5rem Lato;
+    --tui-sem-font-body-emphasized-md: 700 1rem/1.5rem Lato;
+    --tui-sem-font-body-emphasized-lg: 700 1.188rem/1.75rem Lato;
+    --tui-sem-font-body-default-xs: 400 0.79rem/1.25rem Lato;
+    --tui-sem-font-body-default-sm: 400 0.889rem/1.5rem Lato;
+    --tui-sem-font-body-default-md: 400 1rem/1.5rem Lato;
+    --tui-sem-font-body-default-lg: 400 1.188rem/1.75rem Lato;
+    --tui-sem-font-title-xs: 700 1rem/1.25rem Lato;
+    --tui-sem-font-title-sm: 700 1.188rem/1.5rem Lato;
+    --tui-sem-font-title-md: 700 1.438rem/1.75rem Lato;
+    --tui-sem-font-title-lg: 400 1.75rem/2.25rem 'Domaine Display';
+    --tui-sem-font-underline-interface-emphasized-xs: 700 0.79rem/1.25rem Lato;
+    --tui-sem-font-underline-interface-emphasized-sm: 700 0.889rem/1.5rem Lato;
+    --tui-sem-font-underline-interface-emphasized-md: 700 1rem/1.5rem Lato;
+    --tui-sem-font-underline-interface-emphasized-lg: 700 1.188rem/1.75rem Lato;
+    --tui-sem-font-underline-interface-default-xs: 400 0.79rem/1.25rem Lato;
+    --tui-sem-font-underline-interface-default-sm: 400 0.889rem/1.5rem Lato;
+    --tui-sem-font-underline-interface-default-md: 400 1rem/1.5rem Lato;
+    --tui-sem-font-underline-interface-default-lg: 400 1.188rem/1.75rem Lato;
+    --tui-sem-font-underline-body-emphasized-xs: 700 0.79rem/1.25rem Lato;
+    --tui-sem-font-underline-body-emphasized-sm: 700 0.889rem/1.5rem Lato;
+    --tui-sem-font-underline-body-emphasized-md: 700 1rem/1.5rem Lato;
+    --tui-sem-font-underline-body-emphasized-lg: 700 1.188rem/1.75rem Lato;
+    --tui-sem-font-underline-body-default-xs: 400 0.79rem/1.25rem Lato;
+    --tui-sem-font-underline-body-default-sm: 400 0.889rem/1.5rem Lato;
+    --tui-sem-font-underline-body-default-md: 400 1rem/1.5rem Lato;
+    --tui-sem-font-underline-body-default-lg: 400 1.188rem/1.75rem Lato;
+    --tui-sem-border-border-radius-selectable-none: 0;
+    --tui-sem-border-border-radius-selectable-sm: 0.25rem;
+    --tui-sem-border-border-radius-selectable-xs: 0.125rem;
+    --tui-sem-border-border-radius-selectable-rounded: 62.5rem;
+    --tui-sem-border-border-radius-container-none: 0;
+    --tui-sem-border-border-radius-container-xs: 0.25rem;
+    --tui-sem-border-border-radius-container-sm: 0.5rem;
+    --tui-sem-border-border-radius-container-md: 0.75rem;
+    --tui-sem-border-border-width-none: 0;
+    --tui-sem-border-border-width-sm: 1px;
+    --tui-sem-border-border-width-md: 2px;
+    --tui-sem-border-border-width-lg: 4px;
+    --tui-sem-size-selectable-xxxs: 1rem;
+    --tui-sem-size-selectable-xxs: 1.25rem;
+    --tui-sem-size-selectable-xs: 1.5rem;
+    --tui-sem-size-selectable-sm: 2rem;
+    --tui-sem-size-selectable-md: 2.5rem;
+    --tui-sem-size-selectable-lg: 3rem;
+    --tui-sem-size-selectable-xxl: 4rem;
+    --tui-sem-size-container-xs: 12.5rem;
+    --tui-sem-size-container-sm: 18.75rem;
+    --tui-sem-size-container-md: 30rem;
+    --tui-sem-size-container-lg: 40rem;
+    --tui-sem-size-container-xl: 55rem;
+    --tui-sem-size-icon-xs: 1rem;
+    --tui-sem-size-icon-sm: 1.25rem;
+    --tui-sem-size-icon-md: 1.5rem;
+    --tui-sem-size-icon-lg: 2rem;
+    --tui-sem-space-responsive-sm: 1rem;
+    --tui-sem-space-responsive-md: 1.5rem;
+    --tui-sem-space-responsive-lg: 1.5rem;
+    --tui-sem-space-responsive-xl: 2rem;
+    --tui-sem-space-responsive-xxl: 2.5rem;
+    --tui-sem-space-static-none: 0rem;
+    --tui-sem-space-static-xxs: 0.25rem;
+    --tui-sem-space-static-xs: 0.5rem;
+    --tui-sem-space-static-sm: 0.75rem;
+    --tui-sem-space-static-md: 1rem;
+    --tui-sem-space-static-lg: 1.5rem;
+    --tui-sem-space-static-xl: 2rem;
+    --tui-sem-space-static-xxl: 2.5rem;
+    --tui-sem-space-static-xxxl: 3rem;
+    --tui-sem-space-selectable-none: 0rem;
+    --tui-sem-space-selectable-xxs: 0.125rem;
+    --tui-sem-space-selectable-xs: 0.25rem;
+    --tui-sem-space-selectable-sm: 0.5rem;
+    --tui-sem-space-selectable-md: 0.75rem;
+    --tui-sem-space-selectable-lg: 1rem;
+    --tui-sem-space-selectable-xl: 1.25rem;
+    --tui-sem-space-selectable-xxl: 1.5rem;
+    --tui-sem-space-selectable-xxxl: 2rem;
+    --tui-sem-shadow-focus-default: 0 0 0 2px hsl(0 0% 100%), 0 0 0 4px hsl(241 39.1% 61.7%);
+    --tui-sem-shadow-container-xs: 0 4px 8px 0 rgba(57, 70, 78, 0.1);
+    --tui-sem-shadow-container-xs-dark: 0 4px 8px 0 rgba(57, 70, 78, 0.2);
+    --tui-sem-shadow-container-xs-darker: 0 4px 8px 0 rgba(57, 70, 78, 0.4);
+    --tui-component-avatar-xs-size: 1.5rem;
+    --tui-component-avatar-xs-icon-size: 1rem;
+    --tui-component-avatar-xs-text-font: 700 0.79rem/1.25rem Lato;
+    --tui-component-avatar-sm-size: 2rem;
+    --tui-component-avatar-sm-icon-size: 1.25rem;
+    --tui-component-avatar-sm-text-font: 700 0.889rem/1.5rem Lato;
+    --tui-component-avatar-md-size: 2.5rem;
+    --tui-component-avatar-md-icon-size: 1.25rem;
+    --tui-component-avatar-md-text-font: 700 0.889rem/1.5rem Lato;
+    --tui-component-avatar-lg-size: 3rem;
+    --tui-component-avatar-lg-icon-size: 1.5rem;
+    --tui-component-avatar-lg-text-font: 700 1rem/1.5rem Lato;
+    --tui-component-avatar-xl-size: 4rem;
+    --tui-component-avatar-xl-icon-size: 2rem;
+    --tui-component-avatar-xl-text-font: 700 1.188rem/1.75rem Lato;
+    --tui-component-avatar-border-radius: 62.5rem;
+    --tui-component-avatar-neutral-default-background-color: hsl(203 15.6% 88.2%);
+    --tui-component-avatar-neutral-default-icon-color: hsl(203 15.6% 44.1%);
+    --tui-component-avatar-neutral-default-text-color: hsl(203 15.6% 44.1%);
+    --tui-component-avatar-neutral-default-border-color: #FFFFFF00;
+    --tui-component-avatar-neutral-emphasized-background-color: hsl(203 15.6% 38.2%);
+    --tui-component-avatar-neutral-emphasized-icon-color: hsl(0 0% 100%);
+    --tui-component-avatar-neutral-emphasized-text-color: hsl(0 0% 100%);
+    --tui-component-avatar-neutral-emphasized-border-color: #FFFFFF00;
+    --tui-component-avatar-image-background-color: hsl(0 0% 100%);
+    --tui-component-avatar-image-border-color: #FFFFFF00;
+    --tui-component-avatar-image-border-width: 0;
+    --tui-component-avatar-default-border-width: 0;
+    --tui-component-badge-sm-icon-size: 1rem;
+    --tui-component-badge-sm-text-font: 700 0.79rem/1.25rem Lato;
+    --tui-component-badge-sm-default-composition-height: 1.5rem;
+    --tui-component-badge-sm-default-composition-padding-right: 0.5rem;
+    --tui-component-badge-sm-default-composition-padding-left: 0.5rem;
+    --tui-component-badge-sm-default-composition-border-radius: 62.5rem;
+    --tui-component-badge-sm-default-composition-item-spacing: 0.25rem;
+    --tui-component-badge-sm-default-composition-border-width: 0;
+    --tui-component-badge-md-icon-size: 1.25rem;
+    --tui-component-badge-md-text-font: 700 0.889rem/1.5rem Lato;
+    --tui-component-badge-md-default-composition-height: 2rem;
+    --tui-component-badge-md-default-composition-padding-right: 0.75rem;
+    --tui-component-badge-md-default-composition-padding-left: 0.75rem;
+    --tui-component-badge-md-default-composition-border-radius: 62.5rem;
+    --tui-component-badge-md-default-composition-item-spacing: 0.25rem;
+    --tui-component-badge-md-default-composition-border-width: 0;
+    --tui-component-badge-neutral-default-background-color: hsl(203 15.6% 88.2%);
+    --tui-component-badge-neutral-default-border-color: #FFFFFF00;
+    --tui-component-badge-neutral-default-text-color: hsl(203 15.6% 44.1%);
+    --tui-component-badge-neutral-default-icon-color: hsl(203 15.6% 44.1%);
+    --tui-component-badge-neutral-emphasized-background-color: hsl(203 15.6% 38.2%);
+    --tui-component-badge-neutral-emphasized-border-color: #FFFFFF00;
+    --tui-component-badge-neutral-emphasized-icon-color: hsl(0 0% 100%);
+    --tui-component-badge-neutral-emphasized-text-color: hsl(0 0% 100%);
+    --tui-component-badge-danger-default-background-color: hsl(4.76 54.8% 92.3%);
+    --tui-component-badge-danger-default-border-color: #FFFFFF00;
+    --tui-component-badge-danger-default-text-color: #B23E34;
+    --tui-component-badge-danger-default-icon-color: #B23E34;
+    --tui-component-badge-danger-emphasized-background-color: #B23E34;
+    --tui-component-badge-danger-emphasized-border-color: #FFFFFF00;
+    --tui-component-badge-danger-emphasized-text-color: hsl(0 0% 100%);
+    --tui-component-badge-danger-emphasized-icon-color: hsl(0 0% 100%);
+    --tui-component-badge-warning-default-background-color: hsl(42 100% 88.5%);
+    --tui-component-badge-warning-default-border-color: #FFFFFF00;
+    --tui-component-badge-warning-default-text-color: #8F6400;
+    --tui-component-badge-warning-default-icon-color: #8F6400;
+    --tui-component-badge-warning-emphasized-background-color: hsl(42 100% 56.8%);
+    --tui-component-badge-warning-emphasized-border-color: #FFFFFF00;
+    --tui-component-badge-warning-emphasized-text-color: hsl(42 100% 16.8%);
+    --tui-component-badge-warning-emphasized-icon-color: hsl(42 100% 16.8%);
+    --tui-component-badge-info-default-background-color: hsl(241 39.1% 92.6%);
+    --tui-component-badge-info-default-border-color: #FFFFFF00;
+    --tui-component-badge-info-default-text-color: hsl(241 39.1% 53.6%);
+    --tui-component-badge-info-default-icon-color: hsl(241 39.1% 53.6%);
+    --tui-component-badge-info-emphasized-background-color: hsl(241 39.1% 53.6%);
+    --tui-component-badge-info-emphasized-border-color: #FFFFFF00;
+    --tui-component-badge-info-emphasized-text-color: hsl(0 0% 100%);
+    --tui-component-badge-info-emphasized-icon-color: hsl(0 0% 100%);
+    --tui-component-badge-success-default-background-color: hsl(99.7 36.2% 89.1%);
+    --tui-component-badge-success-default-border-color: #FFFFFF00;
+    --tui-component-badge-success-default-text-color: #486F34;
+    --tui-component-badge-success-default-icon-color: #486F34;
+    --tui-component-badge-success-emphasized-background-color: #486F34;
+    --tui-component-badge-success-emphasized-border-color: #FFFFFF00;
+    --tui-component-badge-success-emphasized-text-color: hsl(0 0% 100%);
+    --tui-component-badge-success-emphasized-icon-color: hsl(0 0% 100%);
+    --tui-component-button-primary-default-background-color: #4F4DB0;
+    --tui-component-button-primary-default-text-color: hsl(0 0% 100%);
+    --tui-component-button-primary-default-icon-color: hsl(0 0% 100%);
+    --tui-component-button-primary-default-border-color: #FFFFFF00;
+    --tui-component-button-primary-hovered-background-color: hsl(241 39.1% 39.7%);
+    --tui-component-button-primary-hovered-text-color: hsl(0 0% 100%);
+    --tui-component-button-primary-hovered-icon-color: hsl(0 0% 100%);
+    --tui-component-button-primary-hovered-border-color: #FFFFFF00;
+    --tui-component-button-primary-pressed-background-color: hsl(241 39.1% 29.8%);
+    --tui-component-button-primary-pressed-text-color: hsl(0 0% 100%);
+    --tui-component-button-primary-pressed-icon-color: hsl(0 0% 100%);
+    --tui-component-button-primary-pressed-border-color: #FFFFFF00;
+    --tui-component-button-primary-disabled-background-color: hsl(203 15.6% 94.1%);
+    --tui-component-button-primary-disabled-text-color: hsl(203 15.6% 76.5%);
+    --tui-component-button-primary-disabled-icon-color: hsl(203 15.6% 76.5%);
+    --tui-component-button-primary-disabled-border-color: hsl(203 15.6% 82.4%);
+    --tui-component-button-primary-subtle-default-background-color: hsl(241 39.1% 91.9%);
+    --tui-component-button-primary-subtle-default-text-color: #4F4DB0;
+    --tui-component-button-primary-subtle-default-icon-color: #4F4DB0;
+    --tui-component-button-primary-subtle-default-border-color: #FFFFFF00;
+    --tui-component-button-primary-subtle-hovered-background-color: hsl(241 39.1% 87.9%);
+    --tui-component-button-primary-subtle-hovered-text-color: #4F4DB0;
+    --tui-component-button-primary-subtle-hovered-icon-color: #4F4DB0;
+    --tui-component-button-primary-subtle-hovered-border-color: #FFFFFF00;
+    --tui-component-button-primary-subtle-pressed-background-color: hsl(241 39.1% 83.9%);
+    --tui-component-button-primary-subtle-pressed-text-color: #4F4DB0;
+    --tui-component-button-primary-subtle-pressed-icon-color: #4F4DB0;
+    --tui-component-button-primary-subtle-pressed-border-color: #FFFFFF00;
+    --tui-component-button-primary-subtle-disabled-background-color: hsl(203 15.6% 94.1%);
+    --tui-component-button-primary-subtle-disabled-text-color: hsl(203 15.6% 76.5%);
+    --tui-component-button-primary-subtle-disabled-icon-color: hsl(203 15.6% 76.5%);
+    --tui-component-button-primary-subtle-disabled-border-color: hsl(203 15.6% 82.4%);
+    --tui-component-button-secondary-default-background-color: #FFFFFF00;
+    --tui-component-button-secondary-default-text-color: #39464e;
+    --tui-component-button-secondary-default-icon-color: #39464e;
+    --tui-component-button-secondary-default-border-color: hsl(203 15.6% 55.9%);
+    --tui-component-button-secondary-hovered-background-color: hsl(203 15.6% 88.2%);
+    --tui-component-button-secondary-hovered-text-color: #39464e;
+    --tui-component-button-secondary-hovered-icon-color: #39464e;
+    --tui-component-button-secondary-hovered-border-color: hsl(203 15.6% 55.9%);
+    --tui-component-button-secondary-pressed-background-color: hsl(203 15.6% 82.4%);
+    --tui-component-button-secondary-pressed-text-color: #39464e;
+    --tui-component-button-secondary-pressed-icon-color: #39464e;
+    --tui-component-button-secondary-pressed-border-color: hsl(203 15.6% 55.9%);
+    --tui-component-button-secondary-disabled-background-color: hsl(203 15.6% 94.1%);
+    --tui-component-button-secondary-disabled-text-color: hsl(203 15.6% 76.5%);
+    --tui-component-button-secondary-disabled-icon-color: hsl(203 15.6% 76.5%);
+    --tui-component-button-secondary-disabled-border-color: hsl(203 15.6% 82.4%);
+    --tui-component-button-primary-ghost-default-background-color: #FFFFFF00;
+    --tui-component-button-primary-ghost-default-text-color: #4F4DB0;
+    --tui-component-button-primary-ghost-default-icon-color: #4F4DB0;
+    --tui-component-button-primary-ghost-default-border-color: #FFFFFF00;
+    --tui-component-button-primary-ghost-hovered-background-color: hsl(241 39.1% 87.9%);
+    --tui-component-button-primary-ghost-hovered-text-color: #4F4DB0;
+    --tui-component-button-primary-ghost-hovered-icon-color: #4F4DB0;
+    --tui-component-button-primary-ghost-hovered-border-color: #FFFFFF00;
+    --tui-component-button-primary-ghost-pressed-background-color: hsl(241 39.1% 83.9%);
+    --tui-component-button-primary-ghost-pressed-text-color: #4F4DB0;
+    --tui-component-button-primary-ghost-pressed-icon-color: #4F4DB0;
+    --tui-component-button-primary-ghost-pressed-border-color: #FFFFFF00;
+    --tui-component-button-primary-ghost-disabled-background-color: #FFFFFF00;
+    --tui-component-button-primary-ghost-disabled-text-color: hsl(203 15.6% 76.5%);
+    --tui-component-button-primary-ghost-disabled-icon-color: hsl(203 15.6% 76.5%);
+    --tui-component-button-primary-ghost-disabled-border-color: #FFFFFF00;
+    --tui-component-button-danger-default-background-color: #B23E34;
+    --tui-component-button-danger-default-text-color: hsl(0 0% 100%);
+    --tui-component-button-danger-default-icon-color: hsl(0 0% 100%);
+    --tui-component-button-danger-default-border-color: #FFFFFF00;
+    --tui-component-button-danger-hovered-background-color: hsl(4.76 54.8% 36.1%);
+    --tui-component-button-danger-hovered-text-color: hsl(0 0% 100%);
+    --tui-component-button-danger-hovered-icon-color: hsl(0 0% 100%);
+    --tui-component-button-danger-hovered-border-color: #FFFFFF00;
+    --tui-component-button-danger-pressed-background-color: hsl(4.76 54.8% 27.1%);
+    --tui-component-button-danger-pressed-text-color: hsl(0 0% 100%);
+    --tui-component-button-danger-pressed-icon-color: hsl(0 0% 100%);
+    --tui-component-button-danger-pressed-border-color: #FFFFFF00;
+    --tui-component-button-danger-disabled-background-color: hsl(203 15.6% 94.1%);
+    --tui-component-button-danger-disabled-text-color: hsl(203 15.6% 76.5%);
+    --tui-component-button-danger-disabled-icon-color: hsl(203 15.6% 76.5%);
+    --tui-component-button-danger-disabled-border-color: hsl(203 15.6% 82.4%);
+    --tui-component-button-danger-subtle-default-background-color: hsl(4.76 54.8% 92.3%);
+    --tui-component-button-danger-subtle-default-text-color: #B23E34;
+    --tui-component-button-danger-subtle-default-icon-color: #B23E34;
+    --tui-component-button-danger-subtle-default-border-color: #FFFFFF00;
+    --tui-component-button-danger-subtle-hovered-background-color: hsl(4.76 54.8% 86.8%);
+    --tui-component-button-danger-subtle-hovered-text-color: #B23E34;
+    --tui-component-button-danger-subtle-hovered-icon-color: #B23E34;
+    --tui-component-button-danger-subtle-hovered-border-color: #FFFFFF00;
+    --tui-component-button-danger-subtle-pressed-background-color: hsl(4.76 54.8% 82.4%);
+    --tui-component-button-danger-subtle-pressed-text-color: #B23E34;
+    --tui-component-button-danger-subtle-pressed-icon-color: #B23E34;
+    --tui-component-button-danger-subtle-pressed-border-color: #FFFFFF00;
+    --tui-component-button-danger-subtle-disabled-background-color: hsl(203 15.6% 94.1%);
+    --tui-component-button-danger-subtle-disabled-text-color: hsl(203 15.6% 76.5%);
+    --tui-component-button-danger-subtle-disabled-icon-color: hsl(203 15.6% 76.5%);
+    --tui-component-button-danger-subtle-disabled-border-color: hsl(203 15.6% 82.4%);
+    --tui-component-button-secondary-ghost-default-background-color: #FFFFFF00;
+    --tui-component-button-secondary-ghost-default-text-color: #39464e;
+    --tui-component-button-secondary-ghost-default-icon-color: #39464e;
+    --tui-component-button-secondary-ghost-default-border-color: #FFFFFF00;
+    --tui-component-button-secondary-ghost-hovered-background-color: hsl(203 15.6% 88.2%);
+    --tui-component-button-secondary-ghost-hovered-text-color: #39464e;
+    --tui-component-button-secondary-ghost-hovered-icon-color: #39464e;
+    --tui-component-button-secondary-ghost-hovered-border-color: #FFFFFF00;
+    --tui-component-button-secondary-ghost-pressed-background-color: hsl(203 15.6% 82.4%);
+    --tui-component-button-secondary-ghost-pressed-text-color: #39464e;
+    --tui-component-button-secondary-ghost-pressed-icon-color: #39464e;
+    --tui-component-button-secondary-ghost-pressed-border-color: #FFFFFF00;
+    --tui-component-button-secondary-ghost-disabled-background-color: #FFFFFF00;
+    --tui-component-button-secondary-ghost-disabled-text-color: hsl(203 15.6% 76.5%);
+    --tui-component-button-secondary-ghost-disabled-icon-color: hsl(203 15.6% 76.5%);
+    --tui-component-button-secondary-ghost-disabled-border-color: #FFFFFF00;
+    --tui-component-button-danger-ghost-default-background-color: #FFFFFF00;
+    --tui-component-button-danger-ghost-default-text-color: #B23E34;
+    --tui-component-button-danger-ghost-default-icon-color: #B23E34;
+    --tui-component-button-danger-ghost-default-border-color: #FFFFFF00;
+    --tui-component-button-danger-ghost-hovered-background-color: hsl(4.76 54.8% 86.8%);
+    --tui-component-button-danger-ghost-hovered-text-color: #B23E34;
+    --tui-component-button-danger-ghost-hovered-icon-color: #B23E34;
+    --tui-component-button-danger-ghost-hovered-border-color: #FFFFFF00;
+    --tui-component-button-danger-ghost-pressed-background-color: hsl(4.76 54.8% 82.4%);
+    --tui-component-button-danger-ghost-pressed-text-color: #B23E34;
+    --tui-component-button-danger-ghost-pressed-icon-color: #B23E34;
+    --tui-component-button-danger-ghost-pressed-border-color: #FFFFFF00;
+    --tui-component-button-danger-ghost-disabled-background-color: #FFFFFF00;
+    --tui-component-button-danger-ghost-disabled-text-color: hsl(203 15.6% 76.5%);
+    --tui-component-button-danger-ghost-disabled-icon-color: hsl(203 15.6% 76.5%);
+    --tui-component-button-danger-ghost-disabled-border-color: #FFFFFF00;
+    --tui-component-button-sm-text-font: 700 0.889rem/1.5rem Lato;
+    --tui-component-button-sm-icon-size: 1.25rem;
+    --tui-component-button-md-text-font: 700 0.889rem/1.5rem Lato;
+    --tui-component-button-md-icon-size: 1.25rem;
+    --tui-component-button-lg-text-font: 700 1rem/1.5rem Lato;
+    --tui-component-button-lg-icon-size: 1.5rem;
+    --tui-component-button-icon-none-sm-comp-height: 2rem;
+    --tui-component-button-icon-none-sm-comp-padding-left: 0.75rem;
+    --tui-component-button-icon-none-sm-comp-padding-right: 0.75rem;
+    --tui-component-button-icon-none-sm-comp-border-radius: 0.25rem;
+    --tui-component-button-icon-none-sm-comp-border-width: 1px;
+    --tui-component-button-icon-none-md-comp-height: 2.5rem;
+    --tui-component-button-icon-none-md-comp-padding-left: 1rem;
+    --tui-component-button-icon-none-md-comp-padding-right: 1rem;
+    --tui-component-button-icon-none-md-comp-border-radius: 0.25rem;
+    --tui-component-button-icon-none-md-comp-border-width: 1px;
+    --tui-component-button-icon-none-lg-comp-height: 3rem;
+    --tui-component-button-icon-none-lg-comp-padding-left: 1.5rem;
+    --tui-component-button-icon-none-lg-comp-padding-right: 1.5rem;
+    --tui-component-button-icon-none-lg-comp-border-radius: 0.25rem;
+    --tui-component-button-icon-none-lg-comp-border-width: 1px;
+    --tui-component-button-icon-only-sm-comp-height: 2rem;
+    --tui-component-button-icon-only-sm-comp-width: 2rem;
+    --tui-component-button-icon-only-sm-comp-border-radius: 0.25rem;
+    --tui-component-button-icon-only-sm-comp-border-width: 1px;
+    --tui-component-button-icon-only-md-comp-height: 2.5rem;
+    --tui-component-button-icon-only-md-comp-border-radius: 0.25rem;
+    --tui-component-button-icon-only-md-comp-border-width: 1px;
+    --tui-component-button-icon-only-md-comp-width: 2.5rem;
+    --tui-component-button-icon-only-lg-comp-height: 3rem;
+    --tui-component-button-icon-only-lg-comp-border-radius: 0.25rem;
+    --tui-component-button-icon-only-lg-comp-border-width: 1px;
+    --tui-component-button-icon-only-lg-comp-width: 3rem;
+    --tui-component-button-icon-left-sm-comp-height: 2rem;
+    --tui-component-button-icon-left-sm-comp-padding-left: 0.5rem;
+    --tui-component-button-icon-left-sm-comp-padding-right: 0.75rem;
+    --tui-component-button-icon-left-sm-comp-border-radius: 0.25rem;
+    --tui-component-button-icon-left-sm-comp-border-width: 1px;
+    --tui-component-button-icon-left-sm-comp-item-spacing: 0.25rem;
+    --tui-component-button-icon-left-md-comp-height: 2.5rem;
+    --tui-component-button-icon-left-md-comp-padding-left: 0.75rem;
+    --tui-component-button-icon-left-md-comp-padding-right: 1rem;
+    --tui-component-button-icon-left-md-comp-border-radius: 0.25rem;
+    --tui-component-button-icon-left-md-comp-border-width: 1px;
+    --tui-component-button-icon-left-md-comp-item-spacing: 0.25rem;
+    --tui-component-button-icon-left-lg-comp-height: 3rem;
+    --tui-component-button-icon-left-lg-comp-padding-left: 1.5rem;
+    --tui-component-button-icon-left-lg-comp-padding-right: 1.5rem;
+    --tui-component-button-icon-left-lg-comp-border-radius: 0.25rem;
+    --tui-component-button-icon-left-lg-comp-border-width: 1px;
+    --tui-component-button-icon-left-lg-comp-item-spacing: 0.5rem;
+    --tui-component-button-icon-right-sm-comp-height: 2rem;
+    --tui-component-button-icon-right-sm-comp-padding-left: 0.75rem;
+    --tui-component-button-icon-right-sm-comp-padding-right: 0.5rem;
+    --tui-component-button-icon-right-sm-comp-border-radius: 0.25rem;
+    --tui-component-button-icon-right-sm-comp-border-width: 1px;
+    --tui-component-button-icon-right-sm-comp-item-spacing: 0.25rem;
+    --tui-component-button-icon-right-md-comp-height: 2.5rem;
+    --tui-component-button-icon-right-md-comp-padding-left: 1rem;
+    --tui-component-button-icon-right-md-comp-padding-right: 0.75rem;
+    --tui-component-button-icon-right-md-comp-border-radius: 0.25rem;
+    --tui-component-button-icon-right-md-comp-border-width: 1px;
+    --tui-component-button-icon-right-md-comp-item-spacing: 0.25rem;
+    --tui-component-button-icon-right-lg-comp-height: 3rem;
+    --tui-component-button-icon-right-lg-comp-padding-left: 1.5rem;
+    --tui-component-button-icon-right-lg-comp-padding-right: 1.5rem;
+    --tui-component-button-icon-right-lg-comp-border-radius: 0.25rem;
+    --tui-component-button-icon-right-lg-comp-border-width: 1px;
+    --tui-component-button-icon-right-lg-comp-item-spacing: 0.5rem;
+    --tui-component-button-focus-shadow: 0 0 0 2px hsl(0 0% 100%), 0 0 0 4px hsl(241 39.1% 61.7%);
+    --tui-component-button-group-horizontal-sm-spacing: 0.5rem;
+    --tui-component-button-group-horizontal-md-spacing: 0.75rem;
+    --tui-component-button-group-horizontal-lg-spacing: 1rem;
+    --tui-component-button-group-vertical-sm-spacing: 1rem;
+    --tui-component-button-group-vertical-md-spacing: 1rem;
+    --tui-component-button-group-vertical-lg-spacing: 1rem;
+    --tui-component-alert-sm-title-font: 700 1rem/1.25rem Lato;
+    --tui-component-alert-sm-description-font: 400 0.889rem/1.5rem Lato;
+    --tui-component-alert-sm-icon-size: 1.25rem;
+    --tui-component-alert-sm-close-icon-size: 1rem;
+    --tui-component-alert-sm-default-comp-padding-top: 1rem;
+    --tui-component-alert-sm-default-comp-padding-right: 1rem;
+    --tui-component-alert-sm-default-comp-padding-bottom: 1rem;
+    --tui-component-alert-sm-default-comp-padding-left: 1rem;
+    --tui-component-alert-sm-default-comp-border-radius: 0.5rem;
+    --tui-component-alert-sm-default-comp-border-width: 1px;
+    --tui-component-alert-sm-default-comp-item-spacing: 1rem;
+    --tui-component-alert-sm-actions-margin-left: 2rem;
+    --tui-component-alert-sm-actions-margin-right: 0.5rem;
+    --tui-component-alert-sm-actions-gap: 0.5rem;
+    --tui-component-alert-sm-title-gap: 0.75rem;
+    --tui-component-alert-sm-description-margin-top: 0.25rem;
+    --tui-component-alert-sm-icon-margin-vertical: 0rem;
+    --tui-component-alert-sm-title-line-height: 1.25rem;
+    --tui-component-alert-sm-close-icon-top: 0.5rem;
+    --tui-component-alert-sm-close-icon-right: 0.5rem;
+    --tui-component-alert-neutral-background-color: hsl(203 15.6% 94.1%);
+    --tui-component-alert-neutral-border-color: hsl(203 15.6% 88.2%);
+    --tui-component-alert-neutral-icon-color: hsl(203 15.6% 44.1%);
+    --tui-component-alert-neutral-title-color: hsl(203 15.6% 15.9%);
+    --tui-component-alert-neutral-description-color: #39464e;
+    --tui-component-alert-success-background-color: hsl(99.7 36.2% 94.6%);
+    --tui-component-alert-success-border-color: hsl(99.7 36.2% 89.1%);
+    --tui-component-alert-success-icon-color: #486F34;
+    --tui-component-alert-success-title-color: hsl(203 15.6% 15.9%);
+    --tui-component-alert-success-description-color: #39464e;
+    --tui-component-alert-warning-background-color: hsl(42 100% 94.2%);
+    --tui-component-alert-warning-border-color: hsl(42 100% 88.5%);
+    --tui-component-alert-warning-icon-color: #8F6400;
+    --tui-component-alert-warning-title-color: hsl(203 15.6% 15.9%);
+    --tui-component-alert-warning-description-color: #39464e;
+    --tui-component-alert-danger-background-color: hsl(4.76 54.8% 96.7%);
+    --tui-component-alert-danger-border-color: hsl(4.76 54.8% 92.3%);
+    --tui-component-alert-danger-icon-color: #B23E34;
+    --tui-component-alert-danger-title-color: hsl(203 15.6% 15.9%);
+    --tui-component-alert-danger-description-color: #39464e;
+    --tui-component-alert-info-background-color: hsl(241 39.1% 96.3%);
+    --tui-component-alert-info-border-color: hsl(241 39.1% 92.6%);
+    --tui-component-alert-info-icon-color: hsl(241 39.1% 53.6%);
+    --tui-component-alert-info-title-color: hsl(203 15.6% 15.9%);
+    --tui-component-alert-info-description-color: #39464e;
+    --tui-component-alert-close-icon-default: hsl(203 15.6% 44.1%);
+    --tui-component-dropdown-item-comp-spacing: 0.5rem;
+    --tui-component-dropdown-item-comp-border-radius: 0.25rem;
+    --tui-component-dropdown-item-comp-item-spacing: 0rem;
+    --tui-component-dropdown-menu-comp-spacing: 0.5rem;
+    --tui-component-dropdown-menu-comp-item-spacing: 0rem;
+    --tui-component-dropdown-item-primary-text-font: 400 1rem/1.5rem Lato;
+    --tui-component-dropdown-item-secondary-text-font: 400 0.79rem/1.25rem Lato;
+    --tui-component-dropdown-item-neutral-default-primary-text-color: hsl(203 15.6% 15.9%);
+    --tui-component-dropdown-item-neutral-default-secondary-text-color: hsl(203 15.6% 44.1%);
+    --tui-component-dropdown-item-neutral-default-background-color: #FFFFFF00;
+    --tui-component-dropdown-item-neutral-hovered-primary-text-color: hsl(203 15.6% 15.9%);
+    --tui-component-dropdown-item-neutral-hovered-secondary-text-color: hsl(203 15.6% 44.1%);
+    --tui-component-dropdown-item-neutral-hovered-background-color: hsl(203 15.6% 88.2%);
+    --tui-component-dropdown-item-neutral-pressed-primary-text-color: hsl(203 15.6% 15.9%);
+    --tui-component-dropdown-item-neutral-pressed-secondary-text-color: hsl(203 15.6% 44.1%);
+    --tui-component-dropdown-item-neutral-pressed-background-color: hsl(203 15.6% 82.4%);
+    --tui-component-dropdown-item-neutral-disabled-primary-text-color: hsl(203 15.6% 76.5%);
+    --tui-component-dropdown-item-neutral-disabled-secondary-text-color: hsl(203 15.6% 76.5%);
+    --tui-component-dropdown-item-neutral-disabled-background-color: #FFFFFF00;
+    --tui-component-dropdown-item-danger-default-primary-text-color: #B23E34;
+    --tui-component-dropdown-item-danger-default-secondary-text-color: hsl(203 15.6% 44.1%);
+    --tui-component-dropdown-item-danger-default-background-color: #FFFFFF00;
+    --tui-component-dropdown-item-danger-hovered-primary-text-color: #B23E34;
+    --tui-component-dropdown-item-danger-hovered-secondary-text-color: hsl(203 15.6% 44.1%);
+    --tui-component-dropdown-item-danger-hovered-background-color: hsl(4.76 54.8% 86.8%);
+    --tui-component-dropdown-item-danger-pressed-primary-text-color: #B23E34;
+    --tui-component-dropdown-item-danger-pressed-secondary-text-color: hsl(203 15.6% 44.1%);
+    --tui-component-dropdown-item-danger-pressed-background-color: hsl(4.76 54.8% 82.4%);
+    --tui-component-dropdown-item-danger-disabled-primary-text-color: hsl(203 15.6% 76.5%);
+    --tui-component-dropdown-item-danger-disabled-secondary-text-color: hsl(203 15.6% 76.5%);
+    --tui-component-dropdown-item-danger-disabled-background-color: #FFFFFF00;
+    --tui-component-dropdown-sm-width: 12.5rem;
+    --tui-component-dropdown-md-width: 18.75rem;
+    --tui-component-link-primary-default-color-text: #4F4DB0;
+    --tui-component-link-primary-hovered-color-text: hsl(241 39.1% 39.7%);
+    --tui-component-link-primary-pressed-color-text: hsl(241 39.1% 29.8%);
+    --tui-component-link-secondary-default-color-text: #39464e;
+    --tui-component-link-secondary-hovered-color-text: hsl(203 15.6% 15.9%);
+    --tui-component-link-secondary-pressed-color-text: hsl(203 15.6% 15.9%);
+    --tui-component-link-underline-xs-text-font: 400 0.79rem/1.25rem Lato;
+    --tui-component-link-underline-xs-emphasized-text-font: 700 0.79rem/1.25rem Lato;
+    --tui-component-link-underline-sm-text-font: 400 0.889rem/1.5rem Lato;
+    --tui-component-link-underline-sm-emphasized-text-font: 700 0.889rem/1.5rem Lato;
+    --tui-component-link-underline-md-text-font: 400 1rem/1.5rem Lato;
+    --tui-component-link-underline-md-emphasized-text-font: 700 1rem/1.5rem Lato;
+    --tui-component-link-underline-lg-text-font: 400 1.188rem/1.75rem Lato;
+    --tui-component-link-underline-lg-emphasized-text-font: 700 1.188rem/1.75rem Lato;
+    --tui-component-link-default-xs-text-font: 400 0.79rem/1.25rem Lato;
+    --tui-component-link-default-xs-emphasized-text-font: 700 0.79rem/1.25rem Lato;
+    --tui-component-link-default-sm-text-font: 400 0.889rem/1.5rem Lato;
+    --tui-component-link-default-sm-emphasized-text-font: 700 0.889rem/1.5rem Lato;
+    --tui-component-link-default-md-text-font: 400 1rem/1.5rem Lato;
+    --tui-component-link-default-md-emphasized-text-font: 700 1rem/1.5rem Lato;
+    --tui-component-link-default-lg-text-font: 400 1.188rem/1.75rem Lato;
+    --tui-component-link-default-lg-emphasized-text-font: 700 1.188rem/1.75rem Lato;
+    --tui-component-link-focus-shadow: 0 0 0 2px hsl(0 0% 100%), 0 0 0 4px hsl(241 39.1% 61.7%);
+    --tui-component-popover-container-comp-item-spacing: 0rem;
+    --tui-component-popover-container-comp-box-shadow: 0 4px 8px 0 rgba(57, 70, 78, 0.1);
+    --tui-component-popover-container-comp-border-radius: 0.5rem;
+    --tui-component-popover-container-comp-border-width: 1px;
+    --tui-component-popover-container-bottom-comp-item-spacing: 0rem;
+    --tui-component-popover-container-bottom-comp-box-shadow: 0 4px 8px 0 rgba(57, 70, 78, 0.1);
+    --tui-component-popover-container-bottom-comp-border-radius: 0.5rem 0.5rem 0 0;
+    --tui-component-popover-container-bottom-comp-border-width: 1px;
+    --tui-component-popover-header-comp-border-bottom: 1px;
+    --tui-component-popover-header-comp-padding-left: 1rem;
+    --tui-component-popover-header-comp-padding-right: 0.5rem;
+    --tui-component-popover-header-comp-height: 3rem;
+    --tui-component-popover-header-comp-padding-top: 0.5rem;
+    --tui-component-popover-background-color: hsl(0 0% 100%);
+    --tui-component-popover-border-color: hsl(203 15.6% 88.2%);
+    --tui-component-popover-header-margin-right: 0.5rem;
+    --tui-component-popover-header-text-font: 700 1rem/1.25rem Lato;
+    --tui-component-popover-header-text-color: hsl(203 15.6% 15.9%);
+    --tui-component-popover-default-inset: 1rem;
+    --tui-component-popover-shadow: 0 4px 8px 0 rgba(57, 70, 78, 0.2);
+    --tui-component-segmented-control-item-sm-comp-border-radius: 0.125rem;
+    --tui-component-segmented-control-item-sm-comp-height: 2rem;
+    --tui-component-segmented-control-item-sm-comp-horizontal-padding: 0.25rem;
+    --tui-component-segmented-control-item-sm-text-font: 400 0.889rem/1.5rem Lato;
+    --tui-component-segmented-control-item-selected-text-color: hsl(203 15.6% 15.9%);
+    --tui-component-segmented-control-item-selected-background-color: hsl(0 0% 100%);
+    --tui-component-segmented-control-item-unselected-text-color: hsl(203 15.6% 44.1%);
+    --tui-component-segmented-control-item-unselected-background-color: #FFFFFF00;
+    --tui-component-segmented-control-item-unselected-hovered-text-color: #39464e;
+    --tui-component-segmented-control-item-unselected-hovered-background-color: hsl(203 15.6% 88.2%);
+    --tui-component-segmented-control-item-unselected-disabled-text-color: hsl(203 15.6% 76.5%);
+    --tui-component-segmented-control-item-unselected-disabled-background-color: #FFFFFF00;
+    --tui-component-segmented-control-item-selected-disabled-text-color: hsl(203 15.6% 55.9%);
+    --tui-component-segmented-control-item-selected-disabled-background-color: hsl(203 15.6% 88.2%);
+    --tui-component-segmented-control-container-sm-comp-vertical-padding: 0.25rem - 1px;
+    --tui-component-segmented-control-container-sm-comp-horizontal-padding: 0.25rem - 1px;
+    --tui-component-segmented-control-container-sm-comp-border-width: 1px;
+    --tui-component-segmented-control-container-sm-comp-border-radius: 0.25rem;
+    --tui-component-segmented-control-container-sm-comp-item-spacing: 0rem;
+    --tui-component-segmented-control-container-background-color: hsl(203 15.6% 94.1%);
+    --tui-component-segmented-control-container-border-color: hsl(203 15.6% 88.2%);
+    --tui-component-segmented-control-container-invalid-border-color: #B23E34;
+    --tui-component-segmented-control-md-gap-y: 0.5rem;
+    --tui-component-input-value-font: 400 1rem/1.5rem Lato;
+    --tui-component-input-prefix-font: 400 1rem/1.5rem Lato;
+    --tui-component-input-default-background-color: hsl(0 0% 100%);
+    --tui-component-input-default-prefix-background-color: hsl(203 15.6% 94.1%);
+    --tui-component-input-default-border-color: hsl(203 15.6% 55.9%);
+    --tui-component-input-default-text-color: #39464e;
+    --tui-component-input-default-textholder-color: hsl(203 15.6% 44.1%);
+    --tui-component-input-default-prefix-color: hsl(203 15.6% 44.1%);
+    --tui-component-input-default-icon-color: hsl(203 15.6% 44.1%);
+    --tui-component-input-md-input-comp-height: 2.5rem;
+    --tui-component-input-md-input-comp-border-radius: 0.25rem;
+    --tui-component-input-md-input-comp-border-width: 1px;
+    --tui-component-input-md-value-comp-horizontal-padding: 0.5rem;
+    --tui-component-input-md-prefix-comp-horizontal-padding: 0.5rem;
+    --tui-component-input-md-prefix-comp-height: 2.5rem - 2*1px;
+    --tui-component-input-md-right-icon-comp-padding-right: 0.5rem;
+    --tui-component-input-md-left-icon-comp-padding-left: 0.5rem;
+    --tui-component-input-md-icon-size: 1.25rem;
+    --tui-component-input-md-gap-y: 0.5rem;
+    --tui-component-input-border-width-default: 1px;
+    --tui-component-input-hovered-background-color: hsl(203 15.6% 88.2%);
+    --tui-component-input-hovered-prefix-background-color: hsl(203 15.6% 88.2%);
+    --tui-component-input-hovered-border-color: hsl(203 15.6% 55.9%);
+    --tui-component-input-hovered-text-color: #39464e;
+    --tui-component-input-hovered-textholder-color: hsl(203 15.6% 44.1%);
+    --tui-component-input-hovered-prefix-color: hsl(203 15.6% 44.1%);
+    --tui-component-input-hovered-icon-color: hsl(203 15.6% 44.1%);
+    --tui-component-input-pressed-background-color: hsl(0 0% 100%);
+    --tui-component-input-pressed-prefix-background-color: hsl(203 15.6% 94.1%);
+    --tui-component-input-pressed-border-color: hsl(203 15.6% 55.9%);
+    --tui-component-input-pressed-text-color: #39464e;
+    --tui-component-input-pressed-textholder-color: hsl(203 15.6% 44.1%);
+    --tui-component-input-pressed-prefix-color: hsl(203 15.6% 44.1%);
+    --tui-component-input-pressed-icon-color: hsl(203 15.6% 44.1%);
+    --tui-component-input-invalid-background-color: hsl(0 0% 100%);
+    --tui-component-input-invalid-prefix-background-color: hsl(203 15.6% 94.1%);
+    --tui-component-input-invalid-border-color: #B23E34;
+    --tui-component-input-invalid-text-color: #39464e;
+    --tui-component-input-invalid-textholder-color: hsl(203 15.6% 44.1%);
+    --tui-component-input-invalid-prefix-color: hsl(203 15.6% 44.1%);
+    --tui-component-input-invalid-icon-color: hsl(203 15.6% 44.1%);
+    --tui-component-input-disabled-background-color: hsl(203 15.6% 94.1%);
+    --tui-component-input-disabled-prefix-background-color: hsl(203 15.6% 94.1%);
+    --tui-component-input-disabled-border-color: hsl(203 15.6% 82.4%);
+    --tui-component-input-disabled-text-color: hsl(203 15.6% 76.5%);
+    --tui-component-input-disabled-textholder-color: hsl(203 15.6% 76.5%);
+    --tui-component-input-disabled-prefix-color: hsl(203 15.6% 76.5%);
+    --tui-component-input-disabled-icon-color: hsl(203 15.6% 76.5%);
+    --tui-component-input-read-only-background-color: hsl(203 15.6% 94.1%);
+    --tui-component-input-read-only-prefix-background-color: hsl(203 15.6% 94.1%);
+    --tui-component-input-read-only-border-color: hsl(203 15.6% 82.4%);
+    --tui-component-input-read-only-text-color: hsl(203 15.6% 44.1%);
+    --tui-component-input-read-only-textholder-color: hsl(203 15.6% 44.1%);
+    --tui-component-input-read-only-prefix-color: hsl(203 15.6% 44.1%);
+    --tui-component-input-read-only-icon-color: hsl(203 15.6% 76.5%);
+    --tui-component-input-label-md-label-font: 700 1rem/1.5rem Lato;
+    --tui-component-input-label-md-label-subtle-font: 400 1rem/1.5rem Lato;
+    --tui-component-input-label-md-counter-font: 400 1rem/1.5rem Lato;
+    --tui-component-input-label-md-reqtext-font: 400 1rem/1.5rem Lato;
+    --tui-component-input-label-md-helptext-font: 400 0.79rem/1.25rem Lato;
+    --tui-component-input-label-label-default-color: #39464e;
+    --tui-component-input-label-label-disabled-color: hsl(203 15.6% 76.5%);
+    --tui-component-input-label-counter-default-color: #39464e;
+    --tui-component-input-label-counter-disabled-color: hsl(203 15.6% 76.5%);
+    --tui-component-input-label-reqtext-default-color: #39464e;
+    --tui-component-input-label-reqtext-disabled-color: hsl(203 15.6% 76.5%);
+    --tui-component-input-label-helptext-default-color: hsl(203 15.6% 44.1%);
+    --tui-component-input-label-helptext-disabled-color: hsl(203 15.6% 76.5%);
+    --tui-component-input-label-sm-label-font: 700 0.889rem/1.5rem Lato;
+    --tui-component-input-label-sm-label-subtle-font: 400 0.889rem/1.5rem Lato;
+    --tui-component-input-label-sm-helptext-font: 400 0.79rem/1.25rem Lato;
+    --tui-component-label-input-md-label-gap: 0.5rem;
+    --tui-component-label-input-md-helptext-gap: 0rem;
+    --tui-component-label-input-sm-label-gap: 0.5rem;
+    --tui-component-label-input-sm-helptext-gap: 0rem;
+    --tui-component-inline-message-xs-icon-size: 1.25rem;
+    --tui-component-inline-message-xs-text-font: 700 0.79rem/1.25rem Lato;
+    --tui-component-inline-message-xs-gap: 0.25rem;
+    --tui-component-inline-message-success-icon-color: #486F34;
+    --tui-component-inline-message-success-text-color: #486F34;
+    --tui-component-inline-message-danger-icon-color: #B23E34;
+    --tui-component-inline-message-danger-text-color: #B23E34;
+    --tui-component-inline-message-warning-icon-color: #8F6400;
+    --tui-component-inline-message-warning-text-color: #8F6400;
+    --tui-component-inline-message-info-icon-color: hsl(241 39.1% 53.6%);
+    --tui-component-inline-message-info-text-color: hsl(241 39.1% 53.6%);
+    --tui-component-datepicker-column-label-font: 700 0.79rem/1.25rem Lato;
+    --tui-component-datepicker-day-font: 400 1rem/1.5rem Lato;
+    --tui-component-datepicker-day-emphasized-font: 700 1rem/1.5rem Lato;
+    --tui-component-datepicker-day-height: 2.5rem;
+    --tui-component-datepicker-day-default-text-color: hsl(203 15.6% 15.9%);
+    --tui-component-datepicker-day-muted-text-color: hsl(203 15.6% 44.1%);
+    --tui-component-datepicker-day-emphasized-text-color: #4F4DB0;
+    --tui-component-datepicker-day-emphasized-border-color: #4F4DB0;
+    --tui-component-datepicker-day-disabled-text-color: hsl(203 15.6% 76.5%);
+    --tui-component-datepicker-column-label-text-color: hsl(203 15.6% 44.1%);
+    --tui-component-datepicker-day-selected-background-color: #4F4DB0;
+    --tui-component-datepicker-day-selected-text-color: hsl(0 0% 100%);
+    --tui-component-datepicker-day-selected-muted-background-color: hsl(241 39.1% 91.9%);
+    --tui-component-datepicker-day-selected-muted-text-color: #4F4DB0;
+    --tui-component-datepicker-day-hovered-background-color: hsl(203 15.6% 88.2%);
+    --tui-component-datepicker-day-hovered-default-text-color: hsl(203 15.6% 15.9%);
+    --tui-component-datepicker-day-border-radius: 62.5rem;
+    --tui-component-datepicker-range-start-border-radius: 62.5rem 0 0 62.5rem;
+    --tui-component-datepicker-range-end-border-radius: 0 62.5rem 62.5rem 0;
+    --tui-component-datepicker-range-middle-border-radius: 0;
+    --tui-component-datepicker-day-selected-disabled-background-color: hsl(203 15.6% 94.1%);
+    --tui-component-datepicker-day-selected-disabled-text-color: hsl(203 15.6% 76.5%);
+    --tui-component-datepicker-day-emphasized-border-width: 1px;
+    --tui-component-calendar-header-margin-bottom: 0.5rem;
+    --tui-component-calendar-column-labels-margin-bottom: 0.25rem;
+    --tui-component-calendar-year-gap: 1.5rem;
+    --tui-component-calendar-timeslot-primary-default-background-color: hsl(0 0% 100%);
+    --tui-component-calendar-timeslot-primary-default-border-color: hsl(203 15.6% 82.4%);
+    --tui-component-calendar-timeslot-primary-default-text-color: hsl(203 15.6% 76.5%);
+    --tui-component-calendar-timeslot-primary-hovered-background-color: hsl(203 15.6% 88.2%);
+    --tui-component-calendar-timeslot-primary-hovered-border-color: hsl(203 15.6% 82.4%);
+    --tui-component-calendar-timeslot-primary-hovered-text-color: hsl(203 15.6% 44.1%);
+    --tui-component-calendar-timeslot-secondary-default-background-color: hsl(203 15.6% 94.1%);
+    --tui-component-calendar-timeslot-secondary-default-border-color: hsl(203 15.6% 82.4%);
+    --tui-component-calendar-timeslot-secondary-default-text-color: hsl(203 15.6% 76.5%);
+    --tui-component-calendar-timeslot-secondary-hovered-background-color: hsl(203 15.6% 88.2%);
+    --tui-component-calendar-timeslot-secondary-hovered-border-color: hsl(203 15.6% 82.4%);
+    --tui-component-calendar-timeslot-secondary-hovered-text-color: hsl(203 15.6% 44.1%);
+    --tui-component-calendar-timeslot-time-font: 400 0.79rem/1.25rem Lato;
+    --tui-component-calendar-event-icon-size: 1rem;
+    --tui-component-calendar-event-icon-gap: 0.125rem;
+    --tui-component-input-helptext-text-font: 400 0.79rem/1.25rem Lato;
+    --tui-component-helptext-text-default-color: hsl(203 15.6% 44.1%);
+    --tui-component-helptext-text-disabled-color: hsl(203 15.6% 76.5%);
+    --tui-component-switch-selected-default-background-color: #4F4DB0;
+    --tui-component-switch-selected-default-border-color: #4F4DB0;
+    --tui-component-switch-selected-default-thumb-background-color: hsl(0 0% 100%);
+    --tui-component-switch-selected-default-thumb-icon-color: #4F4DB0;
+    --tui-component-switch-selected-hovered-background-color: hsl(241 39.1% 39.7%);
+    --tui-component-switch-selected-hovered-border-color: hsl(241 39.1% 39.7%);
+    --tui-component-switch-selected-hovered-thumb-background-color: hsl(0 0% 100%);
+    --tui-component-switch-selected-hovered-thumb-icon-color: hsl(241 39.1% 39.7%);
+    --tui-component-switch-selected-pressed-background-color: hsl(241 39.1% 29.8%);
+    --tui-component-switch-selected-pressed-border-color: hsl(241 39.1% 29.8%);
+    --tui-component-switch-selected-pressed-thumb-background-color: hsl(0 0% 100%);
+    --tui-component-switch-selected-pressed-thumb-icon-color: hsl(241 39.1% 29.8%);
+    --tui-component-switch-selected-disabled-background-color: hsl(203 15.6% 76.5%);
+    --tui-component-switch-selected-disabled-border-color: hsl(203 15.6% 76.5%);
+    --tui-component-switch-selected-disabled-thumb-background-color: hsl(203 15.6% 94.1%);
+    --tui-component-switch-selected-disabled-thumb-icon-color: hsl(203 15.6% 76.5%);
+    --tui-component-switch-md-selected-thumb-size: 1.5rem;
+    --tui-component-switch-md-selected-icon-size: 1rem;
+    --tui-component-switch-md-selected-left-padding: 1rem - 2px;
+    --tui-component-switch-md-selected-right-padding: 0.25rem - 2px;
+    --tui-component-switch-md-unselected-thumb-size: 1rem;
+    --tui-component-switch-md-unselected-icon-size: 0rem;
+    --tui-component-switch-md-unselected-left-padding: 0.5rem - 2px;
+    --tui-component-switch-md-unselected-right-padding: 1.25rem - 2px;
+    --tui-component-switch-md-height: 2rem;
+    --tui-component-switch-md-border-width: 2px;
+    --tui-component-switch-md-label-gap: 0.75rem;
+    --tui-component-switch-sm-border-width: 2px;
+    --tui-component-switch-sm-selected-thumb-size: 1.25rem;
+    --tui-component-switch-sm-selected-icon-size: 1rem;
+    --tui-component-switch-sm-selected-left-padding: 0.75rem;
+    --tui-component-switch-sm-selected-right-padding: 0rem;
+    --tui-component-switch-sm-unselected-thumb-size: 1rem;
+    --tui-component-switch-sm-unselected-icon-size: 0rem;
+    --tui-component-switch-sm-unselected-left-padding: 0.25rem - 2px;
+    --tui-component-switch-sm-unselected-right-padding: 1rem - 2px;
+    --tui-component-switch-sm-height: 1.5rem;
+    --tui-component-switch-sm-label-gap: 0.75rem;
+    --tui-component-switch-border-radius: 62.5rem;
+    --tui-component-switch-thumb-border-radius: 62.5rem;
+    --tui-component-switch-unselected-default-background-color: hsl(0 0% 100%);
+    --tui-component-switch-unselected-default-border-color: hsl(203 15.6% 55.9%);
+    --tui-component-switch-unselected-default-thumb-background-color: hsl(203 15.6% 55.9%);
+    --tui-component-switch-unselected-default-thumb-icon-color: hsl(0 0% 100%);
+    --tui-component-switch-unselected-hovered-background-color: hsl(203 15.6% 88.2%);
+    --tui-component-switch-unselected-hovered-border-color: hsl(203 15.6% 44.1%);
+    --tui-component-switch-unselected-hovered-thumb-background-color: hsl(203 15.6% 44.1%);
+    --tui-component-switch-unselected-hovered-thumb-icon-color: hsl(0 0% 100%);
+    --tui-component-switch-unselected-pressed-background-color: hsl(203 15.6% 82.4%);
+    --tui-component-switch-unselected-pressed-border-color: hsl(203 15.6% 44.1%);
+    --tui-component-switch-unselected-pressed-thumb-background-color: hsl(203 15.6% 44.1%);
+    --tui-component-switch-unselected-pressed-thumb-icon-color: hsl(0 0% 100%);
+    --tui-component-switch-unselected-disabled-background-color: hsl(203 15.6% 94.1%);
+    --tui-component-switch-unselected-disabled-border-color: hsl(203 15.6% 76.5%);
+    --tui-component-switch-unselected-disabled-thumb-background-color: hsl(203 15.6% 76.5%);
+    --tui-component-switch-unselected-disabled-thumb-icon-color: hsl(203 15.6% 76.5%);
+    --tui-component-toast-sm-title-font: 700 1rem/1.25rem Lato;
+    --tui-component-toast-sm-description-font: 400 0.889rem/1.5rem Lato;
+    --tui-component-toast-sm-icon-size: 1.25rem;
+    --tui-component-toast-sm-close-icon-size: 1rem;
+    --tui-component-toast-sm-default-comp-padding-top: 1rem;
+    --tui-component-toast-sm-default-comp-padding-right: 1rem;
+    --tui-component-toast-sm-default-comp-padding-bottom: 1rem;
+    --tui-component-toast-sm-default-comp-padding-left: 1rem;
+    --tui-component-toast-sm-default-comp-border-radius: 0.5rem;
+    --tui-component-toast-sm-default-comp-border-width: 1px;
+    --tui-component-toast-sm-default-comp-item-spacing: 1rem;
+    --tui-component-toast-sm-actions-margin-left: 2rem;
+    --tui-component-toast-sm-actions-margin-right: 0.5rem;
+    --tui-component-toast-sm-title-gap: 0.75rem;
+    --tui-component-toast-sm-description-margin-top: 0.25rem;
+    --tui-component-toast-sm-icon-margin-vertical: 0rem;
+    --tui-component-toast-sm-title-line-height: 1.25rem;
+    --tui-component-toast-sm-close-icon-top: 0.5rem;
+    --tui-component-toast-sm-close-icon-right: 0.5rem;
+    --tui-component-toast-sm-group-gap: 1rem;
+    --tui-component-toast-sm-group-margin-bottom-pendo: 6rem;
+    --tui-component-toast-sm-group-margin: 1rem;
+    --tui-component-toast-neutral-background-color: hsl(203 15.6% 94.1%);
+    --tui-component-toast-neutral-border-color: hsl(203 15.6% 88.2%);
+    --tui-component-toast-neutral-icon-color: hsl(203 15.6% 44.1%);
+    --tui-component-toast-neutral-title-color: hsl(203 15.6% 15.9%);
+    --tui-component-toast-neutral-description-color: #39464e;
+    --tui-component-toast-success-background-color: hsl(99.7 36.2% 94.6%);
+    --tui-component-toast-success-border-color: hsl(99.7 36.2% 89.1%);
+    --tui-component-toast-success-icon-color: #486F34;
+    --tui-component-toast-success-title-color: hsl(203 15.6% 15.9%);
+    --tui-component-toast-success-description-color: #39464e;
+    --tui-component-toast-warning-background-color: hsl(42 100% 94.2%);
+    --tui-component-toast-warning-border-color: hsl(42 100% 88.5%);
+    --tui-component-toast-warning-icon-color: #8F6400;
+    --tui-component-toast-warning-title-color: hsl(203 15.6% 15.9%);
+    --tui-component-toast-warning-description-color: #39464e;
+    --tui-component-toast-danger-background-color: hsl(4.76 54.8% 96.7%);
+    --tui-component-toast-danger-border-color: hsl(4.76 54.8% 92.3%);
+    --tui-component-toast-danger-icon-color: #B23E34;
+    --tui-component-toast-danger-title-color: hsl(203 15.6% 15.9%);
+    --tui-component-toast-danger-description-color: #39464e;
+    --tui-component-toast-info-background-color: hsl(241 39.1% 96.3%);
+    --tui-component-toast-info-border-color: hsl(241 39.1% 92.6%);
+    --tui-component-toast-info-icon-color: hsl(241 39.1% 53.6%);
+    --tui-component-toast-info-title-color: hsl(203 15.6% 15.9%);
+    --tui-component-toast-info-description-color: #39464e;
+    --tui-component-toast-close-icon-default: hsl(203 15.6% 44.1%);
+    --tui-component-toast-shadow: 0 4px 8px 0 rgba(57, 70, 78, 0.2);
+    --tui-component-list-sm-icon-size: 1.25rem;
+    --tui-component-list-sm-icon-margin-top: 0.125rem;
+    --tui-component-list-sm-helptext-margin-top: 0rem;
+    --tui-component-list-sm-gap: 0.5rem;
+    --tui-component-list-sm-label-font: 400 0.889rem/1.5rem Lato;
+    --tui-component-list-sm-helptext-font: 400 0.79rem/1.25rem Lato;
+    --tui-component-list-md-icon-size: 1.5rem;
+    --tui-component-list-md-icon-margin-top: 0rem;
+    --tui-component-list-md-helptext-margin-top: 0rem;
+    --tui-component-list-md-gap: 0.5rem;
+    --tui-component-list-md-label-font: 400 1rem/1.5rem Lato;
+    --tui-component-list-md-helptext-font: 400 0.79rem/1.25rem Lato;
+    --tui-component-list-neutral-icon-color: hsl(203 15.6% 44.1%);
+    --tui-component-list-neutral-label-color: hsl(203 15.6% 15.9%);
+    --tui-component-list-neutral-helptext-color: hsl(203 15.6% 44.1%);
+    --tui-component-list-danger-icon-color: #B23E34;
+    --tui-component-list-danger-label-color: #B23E34;
+    --tui-component-list-danger-helptext-color: hsl(203 15.6% 44.1%);
+    --tui-component-radio-button-default-unselected-background-color: hsl(0 0% 100%);
+    --tui-component-radio-button-default-unselected-background-hovered-color: hsl(203 15.6% 88.2%);
+    --tui-component-radio-button-default-unselected-background-pressed-color: hsl(203 15.6% 82.4%);
+    --tui-component-radio-button-default-unselected-border-color: hsl(203 15.6% 55.9%);
+    --tui-component-radio-button-default-unselected-border-hovered-color: hsl(203 15.6% 44.1%);
+    --tui-component-radio-button-default-unselected-border-pressed-color: hsl(203 15.6% 44.1%);
+    --tui-component-radio-button-default-unselected-icon-color: hsl(0 0% 100%);
+    --tui-component-radio-button-default-selected-bg-color: #4F4DB0;
+    --tui-component-radio-button-default-selected-bg-hovered-color: hsl(241 39.1% 39.7%);
+    --tui-component-radio-button-default-selected-bg-pressed-color: hsl(241 39.1% 29.8%);
+    --tui-component-radio-button-default-selected-icon-color: hsl(0 0% 100%);
+    --tui-component-radio-button-control-margin-top: 0.125rem;
+    --tui-component-radio-button-control-gap-x: 0.75rem;
+    --tui-component-radio-button-disabled-unselected-background-color: hsl(203 15.6% 94.1%);
+    --tui-component-radio-button-disabled-unselected-border-color: hsl(203 15.6% 82.4%);
+    --tui-component-radio-button-disabled-unselected-icon-color: hsl(0 0% 100%);
+    --tui-component-radio-button-disabled-selected-bg-color: hsl(203 15.6% 76.5%);
+    --tui-component-radio-button-disabled-selected-icon-color: hsl(0 0% 100%);
+    --tui-component-radio-button-invalid-unselected-background-color: hsl(0 0% 100%);
+    --tui-component-radio-button-invalid-unselected-background-hovered-color: hsl(4.76 54.8% 86.8%);
+    --tui-component-radio-button-invalid-unselected-background-pressed-color: hsl(4.76 54.8% 82.4%);
+    --tui-component-radio-button-invalid-unselected-border-color: #B23E34;
+    --tui-component-radio-button-invalid-unselected-border-hovered-color: #B23E34;
+    --tui-component-radio-button-invalid-unselected-border-pressed-color: #B23E34;
+    --tui-component-radio-button-invalid-unselected-icon-color: hsl(0 0% 100%);
+    --tui-component-radio-button-invalid-selected-bg-color: #B23E34;
+    --tui-component-radio-button-invalid-selected-bg-hovered-color: hsl(4.76 54.8% 36.1%);
+    --tui-component-radio-button-invalid-selected-bg-pressed-color: hsl(4.76 54.8% 27.1%);
+    --tui-component-radio-button-invalid-selected-icon-color: hsl(0 0% 100%);
+    --tui-component-radio-button-icon-size: 1rem;
+    --tui-component-radio-button-control-comp-sizing: 1.25rem;
+    --tui-component-radio-button-control-comp-border-width: 2px;
+    --tui-component-radio-button-control-comp-border-radius: 62.5rem;
+    --tui-component-radio-button-icon-selected-comp-sizing: 1rem;
+    --tui-component-radio-button-icon-selected-comp-border-width: 2px;
+    --tui-component-radio-button-icon-selected-comp-border-radius: 62.5rem;
+    --tui-component-radio-button-icon-unselected-comp-sizing: 1rem;
+    --tui-component-radio-button-icon-unselected-comp-border-width: 0;
+    --tui-component-radio-button-icon-unselected-comp-border-radius: 62.5rem;
+    --tui-component-radio-button-group-gap-y: 1rem;
+    --tui-component-radio-button-focus: 0 0 0 2px hsl(0 0% 100%), 0 0 0 4px hsl(241 39.1% 61.7%);
+    --tui-component-checkbox-default-unselected-background-color: hsl(0 0% 100%);
+    --tui-component-checkbox-default-unselected-background-hovered-color: hsl(203 15.6% 88.2%);
+    --tui-component-checkbox-default-unselected-background-pressed-color: hsl(203 15.6% 82.4%);
+    --tui-component-checkbox-default-unselected-border-color: hsl(203 15.6% 55.9%);
+    --tui-component-checkbox-default-unselected-border-hovered-color: hsl(203 15.6% 44.1%);
+    --tui-component-checkbox-default-unselected-border-pressed-color: hsl(203 15.6% 44.1%);
+    --tui-component-checkbox-default-selected-bg-color: #4F4DB0;
+    --tui-component-checkbox-default-selected-bg-hovered-color: hsl(241 39.1% 39.7%);
+    --tui-component-checkbox-default-selected-bg-pressed-color: hsl(241 39.1% 29.8%);
+    --tui-component-checkbox-default-selected-icon-color: hsl(0 0% 100%);
+    --tui-component-checkbox-control-margin-top: 0.125rem;
+    --tui-component-checkbox-control-gap-x: 0.75rem;
+    --tui-component-checkbox-control-gap-y: 0.5rem;
+    --tui-component-checkbox-disabled-unselected-background-color: hsl(203 15.6% 94.1%);
+    --tui-component-checkbox-disabled-unselected-border-color: hsl(203 15.6% 82.4%);
+    --tui-component-checkbox-disabled-unselected-icon-color: hsl(0 0% 100%);
+    --tui-component-checkbox-disabled-selected-bg-color: hsl(203 15.6% 76.5%);
+    --tui-component-checkbox-disabled-selected-icon-color: hsl(0 0% 100%);
+    --tui-component-checkbox-invalid-unselected-background-color: hsl(0 0% 100%);
+    --tui-component-checkbox-invalid-unselected-background-hovered-color: hsl(4.76 54.8% 86.8%);
+    --tui-component-checkbox-invalid-unselected-background-pressed-color: hsl(4.76 54.8% 82.4%);
+    --tui-component-checkbox-invalid-unselected-border-color: #B23E34;
+    --tui-component-checkbox-invalid-unselected-border-hovered-color: #B23E34;
+    --tui-component-checkbox-invalid-unselected-border-pressed-color: #B23E34;
+    --tui-component-checkbox-invalid-selected-bg-color: #B23E34;
+    --tui-component-checkbox-invalid-selected-bg-hovered-color: hsl(4.76 54.8% 36.1%);
+    --tui-component-checkbox-invalid-selected-bg-pressed-color: hsl(4.76 54.8% 27.1%);
+    --tui-component-checkbox-invalid-selected-icon-color: hsl(0 0% 100%);
+    --tui-component-checkbox-icon-size: 1rem;
+    --tui-component-checkbox-control-comp-sizing: 1.25rem;
+    --tui-component-checkbox-control-comp-border-width: 2px;
+    --tui-component-checkbox-control-comp-border-radius: 0.25rem;
+    --tui-component-checkbox-group-gap-y: 1rem;
+    --tui-component-checkbox-group-nested-margin-left: 2rem;
+    --tui-component-checkbox-focus: 0 0 0 2px hsl(0 0% 100%), 0 0 0 4px hsl(241 39.1% 61.7%);
+    --tui-component-tooltip-bg-color: hsl(203 15.6% 21.2%);
+    --tui-component-tooltip-text-color: hsl(0 0% 100%);
+    --tui-component-tooltip-label-font: 400 0.889rem/1.5rem Lato;
+    --tui-component-tag-sm-icon-size: 1rem;
+    --tui-component-tag-sm-text-max-width: 12.5rem;
+    --tui-component-tag-sm-text-font: 400 0.889rem/1.5rem Lato;
+    --tui-component-tag-sm-default-composition-height: 1.5rem;
+    --tui-component-tag-sm-default-composition-padding-right: 0.5rem;
+    --tui-component-tag-sm-default-composition-padding-left: 0.5rem;
+    --tui-component-tag-sm-default-composition-border-radius: 0.25rem;
+    --tui-component-tag-sm-default-composition-item-spacing: 0.25rem;
+    --tui-component-tag-sm-default-composition-border-width: 0;
+    --tui-component-tag-default-background-color: hsl(203 15.6% 88.2%);
+    --tui-component-tag-default-border-color: #FFFFFF00;
+    --tui-component-tag-default-text-color: #39464e;
+    --tui-component-tag-default-icon-color: hsl(203 15.6% 44.1%);
+    --tui-component-tag-hovered-background-color: hsl(203 15.6% 82.4%);
+    --tui-component-tag-hovered-border-color: #FFFFFF00;
+    --tui-component-tag-hovered-text-color: #39464e;
+    --tui-component-tag-hovered-icon-color: hsl(203 15.6% 44.1%);
+    --tui-component-tag-pressed-background-color: hsl(203 15.6% 76.5%);
+    --tui-component-tag-pressed-border-color: #FFFFFF00;
+    --tui-component-tag-pressed-text-color: #39464e;
+    --tui-component-tag-pressed-icon-color: hsl(203 15.6% 44.1%);
+    --tui-component-tag-disabled-background-color: hsl(203 15.6% 88.2%);
+    --tui-component-tag-disabled-border-color: #FFFFFF00;
+    --tui-component-tag-disabled-text-color: hsl(203 15.6% 55.9%);
+    --tui-component-textarea-md-input-comp-min-height: 5.5rem;
+    --tui-component-textarea-md-input-comp-border-radius: 0.25rem;
+    --tui-component-textarea-md-input-comp-border-width: 1px;
+    --tui-component-textarea-md-value-comp-horizontal-padding: 0.5rem;
+    --tui-component-textarea-md-gap-y: 0.5rem;
+    --tui-component-modal-md-header-comp-padding-left: 1.5rem;
+    --tui-component-modal-md-header-comp-padding-right: 1.5rem;
+    --tui-component-modal-md-header-comp-item-spacing: 0.5rem;
+    --tui-component-modal-md-header-comp-padding-bottom: 1rem;
+    --tui-component-modal-md-actions-comp-padding-left: 1.5rem;
+    --tui-component-modal-md-actions-comp-padding-right: 1.5rem;
+    --tui-component-modal-md-actions-comp-padding-top: 1.5rem;
+    --tui-component-modal-md-slots-comp-padding-left: 1.5rem;
+    --tui-component-modal-md-slots-comp-padding-right: 1.5rem;
+    --tui-component-modal-md-slots-comp-item-spacing: 1.5rem;
+    --tui-component-modal-md-container-comp-vertical-padding: 1.5rem;
+    --tui-component-modal-md-container-comp-border-radius: 0.75rem;
+    --tui-component-modal-md-container-border-radius: 0.75rem;
+    --tui-component-modal-md-container-width: 30rem;
+    --tui-component-modal-sm-container-comp-vertical-padding: 1rem;
+    --tui-component-modal-sm-container-comp-border-radius-top-left: 0.5rem;
+    --tui-component-modal-sm-container-comp-border-radius-top-right: 0.5rem;
+    --tui-component-modal-sm-header-comp-padding-left: 1rem;
+    --tui-component-modal-sm-header-comp-padding-right: 1rem;
+    --tui-component-modal-sm-header-comp-item-spacing: 0.5rem;
+    --tui-component-modal-sm-header-comp-padding-bottom: 0.5rem;
+    --tui-component-modal-sm-actions-comp-padding-left: 1rem;
+    --tui-component-modal-sm-actions-comp-padding-right: 1rem;
+    --tui-component-modal-sm-actions-comp-item-spacing: 1rem;
+    --tui-component-modal-sm-slots-comp-padding-left: 1rem;
+    --tui-component-modal-sm-slots-comp-padding-right: 1rem;
+    --tui-component-modal-sm-slots-comp-item-spacing: 1rem;
+    --tui-component-modal-sm-container-border-radius: 0.5rem;
+    --tui-component-modal-background-color: hsl(0 0% 100%);
+    --tui-component-modal-header-md-margin-top: 0.25rem;
+    --tui-component-modal-header-sm-margin-top: 0.375rem;
+    --tui-component-modal-header-md-text-font: 700 1.188rem/1.5rem Lato;
+    --tui-component-modal-header-text-color: hsl(203 15.6% 15.9%);
+    --tui-component-modal-header-sm-text-font: 700 1rem/1.25rem Lato;
+    --tui-component-modal-lg-container-width: 40rem;
+    --tui-component-modal-xl-container-width: 55rem;
+    --tui-comp-tooltip-comp-horizontal-padding: 0.5rem;
+    --tui-comp-tooltip-comp-vertical-padding: 0.25rem;
+    --tui-comp-tooltip-comp-border-radius: 0.25rem;
+    --tui-comp-tooltip-comp-border-width: 0;
+    --tui-comp-tooltip-comp-max-width: 18.75rem
+}
+
+@media screen and (min-width: 727px) {
+    :root {
+        --tui-base-border-width-0:0;
+        --tui-base-border-width-10: 1px;
+        --tui-base-border-width-20: 2px;
+        --tui-base-border-width-40: 4px;
+        --tui-base-border-radius-0: 0;
+        --tui-base-border-radius-6: 0.063rem;
+        --tui-base-border-radius-12: 0.125rem;
+        --tui-base-border-radius-25: 0.25rem;
+        --tui-base-border-radius-50: 0.5rem;
+        --tui-base-border-radius-75: 0.75rem;
+        --tui-base-border-radius-root: 0.01rem;
+        --tui-base-border-radius-rounded: 62.5rem;
+        --tui-base-opacity-0: 0;
+        --tui-base-opacity-10: 0.1;
+        --tui-base-opacity-20: 0.2;
+        --tui-base-opacity-40: 0.4;
+        --tui-base-opacity-50: 0.5;
+        --tui-base-opacity-75: 0.75;
+        --tui-base-color-blue-midnight: #4F4DB0;
+        --tui-base-color-green-pine: #486F34;
+        --tui-base-color-yellow-honey: #8F6400;
+        --tui-base-color-red-brick: #B23E34;
+        --tui-base-color-red-coral: #FF3D4F;
+        --tui-base-color-grey-charcoal: #39464e;
+        --tui-base-color-basic-white: #FFFFFF;
+        --tui-base-color-basic-black: #000000;
+        --tui-base-color-basic-transparent: #FFFFFF00;
+        --tui-base-dimension-0: 0rem;
+        --tui-base-dimension-12: 0.125rem;
+        --tui-base-dimension-25: 0.25rem;
+        --tui-base-dimension-37: 0.375rem;
+        --tui-base-dimension-50: 0.5rem;
+        --tui-base-dimension-62: 0.625rem;
+        --tui-base-dimension-75: 0.75rem;
+        --tui-base-dimension-100: 1rem;
+        --tui-base-dimension-125: 1.25rem;
+        --tui-base-dimension-150: 1.5rem;
+        --tui-base-dimension-200: 2rem;
+        --tui-base-dimension-250: 2.5rem;
+        --tui-base-dimension-300: 3rem;
+        --tui-base-dimension-400: 4rem;
+        --tui-base-dimension-1250: 12.5rem;
+        --tui-base-dimension-1875: 18.75rem;
+        --tui-base-dimension-3000: 30rem;
+        --tui-base-dimension-4000: 40rem;
+        --tui-base-dimension-5500: 55rem;
+        --tui-base-dimension-root: 0.01rem;
+        --tui-base-space-scale: 1rem;
+        --tui-base-paragraph-spacing-0: 0;
+        --tui-base-paragraph-spacing-50: 0.03125rem;
+        --tui-base-paragraph-spacing-100: 0.0625rem;
+        --tui-base-paragraph-spacing-200: 0.125rem;
+        --tui-base-font-size-79: 0.79rem;
+        --tui-base-font-size-89: 0.889rem;
+        --tui-base-font-size-100: 1rem;
+        --tui-base-font-size-119: 1.188rem;
+        --tui-base-font-size-125: 1.25rem;
+        --tui-base-font-size-144: 1.438rem;
+        --tui-base-font-size-156: 1.563rem;
+        --tui-base-font-size-175: 1.75rem;
+        --tui-base-font-size-200: 2rem;
+        --tui-base-font-size-250: 2.5rem;
+        --tui-base-font-size-rem: 1rem;
+        --tui-base-line-height-75: 0.75rem;
+        --tui-base-line-height-100: 1rem;
+        --tui-base-line-height-125: 1.25rem;
+        --tui-base-line-height-150: 1.5rem;
+        --tui-base-line-height-175: 1.75rem;
+        --tui-base-line-height-200: 2rem;
+        --tui-base-line-height-225: 2.25rem;
+        --tui-base-line-height-250: 2.5rem;
+        --tui-base-line-height-275: 2.75rem;
+        --tui-base-line-height-300: 3rem;
+        --tui-base-letter-spacing-0: 0;
+        --tui-base-letter-spacing-10: 0.01em;
+        --tui-base-letter-spacing-15: 0.015em;
+        --tui-base-letter-spacing-20: 0.02em;
+        --tui-base-letter-spacing-30: 0.03em;
+        --tui-sem-preset-brand-base: #4F4DB0;
+        --tui-sem-preset-neutral-base: #39464e;
+        --tui-sem-preset-danger-base: #B23E34;
+        --tui-sem-preset-warning-base: #8F6400;
+        --tui-sem-preset-success-base: #486F34;
+        --tui-sem-preset-info-base: hsl(241 39.1% 53.6%);
+        --tui-sem-preset-brand-50: hsl(241 39.1% 96%);
+        --tui-sem-preset-brand-100: hsl(241 39.1% 91.9%);
+        --tui-sem-preset-brand-200: hsl(241 39.1% 87.9%);
+        --tui-sem-preset-brand-300: hsl(241 39.1% 83.9%);
+        --tui-sem-preset-brand-400: hsl(241 39.1% 69.8%);
+        --tui-sem-preset-brand-500: hsl(241 39.1% 61.7%);
+        --tui-sem-preset-brand-600: hsl(241 39.1% 57.7%);
+        --tui-sem-preset-brand-700: #4F4DB0;
+        --tui-sem-preset-brand-800: hsl(241 39.1% 39.7%);
+        --tui-sem-preset-brand-900: hsl(241 39.1% 29.8%);
+        --tui-sem-preset-neutral-0: hsl(0 0% 100%);
+        --tui-sem-preset-neutral-25: hsl(203 15.6% 97.1%);
+        --tui-sem-preset-neutral-50: hsl(203 15.6% 94.1%);
+        --tui-sem-preset-neutral-100: hsl(203 15.6% 88.2%);
+        --tui-sem-preset-neutral-200: hsl(203 15.6% 82.4%);
+        --tui-sem-preset-neutral-300: hsl(203 15.6% 76.5%);
+        --tui-sem-preset-neutral-400: hsl(203 15.6% 55.9%);
+        --tui-sem-preset-neutral-500: hsl(203 15.6% 44.1%);
+        --tui-sem-preset-neutral-600: hsl(203 15.6% 38.2%);
+        --tui-sem-preset-neutral-700: #39464e;
+        --tui-sem-preset-neutral-800: hsl(203 15.6% 21.2%);
+        --tui-sem-preset-neutral-900: hsl(203 15.6% 15.9%);
+        --tui-sem-preset-danger-50: hsl(4.76 54.8% 96.7%);
+        --tui-sem-preset-danger-100: hsl(4.76 54.8% 92.3%);
+        --tui-sem-preset-danger-200: hsl(4.76 54.8% 86.8%);
+        --tui-sem-preset-danger-300: hsl(4.76 54.8% 82.4%);
+        --tui-sem-preset-danger-400: hsl(4.76 54.8% 67.1%);
+        --tui-sem-preset-danger-500: hsl(4.76 54.8% 58.3%);
+        --tui-sem-preset-danger-600: hsl(4.76 54.8% 53.9%);
+        --tui-sem-preset-danger-700: #B23E34;
+        --tui-sem-preset-danger-800: hsl(4.76 54.8% 36.1%);
+        --tui-sem-preset-danger-900: hsl(4.76 54.8% 27.1%);
+        --tui-sem-preset-warning-50: hsl(42 100% 94.2%);
+        --tui-sem-preset-warning-100: hsl(42 100% 88.5%);
+        --tui-sem-preset-warning-200: hsl(42 100% 82.7%);
+        --tui-sem-preset-warning-300: hsl(42 100% 77%);
+        --tui-sem-preset-warning-400: hsl(42 100% 56.8%);
+        --tui-sem-preset-warning-500: hsl(42 100% 45.3%);
+        --tui-sem-preset-warning-600: hsl(42 100% 39.6%);
+        --tui-sem-preset-warning-700: #8F6400;
+        --tui-sem-preset-warning-800: hsl(42 100% 22.4%);
+        --tui-sem-preset-warning-900: hsl(42 100% 16.8%);
+        --tui-sem-preset-success-50: hsl(99.7 36.2% 94.6%);
+        --tui-sem-preset-success-100: hsl(99.7 36.2% 89.1%);
+        --tui-sem-preset-success-200: hsl(99.7 36.2% 83.7%);
+        --tui-sem-preset-success-300: hsl(99.7 36.2% 78.2%);
+        --tui-sem-preset-success-400: hsl(99.7 36.2% 59.2%);
+        --tui-sem-preset-success-500: hsl(99.7 36.2% 48.3%);
+        --tui-sem-preset-success-600: hsl(99.7 36.2% 42.8%);
+        --tui-sem-preset-success-700: #486F34;
+        --tui-sem-preset-success-800: hsl(99.7 36.2% 25.6%);
+        --tui-sem-preset-success-900: hsl(99.7 36.2% 19.2%);
+        --tui-sem-preset-info-50: hsl(241 39.1% 96.3%);
+        --tui-sem-preset-info-100: hsl(241 39.1% 92.6%);
+        --tui-sem-preset-info-200: hsl(241 39.1% 88.9%);
+        --tui-sem-preset-info-300: hsl(241 39.1% 85.2%);
+        --tui-sem-preset-info-400: hsl(241 39.1% 72.2%);
+        --tui-sem-preset-info-500: hsl(241 39.1% 64.7%);
+        --tui-sem-preset-info-600: hsl(241 39.1% 61%);
+        --tui-sem-preset-info-700: hsl(241 39.1% 53.6%);
+        --tui-sem-preset-info-800: hsl(241 39.1% 42.9%);
+        --tui-sem-preset-info-900: hsl(241 39.1% 32.2%);
+        --tui-sem-preset-other-transparent: #FFFFFF00;
+        --tui-sem-color-text-primary: hsl(203 15.6% 15.9%);
+        --tui-sem-color-text-secondary: #39464e;
+        --tui-sem-color-text-tertiary: hsl(203 15.6% 44.1%);
+        --tui-sem-color-text-disabled: hsl(203 15.6% 76.5%);
+        --tui-sem-color-text-disabled-emphasized: hsl(203 15.6% 55.9%);
+        --tui-sem-color-text-brand: #4F4DB0;
+        --tui-sem-color-text-selected: #4F4DB0;
+        --tui-sem-color-text-link-primary: #4F4DB0;
+        --tui-sem-color-text-success: #486F34;
+        --tui-sem-color-text-danger: #B23E34;
+        --tui-sem-color-text-warning: #8F6400;
+        --tui-sem-color-text-warning-inverse: hsl(42 100% 16.8%);
+        --tui-sem-color-text-info: hsl(241 39.1% 53.6%);
+        --tui-sem-color-text-inverse: hsl(0 0% 100%);
+        --tui-sem-color-icon-primary: #39464e;
+        --tui-sem-color-icon-secondary: hsl(203 15.6% 44.1%);
+        --tui-sem-color-icon-disabled: hsl(203 15.6% 76.5%);
+        --tui-sem-color-icon-brand: #4F4DB0;
+        --tui-sem-color-icon-success: #486F34;
+        --tui-sem-color-icon-danger: #B23E34;
+        --tui-sem-color-icon-warning: #8F6400;
+        --tui-sem-color-icon-warning-inverse: hsl(42 100% 16.8%);
+        --tui-sem-color-icon-info: hsl(241 39.1% 53.6%);
+        --tui-sem-color-icon-inverse: hsl(0 0% 100%);
+        --tui-sem-color-border-subtlest: hsl(203 15.6% 88.2%);
+        --tui-sem-color-border-subtle: hsl(203 15.6% 82.4%);
+        --tui-sem-color-border-default: hsl(203 15.6% 55.9%);
+        --tui-sem-color-border-emphasized: hsl(203 15.6% 44.1%);
+        --tui-sem-color-border-disabled: hsl(203 15.6% 82.4%);
+        --tui-sem-color-border-brand: #4F4DB0;
+        --tui-sem-color-border-selected: #4F4DB0;
+        --tui-sem-color-border-focused: hsl(241 39.1% 61.7%);
+        --tui-sem-color-border-inverse: hsl(0 0% 100%);
+        --tui-sem-color-border-transparent: #FFFFFF00;
+        --tui-sem-color-border-success-emphasized: #486F34;
+        --tui-sem-color-border-success-subtle: hsl(99.7 36.2% 89.1%);
+        --tui-sem-color-border-danger-emphasized: #B23E34;
+        --tui-sem-color-border-danger-subtle: hsl(4.76 54.8% 92.3%);
+        --tui-sem-color-border-warning-emphasized: #8F6400;
+        --tui-sem-color-border-warning-subtle: hsl(42 100% 88.5%);
+        --tui-sem-color-border-info-emphasized: hsl(241 39.1% 53.6%);
+        --tui-sem-color-border-info-subtle: hsl(241 39.1% 92.6%);
+        --tui-sem-color-background-transparent: #FFFFFF00;
+        --tui-sem-color-background-secondary: hsl(203 15.6% 97.1%);
+        --tui-sem-color-background-primary: hsl(0 0% 100%);
+        --tui-sem-color-background-disabled-default: hsl(203 15.6% 94.1%);
+        --tui-sem-color-background-disabled-emphasized: hsl(203 15.6% 88.2%);
+        --tui-sem-color-background-disabled-selected: hsl(203 15.6% 76.5%);
+        --tui-sem-color-background-success-emphasized: #486F34;
+        --tui-sem-color-background-success-emphasized-hovered: hsl(99.7 36.2% 25.6%);
+        --tui-sem-color-background-success-emphasized-pressed: hsl(99.7 36.2% 19.2%);
+        --tui-sem-color-background-success-subtle: hsl(99.7 36.2% 89.1%);
+        --tui-sem-color-background-success-subtle-hovered: hsl(99.7 36.2% 83.7%);
+        --tui-sem-color-background-success-subtle-pressed: hsl(99.7 36.2% 78.2%);
+        --tui-sem-color-background-success-subtle-container: hsl(99.7 36.2% 94.6%);
+        --tui-sem-color-background-danger-emphasized: #B23E34;
+        --tui-sem-color-background-danger-emphasized-hovered: hsl(4.76 54.8% 36.1%);
+        --tui-sem-color-background-danger-emphasized-pressed: hsl(4.76 54.8% 27.1%);
+        --tui-sem-color-background-danger-subtle: hsl(4.76 54.8% 92.3%);
+        --tui-sem-color-background-danger-subtle-hovered: hsl(4.76 54.8% 86.8%);
+        --tui-sem-color-background-danger-subtle-pressed: hsl(4.76 54.8% 82.4%);
+        --tui-sem-color-background-danger-subtle-container: hsl(4.76 54.8% 96.7%);
+        --tui-sem-color-background-warning-emphasized: hsl(42 100% 56.8%);
+        --tui-sem-color-background-warning-emphasized-hovered: hsl(42 100% 45.3%);
+        --tui-sem-color-background-warning-emphasized-pressed: hsl(42 100% 39.6%);
+        --tui-sem-color-background-warning-subtle: hsl(42 100% 88.5%);
+        --tui-sem-color-background-warning-subtle-hovered: hsl(42 100% 82.7%);
+        --tui-sem-color-background-warning-subtle-pressed: hsl(42 100% 77%);
+        --tui-sem-color-background-warning-subtle-container: hsl(42 100% 94.2%);
+        --tui-sem-color-background-info-emphasized: hsl(241 39.1% 53.6%);
+        --tui-sem-color-background-info-emphasized-hovered: hsl(241 39.1% 42.9%);
+        --tui-sem-color-background-info-emphasized-pressed: hsl(241 39.1% 32.2%);
+        --tui-sem-color-background-info-subtle: hsl(241 39.1% 92.6%);
+        --tui-sem-color-background-info-subtle-hovered: hsl(241 39.1% 88.9%);
+        --tui-sem-color-background-info-subtle-pressed: hsl(241 39.1% 85.2%);
+        --tui-sem-color-background-info-subtle-container: hsl(241 39.1% 96.3%);
+        --tui-sem-color-background-selected-emphasized: #4F4DB0;
+        --tui-sem-color-background-selected-emphasized-hovered: hsl(241 39.1% 39.7%);
+        --tui-sem-color-background-selected-emphasized-pressed: hsl(241 39.1% 29.8%);
+        --tui-sem-color-background-selected-subtle: hsl(241 39.1% 91.9%);
+        --tui-sem-color-background-selected-subtle-hovered: hsl(241 39.1% 87.9%);
+        --tui-sem-color-background-selected-subtle-pressed: hsl(241 39.1% 83.9%);
+        --tui-sem-color-background-brand-emphasized: #4F4DB0;
+        --tui-sem-color-background-brand-emphasized-hovered: hsl(241 39.1% 39.7%);
+        --tui-sem-color-background-brand-emphasized-pressed: hsl(241 39.1% 29.8%);
+        --tui-sem-color-background-brand-subtle: hsl(241 39.1% 91.9%);
+        --tui-sem-color-background-brand-subtle-hovered: hsl(241 39.1% 87.9%);
+        --tui-sem-color-background-brand-subtle-pressed: hsl(241 39.1% 83.9%);
+        --tui-sem-color-background-brand-subtle-container: hsl(241 39.1% 96%);
+        --tui-sem-color-background-neutral-emphasized: hsl(203 15.6% 38.2%);
+        --tui-sem-color-background-neutral-emphasized-hovered: #39464e;
+        --tui-sem-color-background-neutral-emphasized-pressed: hsl(203 15.6% 21.2%);
+        --tui-sem-color-background-neutral-subtle: hsl(203 15.6% 88.2%);
+        --tui-sem-color-background-neutral-subtle-hovered: hsl(203 15.6% 82.4%);
+        --tui-sem-color-background-neutral-subtle-pressed: hsl(203 15.6% 76.5%);
+        --tui-sem-color-background-neutral-subtle-container: hsl(203 15.6% 94.1%);
+        --tui-sem-color-background-neutral-subtlest: hsl(0 0% 100%);
+        --tui-sem-color-background-neutral-subtlest-hovered: hsl(203 15.6% 88.2%);
+        --tui-sem-color-background-neutral-subtlest-pressed: hsl(203 15.6% 82.4%);
+        --tui-sem-color-other-overlay: rgba(57, 70, 78, 0.5);
+        --tui-sem-color-other-skeleton: rgba(57, 70, 78, 0.1);
+        --tui-sem-font-interface-emphasized-xs: 700 0.79rem/1.25rem Lato;
+        --tui-sem-font-interface-emphasized-sm: 700 0.889rem/1.5rem Lato;
+        --tui-sem-font-interface-emphasized-md: 700 1rem/1.5rem Lato;
+        --tui-sem-font-interface-emphasized-lg: 700 1.25rem/2rem Lato;
+        --tui-sem-font-interface-default-xs: 400 0.79rem/1.25rem Lato;
+        --tui-sem-font-interface-default-sm: 400 0.889rem/1.5rem Lato;
+        --tui-sem-font-interface-default-md: 400 1rem/1.5rem Lato;
+        --tui-sem-font-interface-default-lg: 400 1.25rem/2rem Lato;
+        --tui-sem-font-interface-emphasized-uppercase-xs: 700 0.79rem/1.25rem Lato;
+        --tui-sem-font-interface-emphasized-uppercase-sm: 700 0.889rem/1.5rem Lato;
+        --tui-sem-font-interface-emphasized-uppercase-md: 700 1rem/1.5rem Lato;
+        --tui-sem-font-interface-emphasized-uppercase-lg: 700 1.25rem/2rem Lato;
+        --tui-sem-font-text-decoration-none: none;
+        --tui-sem-font-text-decoration-underline: underline;
+        --tui-sem-font-text-decoration-line-through: line-through;
+        --tui-sem-font-text-case-none: none;
+        --tui-sem-font-text-case-uppercase: uppercase;
+        --tui-sem-font-font-family-body: Lato;
+        --tui-sem-font-font-family-title: Lato;
+        --tui-sem-font-font-family-title-alternative: Domaine Display;
+        --tui-sem-font-font-family-interface: Lato;
+        --tui-sem-font-line-height-xs: 1.25rem;
+        --tui-sem-font-line-height-sm: 1.5rem;
+        --tui-sem-font-line-height-md: 2rem;
+        --tui-sem-font-line-height-lg: 2.5rem;
+        --tui-sem-font-font-size-xxs: 0.79rem;
+        --tui-sem-font-font-size-xs: 0.889rem;
+        --tui-sem-font-font-size-sm: 1rem;
+        --tui-sem-font-font-size-md: 1.25rem;
+        --tui-sem-font-font-size-lg: 1.563rem;
+        --tui-sem-font-font-size-xl: 2rem;
+        --tui-sem-font-paragraph-spacing-body: 0.125rem;
+        --tui-sem-font-paragraph-spacing-title: 0;
+        --tui-sem-font-paragraph-spacing-interface: 0.031rem;
+        --tui-sem-font-letter-spacing-positive-xxs: 0;
+        --tui-sem-font-letter-spacing-positive-xs: 0.01em;
+        --tui-sem-font-letter-spacing-positive-sm: 0.015em;
+        --tui-sem-font-letter-spacing-positive-md: 0.02em;
+        --tui-sem-font-letter-spacing-positive-lg: 0.03em;
+        --tui-sem-font-font-weight-body-default: 400;
+        --tui-sem-font-font-weight-body-emphasized: 700;
+        --tui-sem-font-font-weight-title-default: 700;
+        --tui-sem-font-font-weight-title-subtle: 400;
+        --tui-sem-font-font-weight-interface-default: 400;
+        --tui-sem-font-font-weight-interface-emphasized: 700;
+        --tui-sem-font-body-emphasized-xs: 700 0.79rem/1.25rem Lato;
+        --tui-sem-font-body-emphasized-sm: 700 0.889rem/1.5rem Lato;
+        --tui-sem-font-body-emphasized-md: 700 1rem/1.5rem Lato;
+        --tui-sem-font-body-emphasized-lg: 700 1.25rem/2rem Lato;
+        --tui-sem-font-body-default-xs: 400 0.79rem/1.25rem Lato;
+        --tui-sem-font-body-default-sm: 400 0.889rem/1.5rem Lato;
+        --tui-sem-font-body-default-md: 400 1rem/1.5rem Lato;
+        --tui-sem-font-body-default-lg: 400 1.25rem/2rem Lato;
+        --tui-sem-font-title-xs: 700 1rem/1.25rem Lato;
+        --tui-sem-font-title-sm: 700 1.25rem/1.5rem Lato;
+        --tui-sem-font-title-md: 700 1.563rem/2rem Lato;
+        --tui-sem-font-title-lg: 400 2rem/2.5rem 'Domaine Display';
+        --tui-sem-font-underline-interface-emphasized-xs: 700 0.79rem/1.25rem Lato;
+        --tui-sem-font-underline-interface-emphasized-sm: 700 0.889rem/1.5rem Lato;
+        --tui-sem-font-underline-interface-emphasized-md: 700 1rem/1.5rem Lato;
+        --tui-sem-font-underline-interface-emphasized-lg: 700 1.25rem/2rem Lato;
+        --tui-sem-font-underline-interface-default-xs: 400 0.79rem/1.25rem Lato;
+        --tui-sem-font-underline-interface-default-sm: 400 0.889rem/1.5rem Lato;
+        --tui-sem-font-underline-interface-default-md: 400 1rem/1.5rem Lato;
+        --tui-sem-font-underline-interface-default-lg: 400 1.25rem/2rem Lato;
+        --tui-sem-font-underline-body-emphasized-xs: 700 0.79rem/1.25rem Lato;
+        --tui-sem-font-underline-body-emphasized-sm: 700 0.889rem/1.5rem Lato;
+        --tui-sem-font-underline-body-emphasized-md: 700 1rem/1.5rem Lato;
+        --tui-sem-font-underline-body-emphasized-lg: 700 1.25rem/2rem Lato;
+        --tui-sem-font-underline-body-default-xs: 400 0.79rem/1.25rem Lato;
+        --tui-sem-font-underline-body-default-sm: 400 0.889rem/1.5rem Lato;
+        --tui-sem-font-underline-body-default-md: 400 1rem/1.5rem Lato;
+        --tui-sem-font-underline-body-default-lg: 400 1.25rem/2rem Lato;
+        --tui-sem-border-border-radius-selectable-none: 0;
+        --tui-sem-border-border-radius-selectable-sm: 0.25rem;
+        --tui-sem-border-border-radius-selectable-xs: 0.125rem;
+        --tui-sem-border-border-radius-selectable-rounded: 62.5rem;
+        --tui-sem-border-border-radius-container-none: 0;
+        --tui-sem-border-border-radius-container-xs: 0.25rem;
+        --tui-sem-border-border-radius-container-sm: 0.5rem;
+        --tui-sem-border-border-radius-container-md: 0.75rem;
+        --tui-sem-border-border-width-none: 0;
+        --tui-sem-border-border-width-sm: 1px;
+        --tui-sem-border-border-width-md: 2px;
+        --tui-sem-border-border-width-lg: 4px;
+        --tui-sem-size-selectable-xxxs: 1rem;
+        --tui-sem-size-selectable-xxs: 1.25rem;
+        --tui-sem-size-selectable-xs: 1.5rem;
+        --tui-sem-size-selectable-sm: 2rem;
+        --tui-sem-size-selectable-md: 2.5rem;
+        --tui-sem-size-selectable-lg: 3rem;
+        --tui-sem-size-selectable-xxl: 4rem;
+        --tui-sem-size-container-xs: 12.5rem;
+        --tui-sem-size-container-sm: 18.75rem;
+        --tui-sem-size-container-md: 30rem;
+        --tui-sem-size-container-lg: 40rem;
+        --tui-sem-size-container-xl: 55rem;
+        --tui-sem-size-icon-xs: 1rem;
+        --tui-sem-size-icon-sm: 1.25rem;
+        --tui-sem-size-icon-md: 1.5rem;
+        --tui-sem-size-icon-lg: 2rem;
+        --tui-sem-space-responsive-sm: 1.5rem;
+        --tui-sem-space-responsive-md: 2rem;
+        --tui-sem-space-responsive-lg: 2.5rem;
+        --tui-sem-space-responsive-xl: 3rem;
+        --tui-sem-space-responsive-xxl: 4rem;
+        --tui-sem-space-static-none: 0rem;
+        --tui-sem-space-static-xxs: 0.25rem;
+        --tui-sem-space-static-xs: 0.5rem;
+        --tui-sem-space-static-sm: 0.75rem;
+        --tui-sem-space-static-md: 1rem;
+        --tui-sem-space-static-lg: 1.5rem;
+        --tui-sem-space-static-xl: 2rem;
+        --tui-sem-space-static-xxl: 2.5rem;
+        --tui-sem-space-static-xxxl: 3rem;
+        --tui-sem-space-selectable-none: 0rem;
+        --tui-sem-space-selectable-xxs: 0.125rem;
+        --tui-sem-space-selectable-xs: 0.25rem;
+        --tui-sem-space-selectable-sm: 0.5rem;
+        --tui-sem-space-selectable-md: 0.75rem;
+        --tui-sem-space-selectable-lg: 1rem;
+        --tui-sem-space-selectable-xl: 1.25rem;
+        --tui-sem-space-selectable-xxl: 1.5rem;
+        --tui-sem-space-selectable-xxxl: 2rem;
+        --tui-sem-shadow-focus-default: 0 0 0 2px hsl(0 0% 100%), 0 0 0 4px hsl(241 39.1% 61.7%);
+        --tui-sem-shadow-container-xs: 0 4px 8px 0 rgba(57, 70, 78, 0.1);
+        --tui-sem-shadow-container-xs-dark: 0 4px 8px 0 rgba(57, 70, 78, 0.2);
+        --tui-sem-shadow-container-xs-darker: 0 4px 8px 0 rgba(57, 70, 78, 0.4);
+        --tui-component-avatar-xs-size: 1.5rem;
+        --tui-component-avatar-xs-icon-size: 1rem;
+        --tui-component-avatar-xs-text-font: 700 0.79rem/1.25rem Lato;
+        --tui-component-avatar-sm-size: 2rem;
+        --tui-component-avatar-sm-icon-size: 1.25rem;
+        --tui-component-avatar-sm-text-font: 700 0.889rem/1.5rem Lato;
+        --tui-component-avatar-md-size: 2.5rem;
+        --tui-component-avatar-md-icon-size: 1.25rem;
+        --tui-component-avatar-md-text-font: 700 0.889rem/1.5rem Lato;
+        --tui-component-avatar-lg-size: 3rem;
+        --tui-component-avatar-lg-icon-size: 1.5rem;
+        --tui-component-avatar-lg-text-font: 700 1rem/1.5rem Lato;
+        --tui-component-avatar-xl-size: 4rem;
+        --tui-component-avatar-xl-icon-size: 2rem;
+        --tui-component-avatar-xl-text-font: 700 1.25rem/2rem Lato;
+        --tui-component-avatar-border-radius: 62.5rem;
+        --tui-component-avatar-neutral-default-background-color: hsl(203 15.6% 88.2%);
+        --tui-component-avatar-neutral-default-icon-color: hsl(203 15.6% 44.1%);
+        --tui-component-avatar-neutral-default-text-color: hsl(203 15.6% 44.1%);
+        --tui-component-avatar-neutral-default-border-color: #FFFFFF00;
+        --tui-component-avatar-neutral-emphasized-background-color: hsl(203 15.6% 38.2%);
+        --tui-component-avatar-neutral-emphasized-icon-color: hsl(0 0% 100%);
+        --tui-component-avatar-neutral-emphasized-text-color: hsl(0 0% 100%);
+        --tui-component-avatar-neutral-emphasized-border-color: #FFFFFF00;
+        --tui-component-avatar-image-background-color: hsl(0 0% 100%);
+        --tui-component-avatar-image-border-color: #FFFFFF00;
+        --tui-component-avatar-image-border-width: 0;
+        --tui-component-avatar-default-border-width: 0;
+        --tui-component-badge-sm-icon-size: 1rem;
+        --tui-component-badge-sm-text-font: 700 0.79rem/1.25rem Lato;
+        --tui-component-badge-sm-default-composition-height: 1.5rem;
+        --tui-component-badge-sm-default-composition-padding-right: 0.5rem;
+        --tui-component-badge-sm-default-composition-padding-left: 0.5rem;
+        --tui-component-badge-sm-default-composition-border-radius: 62.5rem;
+        --tui-component-badge-sm-default-composition-item-spacing: 0.25rem;
+        --tui-component-badge-sm-default-composition-border-width: 0;
+        --tui-component-badge-md-icon-size: 1.25rem;
+        --tui-component-badge-md-text-font: 700 0.889rem/1.5rem Lato;
+        --tui-component-badge-md-default-composition-height: 2rem;
+        --tui-component-badge-md-default-composition-padding-right: 0.75rem;
+        --tui-component-badge-md-default-composition-padding-left: 0.75rem;
+        --tui-component-badge-md-default-composition-border-radius: 62.5rem;
+        --tui-component-badge-md-default-composition-item-spacing: 0.25rem;
+        --tui-component-badge-md-default-composition-border-width: 0;
+        --tui-component-badge-neutral-default-background-color: hsl(203 15.6% 88.2%);
+        --tui-component-badge-neutral-default-border-color: #FFFFFF00;
+        --tui-component-badge-neutral-default-text-color: hsl(203 15.6% 44.1%);
+        --tui-component-badge-neutral-default-icon-color: hsl(203 15.6% 44.1%);
+        --tui-component-badge-neutral-emphasized-background-color: hsl(203 15.6% 38.2%);
+        --tui-component-badge-neutral-emphasized-border-color: #FFFFFF00;
+        --tui-component-badge-neutral-emphasized-icon-color: hsl(0 0% 100%);
+        --tui-component-badge-neutral-emphasized-text-color: hsl(0 0% 100%);
+        --tui-component-badge-danger-default-background-color: hsl(4.76 54.8% 92.3%);
+        --tui-component-badge-danger-default-border-color: #FFFFFF00;
+        --tui-component-badge-danger-default-text-color: #B23E34;
+        --tui-component-badge-danger-default-icon-color: #B23E34;
+        --tui-component-badge-danger-emphasized-background-color: #B23E34;
+        --tui-component-badge-danger-emphasized-border-color: #FFFFFF00;
+        --tui-component-badge-danger-emphasized-text-color: hsl(0 0% 100%);
+        --tui-component-badge-danger-emphasized-icon-color: hsl(0 0% 100%);
+        --tui-component-badge-warning-default-background-color: hsl(42 100% 88.5%);
+        --tui-component-badge-warning-default-border-color: #FFFFFF00;
+        --tui-component-badge-warning-default-text-color: #8F6400;
+        --tui-component-badge-warning-default-icon-color: #8F6400;
+        --tui-component-badge-warning-emphasized-background-color: hsl(42 100% 56.8%);
+        --tui-component-badge-warning-emphasized-border-color: #FFFFFF00;
+        --tui-component-badge-warning-emphasized-text-color: hsl(42 100% 16.8%);
+        --tui-component-badge-warning-emphasized-icon-color: hsl(42 100% 16.8%);
+        --tui-component-badge-info-default-background-color: hsl(241 39.1% 92.6%);
+        --tui-component-badge-info-default-border-color: #FFFFFF00;
+        --tui-component-badge-info-default-text-color: hsl(241 39.1% 53.6%);
+        --tui-component-badge-info-default-icon-color: hsl(241 39.1% 53.6%);
+        --tui-component-badge-info-emphasized-background-color: hsl(241 39.1% 53.6%);
+        --tui-component-badge-info-emphasized-border-color: #FFFFFF00;
+        --tui-component-badge-info-emphasized-text-color: hsl(0 0% 100%);
+        --tui-component-badge-info-emphasized-icon-color: hsl(0 0% 100%);
+        --tui-component-badge-success-default-background-color: hsl(99.7 36.2% 89.1%);
+        --tui-component-badge-success-default-border-color: #FFFFFF00;
+        --tui-component-badge-success-default-text-color: #486F34;
+        --tui-component-badge-success-default-icon-color: #486F34;
+        --tui-component-badge-success-emphasized-background-color: #486F34;
+        --tui-component-badge-success-emphasized-border-color: #FFFFFF00;
+        --tui-component-badge-success-emphasized-text-color: hsl(0 0% 100%);
+        --tui-component-badge-success-emphasized-icon-color: hsl(0 0% 100%);
+        --tui-component-button-primary-default-background-color: #4F4DB0;
+        --tui-component-button-primary-default-text-color: hsl(0 0% 100%);
+        --tui-component-button-primary-default-icon-color: hsl(0 0% 100%);
+        --tui-component-button-primary-default-border-color: #FFFFFF00;
+        --tui-component-button-primary-hovered-background-color: hsl(241 39.1% 39.7%);
+        --tui-component-button-primary-hovered-text-color: hsl(0 0% 100%);
+        --tui-component-button-primary-hovered-icon-color: hsl(0 0% 100%);
+        --tui-component-button-primary-hovered-border-color: #FFFFFF00;
+        --tui-component-button-primary-pressed-background-color: hsl(241 39.1% 29.8%);
+        --tui-component-button-primary-pressed-text-color: hsl(0 0% 100%);
+        --tui-component-button-primary-pressed-icon-color: hsl(0 0% 100%);
+        --tui-component-button-primary-pressed-border-color: #FFFFFF00;
+        --tui-component-button-primary-disabled-background-color: hsl(203 15.6% 94.1%);
+        --tui-component-button-primary-disabled-text-color: hsl(203 15.6% 76.5%);
+        --tui-component-button-primary-disabled-icon-color: hsl(203 15.6% 76.5%);
+        --tui-component-button-primary-disabled-border-color: hsl(203 15.6% 82.4%);
+        --tui-component-button-primary-subtle-default-background-color: hsl(241 39.1% 91.9%);
+        --tui-component-button-primary-subtle-default-text-color: #4F4DB0;
+        --tui-component-button-primary-subtle-default-icon-color: #4F4DB0;
+        --tui-component-button-primary-subtle-default-border-color: #FFFFFF00;
+        --tui-component-button-primary-subtle-hovered-background-color: hsl(241 39.1% 87.9%);
+        --tui-component-button-primary-subtle-hovered-text-color: #4F4DB0;
+        --tui-component-button-primary-subtle-hovered-icon-color: #4F4DB0;
+        --tui-component-button-primary-subtle-hovered-border-color: #FFFFFF00;
+        --tui-component-button-primary-subtle-pressed-background-color: hsl(241 39.1% 83.9%);
+        --tui-component-button-primary-subtle-pressed-text-color: #4F4DB0;
+        --tui-component-button-primary-subtle-pressed-icon-color: #4F4DB0;
+        --tui-component-button-primary-subtle-pressed-border-color: #FFFFFF00;
+        --tui-component-button-primary-subtle-disabled-background-color: hsl(203 15.6% 94.1%);
+        --tui-component-button-primary-subtle-disabled-text-color: hsl(203 15.6% 76.5%);
+        --tui-component-button-primary-subtle-disabled-icon-color: hsl(203 15.6% 76.5%);
+        --tui-component-button-primary-subtle-disabled-border-color: hsl(203 15.6% 82.4%);
+        --tui-component-button-secondary-default-background-color: #FFFFFF00;
+        --tui-component-button-secondary-default-text-color: #39464e;
+        --tui-component-button-secondary-default-icon-color: #39464e;
+        --tui-component-button-secondary-default-border-color: hsl(203 15.6% 55.9%);
+        --tui-component-button-secondary-hovered-background-color: hsl(203 15.6% 88.2%);
+        --tui-component-button-secondary-hovered-text-color: #39464e;
+        --tui-component-button-secondary-hovered-icon-color: #39464e;
+        --tui-component-button-secondary-hovered-border-color: hsl(203 15.6% 55.9%);
+        --tui-component-button-secondary-pressed-background-color: hsl(203 15.6% 82.4%);
+        --tui-component-button-secondary-pressed-text-color: #39464e;
+        --tui-component-button-secondary-pressed-icon-color: #39464e;
+        --tui-component-button-secondary-pressed-border-color: hsl(203 15.6% 55.9%);
+        --tui-component-button-secondary-disabled-background-color: hsl(203 15.6% 94.1%);
+        --tui-component-button-secondary-disabled-text-color: hsl(203 15.6% 76.5%);
+        --tui-component-button-secondary-disabled-icon-color: hsl(203 15.6% 76.5%);
+        --tui-component-button-secondary-disabled-border-color: hsl(203 15.6% 82.4%);
+        --tui-component-button-primary-ghost-default-background-color: #FFFFFF00;
+        --tui-component-button-primary-ghost-default-text-color: #4F4DB0;
+        --tui-component-button-primary-ghost-default-icon-color: #4F4DB0;
+        --tui-component-button-primary-ghost-default-border-color: #FFFFFF00;
+        --tui-component-button-primary-ghost-hovered-background-color: hsl(241 39.1% 87.9%);
+        --tui-component-button-primary-ghost-hovered-text-color: #4F4DB0;
+        --tui-component-button-primary-ghost-hovered-icon-color: #4F4DB0;
+        --tui-component-button-primary-ghost-hovered-border-color: #FFFFFF00;
+        --tui-component-button-primary-ghost-pressed-background-color: hsl(241 39.1% 83.9%);
+        --tui-component-button-primary-ghost-pressed-text-color: #4F4DB0;
+        --tui-component-button-primary-ghost-pressed-icon-color: #4F4DB0;
+        --tui-component-button-primary-ghost-pressed-border-color: #FFFFFF00;
+        --tui-component-button-primary-ghost-disabled-background-color: #FFFFFF00;
+        --tui-component-button-primary-ghost-disabled-text-color: hsl(203 15.6% 76.5%);
+        --tui-component-button-primary-ghost-disabled-icon-color: hsl(203 15.6% 76.5%);
+        --tui-component-button-primary-ghost-disabled-border-color: #FFFFFF00;
+        --tui-component-button-danger-default-background-color: #B23E34;
+        --tui-component-button-danger-default-text-color: hsl(0 0% 100%);
+        --tui-component-button-danger-default-icon-color: hsl(0 0% 100%);
+        --tui-component-button-danger-default-border-color: #FFFFFF00;
+        --tui-component-button-danger-hovered-background-color: hsl(4.76 54.8% 36.1%);
+        --tui-component-button-danger-hovered-text-color: hsl(0 0% 100%);
+        --tui-component-button-danger-hovered-icon-color: hsl(0 0% 100%);
+        --tui-component-button-danger-hovered-border-color: #FFFFFF00;
+        --tui-component-button-danger-pressed-background-color: hsl(4.76 54.8% 27.1%);
+        --tui-component-button-danger-pressed-text-color: hsl(0 0% 100%);
+        --tui-component-button-danger-pressed-icon-color: hsl(0 0% 100%);
+        --tui-component-button-danger-pressed-border-color: #FFFFFF00;
+        --tui-component-button-danger-disabled-background-color: hsl(203 15.6% 94.1%);
+        --tui-component-button-danger-disabled-text-color: hsl(203 15.6% 76.5%);
+        --tui-component-button-danger-disabled-icon-color: hsl(203 15.6% 76.5%);
+        --tui-component-button-danger-disabled-border-color: hsl(203 15.6% 82.4%);
+        --tui-component-button-danger-subtle-default-background-color: hsl(4.76 54.8% 92.3%);
+        --tui-component-button-danger-subtle-default-text-color: #B23E34;
+        --tui-component-button-danger-subtle-default-icon-color: #B23E34;
+        --tui-component-button-danger-subtle-default-border-color: #FFFFFF00;
+        --tui-component-button-danger-subtle-hovered-background-color: hsl(4.76 54.8% 86.8%);
+        --tui-component-button-danger-subtle-hovered-text-color: #B23E34;
+        --tui-component-button-danger-subtle-hovered-icon-color: #B23E34;
+        --tui-component-button-danger-subtle-hovered-border-color: #FFFFFF00;
+        --tui-component-button-danger-subtle-pressed-background-color: hsl(4.76 54.8% 82.4%);
+        --tui-component-button-danger-subtle-pressed-text-color: #B23E34;
+        --tui-component-button-danger-subtle-pressed-icon-color: #B23E34;
+        --tui-component-button-danger-subtle-pressed-border-color: #FFFFFF00;
+        --tui-component-button-danger-subtle-disabled-background-color: hsl(203 15.6% 94.1%);
+        --tui-component-button-danger-subtle-disabled-text-color: hsl(203 15.6% 76.5%);
+        --tui-component-button-danger-subtle-disabled-icon-color: hsl(203 15.6% 76.5%);
+        --tui-component-button-danger-subtle-disabled-border-color: hsl(203 15.6% 82.4%);
+        --tui-component-button-secondary-ghost-default-background-color: #FFFFFF00;
+        --tui-component-button-secondary-ghost-default-text-color: #39464e;
+        --tui-component-button-secondary-ghost-default-icon-color: #39464e;
+        --tui-component-button-secondary-ghost-default-border-color: #FFFFFF00;
+        --tui-component-button-secondary-ghost-hovered-background-color: hsl(203 15.6% 88.2%);
+        --tui-component-button-secondary-ghost-hovered-text-color: #39464e;
+        --tui-component-button-secondary-ghost-hovered-icon-color: #39464e;
+        --tui-component-button-secondary-ghost-hovered-border-color: #FFFFFF00;
+        --tui-component-button-secondary-ghost-pressed-background-color: hsl(203 15.6% 82.4%);
+        --tui-component-button-secondary-ghost-pressed-text-color: #39464e;
+        --tui-component-button-secondary-ghost-pressed-icon-color: #39464e;
+        --tui-component-button-secondary-ghost-pressed-border-color: #FFFFFF00;
+        --tui-component-button-secondary-ghost-disabled-background-color: #FFFFFF00;
+        --tui-component-button-secondary-ghost-disabled-text-color: hsl(203 15.6% 76.5%);
+        --tui-component-button-secondary-ghost-disabled-icon-color: hsl(203 15.6% 76.5%);
+        --tui-component-button-secondary-ghost-disabled-border-color: #FFFFFF00;
+        --tui-component-button-danger-ghost-default-background-color: #FFFFFF00;
+        --tui-component-button-danger-ghost-default-text-color: #B23E34;
+        --tui-component-button-danger-ghost-default-icon-color: #B23E34;
+        --tui-component-button-danger-ghost-default-border-color: #FFFFFF00;
+        --tui-component-button-danger-ghost-hovered-background-color: hsl(4.76 54.8% 86.8%);
+        --tui-component-button-danger-ghost-hovered-text-color: #B23E34;
+        --tui-component-button-danger-ghost-hovered-icon-color: #B23E34;
+        --tui-component-button-danger-ghost-hovered-border-color: #FFFFFF00;
+        --tui-component-button-danger-ghost-pressed-background-color: hsl(4.76 54.8% 82.4%);
+        --tui-component-button-danger-ghost-pressed-text-color: #B23E34;
+        --tui-component-button-danger-ghost-pressed-icon-color: #B23E34;
+        --tui-component-button-danger-ghost-pressed-border-color: #FFFFFF00;
+        --tui-component-button-danger-ghost-disabled-background-color: #FFFFFF00;
+        --tui-component-button-danger-ghost-disabled-text-color: hsl(203 15.6% 76.5%);
+        --tui-component-button-danger-ghost-disabled-icon-color: hsl(203 15.6% 76.5%);
+        --tui-component-button-danger-ghost-disabled-border-color: #FFFFFF00;
+        --tui-component-button-sm-text-font: 700 0.889rem/1.5rem Lato;
+        --tui-component-button-sm-icon-size: 1.25rem;
+        --tui-component-button-md-text-font: 700 0.889rem/1.5rem Lato;
+        --tui-component-button-md-icon-size: 1.25rem;
+        --tui-component-button-lg-text-font: 700 1rem/1.5rem Lato;
+        --tui-component-button-lg-icon-size: 1.5rem;
+        --tui-component-button-icon-none-sm-comp-height: 2rem;
+        --tui-component-button-icon-none-sm-comp-padding-left: 0.75rem;
+        --tui-component-button-icon-none-sm-comp-padding-right: 0.75rem;
+        --tui-component-button-icon-none-sm-comp-border-radius: 0.25rem;
+        --tui-component-button-icon-none-sm-comp-border-width: 1px;
+        --tui-component-button-icon-none-md-comp-height: 2.5rem;
+        --tui-component-button-icon-none-md-comp-padding-left: 1rem;
+        --tui-component-button-icon-none-md-comp-padding-right: 1rem;
+        --tui-component-button-icon-none-md-comp-border-radius: 0.25rem;
+        --tui-component-button-icon-none-md-comp-border-width: 1px;
+        --tui-component-button-icon-none-lg-comp-height: 3rem;
+        --tui-component-button-icon-none-lg-comp-padding-left: 1.5rem;
+        --tui-component-button-icon-none-lg-comp-padding-right: 1.5rem;
+        --tui-component-button-icon-none-lg-comp-border-radius: 0.25rem;
+        --tui-component-button-icon-none-lg-comp-border-width: 1px;
+        --tui-component-button-icon-only-sm-comp-height: 2rem;
+        --tui-component-button-icon-only-sm-comp-width: 2rem;
+        --tui-component-button-icon-only-sm-comp-border-radius: 0.25rem;
+        --tui-component-button-icon-only-sm-comp-border-width: 1px;
+        --tui-component-button-icon-only-md-comp-height: 2.5rem;
+        --tui-component-button-icon-only-md-comp-border-radius: 0.25rem;
+        --tui-component-button-icon-only-md-comp-border-width: 1px;
+        --tui-component-button-icon-only-md-comp-width: 2.5rem;
+        --tui-component-button-icon-only-lg-comp-height: 3rem;
+        --tui-component-button-icon-only-lg-comp-border-radius: 0.25rem;
+        --tui-component-button-icon-only-lg-comp-border-width: 1px;
+        --tui-component-button-icon-only-lg-comp-width: 3rem;
+        --tui-component-button-icon-left-sm-comp-height: 2rem;
+        --tui-component-button-icon-left-sm-comp-padding-left: 0.5rem;
+        --tui-component-button-icon-left-sm-comp-padding-right: 0.75rem;
+        --tui-component-button-icon-left-sm-comp-border-radius: 0.25rem;
+        --tui-component-button-icon-left-sm-comp-border-width: 1px;
+        --tui-component-button-icon-left-sm-comp-item-spacing: 0.25rem;
+        --tui-component-button-icon-left-md-comp-height: 2.5rem;
+        --tui-component-button-icon-left-md-comp-padding-left: 0.75rem;
+        --tui-component-button-icon-left-md-comp-padding-right: 1rem;
+        --tui-component-button-icon-left-md-comp-border-radius: 0.25rem;
+        --tui-component-button-icon-left-md-comp-border-width: 1px;
+        --tui-component-button-icon-left-md-comp-item-spacing: 0.25rem;
+        --tui-component-button-icon-left-lg-comp-height: 3rem;
+        --tui-component-button-icon-left-lg-comp-padding-left: 1.5rem;
+        --tui-component-button-icon-left-lg-comp-padding-right: 1.5rem;
+        --tui-component-button-icon-left-lg-comp-border-radius: 0.25rem;
+        --tui-component-button-icon-left-lg-comp-border-width: 1px;
+        --tui-component-button-icon-left-lg-comp-item-spacing: 0.5rem;
+        --tui-component-button-icon-right-sm-comp-height: 2rem;
+        --tui-component-button-icon-right-sm-comp-padding-left: 0.75rem;
+        --tui-component-button-icon-right-sm-comp-padding-right: 0.5rem;
+        --tui-component-button-icon-right-sm-comp-border-radius: 0.25rem;
+        --tui-component-button-icon-right-sm-comp-border-width: 1px;
+        --tui-component-button-icon-right-sm-comp-item-spacing: 0.25rem;
+        --tui-component-button-icon-right-md-comp-height: 2.5rem;
+        --tui-component-button-icon-right-md-comp-padding-left: 1rem;
+        --tui-component-button-icon-right-md-comp-padding-right: 0.75rem;
+        --tui-component-button-icon-right-md-comp-border-radius: 0.25rem;
+        --tui-component-button-icon-right-md-comp-border-width: 1px;
+        --tui-component-button-icon-right-md-comp-item-spacing: 0.25rem;
+        --tui-component-button-icon-right-lg-comp-height: 3rem;
+        --tui-component-button-icon-right-lg-comp-padding-left: 1.5rem;
+        --tui-component-button-icon-right-lg-comp-padding-right: 1.5rem;
+        --tui-component-button-icon-right-lg-comp-border-radius: 0.25rem;
+        --tui-component-button-icon-right-lg-comp-border-width: 1px;
+        --tui-component-button-icon-right-lg-comp-item-spacing: 0.5rem;
+        --tui-component-button-focus-shadow: 0 0 0 2px hsl(0 0% 100%), 0 0 0 4px hsl(241 39.1% 61.7%);
+        --tui-component-button-group-horizontal-sm-spacing: 0.5rem;
+        --tui-component-button-group-horizontal-md-spacing: 0.75rem;
+        --tui-component-button-group-horizontal-lg-spacing: 1rem;
+        --tui-component-button-group-vertical-sm-spacing: 1rem;
+        --tui-component-button-group-vertical-md-spacing: 1rem;
+        --tui-component-button-group-vertical-lg-spacing: 1rem;
+        --tui-component-alert-sm-title-font: 700 1rem/1.25rem Lato;
+        --tui-component-alert-sm-description-font: 400 0.889rem/1.5rem Lato;
+        --tui-component-alert-sm-icon-size: 1.25rem;
+        --tui-component-alert-sm-close-icon-size: 1rem;
+        --tui-component-alert-sm-default-comp-padding-top: 1.5rem;
+        --tui-component-alert-sm-default-comp-padding-right: 1.5rem;
+        --tui-component-alert-sm-default-comp-padding-bottom: 1.5rem;
+        --tui-component-alert-sm-default-comp-padding-left: 1.5rem;
+        --tui-component-alert-sm-default-comp-border-radius: 0.5rem;
+        --tui-component-alert-sm-default-comp-border-width: 1px;
+        --tui-component-alert-sm-default-comp-item-spacing: 1rem;
+        --tui-component-alert-sm-actions-margin-left: 2rem;
+        --tui-component-alert-sm-actions-margin-right: 0.5rem;
+        --tui-component-alert-sm-actions-gap: 0.5rem;
+        --tui-component-alert-sm-title-gap: 0.75rem;
+        --tui-component-alert-sm-description-margin-top: 0.25rem;
+        --tui-component-alert-sm-icon-margin-vertical: 0rem;
+        --tui-component-alert-sm-title-line-height: 1.25rem;
+        --tui-component-alert-sm-close-icon-top: 0.5rem;
+        --tui-component-alert-sm-close-icon-right: 0.5rem;
+        --tui-component-alert-neutral-background-color: hsl(203 15.6% 94.1%);
+        --tui-component-alert-neutral-border-color: hsl(203 15.6% 88.2%);
+        --tui-component-alert-neutral-icon-color: hsl(203 15.6% 44.1%);
+        --tui-component-alert-neutral-title-color: hsl(203 15.6% 15.9%);
+        --tui-component-alert-neutral-description-color: #39464e;
+        --tui-component-alert-success-background-color: hsl(99.7 36.2% 94.6%);
+        --tui-component-alert-success-border-color: hsl(99.7 36.2% 89.1%);
+        --tui-component-alert-success-icon-color: #486F34;
+        --tui-component-alert-success-title-color: hsl(203 15.6% 15.9%);
+        --tui-component-alert-success-description-color: #39464e;
+        --tui-component-alert-warning-background-color: hsl(42 100% 94.2%);
+        --tui-component-alert-warning-border-color: hsl(42 100% 88.5%);
+        --tui-component-alert-warning-icon-color: #8F6400;
+        --tui-component-alert-warning-title-color: hsl(203 15.6% 15.9%);
+        --tui-component-alert-warning-description-color: #39464e;
+        --tui-component-alert-danger-background-color: hsl(4.76 54.8% 96.7%);
+        --tui-component-alert-danger-border-color: hsl(4.76 54.8% 92.3%);
+        --tui-component-alert-danger-icon-color: #B23E34;
+        --tui-component-alert-danger-title-color: hsl(203 15.6% 15.9%);
+        --tui-component-alert-danger-description-color: #39464e;
+        --tui-component-alert-info-background-color: hsl(241 39.1% 96.3%);
+        --tui-component-alert-info-border-color: hsl(241 39.1% 92.6%);
+        --tui-component-alert-info-icon-color: hsl(241 39.1% 53.6%);
+        --tui-component-alert-info-title-color: hsl(203 15.6% 15.9%);
+        --tui-component-alert-info-description-color: #39464e;
+        --tui-component-alert-close-icon-default: hsl(203 15.6% 44.1%);
+        --tui-component-segmented-control-item-sm-comp-border-radius: 0.125rem;
+        --tui-component-segmented-control-item-sm-comp-height: 2rem;
+        --tui-component-segmented-control-item-sm-comp-horizontal-padding: 0.25rem;
+        --tui-component-segmented-control-item-sm-text-font: 400 0.889rem/1.5rem Lato;
+        --tui-component-segmented-control-item-selected-text-color: hsl(203 15.6% 15.9%);
+        --tui-component-segmented-control-item-selected-background-color: hsl(0 0% 100%);
+        --tui-component-segmented-control-item-unselected-text-color: hsl(203 15.6% 44.1%);
+        --tui-component-segmented-control-item-unselected-background-color: #FFFFFF00;
+        --tui-component-segmented-control-item-unselected-hovered-text-color: #39464e;
+        --tui-component-segmented-control-item-unselected-hovered-background-color: hsl(203 15.6% 88.2%);
+        --tui-component-segmented-control-item-unselected-disabled-text-color: hsl(203 15.6% 76.5%);
+        --tui-component-segmented-control-item-unselected-disabled-background-color: #FFFFFF00;
+        --tui-component-segmented-control-item-selected-disabled-text-color: hsl(203 15.6% 55.9%);
+        --tui-component-segmented-control-item-selected-disabled-background-color: hsl(203 15.6% 88.2%);
+        --tui-component-segmented-control-container-sm-comp-vertical-padding: 0.25rem - 1px;
+        --tui-component-segmented-control-container-sm-comp-horizontal-padding: 0.25rem - 1px;
+        --tui-component-segmented-control-container-sm-comp-border-width: 1px;
+        --tui-component-segmented-control-container-sm-comp-border-radius: 0.25rem;
+        --tui-component-segmented-control-container-sm-comp-item-spacing: 0rem;
+        --tui-component-segmented-control-container-background-color: hsl(203 15.6% 94.1%);
+        --tui-component-segmented-control-container-border-color: hsl(203 15.6% 88.2%);
+        --tui-component-segmented-control-container-invalid-border-color: #B23E34;
+        --tui-component-segmented-control-md-gap-y: 0.5rem;
+        --tui-component-dropdown-item-comp-spacing: 0.5rem;
+        --tui-component-dropdown-item-comp-border-radius: 0.25rem;
+        --tui-component-dropdown-item-comp-item-spacing: 0rem;
+        --tui-component-dropdown-menu-comp-spacing: 0.5rem;
+        --tui-component-dropdown-menu-comp-item-spacing: 0rem;
+        --tui-component-dropdown-item-primary-text-font: 400 1rem/1.5rem Lato;
+        --tui-component-dropdown-item-secondary-text-font: 400 0.79rem/1.25rem Lato;
+        --tui-component-dropdown-item-neutral-default-primary-text-color: hsl(203 15.6% 15.9%);
+        --tui-component-dropdown-item-neutral-default-secondary-text-color: hsl(203 15.6% 44.1%);
+        --tui-component-dropdown-item-neutral-default-background-color: #FFFFFF00;
+        --tui-component-dropdown-item-neutral-hovered-primary-text-color: hsl(203 15.6% 15.9%);
+        --tui-component-dropdown-item-neutral-hovered-secondary-text-color: hsl(203 15.6% 44.1%);
+        --tui-component-dropdown-item-neutral-hovered-background-color: hsl(203 15.6% 88.2%);
+        --tui-component-dropdown-item-neutral-pressed-primary-text-color: hsl(203 15.6% 15.9%);
+        --tui-component-dropdown-item-neutral-pressed-secondary-text-color: hsl(203 15.6% 44.1%);
+        --tui-component-dropdown-item-neutral-pressed-background-color: hsl(203 15.6% 82.4%);
+        --tui-component-dropdown-item-neutral-disabled-primary-text-color: hsl(203 15.6% 76.5%);
+        --tui-component-dropdown-item-neutral-disabled-secondary-text-color: hsl(203 15.6% 76.5%);
+        --tui-component-dropdown-item-neutral-disabled-background-color: #FFFFFF00;
+        --tui-component-dropdown-item-danger-default-primary-text-color: #B23E34;
+        --tui-component-dropdown-item-danger-default-secondary-text-color: hsl(203 15.6% 44.1%);
+        --tui-component-dropdown-item-danger-default-background-color: #FFFFFF00;
+        --tui-component-dropdown-item-danger-hovered-primary-text-color: #B23E34;
+        --tui-component-dropdown-item-danger-hovered-secondary-text-color: hsl(203 15.6% 44.1%);
+        --tui-component-dropdown-item-danger-hovered-background-color: hsl(4.76 54.8% 86.8%);
+        --tui-component-dropdown-item-danger-pressed-primary-text-color: #B23E34;
+        --tui-component-dropdown-item-danger-pressed-secondary-text-color: hsl(203 15.6% 44.1%);
+        --tui-component-dropdown-item-danger-pressed-background-color: hsl(4.76 54.8% 82.4%);
+        --tui-component-dropdown-item-danger-disabled-primary-text-color: hsl(203 15.6% 76.5%);
+        --tui-component-dropdown-item-danger-disabled-secondary-text-color: hsl(203 15.6% 76.5%);
+        --tui-component-dropdown-item-danger-disabled-background-color: #FFFFFF00;
+        --tui-component-dropdown-sm-width: 12.5rem;
+        --tui-component-dropdown-md-width: 18.75rem;
+        --tui-component-popover-container-comp-item-spacing: 0rem;
+        --tui-component-popover-container-comp-box-shadow: 0 4px 8px 0 rgba(57, 70, 78, 0.1);
+        --tui-component-popover-container-comp-border-radius: 0.5rem;
+        --tui-component-popover-container-comp-border-width: 1px;
+        --tui-component-popover-container-bottom-comp-item-spacing: 0rem;
+        --tui-component-popover-container-bottom-comp-box-shadow: 0 4px 8px 0 rgba(57, 70, 78, 0.1);
+        --tui-component-popover-container-bottom-comp-border-radius: 0.5rem 0.5rem 0 0;
+        --tui-component-popover-container-bottom-comp-border-width: 1px;
+        --tui-component-popover-header-comp-border-bottom: 1px;
+        --tui-component-popover-header-comp-padding-left: 1rem;
+        --tui-component-popover-header-comp-padding-right: 0.5rem;
+        --tui-component-popover-header-comp-height: 3rem;
+        --tui-component-popover-header-comp-padding-top: 0.5rem;
+        --tui-component-popover-background-color: hsl(0 0% 100%);
+        --tui-component-popover-border-color: hsl(203 15.6% 88.2%);
+        --tui-component-popover-header-margin-right: 0.5rem;
+        --tui-component-popover-header-text-font: 700 1rem/1.25rem Lato;
+        --tui-component-popover-header-text-color: hsl(203 15.6% 15.9%);
+        --tui-component-popover-default-inset: 1rem;
+        --tui-component-popover-shadow: 0 4px 8px 0 rgba(57, 70, 78, 0.2);
+        --tui-component-link-primary-default-color-text: #4F4DB0;
+        --tui-component-link-primary-hovered-color-text: hsl(241 39.1% 39.7%);
+        --tui-component-link-primary-pressed-color-text: hsl(241 39.1% 29.8%);
+        --tui-component-link-secondary-default-color-text: #39464e;
+        --tui-component-link-secondary-hovered-color-text: hsl(203 15.6% 15.9%);
+        --tui-component-link-secondary-pressed-color-text: hsl(203 15.6% 15.9%);
+        --tui-component-link-underline-xs-text-font: 400 0.79rem/1.25rem Lato;
+        --tui-component-link-underline-xs-emphasized-text-font: 700 0.79rem/1.25rem Lato;
+        --tui-component-link-underline-sm-text-font: 400 0.889rem/1.5rem Lato;
+        --tui-component-link-underline-sm-emphasized-text-font: 700 0.889rem/1.5rem Lato;
+        --tui-component-link-underline-md-text-font: 400 1rem/1.5rem Lato;
+        --tui-component-link-underline-md-emphasized-text-font: 700 1rem/1.5rem Lato;
+        --tui-component-link-underline-lg-text-font: 400 1.25rem/2rem Lato;
+        --tui-component-link-underline-lg-emphasized-text-font: 700 1.25rem/2rem Lato;
+        --tui-component-link-default-xs-text-font: 400 0.79rem/1.25rem Lato;
+        --tui-component-link-default-xs-emphasized-text-font: 700 0.79rem/1.25rem Lato;
+        --tui-component-link-default-sm-text-font: 400 0.889rem/1.5rem Lato;
+        --tui-component-link-default-sm-emphasized-text-font: 700 0.889rem/1.5rem Lato;
+        --tui-component-link-default-md-text-font: 400 1rem/1.5rem Lato;
+        --tui-component-link-default-md-emphasized-text-font: 700 1rem/1.5rem Lato;
+        --tui-component-link-default-lg-text-font: 400 1.25rem/2rem Lato;
+        --tui-component-link-default-lg-emphasized-text-font: 700 1.25rem/2rem Lato;
+        --tui-component-link-focus-shadow: 0 0 0 2px hsl(0 0% 100%), 0 0 0 4px hsl(241 39.1% 61.7%);
+        --tui-component-calendar-timeslot-primary-default-background-color: hsl(0 0% 100%);
+        --tui-component-calendar-timeslot-primary-default-border-color: hsl(203 15.6% 82.4%);
+        --tui-component-calendar-timeslot-primary-default-text-color: hsl(203 15.6% 76.5%);
+        --tui-component-calendar-timeslot-primary-hovered-background-color: hsl(203 15.6% 88.2%);
+        --tui-component-calendar-timeslot-primary-hovered-border-color: hsl(203 15.6% 82.4%);
+        --tui-component-calendar-timeslot-primary-hovered-text-color: hsl(203 15.6% 44.1%);
+        --tui-component-calendar-timeslot-secondary-default-background-color: hsl(203 15.6% 94.1%);
+        --tui-component-calendar-timeslot-secondary-default-border-color: hsl(203 15.6% 82.4%);
+        --tui-component-calendar-timeslot-secondary-default-text-color: hsl(203 15.6% 76.5%);
+        --tui-component-calendar-timeslot-secondary-hovered-background-color: hsl(203 15.6% 88.2%);
+        --tui-component-calendar-timeslot-secondary-hovered-border-color: hsl(203 15.6% 82.4%);
+        --tui-component-calendar-timeslot-secondary-hovered-text-color: hsl(203 15.6% 44.1%);
+        --tui-component-calendar-timeslot-time-font: 400 0.79rem/1.25rem Lato;
+        --tui-component-calendar-event-icon-size: 1rem;
+        --tui-component-calendar-event-icon-gap: 0.125rem;
+        --tui-component-calendar-header-margin-bottom: 0.5rem;
+        --tui-component-calendar-column-labels-margin-bottom: 0.25rem;
+        --tui-component-calendar-year-gap: 1.5rem;
+        --tui-component-datepicker-column-label-font: 700 0.79rem/1.25rem Lato;
+        --tui-component-datepicker-day-font: 400 1rem/1.5rem Lato;
+        --tui-component-datepicker-day-emphasized-font: 700 1rem/1.5rem Lato;
+        --tui-component-datepicker-day-height: 2.5rem;
+        --tui-component-datepicker-day-default-text-color: hsl(203 15.6% 15.9%);
+        --tui-component-datepicker-day-muted-text-color: hsl(203 15.6% 44.1%);
+        --tui-component-datepicker-day-emphasized-text-color: #4F4DB0;
+        --tui-component-datepicker-day-emphasized-border-color: #4F4DB0;
+        --tui-component-datepicker-day-disabled-text-color: hsl(203 15.6% 76.5%);
+        --tui-component-datepicker-column-label-text-color: hsl(203 15.6% 44.1%);
+        --tui-component-datepicker-day-selected-background-color: #4F4DB0;
+        --tui-component-datepicker-day-selected-text-color: hsl(0 0% 100%);
+        --tui-component-datepicker-day-selected-muted-background-color: hsl(241 39.1% 91.9%);
+        --tui-component-datepicker-day-selected-muted-text-color: #4F4DB0;
+        --tui-component-datepicker-day-hovered-background-color: hsl(203 15.6% 88.2%);
+        --tui-component-datepicker-day-hovered-default-text-color: hsl(203 15.6% 15.9%);
+        --tui-component-datepicker-day-border-radius: 62.5rem;
+        --tui-component-datepicker-range-start-border-radius: 62.5rem 0 0 62.5rem;
+        --tui-component-datepicker-range-end-border-radius: 0 62.5rem 62.5rem 0;
+        --tui-component-datepicker-range-middle-border-radius: 0;
+        --tui-component-datepicker-day-selected-disabled-background-color: hsl(203 15.6% 94.1%);
+        --tui-component-datepicker-day-selected-disabled-text-color: hsl(203 15.6% 76.5%);
+        --tui-component-datepicker-day-emphasized-border-width: 1px;
+        --tui-component-input-label-md-label-font: 700 1rem/1.5rem Lato;
+        --tui-component-input-label-md-label-subtle-font: 400 1rem/1.5rem Lato;
+        --tui-component-input-label-md-counter-font: 400 1rem/1.5rem Lato;
+        --tui-component-input-label-md-reqtext-font: 400 1rem/1.5rem Lato;
+        --tui-component-input-label-md-helptext-font: 400 0.79rem/1.25rem Lato;
+        --tui-component-input-label-label-default-color: #39464e;
+        --tui-component-input-label-label-disabled-color: hsl(203 15.6% 76.5%);
+        --tui-component-input-label-counter-default-color: #39464e;
+        --tui-component-input-label-counter-disabled-color: hsl(203 15.6% 76.5%);
+        --tui-component-input-label-reqtext-default-color: #39464e;
+        --tui-component-input-label-reqtext-disabled-color: hsl(203 15.6% 76.5%);
+        --tui-component-input-label-helptext-default-color: hsl(203 15.6% 44.1%);
+        --tui-component-input-label-helptext-disabled-color: hsl(203 15.6% 76.5%);
+        --tui-component-input-label-sm-label-font: 700 0.889rem/1.5rem Lato;
+        --tui-component-input-label-sm-label-subtle-font: 400 0.889rem/1.5rem Lato;
+        --tui-component-input-label-sm-helptext-font: 400 0.79rem/1.25rem Lato;
+        --tui-component-label-input-md-label-gap: 0.5rem;
+        --tui-component-label-input-md-helptext-gap: 0rem;
+        --tui-component-label-input-sm-label-gap: 0.5rem;
+        --tui-component-label-input-sm-helptext-gap: 0rem;
+        --tui-component-input-value-font: 400 1rem/1.5rem Lato;
+        --tui-component-input-prefix-font: 400 1rem/1.5rem Lato;
+        --tui-component-input-default-background-color: hsl(0 0% 100%);
+        --tui-component-input-default-prefix-background-color: hsl(203 15.6% 94.1%);
+        --tui-component-input-default-border-color: hsl(203 15.6% 55.9%);
+        --tui-component-input-default-text-color: #39464e;
+        --tui-component-input-default-textholder-color: hsl(203 15.6% 44.1%);
+        --tui-component-input-default-prefix-color: hsl(203 15.6% 44.1%);
+        --tui-component-input-default-icon-color: hsl(203 15.6% 44.1%);
+        --tui-component-input-md-input-comp-height: 2.5rem;
+        --tui-component-input-md-input-comp-border-radius: 0.25rem;
+        --tui-component-input-md-input-comp-border-width: 1px;
+        --tui-component-input-md-value-comp-horizontal-padding: 0.5rem;
+        --tui-component-input-md-prefix-comp-horizontal-padding: 0.5rem;
+        --tui-component-input-md-prefix-comp-height: 2.5rem - 2*1px;
+        --tui-component-input-md-right-icon-comp-padding-right: 0.5rem;
+        --tui-component-input-md-left-icon-comp-padding-left: 0.5rem;
+        --tui-component-input-md-icon-size: 1.25rem;
+        --tui-component-input-md-gap-y: 0.5rem;
+        --tui-component-input-border-width-default: 1px;
+        --tui-component-input-hovered-background-color: hsl(203 15.6% 88.2%);
+        --tui-component-input-hovered-prefix-background-color: hsl(203 15.6% 88.2%);
+        --tui-component-input-hovered-border-color: hsl(203 15.6% 55.9%);
+        --tui-component-input-hovered-text-color: #39464e;
+        --tui-component-input-hovered-textholder-color: hsl(203 15.6% 44.1%);
+        --tui-component-input-hovered-prefix-color: hsl(203 15.6% 44.1%);
+        --tui-component-input-hovered-icon-color: hsl(203 15.6% 44.1%);
+        --tui-component-input-pressed-background-color: hsl(0 0% 100%);
+        --tui-component-input-pressed-prefix-background-color: hsl(203 15.6% 94.1%);
+        --tui-component-input-pressed-border-color: hsl(203 15.6% 55.9%);
+        --tui-component-input-pressed-text-color: #39464e;
+        --tui-component-input-pressed-textholder-color: hsl(203 15.6% 44.1%);
+        --tui-component-input-pressed-prefix-color: hsl(203 15.6% 44.1%);
+        --tui-component-input-pressed-icon-color: hsl(203 15.6% 44.1%);
+        --tui-component-input-invalid-background-color: hsl(0 0% 100%);
+        --tui-component-input-invalid-prefix-background-color: hsl(203 15.6% 94.1%);
+        --tui-component-input-invalid-border-color: #B23E34;
+        --tui-component-input-invalid-text-color: #39464e;
+        --tui-component-input-invalid-textholder-color: hsl(203 15.6% 44.1%);
+        --tui-component-input-invalid-prefix-color: hsl(203 15.6% 44.1%);
+        --tui-component-input-invalid-icon-color: hsl(203 15.6% 44.1%);
+        --tui-component-input-disabled-background-color: hsl(203 15.6% 94.1%);
+        --tui-component-input-disabled-prefix-background-color: hsl(203 15.6% 94.1%);
+        --tui-component-input-disabled-border-color: hsl(203 15.6% 82.4%);
+        --tui-component-input-disabled-text-color: hsl(203 15.6% 76.5%);
+        --tui-component-input-disabled-textholder-color: hsl(203 15.6% 76.5%);
+        --tui-component-input-disabled-prefix-color: hsl(203 15.6% 76.5%);
+        --tui-component-input-disabled-icon-color: hsl(203 15.6% 76.5%);
+        --tui-component-input-read-only-background-color: hsl(203 15.6% 94.1%);
+        --tui-component-input-read-only-prefix-background-color: hsl(203 15.6% 94.1%);
+        --tui-component-input-read-only-border-color: hsl(203 15.6% 82.4%);
+        --tui-component-input-read-only-text-color: hsl(203 15.6% 44.1%);
+        --tui-component-input-read-only-textholder-color: hsl(203 15.6% 44.1%);
+        --tui-component-input-read-only-prefix-color: hsl(203 15.6% 44.1%);
+        --tui-component-input-read-only-icon-color: hsl(203 15.6% 76.5%);
+        --tui-component-inline-message-xs-icon-size: 1.25rem;
+        --tui-component-inline-message-xs-text-font: 700 0.79rem/1.25rem Lato;
+        --tui-component-inline-message-xs-gap: 0.25rem;
+        --tui-component-inline-message-success-icon-color: #486F34;
+        --tui-component-inline-message-success-text-color: #486F34;
+        --tui-component-inline-message-danger-icon-color: #B23E34;
+        --tui-component-inline-message-danger-text-color: #B23E34;
+        --tui-component-inline-message-warning-icon-color: #8F6400;
+        --tui-component-inline-message-warning-text-color: #8F6400;
+        --tui-component-inline-message-info-icon-color: hsl(241 39.1% 53.6%);
+        --tui-component-inline-message-info-text-color: hsl(241 39.1% 53.6%);
+        --tui-component-input-helptext-text-font: 400 0.79rem/1.25rem Lato;
+        --tui-component-helptext-text-default-color: hsl(203 15.6% 44.1%);
+        --tui-component-helptext-text-disabled-color: hsl(203 15.6% 76.5%);
+        --tui-component-switch-selected-default-background-color: #4F4DB0;
+        --tui-component-switch-selected-default-border-color: #4F4DB0;
+        --tui-component-switch-selected-default-thumb-background-color: hsl(0 0% 100%);
+        --tui-component-switch-selected-default-thumb-icon-color: #4F4DB0;
+        --tui-component-switch-selected-hovered-background-color: hsl(241 39.1% 39.7%);
+        --tui-component-switch-selected-hovered-border-color: hsl(241 39.1% 39.7%);
+        --tui-component-switch-selected-hovered-thumb-background-color: hsl(0 0% 100%);
+        --tui-component-switch-selected-hovered-thumb-icon-color: hsl(241 39.1% 39.7%);
+        --tui-component-switch-selected-pressed-background-color: hsl(241 39.1% 29.8%);
+        --tui-component-switch-selected-pressed-border-color: hsl(241 39.1% 29.8%);
+        --tui-component-switch-selected-pressed-thumb-background-color: hsl(0 0% 100%);
+        --tui-component-switch-selected-pressed-thumb-icon-color: hsl(241 39.1% 29.8%);
+        --tui-component-switch-selected-disabled-background-color: hsl(203 15.6% 76.5%);
+        --tui-component-switch-selected-disabled-border-color: hsl(203 15.6% 76.5%);
+        --tui-component-switch-selected-disabled-thumb-background-color: hsl(203 15.6% 94.1%);
+        --tui-component-switch-selected-disabled-thumb-icon-color: hsl(203 15.6% 76.5%);
+        --tui-component-switch-md-selected-thumb-size: 1.5rem;
+        --tui-component-switch-md-selected-icon-size: 1rem;
+        --tui-component-switch-md-selected-left-padding: 1rem - 2px;
+        --tui-component-switch-md-selected-right-padding: 0.25rem - 2px;
+        --tui-component-switch-md-unselected-thumb-size: 1rem;
+        --tui-component-switch-md-unselected-icon-size: 0rem;
+        --tui-component-switch-md-unselected-left-padding: 0.5rem - 2px;
+        --tui-component-switch-md-unselected-right-padding: 1.25rem - 2px;
+        --tui-component-switch-md-height: 2rem;
+        --tui-component-switch-md-border-width: 2px;
+        --tui-component-switch-md-label-gap: 0.75rem;
+        --tui-component-switch-sm-border-width: 2px;
+        --tui-component-switch-sm-selected-thumb-size: 1.25rem;
+        --tui-component-switch-sm-selected-icon-size: 1rem;
+        --tui-component-switch-sm-selected-left-padding: 0.75rem;
+        --tui-component-switch-sm-selected-right-padding: 0rem;
+        --tui-component-switch-sm-unselected-thumb-size: 1rem;
+        --tui-component-switch-sm-unselected-icon-size: 0rem;
+        --tui-component-switch-sm-unselected-left-padding: 0.25rem - 2px;
+        --tui-component-switch-sm-unselected-right-padding: 1rem - 2px;
+        --tui-component-switch-sm-height: 1.5rem;
+        --tui-component-switch-sm-label-gap: 0.75rem;
+        --tui-component-switch-border-radius: 62.5rem;
+        --tui-component-switch-thumb-border-radius: 62.5rem;
+        --tui-component-switch-unselected-default-background-color: hsl(0 0% 100%);
+        --tui-component-switch-unselected-default-border-color: hsl(203 15.6% 55.9%);
+        --tui-component-switch-unselected-default-thumb-background-color: hsl(203 15.6% 55.9%);
+        --tui-component-switch-unselected-default-thumb-icon-color: hsl(0 0% 100%);
+        --tui-component-switch-unselected-hovered-background-color: hsl(203 15.6% 88.2%);
+        --tui-component-switch-unselected-hovered-border-color: hsl(203 15.6% 44.1%);
+        --tui-component-switch-unselected-hovered-thumb-background-color: hsl(203 15.6% 44.1%);
+        --tui-component-switch-unselected-hovered-thumb-icon-color: hsl(0 0% 100%);
+        --tui-component-switch-unselected-pressed-background-color: hsl(203 15.6% 82.4%);
+        --tui-component-switch-unselected-pressed-border-color: hsl(203 15.6% 44.1%);
+        --tui-component-switch-unselected-pressed-thumb-background-color: hsl(203 15.6% 44.1%);
+        --tui-component-switch-unselected-pressed-thumb-icon-color: hsl(0 0% 100%);
+        --tui-component-switch-unselected-disabled-background-color: hsl(203 15.6% 94.1%);
+        --tui-component-switch-unselected-disabled-border-color: hsl(203 15.6% 76.5%);
+        --tui-component-switch-unselected-disabled-thumb-background-color: hsl(203 15.6% 76.5%);
+        --tui-component-switch-unselected-disabled-thumb-icon-color: hsl(203 15.6% 76.5%);
+        --tui-component-toast-sm-title-font: 700 1rem/1.25rem Lato;
+        --tui-component-toast-sm-description-font: 400 0.889rem/1.5rem Lato;
+        --tui-component-toast-sm-icon-size: 1.25rem;
+        --tui-component-toast-sm-close-icon-size: 1rem;
+        --tui-component-toast-sm-default-comp-padding-top: 1.5rem;
+        --tui-component-toast-sm-default-comp-padding-right: 1.5rem;
+        --tui-component-toast-sm-default-comp-padding-bottom: 1.5rem;
+        --tui-component-toast-sm-default-comp-padding-left: 1.5rem;
+        --tui-component-toast-sm-default-comp-border-radius: 0.5rem;
+        --tui-component-toast-sm-default-comp-border-width: 1px;
+        --tui-component-toast-sm-default-comp-item-spacing: 1rem;
+        --tui-component-toast-sm-actions-margin-left: 2rem;
+        --tui-component-toast-sm-actions-margin-right: 0.5rem;
+        --tui-component-toast-sm-title-gap: 0.75rem;
+        --tui-component-toast-sm-description-margin-top: 0.25rem;
+        --tui-component-toast-sm-icon-margin-vertical: 0rem;
+        --tui-component-toast-sm-title-line-height: 1.25rem;
+        --tui-component-toast-sm-close-icon-top: 0.5rem;
+        --tui-component-toast-sm-close-icon-right: 0.5rem;
+        --tui-component-toast-sm-group-gap: 1rem;
+        --tui-component-toast-sm-group-margin-bottom-pendo: 6rem;
+        --tui-component-toast-sm-group-margin: 1rem;
+        --tui-component-toast-neutral-background-color: hsl(203 15.6% 94.1%);
+        --tui-component-toast-neutral-border-color: hsl(203 15.6% 88.2%);
+        --tui-component-toast-neutral-icon-color: hsl(203 15.6% 44.1%);
+        --tui-component-toast-neutral-title-color: hsl(203 15.6% 15.9%);
+        --tui-component-toast-neutral-description-color: #39464e;
+        --tui-component-toast-success-background-color: hsl(99.7 36.2% 94.6%);
+        --tui-component-toast-success-border-color: hsl(99.7 36.2% 89.1%);
+        --tui-component-toast-success-icon-color: #486F34;
+        --tui-component-toast-success-title-color: hsl(203 15.6% 15.9%);
+        --tui-component-toast-success-description-color: #39464e;
+        --tui-component-toast-warning-background-color: hsl(42 100% 94.2%);
+        --tui-component-toast-warning-border-color: hsl(42 100% 88.5%);
+        --tui-component-toast-warning-icon-color: #8F6400;
+        --tui-component-toast-warning-title-color: hsl(203 15.6% 15.9%);
+        --tui-component-toast-warning-description-color: #39464e;
+        --tui-component-toast-danger-background-color: hsl(4.76 54.8% 96.7%);
+        --tui-component-toast-danger-border-color: hsl(4.76 54.8% 92.3%);
+        --tui-component-toast-danger-icon-color: #B23E34;
+        --tui-component-toast-danger-title-color: hsl(203 15.6% 15.9%);
+        --tui-component-toast-danger-description-color: #39464e;
+        --tui-component-toast-info-background-color: hsl(241 39.1% 96.3%);
+        --tui-component-toast-info-border-color: hsl(241 39.1% 92.6%);
+        --tui-component-toast-info-icon-color: hsl(241 39.1% 53.6%);
+        --tui-component-toast-info-title-color: hsl(203 15.6% 15.9%);
+        --tui-component-toast-info-description-color: #39464e;
+        --tui-component-toast-close-icon-default: hsl(203 15.6% 44.1%);
+        --tui-component-toast-shadow: 0 4px 8px 0 rgba(57, 70, 78, 0.2);
+        --tui-component-list-sm-icon-size: 1.25rem;
+        --tui-component-list-sm-icon-margin-top: 0.125rem;
+        --tui-component-list-sm-helptext-margin-top: 0rem;
+        --tui-component-list-sm-gap: 0.5rem;
+        --tui-component-list-sm-label-font: 400 0.889rem/1.5rem Lato;
+        --tui-component-list-sm-helptext-font: 400 0.79rem/1.25rem Lato;
+        --tui-component-list-md-icon-size: 1.5rem;
+        --tui-component-list-md-icon-margin-top: 0rem;
+        --tui-component-list-md-helptext-margin-top: 0rem;
+        --tui-component-list-md-gap: 0.5rem;
+        --tui-component-list-md-label-font: 400 1rem/1.5rem Lato;
+        --tui-component-list-md-helptext-font: 400 0.79rem/1.25rem Lato;
+        --tui-component-list-neutral-icon-color: hsl(203 15.6% 44.1%);
+        --tui-component-list-neutral-label-color: hsl(203 15.6% 15.9%);
+        --tui-component-list-neutral-helptext-color: hsl(203 15.6% 44.1%);
+        --tui-component-list-danger-icon-color: #B23E34;
+        --tui-component-list-danger-label-color: #B23E34;
+        --tui-component-list-danger-helptext-color: hsl(203 15.6% 44.1%);
+        --tui-component-radio-button-default-unselected-background-color: hsl(0 0% 100%);
+        --tui-component-radio-button-default-unselected-background-hovered-color: hsl(203 15.6% 88.2%);
+        --tui-component-radio-button-default-unselected-background-pressed-color: hsl(203 15.6% 82.4%);
+        --tui-component-radio-button-default-unselected-border-color: hsl(203 15.6% 55.9%);
+        --tui-component-radio-button-default-unselected-border-hovered-color: hsl(203 15.6% 44.1%);
+        --tui-component-radio-button-default-unselected-border-pressed-color: hsl(203 15.6% 44.1%);
+        --tui-component-radio-button-default-unselected-icon-color: hsl(0 0% 100%);
+        --tui-component-radio-button-default-selected-bg-color: #4F4DB0;
+        --tui-component-radio-button-default-selected-bg-hovered-color: hsl(241 39.1% 39.7%);
+        --tui-component-radio-button-default-selected-bg-pressed-color: hsl(241 39.1% 29.8%);
+        --tui-component-radio-button-default-selected-icon-color: hsl(0 0% 100%);
+        --tui-component-radio-button-control-margin-top: 0.125rem;
+        --tui-component-radio-button-control-gap-x: 0.75rem;
+        --tui-component-radio-button-disabled-unselected-background-color: hsl(203 15.6% 94.1%);
+        --tui-component-radio-button-disabled-unselected-border-color: hsl(203 15.6% 82.4%);
+        --tui-component-radio-button-disabled-unselected-icon-color: hsl(0 0% 100%);
+        --tui-component-radio-button-disabled-selected-bg-color: hsl(203 15.6% 76.5%);
+        --tui-component-radio-button-disabled-selected-icon-color: hsl(0 0% 100%);
+        --tui-component-radio-button-invalid-unselected-background-color: hsl(0 0% 100%);
+        --tui-component-radio-button-invalid-unselected-background-hovered-color: hsl(4.76 54.8% 86.8%);
+        --tui-component-radio-button-invalid-unselected-background-pressed-color: hsl(4.76 54.8% 82.4%);
+        --tui-component-radio-button-invalid-unselected-border-color: #B23E34;
+        --tui-component-radio-button-invalid-unselected-border-hovered-color: #B23E34;
+        --tui-component-radio-button-invalid-unselected-border-pressed-color: #B23E34;
+        --tui-component-radio-button-invalid-unselected-icon-color: hsl(0 0% 100%);
+        --tui-component-radio-button-invalid-selected-bg-color: #B23E34;
+        --tui-component-radio-button-invalid-selected-bg-hovered-color: hsl(4.76 54.8% 36.1%);
+        --tui-component-radio-button-invalid-selected-bg-pressed-color: hsl(4.76 54.8% 27.1%);
+        --tui-component-radio-button-invalid-selected-icon-color: hsl(0 0% 100%);
+        --tui-component-radio-button-icon-size: 1rem;
+        --tui-component-radio-button-control-comp-sizing: 1.25rem;
+        --tui-component-radio-button-control-comp-border-width: 2px;
+        --tui-component-radio-button-control-comp-border-radius: 62.5rem;
+        --tui-component-radio-button-icon-selected-comp-sizing: 1rem;
+        --tui-component-radio-button-icon-selected-comp-border-width: 2px;
+        --tui-component-radio-button-icon-selected-comp-border-radius: 62.5rem;
+        --tui-component-radio-button-icon-unselected-comp-sizing: 1rem;
+        --tui-component-radio-button-icon-unselected-comp-border-width: 0;
+        --tui-component-radio-button-icon-unselected-comp-border-radius: 62.5rem;
+        --tui-component-radio-button-group-gap-y: 1rem;
+        --tui-component-radio-button-focus: 0 0 0 2px hsl(0 0% 100%), 0 0 0 4px hsl(241 39.1% 61.7%);
+        --tui-component-checkbox-default-unselected-background-color: hsl(0 0% 100%);
+        --tui-component-checkbox-default-unselected-background-hovered-color: hsl(203 15.6% 88.2%);
+        --tui-component-checkbox-default-unselected-background-pressed-color: hsl(203 15.6% 82.4%);
+        --tui-component-checkbox-default-unselected-border-color: hsl(203 15.6% 55.9%);
+        --tui-component-checkbox-default-unselected-border-hovered-color: hsl(203 15.6% 44.1%);
+        --tui-component-checkbox-default-unselected-border-pressed-color: hsl(203 15.6% 44.1%);
+        --tui-component-checkbox-default-selected-bg-color: #4F4DB0;
+        --tui-component-checkbox-default-selected-bg-hovered-color: hsl(241 39.1% 39.7%);
+        --tui-component-checkbox-default-selected-bg-pressed-color: hsl(241 39.1% 29.8%);
+        --tui-component-checkbox-default-selected-icon-color: hsl(0 0% 100%);
+        --tui-component-checkbox-control-margin-top: 0.125rem;
+        --tui-component-checkbox-control-gap-x: 0.75rem;
+        --tui-component-checkbox-control-gap-y: 0.5rem;
+        --tui-component-checkbox-disabled-unselected-background-color: hsl(203 15.6% 94.1%);
+        --tui-component-checkbox-disabled-unselected-border-color: hsl(203 15.6% 82.4%);
+        --tui-component-checkbox-disabled-unselected-icon-color: hsl(0 0% 100%);
+        --tui-component-checkbox-disabled-selected-bg-color: hsl(203 15.6% 76.5%);
+        --tui-component-checkbox-disabled-selected-icon-color: hsl(0 0% 100%);
+        --tui-component-checkbox-invalid-unselected-background-color: hsl(0 0% 100%);
+        --tui-component-checkbox-invalid-unselected-background-hovered-color: hsl(4.76 54.8% 86.8%);
+        --tui-component-checkbox-invalid-unselected-background-pressed-color: hsl(4.76 54.8% 82.4%);
+        --tui-component-checkbox-invalid-unselected-border-color: #B23E34;
+        --tui-component-checkbox-invalid-unselected-border-hovered-color: #B23E34;
+        --tui-component-checkbox-invalid-unselected-border-pressed-color: #B23E34;
+        --tui-component-checkbox-invalid-selected-bg-color: #B23E34;
+        --tui-component-checkbox-invalid-selected-bg-hovered-color: hsl(4.76 54.8% 36.1%);
+        --tui-component-checkbox-invalid-selected-bg-pressed-color: hsl(4.76 54.8% 27.1%);
+        --tui-component-checkbox-invalid-selected-icon-color: hsl(0 0% 100%);
+        --tui-component-checkbox-icon-size: 1rem;
+        --tui-component-checkbox-control-comp-sizing: 1.25rem;
+        --tui-component-checkbox-control-comp-border-width: 2px;
+        --tui-component-checkbox-control-comp-border-radius: 0.25rem;
+        --tui-component-checkbox-group-gap-y: 1rem;
+        --tui-component-checkbox-group-nested-margin-left: 2rem;
+        --tui-component-checkbox-focus: 0 0 0 2px hsl(0 0% 100%), 0 0 0 4px hsl(241 39.1% 61.7%);
+        --tui-component-tooltip-bg-color: hsl(203 15.6% 21.2%);
+        --tui-component-tooltip-text-color: hsl(0 0% 100%);
+        --tui-component-tooltip-label-font: 400 0.889rem/1.5rem Lato;
+        --tui-component-tag-sm-icon-size: 1rem;
+        --tui-component-tag-sm-text-max-width: 12.5rem;
+        --tui-component-tag-sm-text-font: 400 0.889rem/1.5rem Lato;
+        --tui-component-tag-sm-default-composition-height: 1.5rem;
+        --tui-component-tag-sm-default-composition-padding-right: 0.5rem;
+        --tui-component-tag-sm-default-composition-padding-left: 0.5rem;
+        --tui-component-tag-sm-default-composition-border-radius: 0.25rem;
+        --tui-component-tag-sm-default-composition-item-spacing: 0.25rem;
+        --tui-component-tag-sm-default-composition-border-width: 0;
+        --tui-component-tag-default-background-color: hsl(203 15.6% 88.2%);
+        --tui-component-tag-default-border-color: #FFFFFF00;
+        --tui-component-tag-default-text-color: #39464e;
+        --tui-component-tag-default-icon-color: hsl(203 15.6% 44.1%);
+        --tui-component-tag-hovered-background-color: hsl(203 15.6% 82.4%);
+        --tui-component-tag-hovered-border-color: #FFFFFF00;
+        --tui-component-tag-hovered-text-color: #39464e;
+        --tui-component-tag-hovered-icon-color: hsl(203 15.6% 44.1%);
+        --tui-component-tag-pressed-background-color: hsl(203 15.6% 76.5%);
+        --tui-component-tag-pressed-border-color: #FFFFFF00;
+        --tui-component-tag-pressed-text-color: #39464e;
+        --tui-component-tag-pressed-icon-color: hsl(203 15.6% 44.1%);
+        --tui-component-tag-disabled-background-color: hsl(203 15.6% 88.2%);
+        --tui-component-tag-disabled-border-color: #FFFFFF00;
+        --tui-component-tag-disabled-text-color: hsl(203 15.6% 55.9%);
+        --tui-component-textarea-md-input-comp-min-height: 5.5rem;
+        --tui-component-textarea-md-input-comp-border-radius: 0.25rem;
+        --tui-component-textarea-md-input-comp-border-width: 1px;
+        --tui-component-textarea-md-value-comp-horizontal-padding: 0.5rem;
+        --tui-component-textarea-md-gap-y: 0.5rem;
+        --tui-component-modal-md-header-comp-padding-left: 1.5rem;
+        --tui-component-modal-md-header-comp-padding-right: 1.5rem;
+        --tui-component-modal-md-header-comp-item-spacing: 0.5rem;
+        --tui-component-modal-md-header-comp-padding-bottom: 1rem;
+        --tui-component-modal-md-actions-comp-padding-left: 1.5rem;
+        --tui-component-modal-md-actions-comp-padding-right: 1.5rem;
+        --tui-component-modal-md-actions-comp-padding-top: 1.5rem;
+        --tui-component-modal-md-slots-comp-padding-left: 1.5rem;
+        --tui-component-modal-md-slots-comp-padding-right: 1.5rem;
+        --tui-component-modal-md-slots-comp-item-spacing: 1.5rem;
+        --tui-component-modal-md-container-comp-vertical-padding: 1.5rem;
+        --tui-component-modal-md-container-comp-border-radius: 0.75rem;
+        --tui-component-modal-md-container-border-radius: 0.75rem;
+        --tui-component-modal-md-container-width: 30rem;
+        --tui-component-modal-sm-container-comp-vertical-padding: 1rem;
+        --tui-component-modal-sm-container-comp-border-radius-top-left: 0.5rem;
+        --tui-component-modal-sm-container-comp-border-radius-top-right: 0.5rem;
+        --tui-component-modal-sm-header-comp-padding-left: 1rem;
+        --tui-component-modal-sm-header-comp-padding-right: 1rem;
+        --tui-component-modal-sm-header-comp-item-spacing: 0.5rem;
+        --tui-component-modal-sm-header-comp-padding-bottom: 0.5rem;
+        --tui-component-modal-sm-actions-comp-padding-left: 1rem;
+        --tui-component-modal-sm-actions-comp-padding-right: 1rem;
+        --tui-component-modal-sm-actions-comp-item-spacing: 1rem;
+        --tui-component-modal-sm-slots-comp-padding-left: 1rem;
+        --tui-component-modal-sm-slots-comp-padding-right: 1rem;
+        --tui-component-modal-sm-slots-comp-item-spacing: 1rem;
+        --tui-component-modal-sm-container-border-radius: 0.5rem;
+        --tui-component-modal-background-color: hsl(0 0% 100%);
+        --tui-component-modal-header-md-margin-top: 0.25rem;
+        --tui-component-modal-header-sm-margin-top: 0.375rem;
+        --tui-component-modal-header-md-text-font: 700 1.25rem/1.5rem Lato;
+        --tui-component-modal-header-text-color: hsl(203 15.6% 15.9%);
+        --tui-component-modal-header-sm-text-font: 700 1rem/1.25rem Lato;
+        --tui-component-modal-lg-container-width: 40rem;
+        --tui-component-modal-xl-container-width: 55rem;
+        --tui-comp-tooltip-comp-horizontal-padding: 0.5rem;
+        --tui-comp-tooltip-comp-vertical-padding: 0.25rem;
+        --tui-comp-tooltip-comp-border-radius: 0.25rem;
+        --tui-comp-tooltip-comp-border-width: 0;
+        --tui-comp-tooltip-comp-max-width: 18.75rem
+    }
+}
+
+tui-alert h3 {
+    color: var(--alert-title-color);
+    padding: 0;
+    margin: 0;
+    font: var(--tui-component-alert-sm-title-font);
+    letter-spacing: var(--tui-base-letter-spacing-15)
+}
+
+tui-alert p {
+    color: var(--tui-component-alert-neutral-description-color);
+    padding: 0;
+    margin: var(--tui-component-alert-sm-description-margin-top) 0 0;
+    font: var(--tui-component-alert-sm-description-font);
+    letter-spacing: var(--tui-base-letter-spacing-10)
+}
+
+tui-alert p:last-of-type {
+    margin-bottom: 0
+}
+
+tui-alert ul {
+    margin-bottom: 0
+}
+
+tui-alert a,tui-alert .btn-link {
+    color: #39464e;
+    text-decoration: underline
+}
+
+tui-alert .btn,tui-alert .btn:hover,tui-alert .btn:focus {
+    background-color: #4d5c66;
+    border-color: #4d5c66;
+    color: #fff;
+    text-decoration: none
+}
+
+tui-alert[type=info] a.link-with-border {
+    text-decoration: none;
+    border-bottom-width: 1px;
+    border-bottom-style: solid
+}
+
+tui-alert[type=info] .link-no-border {
+    border-bottom: none;
+    text-decoration: none
+}
+
+tui-alert[type=info] .btn {
+    text-decoration: none
+}
+
+tui-alert button[class*=outline],tui-alert button[class*=outline]:hover,tui-alert button[class*=outline]:focus {
+    border: solid 1px #39464e;
+    background: 0 0;
+    color: #39464e
+}
+
+tui-alert[type=error] .btn,tui-alert[type=error] .btn:hover,tui-alert[type=error] .btn:focus {
+    background-color: #c74440;
+    border-color: #c74440;
+    color: #fff
+}
+
+tui-alert[type=warning] .btn,tui-alert[type=warning] .btn:hover,tui-alert[type=warning] .btn:focus {
+    background-color: #ffcb0f;
+    border-color: #ffcb0f;
+    color: #39464e
+}
+
+tui-alert[type=success] .btn,tui-alert[type=success] .btn:hover,tui-alert[type=success] .btn:focus {
+    background-color: #55823e;
+    border-color: #55823e;
+    color: #fff
+}
+
+tui-avatar tui-icon {
+    color: var(--tui-component-avatar-neutral-default-icon-color)
+}
+
+tui-avatar.tui-avatar--emphasized tui-icon {
+    color: var(--tui-component-avatar-neutral-emphasized-icon-color)
+}
+
+tui-avatar.tui-avatar--xs tui-icon {
+    width: var(--tui-component-avatar-xs-icon-size);
+    height: var(--tui-component-avatar-xs-icon-size)
+}
+
+tui-avatar.tui-avatar--sm tui-icon {
+    width: var(--tui-component-avatar-sm-icon-size);
+    height: var(--tui-component-avatar-sm-icon-size)
+}
+
+tui-avatar.tui-avatar--md tui-icon {
+    width: var(--tui-component-avatar-md-icon-size);
+    height: var(--tui-component-avatar-md-icon-size)
+}
+
+tui-avatar.tui-avatar--lg tui-icon {
+    width: var(--tui-component-avatar-lg-icon-size);
+    height: var(--tui-component-avatar-lg-icon-size)
+}
+
+tui-avatar.tui-avatar--xl tui-icon {
+    width: var(--tui-component-avatar-xl-icon-size);
+    height: var(--tui-component-avatar-xl-icon-size)
+}
+
+tui-badge [slot=icon]>div[class^=icon-module] {
+    height: 100%
+}
+
+tui-badge.tui-badge--sm tui-icon[slot=icon] {
+    width: var(--tui-component-badge-sm-icon-size);
+    height: var(--tui-component-badge-sm-icon-size);
+    margin-right: var(--tui-component-badge-sm-default-composition-item-spacing)
+}
+
+tui-badge.tui-badge--md tui-icon[slot=icon] {
+    width: var(--tui-component-badge-md-icon-size);
+    height: var(--tui-component-badge-md-icon-size);
+    margin-right: var(--tui-component-badge-md-default-composition-item-spacing)
+}
+
+tui-badge.tui-badge--neutral tui-icon[slot=icon] {
+    color: var(--tui-component-badge-neutral-default-icon-color)
+}
+
+tui-badge.tui-badge--neutral.tui-badge--emphasized tui-icon[slot=icon] {
+    color: var(--tui-component-badge-neutral-emphasized-icon-color)
+}
+
+tui-badge.tui-badge--danger tui-icon[slot=icon] {
+    color: var(--tui-component-badge-danger-default-icon-color)
+}
+
+tui-badge.tui-badge--danger.tui-badge--emphasized tui-icon[slot=icon] {
+    color: var(--tui-component-badge-danger-emphasized-icon-color)
+}
+
+tui-badge.tui-badge--warning tui-icon[slot=icon] {
+    color: var(--tui-component-badge-warning-default-icon-color)
+}
+
+tui-badge.tui-badge--warning.tui-badge--emphasized tui-icon[slot=icon] {
+    color: var(--tui-component-badge-warning-emphasized-icon-color)
+}
+
+tui-badge.tui-badge--success tui-icon[slot=icon] {
+    color: var(--tui-component-badge-success-default-icon-color)
+}
+
+tui-badge.tui-badge--success.tui-badge--emphasized tui-icon[slot=icon] {
+    color: var(--tui-component-badge-success-emphasized-icon-color)
+}
+
+tui-badge.tui-badge--info tui-icon[slot=icon] {
+    color: var(--tui-component-badge-info-default-icon-color)
+}
+
+tui-badge.tui-badge--info.tui-badge--emphasized tui-icon[slot=icon] {
+    color: var(--tui-component-badge-info-emphasized-icon-color)
+}
+
+tui-button.tui-button--sm tui-icon {
+    width: var(--tui-component-button-sm-icon-size);
+    height: var(--tui-component-button-sm-icon-size)
+}
+
+tui-button.tui-button--sm tui-icon[slot=pre] {
+    margin-right: var(--tui-component-button-icon-left-sm-comp-item-spacing)
+}
+
+tui-button.tui-button--sm tui-icon[slot=post] {
+    margin-left: var(--tui-component-button-icon-right-sm-comp-item-spacing)
+}
+
+tui-button.tui-button--md tui-icon {
+    width: var(--tui-component-button-md-icon-size);
+    height: var(--tui-component-button-md-icon-size)
+}
+
+tui-button.tui-button--md tui-icon[slot=pre] {
+    margin-right: var(--tui-component-button-icon-left-md-comp-item-spacing)
+}
+
+tui-button.tui-button--md tui-icon[slot=post] {
+    margin-left: var(--tui-component-button-icon-right-sm-comp-item-spacing)
+}
+
+tui-button.tui-button--lg tui-icon {
+    width: var(--tui-component-button-lg-icon-size);
+    height: var(--tui-component-button-lg-icon-size)
+}
+
+tui-button.tui-button--lg tui-icon[slot=pre] {
+    margin-right: var(--tui-component-button-icon-left-lg-comp-item-spacing)
+}
+
+tui-button.tui-button--lg tui-icon[slot=post] {
+    margin-left: var(--tui-component-button-icon-right-lg-comp-item-spacing)
+}
+
+tui-button.tui-button--primary tui-icon {
+    color: var(--tui-component-button-primary-default-icon-color)
+}
+
+tui-button.tui-button--primary.tui-button--disabled tui-icon {
+    color: var(--tui-component-button-primary-disabled-icon-color)
+}
+
+tui-button.tui-button--primary-subtle tui-icon {
+    color: var(--tui-component-button-primary-subtle-default-icon-color)
+}
+
+tui-button.tui-button--primary-subtle.tui-button--disabled tui-icon {
+    color: var(--tui-component-button-primary-subtle-disabled-icon-color)
+}
+
+tui-button.tui-button--primary-ghost tui-icon {
+    color: var(--tui-component-button-primary-ghost-default-icon-color)
+}
+
+tui-button.tui-button--primary-ghost.tui-button--disabled tui-icon {
+    color: var(--tui-component-button-primary-ghost-disabled-icon-color)
+}
+
+tui-button.tui-button--secondary tui-icon {
+    color: var(--tui-component-button-secondary-default-icon-color)
+}
+
+tui-button.tui-button--secondary.tui-button--disabled tui-icon {
+    color: var(--tui-component-button-secondary-disabled-icon-color)
+}
+
+tui-button.tui-button--secondary-ghost tui-icon {
+    color: var(--tui-component-button-secondary-ghost-default-icon-color)
+}
+
+tui-button.tui-button--secondary-ghost.tui-button--disabled tui-icon {
+    color: var(--tui-component-button-secondary-ghost-disabled-icon-color)
+}
+
+tui-button.tui-button--danger tui-icon {
+    color: var(--tui-component-button-danger-default-icon-color)
+}
+
+tui-button.tui-button--danger.tui-button--disabled tui-icon {
+    color: var(--tui-component-button-danger-disabled-icon-color)
+}
+
+tui-button.tui-button--danger-subtle tui-icon {
+    color: var(--tui-component-button-danger-subtle-default-icon-color)
+}
+
+tui-button.tui-button--danger-subtle.tui-button--disabled tui-icon {
+    color: var(--tui-component-button-danger-subtle-disabled-icon-color)
+}
+
+tui-button.tui-button--danger-ghost tui-icon {
+    color: var(--tui-component-button-danger-ghost-default-icon-color)
+}
+
+tui-button.tui-button--danger-ghost.tui-button--disabled tui-icon {
+    color: var(--tui-component-button-danger-ghost-disabled-icon-color)
+}
+
+tui-checkbox-group ul,tui-checkbox-group li {
+    padding: 0;
+    margin: 0;
+    list-style-type: none
+}
+
+tui-checkbox-group tui-checkbox+tui-checkbox {
+    margin-top: var(--tui-component-checkbox-group-gap-y)
+}
+
+tui-date-input input[type=date]::-webkit-calendar-picker-indicator,tui-date-input input[type=date]::-webkit-input-placeholder,tui-date-range-inputs input[type=date]::-webkit-calendar-picker-indicator,tui-date-range-inputs input[type=date]::-webkit-input-placeholder {
+    display: none
+}
+
+tui-dropdown [slot^=content-] {
+    border-top: 0
+}
+
+tui-dropdown [slot^=content-]~[slot^=content-] {
+    border-top: 1px solid var(--tui-component-popover-border-color)
+}
+
+tui-dropdown [slot^=content-] tui-switch {
+    padding: var(--tui-component-dropdown-item-comp-spacing)
+}
+
+tui-icon-list+tui-icon-list {
+    margin-top: var(--tui-sem-space-static-md)
+}
+
+tui-label:not([aria-disabled]) label[for] {
+    cursor: pointer
+}
+
+tui-modal [slot^=content-]>*:first-child {
+    margin-top: 0
+}
+
+tui-modal [slot^=content-]>*:last-child {
+    margin-bottom: 0
+}
+
+tui-popover>.dropdown-menu {
+    display: block;
+    position: relative;
+    border: 0;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    width: 100%
+}
+
+tui-popover [slot^=content-] {
+    border-top: 0
+}
+
+tui-popover [slot^=content-]~[slot^=content-] {
+    border-top: 1px solid var(--tui-component-popover-border-color)
+}
+
+tui-popover [slot]>*:last-child {
+    margin-bottom: 0
+}
+
+tui-radio-group ul,tui-radio-group li {
+    padding: 0;
+    margin: 0;
+    list-style-type: none
+}
+
+tui-radio-group tui-radio+tui-radio {
+    margin-top: var(--tui-component-radio-button-group-gap-y)
+}
+
+tui-select:not([aria-disabled]) label[for] {
+    cursor: pointer
+}
+
+tui-select label {
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    font: var(--tui-component-input-label-md-label-font);
+    color: var(--tui-component-input-label-label-default-color);
+    margin: 0;
+    padding: 0 0 var(--tui-component-label-input-sm-label-gap)
+}
+
+tui-select[aria-disabled] label {
+    color: var(--tui-component-input-label-label-disabled-color)
+}
+
+tui-select.tui-select--hovering-label select {
+    background-color: var(--tui-component-input-hovered-background-color)
+}
+
+tui-select select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    font: var(--tui-component-input-value-font);
+    background-color: var(--tui-component-input-default-background-color);
+    border: var(--tui-component-input-border-width-default) solid var(--tui-component-input-default-border-color);
+    border-radius: var(--tui-component-input-md-input-comp-border-radius);
+    color: var(--tui-component-input-default-text-color);
+    height: var(--tui-component-input-md-input-comp-height);
+    padding: 0 calc(var(--tui-component-input-md-value-comp-horizontal-padding) + var(--tui-component-input-md-icon-size)) 0 var(--tui-component-input-md-value-comp-horizontal-padding);
+    width: 100%;
+    cursor: pointer;
+    text-overflow: ellipsis
+}
+
+tui-select select optgroup,tui-select select option {
+    font-family: arial,sans-serif
+}
+
+tui-select select:focus {
+    outline: none
+}
+
+tui-select select:focus-visible {
+    outline-color: transparent;
+    outline-offset: 1px;
+    -webkit-box-shadow: var(--tui-sem-shadow-focus-default);
+    box-shadow: var(--tui-sem-shadow-focus-default)
+}
+
+tui-select select:hover {
+    background-color: var(--tui-component-input-hovered-background-color)
+}
+
+tui-select select:hover optgroup,tui-select select:hover option {
+    background-color: var(--tui-sem-color-background-primary)
+}
+
+tui-select.tui-select--invalid select:not(:disabled) {
+    border-color: var(--tui-component-input-invalid-border-color)
+}
+
+tui-select tui-label {
+    margin-bottom: 0
+}
+
+tui-select option:disabled {
+    color: var(--tui-component-input-disabled-text-color)
+}
+
+tui-select select:disabled {
+    color: var(--tui-component-input-disabled-text-color);
+    background-color: var(--tui-component-input-disabled-background-color);
+    border-color: var(--tui-component-input-disabled-border-color);
+    cursor: default
+}
+
+tui-select.tui-select--disabled select,tui-select.tui-select--disabled label {
+    cursor: not-allowed
+}
+
+tui-switch .tui-switch__hidden-input {
+    display: none
+}
+
+tui-table table {
+    overflow: auto;
+    -webkit-scroll-snap-type: both mandatory;
+    -ms-scroll-snap-type: both mandatory;
+    scroll-snap-type: both mandatory;
+    margin: 0;
+    border-collapse: separate;
+    border-top: 0;
+    width: 100%;
+    isolation: isolate
+}
+
+tui-table.tui-table--sticky-col-1.tui-table--scrolled tr>:nth-child(1),tui-table.tui-table--sticky-col-2.tui-table--scrolled tr>:nth-child(2),tui-table.tui-table--sticky-col-last-1.tui-table--scrolled-end tr>:nth-last-child(1) {
+    -webkit-box-shadow: 0 6px 12px -2px rgba(57,70,78,.1),0 3px 7px -3px rgba(57,70,78,.2);
+    box-shadow: 0 6px 12px -2px rgba(57,70,78,.1),0 3px 7px -3px rgba(57,70,78,.2)
+}
+
+tui-table.tui-table--sticky-col-1.tui-table--scrolled tr>:nth-child(1),tui-table.tui-table--sticky-col-2.tui-table--scrolled tr>:nth-child(2) {
+    -webkit-clip-path: inset(0px -28px 0px 0px);
+    clip-path: inset(0px -28px 0px 0px)
+}
+
+tui-table.tui-table--sticky-col-last-1.tui-table--scrolled-end tr>:nth-last-child(1) {
+    -webkit-clip-path: inset(0px 0px 0px -28px);
+    clip-path: inset(0px 0px 0px -28px)
+}
+
+tui-table:is(.xs,.sm,.md) th,tui-table:is(.xs,.sm,.md) td {
+    padding: .75rem .6rem
+}
+
+tui-table th,tui-table td {
+    background-clip: padding-box;
+    scroll-snap-align: start;
+    padding: 1rem .6rem;
+    min-width: 6rem;
+    text-align: left;
+    margin: 0;
+    line-height: 20px
+}
+
+tui-table thead {
+    position: -webkit-sticky;
+    position: sticky;
+    z-index: 20;
+    top: -6px
+}
+
+tui-table thead th {
+    border-top: 3px solid transparent;
+    background-clip: padding-box;
+    border-bottom: 3px solid var(--tui-charcoal-800);
+    background-color: #fff!important
+}
+
+tui-table.tui-table--sticky-col-1 thead th:nth-child(1),tui-table.tui-table--sticky-col-2 thead th:nth-child(2) {
+    position: -webkit-sticky;
+    position: sticky;
+    z-index: 10;
+    top: -6px;
+    left: -3px;
+    border-left: 0
+}
+
+tui-table.tui-table--sticky-col-last-1 thead th:nth-last-child(1) {
+    position: -webkit-sticky;
+    position: sticky;
+    z-index: 10;
+    top: -6px;
+    right: -3px;
+    border-right: 0
+}
+
+tui-table.tui-table--sticky-col-1 tbody tr>:nth-child(1),tui-table.tui-table--sticky-col-1 tfoot tr>:nth-child(1),tui-table.tui-table--sticky-col-2 tbody tr>:nth-child(2),tui-table.tui-table--sticky-col-2 tfoot tr>:nth-child(2) {
+    position: -webkit-sticky;
+    position: sticky;
+    z-index: 10;
+    left: -3px;
+    border-left: 0
+}
+
+tui-table.tui-table--sticky-col-last-1 tbody tr>:nth-last-child(1),tui-table.tui-table--sticky-col-last-1 tfoot tr>:nth-last-child(1) {
+    position: -webkit-sticky;
+    position: sticky;
+    z-index: 10;
+    right: -3px;
+    border-right: 0
+}
+
+tui-table tbody tr:nth-child(odd) td,tui-table tbody tr:nth-child(odd) th {
+    background: var(--tui-charcoal-50)
+}
+
+tui-table tbody tr:nth-child(even) td,tui-table tbody tr:nth-child(even) th {
+    background: #fff
+}
+
+tui-table.tui-table--highlight-active-row tbody tr:hover td,tui-table.tui-table--highlight-active-row tbody tr:hover th {
+    background: var(--tui-midnight-200)
+}
+
+tui-table tfoot td,tui-table tfoot th {
+    background: #fff;
+    border-top: 1px solid var(--tui-charcoal-100)
+}
+
+tui-tabs:is(.md,.lg,.xl) tui-tab {
+    -ms-flex-positive: unset;
+    flex-grow: unset
+}
+
+:host {
+    display: block
+}
+
+:host,button {
+    font-size: 16px;
+    line-height: 24px;
+    font-family: Lato,-apple-system,system-ui,BlinkMacSystemFont,segoe ui,Roboto,helvetica neue,Arial,sans-serif;
+    font-weight: 400;
+    color: var(--tui-charcoal-500)
+}
+
+.tui-pt--xs-r {
+    padding-top: var(--tui-sem-space-responsive-sm)
+}
+
+.tui-pr--xs-r {
+    padding-right: var(--tui-sem-space-responsive-sm)
+}
+
+.tui-pb--xs-r {
+    padding-bottom: var(--tui-sem-space-responsive-sm)
+}
+
+.tui-pl--xs-r {
+    padding-left: var(--tui-sem-space-responsive-sm)
+}
+
+.tui-mt--xs-r {
+    margin-top: var(--tui-sem-space-responsive-sm)
+}
+
+.tui-mr--xs-r {
+    margin-right: var(--tui-sem-space-responsive-sm)
+}
+
+.tui-mb--xs-r {
+    margin-bottom: var(--tui-sem-space-responsive-sm)
+}
+
+.tui-ml--xs-r {
+    margin-left: var(--tui-sem-space-responsive-sm)
+}
+
+.tui-pt--sm-r {
+    padding-top: var(--tui-sem-space-responsive-md)
+}
+
+.tui-pr--sm-r {
+    padding-right: var(--tui-sem-space-responsive-md)
+}
+
+.tui-pb--sm-r {
+    padding-bottom: var(--tui-sem-space-responsive-md)
+}
+
+.tui-pl--sm-r {
+    padding-left: var(--tui-sem-space-responsive-md)
+}
+
+.tui-mt--sm-r {
+    margin-top: var(--tui-sem-space-responsive-md)
+}
+
+.tui-mr--sm-r {
+    margin-right: var(--tui-sem-space-responsive-md)
+}
+
+.tui-mb--sm-r {
+    margin-bottom: var(--tui-sem-space-responsive-md)
+}
+
+.tui-ml--sm-r {
+    margin-left: var(--tui-sem-space-responsive-md)
+}
+
+.tui-pt--md-r {
+    padding-top: var(--tui-sem-space-responsive-lg)
+}
+
+.tui-pr--md-r {
+    padding-right: var(--tui-sem-space-responsive-lg)
+}
+
+.tui-pb--md-r {
+    padding-bottom: var(--tui-sem-space-responsive-lg)
+}
+
+.tui-pl--md-r {
+    padding-left: var(--tui-sem-space-responsive-lg)
+}
+
+.tui-mt--md-r {
+    margin-top: var(--tui-sem-space-responsive-lg)
+}
+
+.tui-mr--md-r {
+    margin-right: var(--tui-sem-space-responsive-lg)
+}
+
+.tui-mb--md-r {
+    margin-bottom: var(--tui-sem-space-responsive-lg)
+}
+
+.tui-ml--md-r {
+    margin-left: var(--tui-sem-space-responsive-lg)
+}
+
+.tui-pt--lg-r {
+    padding-top: var(--tui-sem-space-responsive-xl)
+}
+
+.tui-pr--lg-r {
+    padding-right: var(--tui-sem-space-responsive-xl)
+}
+
+.tui-pb--lg-r {
+    padding-bottom: var(--tui-sem-space-responsive-xl)
+}
+
+.tui-pl--lg-r {
+    padding-left: var(--tui-sem-space-responsive-xl)
+}
+
+.tui-mt--lg-r {
+    margin-top: var(--tui-sem-space-responsive-xl)
+}
+
+.tui-mr--lg-r {
+    margin-right: var(--tui-sem-space-responsive-xl)
+}
+
+.tui-mb--lg-r {
+    margin-bottom: var(--tui-sem-space-responsive-xl)
+}
+
+.tui-ml--lg-r {
+    margin-left: var(--tui-sem-space-responsive-xl)
+}
+
+.tui-pt--xl-r {
+    padding-top: var(--tui-sem-space-responsive-xxl)
+}
+
+.tui-pr--xl-r {
+    padding-right: var(--tui-sem-space-responsive-xxl)
+}
+
+.tui-pb--xl-r {
+    padding-bottom: var(--tui-sem-space-responsive-xxl)
+}
+
+.tui-pl--xl-r {
+    padding-left: var(--tui-sem-space-responsive-xxl)
+}
+
+.tui-mt--xl-r {
+    margin-top: var(--tui-sem-space-responsive-xxl)
+}
+
+.tui-mr--xl-r {
+    margin-right: var(--tui-sem-space-responsive-xxl)
+}
+
+.tui-mb--xl-r {
+    margin-bottom: var(--tui-sem-space-responsive-xxl)
+}
+
+.tui-ml--xl-r {
+    margin-left: var(--tui-sem-space-responsive-xxl)
+}
+
+.tui-pt--none-s {
+    padding-top: var(--tui-sem-space-static-none)
+}
+
+.tui-pr--none-s {
+    padding-right: var(--tui-sem-space-static-none)
+}
+
+.tui-pb--none-s {
+    padding-bottom: var(--tui-sem-space-static-none)
+}
+
+.tui-pl--none-s {
+    padding-left: var(--tui-sem-space-static-none)
+}
+
+.tui-mt--none-s {
+    margin-top: var(--tui-sem-space-static-none)
+}
+
+.tui-mr--none-s {
+    margin-right: var(--tui-sem-space-static-none)
+}
+
+.tui-mb--none-s {
+    margin-bottom: var(--tui-sem-space-static-none)
+}
+
+.tui-ml--none-s {
+    margin-left: var(--tui-sem-space-static-none)
+}
+
+.tui-pt--xxs-s {
+    padding-top: var(--tui-sem-space-static-xxs)
+}
+
+.tui-pr--xxs-s {
+    padding-right: var(--tui-sem-space-static-xxs)
+}
+
+.tui-pb--xxs-s {
+    padding-bottom: var(--tui-sem-space-static-xxs)
+}
+
+.tui-pl--xxs-s {
+    padding-left: var(--tui-sem-space-static-xxs)
+}
+
+.tui-mt--xxs-s {
+    margin-top: var(--tui-sem-space-static-xxs)
+}
+
+.tui-mr--xxs-s {
+    margin-right: var(--tui-sem-space-static-xxs)
+}
+
+.tui-mb--xxs-s {
+    margin-bottom: var(--tui-sem-space-static-xxs)
+}
+
+.tui-ml--xxs-s {
+    margin-left: var(--tui-sem-space-static-xxs)
+}
+
+.tui-pt--xs-s {
+    padding-top: var(--tui-sem-space-static-xs)
+}
+
+.tui-pr--xs-s {
+    padding-right: var(--tui-sem-space-static-xs)
+}
+
+.tui-pb--xs-s {
+    padding-bottom: var(--tui-sem-space-static-xs)
+}
+
+.tui-pl--xs-s {
+    padding-left: var(--tui-sem-space-static-xs)
+}
+
+.tui-mt--xs-s {
+    margin-top: var(--tui-sem-space-static-xs)
+}
+
+.tui-mr--xs-s {
+    margin-right: var(--tui-sem-space-static-xs)
+}
+
+.tui-mb--xs-s {
+    margin-bottom: var(--tui-sem-space-static-xs)
+}
+
+.tui-ml--xs-s {
+    margin-left: var(--tui-sem-space-static-xs)
+}
+
+.tui-pt--sm-s {
+    padding-top: var(--tui-sem-space-static-md)
+}
+
+.tui-pr--sm-s {
+    padding-right: var(--tui-sem-space-static-md)
+}
+
+.tui-pb--sm-s {
+    padding-bottom: var(--tui-sem-space-static-md)
+}
+
+.tui-pl--sm-s {
+    padding-left: var(--tui-sem-space-static-md)
+}
+
+.tui-mt--sm-s {
+    margin-top: var(--tui-sem-space-static-md)
+}
+
+.tui-mr--sm-s {
+    margin-right: var(--tui-sem-space-static-md)
+}
+
+.tui-mb--sm-s {
+    margin-bottom: var(--tui-sem-space-static-md)
+}
+
+.tui-ml--sm-s {
+    margin-left: var(--tui-sem-space-static-md)
+}
+
+.tui-pt--md-s {
+    padding-top: var(--tui-sem-space-static-md)
+}
+
+.tui-pr--md-s {
+    padding-right: var(--tui-sem-space-static-md)
+}
+
+.tui-pb--md-s {
+    padding-bottom: var(--tui-sem-space-static-md)
+}
+
+.tui-pl--md-s {
+    padding-left: var(--tui-sem-space-static-md)
+}
+
+.tui-mt--md-s {
+    margin-top: var(--tui-sem-space-static-md)
+}
+
+.tui-mr--md-s {
+    margin-right: var(--tui-sem-space-static-md)
+}
+
+.tui-mb--md-s {
+    margin-bottom: var(--tui-sem-space-static-md)
+}
+
+.tui-ml--md-s {
+    margin-left: var(--tui-sem-space-static-md)
+}
+
+.tui-pt--lg-s {
+    padding-top: var(--tui-sem-space-static-lg)
+}
+
+.tui-pr--lg-s {
+    padding-right: var(--tui-sem-space-static-lg)
+}
+
+.tui-pb--lg-s {
+    padding-bottom: var(--tui-sem-space-static-lg)
+}
+
+.tui-pl--lg-s {
+    padding-left: var(--tui-sem-space-static-lg)
+}
+
+.tui-mt--lg-s {
+    margin-top: var(--tui-sem-space-static-lg)
+}
+
+.tui-mr--lg-s {
+    margin-right: var(--tui-sem-space-static-lg)
+}
+
+.tui-mb--lg-s {
+    margin-bottom: var(--tui-sem-space-static-lg)
+}
+
+.tui-ml--lg-s {
+    margin-left: var(--tui-sem-space-static-lg)
+}
+
+.tui-pt--xl-s {
+    padding-top: var(--tui-sem-space-static-xl)
+}
+
+.tui-pr--xl-s {
+    padding-right: var(--tui-sem-space-static-xl)
+}
+
+.tui-pb--xl-s {
+    padding-bottom: var(--tui-sem-space-static-xl)
+}
+
+.tui-pl--xl-s {
+    padding-left: var(--tui-sem-space-static-xl)
+}
+
+.tui-mt--xl-s {
+    margin-top: var(--tui-sem-space-static-xl)
+}
+
+.tui-mr--xl-s {
+    margin-right: var(--tui-sem-space-static-xl)
+}
+
+.tui-mb--xl-s {
+    margin-bottom: var(--tui-sem-space-static-xl)
+}
+
+.tui-ml--xl-s {
+    margin-left: var(--tui-sem-space-static-xl)
+}
+
+.tui-pt--xxl-s {
+    padding-top: var(--tui-sem-space-static-xxl)
+}
+
+.tui-pr--xxl-s {
+    padding-right: var(--tui-sem-space-static-xxl)
+}
+
+.tui-pb--xxl-s {
+    padding-bottom: var(--tui-sem-space-static-xxl)
+}
+
+.tui-pl--xxl-s {
+    padding-left: var(--tui-sem-space-static-xxl)
+}
+
+.tui-mt--xxl-s {
+    margin-top: var(--tui-sem-space-static-xxl)
+}
+
+.tui-mr--xxl-s {
+    margin-right: var(--tui-sem-space-static-xxl)
+}
+
+.tui-mb--xxl-s {
+    margin-bottom: var(--tui-sem-space-static-xxl)
+}
+
+.tui-ml--xxl-s {
+    margin-left: var(--tui-sem-space-static-xxl)
+}
+
+:host {
+    display: block
+}
+
+:host,button {
+    font-size: 16px;
+    line-height: 24px;
+    font-family: Lato,-apple-system,system-ui,BlinkMacSystemFont,segoe ui,Roboto,helvetica neue,Arial,sans-serif;
+    font-weight: 400;
+    color: var(--tui-charcoal-500)
+}
+
+.tui-heading--lg {
+    font: var(--tui-sem-font-title-lg);
+    letter-spacing: var(--tui-base-letter-spacing-15)
+}
+
+.tui-heading--md {
+    font: var(--tui-sem-font-title-md);
+    letter-spacing: var(--tui-base-letter-spacing-0)
+}
+
+.tui-heading--sm {
+    font: var(--tui-sem-font-title-sm);
+    letter-spacing: var(--tui-base-letter-spacing-10)
+}
+
+.tui-heading--xs {
+    font: var(--tui-sem-font-title-xs);
+    letter-spacing: var(--tui-base-letter-spacing-15)
+}
+
+.tui-body--lg {
+    font: var(--tui-sem-font-body-default-lg);
+    letter-spacing: var(--tui-base-letter-spacing-0)
+}
+
+.tui-body--lg-bold {
+    font: var(--tui-sem-font-body-emphasized-lg);
+    letter-spacing: var(--tui-base-letter-spacing-10)
+}
+
+.tui-body--md {
+    font: var(--tui-sem-font-body-default-md);
+    letter-spacing: var(--tui-base-letter-spacing-10)
+}
+
+.tui-body--md-bold {
+    font: var(--tui-sem-font-body-emphasized-md);
+    letter-spacing: var(--tui-base-letter-spacing-15)
+}
+
+.tui-body--sm {
+    font: var(--tui-sem-font-body-default-sm);
+    letter-spacing: var(--tui-base-letter-spacing-10)
+}
+
+.tui-body--sm-bold {
+    font: var(--tui-sem-font-body-emphasized-sm);
+    letter-spacing: var(--tui-base-letter-spacing-15)
+}
+
+.tui-body--xs {
+    font: var(--tui-sem-font-body-default-xs);
+    letter-spacing: var(--tui-base-letter-spacing-20)
+}
+
+.tui-body--xs-bold {
+    font: var(--tui-sem-font-body-emphasized-xs);
+    letter-spacing: var(--tui-base-letter-spacing-20)
+}
+
+.invisible-button {
+    border: 0;
+    margin: 0;
+    padding: 0;
+    background-color: transparent
+}
+
+.invisible-button:focus-visible {
+    outline: none;
+    -webkit-box-shadow: var(--tui-sem-shadow-focus-default);
+    box-shadow: var(--tui-sem-shadow-focus-default);
+    border-radius: var(--tui-sem-border-border-radius-selectable-sm)
+}
+
+.invisible-button tui-icon {
+    color: var(--tui-sem-color-icon-secondary)
+}
+
+:root {
+    font-size: 16px;
+    line-height: 24px;
+    font-family: Lato,-apple-system,system-ui,BlinkMacSystemFont,segoe ui,Roboto,helvetica neue,Arial,sans-serif;
+    font-weight: 400;
+    --tui-midnight-800: #212379;
+    --tui-midnight-700: #343796;
+    --tui-midnight-600: #4c4fb3;
+    --tui-midnight-500: #696cd1;
+    --tui-midnight-400: #9c9ef0;
+    --tui-midnight-300: #c4c6ff;
+    --tui-midnight-200: #dbdcff;
+    --tui-midnight-100: #ebebff;
+    --tui-midnight-50: #f5f5ff;
+    --tui-charcoal-800: #0a1425;
+    --tui-charcoal-700: #232b30;
+    --tui-charcoal-600: #2f3940;
+    --tui-charcoal-500: #39464e;
+    --tui-charcoal-400: #85939c;
+    --tui-charcoal-300: #b1b9be;
+    --tui-charcoal-200: #cdd2d5;
+    --tui-charcoal-100: #e3e6e8;
+    --tui-charcoal-50: #f4f4f4;
+    --tui-box-shadow-xl: 0px 30px 60px -30px #39464e33, 0px 50px 90px -20px #39464e1a;
+    --tui-box-shadow-lg: 0px 18px 36px -18px #39464e33, 0px 30px 60px -12px #39464e1a;
+    --tui-box-shadow-md: 0px 8px 16px -8px #39464e33, 0px 13px 27px -5px #39464e1a;
+    --tui-box-shadow-sm: 0px 3px 7px -3px #39464e33, 0px 6px 12px -2px #39464e1a;
+    --tui-focus-box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25)
+}
