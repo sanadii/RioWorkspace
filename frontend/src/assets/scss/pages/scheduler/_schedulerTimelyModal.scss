@@ -1,0 +1,1890 @@
+.fade {
+    -webkit-transition: opacity .15s linear;
+    -moz-transition: opacity .15s linear;
+    -ms-transition: opacity .15s linear;
+    -o-transition: opacity .15s linear;
+    transition: opacity .15s linear;
+    opacity: 0
+}
+
+.fade.in {
+    opacity: 1
+}
+
+
+
+.staff-location-modal .day-group {
+    margin-bottom: 10px;
+    border-bottom: 1px solid #efefef;
+    padding-bottom: 5px
+}
+
+.staff-location-modal .day-group:last-of-type {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0
+}
+
+
+body.modal-open,
+body.ReactModal__Body--open {
+    overflow-y: hidden
+}
+
+body.modal-open #beacon-container,
+body.ReactModal__Body--open #beacon-container {
+    display: none
+}
+
+.modal-open .dropdown-menu,
+.modal-open .dropdown.open {
+    *z-index: 2050
+}
+
+.modal-open .popover {
+    z-index: 2060
+}
+
+.modal-open .tooltip {
+    z-index: 7050
+}
+
+.help-modal-backdrop,
+.modal-backdrop,
+.setup-modal-backdrop {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1040;
+    background-color: #000
+}
+
+.help-modal-backdrop.fade,
+.modal-backdrop.fade,
+.setup-modal-backdrop.fade {
+    opacity: 0
+}
+
+.help-modal-backdrop,
+.modal-backdrop,
+.modal-backdrop.fade.in,
+.setup-modal-backdrop {
+    opacity: .8;
+    filter: alpha(opacity=80)
+}
+
+.modal {
+    top: 50%;
+    left: 50%;
+    z-index: 1050;
+    margin: -250px 0 0 -290px;
+    background-color: #fff;
+    border: 1px solid #999;
+    border: 1px solid rgba(0, 0, 0, .3);
+    *border: 1px solid #999;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    border-radius: 6px;
+    -webkit-box-shadow: 0 3px 7px rgba(0, 0, 0, .3);
+    -moz-box-shadow: 0 3px 7px rgba(0, 0, 0, .3);
+    box-shadow: 0 3px 7px rgba(0, 0, 0, .3);
+    -webkit-background-clip: padding-box;
+    -moz-background-clip: padding-box;
+    background-clip: padding-box
+}
+
+.modal.fade {
+    -webkit-transition: opacity .1s linear, top .1s ease-out;
+    -moz-transition: opacity .1s linear, top .1s ease-out;
+    -ms-transition: opacity .1s linear, top .1s ease-out;
+    -o-transition: opacity .1s linear, top .1s ease-out;
+    transition: opacity .1s linear, top .1s ease-out;
+    top: 35%
+}
+
+.modal.fade.in {
+    top: 50%
+}
+
+.modal-header {
+    padding: 9px 15px;
+    border-bottom: 1px solid #eee
+}
+
+.modal-header .close {
+    color: var(--tui-charcoal-500);
+    margin-top: 2px;
+    font-size: 28px;
+    font-weight: 400
+}
+
+.modal-header .close:hover {
+    color: var(--tui-charcoal-600) !important
+}
+
+.modal-body,
+.ReactModal__Content>div {
+    overflow-y: auto;
+    padding: 15px
+}
+
+.modal-footer,
+.modal-form {
+    margin-bottom: 0
+}
+
+.modal-footer {
+    padding: 14px 15px 15px;
+    text-align: right;
+    background-color: #fff;
+    border-top: 1px solid var(--tui-charcoal-200);
+    -webkit-border-radius: 0 0 6px 6px;
+    -moz-border-radius: 0 0 6px 6px;
+    border-radius: 0 0 6px 6px;
+    -webkit-box-shadow: inset 0 1px 0 #fff;
+    -moz-box-shadow: inset 0 1px 0 #fff;
+    box-shadow: inset 0 1px 0 #fff;
+    *zoom: 1
+}
+
+.modal-footer:after,
+.modal-footer:before {
+    display: table;
+    content: "";
+    line-height: 0
+}
+
+.modal-footer:after {
+    clear: both
+}
+
+.modal-footer .btn+.btn {
+    margin-left: 5px;
+    margin-bottom: 0
+}
+
+.modal-footer .btn-group .btn+.btn {
+    margin-left: -1px
+}
+
+.modal {
+    z-index: 550;
+    width: 580px;
+    border: none;
+    background-color: transparent;
+    margin-top: -360px;
+    position: fixed;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    box-shadow: inset 0 8px 4px -7px hsla(0, 0%, 100%, .3), 0 8px 20px -8px rgba(33, 33, 33, .5);
+    -webkit-background-clip: none;
+    -moz-background-clip: none;
+    background-clip: none
+}
+
+.modal .well,
+.modal form {
+    margin-bottom: 0
+}
+
+.welcome-modal {
+    margin-top: -160px !important;
+    background: #fff
+}
+
+.welcome-modal .lead {
+    font-size: 16px
+}
+
+.welcome-modal .close {
+    color: #39464e;
+    background: none;
+    border: none
+}
+
+.welcome-modal .close:focus,
+.welcome-modal .close:hover {
+    color: #777 !important;
+    border: none;
+    outline: none
+}
+
+.welcome-modal.modal-tall {
+    margin-top: -320px
+}
+
+.switching-modal {
+    margin-top: -147px
+}
+
+.switching-modal .lead {
+    font-size: 17px;
+    font-weight: 400;
+    margin-top: 10px
+}
+
+.switching-modal i {
+    color: #777
+}
+
+@media (max-height: 768px) {
+    .modal.switching-modal {
+        margin-top: -147px !important;
+        top: 50%
+    }
+}
+
+.help-modal-backdrop,
+.modal-backdrop,
+.modal-backdrop.fade.in,
+.setup-modal-backdrop {
+    opacity: .4;
+    filter: alpha(opacity=40);
+    z-index: 500
+}
+
+.modal-backdrop.fade.out {
+    transition: none
+}
+
+.modal-header {
+    background-color: #fff;
+    color: #39464e;
+    text-align: center;
+    border-bottom: 1px solid var(--tui-charcoal-200);
+    -webkit-border-radius: 3px 3px 0 0;
+    -moz-border-radius: 3px 3px 0 0;
+    border-radius: 3px 3px 0 0;
+    cursor: url(../../../images/scheduler/grab.png) 8 8, move
+}
+
+.modal-header h3 {
+    font-weight: 700
+}
+
+.ui-draggable-dragging .modal-header {
+    cursor: url(../../../images/scheduler/grabbing.png) 8 8, move
+}
+
+.modal-body {
+    background-color: #fff;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    max-height: calc(100vh - 170px)
+}
+
+.modal-body .customer-info {
+    margin-top: 15px
+}
+
+.modal-body .alert {
+    margin-bottom: 15px
+}
+
+.modal-body .alert-rebook {
+    padding: 12px;
+    margin-bottom: 15px;
+    background-color: #fff;
+    border: 3px solid #ddd
+}
+
+.modal-body .alert-rebook label {
+    font-weight: 400
+}
+
+.modal-body .alert-rebook .btn {
+    height: 20px
+}
+
+.modal-body .alert-rebook .flex-container {
+    padding: 10px 0 5px
+}
+
+.modal-body .alert-rewards {
+    padding: 12px;
+    margin-bottom: 15px;
+    background-color: #fff;
+    border: 3px solid #ddd
+}
+
+.modal-body .alert-rewards p {
+    margin-bottom: 0
+}
+
+.modal-body .alert-rewards h4 {
+    margin-bottom: 12px
+}
+
+.modal-body .alert-rewards .alert-summary {
+    text-indent: 2em
+}
+
+.modal-body .flex-container {
+    display: flex;
+    justify-content: space-between
+}
+
+.modal-body .flex-container .flex-item {
+    flex-grow: 1;
+    width: 100%
+}
+
+.modal-body .flex-container .flex-item:nth-child(2) {
+    margin-left: 12px
+}
+
+.modal-body .alert-no-margin-bottom {
+    margin-bottom: 0
+}
+
+.modal-body hr {
+    margin: 5px 0 10px
+}
+
+.modal-body .modal-center {
+    padding: 20px;
+    text-align: center
+}
+
+.modal-body .input-mini {
+    width: 70px
+}
+
+.modal-body .btn-mini {
+    margin-left: 8px;
+    position: relative
+}
+
+.modal-body .btn-group .btn-mini {
+    margin-left: -1px
+}
+
+.modal-body .nav {
+    margin-bottom: 14px
+}
+
+.modal-body .input-95-pct,
+.modal-body textarea {
+    width: 95%
+}
+
+.modal-body .input-100-pct {
+    width: 100%
+}
+
+.modal-body textarea {
+    height: 100px
+}
+
+.modal-body textarea.small {
+    height: 50px
+}
+
+.modal-body .right {
+    float: right
+}
+
+.modal-body .booking-details {
+    font-size: 18px
+}
+
+.modal-body .booking-details p {
+    clear: both;
+    margin-bottom: 0
+}
+
+.modal-body .booking-details .summary {
+    float: left;
+    position: relative;
+    width: 16px
+}
+
+.modal-body .warning-row {
+    background-color: #f2dede !important
+}
+
+.modal-body .warning-icon {
+    color: red;
+    text-decoration: none !important;
+    font-size: 28px;
+    position: relative;
+    top: 2px
+}
+
+.modal-body .warning-icon-offset {
+    position: relative;
+    top: 4px;
+    left: 5px;
+    color: red;
+    font-size: 22px
+}
+
+.modal-body .info-icon {
+    color: #0098cb;
+    text-decoration: none !important;
+    font-size: 22px;
+    position: relative;
+    left: 3px
+}
+
+.modal-body .scroller {
+    max-height: 450px
+}
+
+.modal-body .scroller-small {
+    max-height: 150px;
+    overflow-y: auto
+}
+
+.modal-body .control-inline {
+    position: relative;
+    margin-left: 4px;
+    margin-right: 4px;
+    top: 1px
+}
+
+.modal-body .form-inline .checkbox {
+    margin-top: 6px
+}
+
+.modal-body .status-link {
+    position: relative;
+    margin-left: 6px;
+    margin-right: 4px;
+    top: 5px
+}
+
+.modal-body .address .control-label {
+    text-align: left
+}
+
+.modal-body .txn-completed {
+    text-align: center;
+    margin-bottom: 0;
+    padding-top: 20px;
+    padding-bottom: 20px
+}
+
+.modal-body .txn-completed h3 {
+    font-size: 22px;
+    line-height: 50px
+}
+
+.modal-body .sms-number .input-group-addon {
+    padding: 0 5px;
+    min-width: 26px
+}
+
+.modal-body .class-customers-attendance .rg-row {
+    padding: 6px 0
+}
+
+.modal-body .class-customers-attendance .rg-row .class-customer-name {
+    line-height: 20px;
+    padding-top: 8px
+}
+
+.modal-body .class-customers-attendance .rg-row .class-customer-label {
+    line-height: 17px
+}
+
+.modal-body .class-customers .add {
+    padding-top: 5px
+}
+
+.modal-body .class-customers .add .btn {
+    position: absolute;
+    top: 1px;
+    right: 9px
+}
+
+.modal-body .class-customers .add .name-value-list li:first-child {
+    margin-top: 8px
+}
+
+.modal-body .class-customers .add .name-value-list li {
+    padding-top: 6px;
+    padding-bottom: 2px
+}
+
+.modal-body .class-customers .details {
+    border-left: 1px solid #ddd;
+    padding-left: 15px;
+    float: left;
+    min-height: 300px;
+    width: 95%
+}
+
+.modal-body .class-customers .btn-mini {
+    margin-left: 0
+}
+
+.modal-body .class-customers .class-customer-name {
+    float: left;
+    width: 140px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden
+}
+
+.modal-body .class-customers .class-customer-name.labelled {
+    width: 95px
+}
+
+.modal-body .class-customers .class-customer-label {
+    line-height: 23px
+}
+
+.modal-body .class-customers .processing {
+    cursor: default;
+    color: #999
+}
+
+.modal-body .class-customers-attendance .class-customer-label,
+.modal-body .class-customers .class-customer-label {
+    float: right;
+    margin-left: 3px;
+    font-size: 14px;
+    line-height: 23px
+}
+
+.modal-body .editable-grid .fa-trash-o {
+    margin-right: 8px;
+    margin-top: 4px
+}
+
+.modal-body .timely-image-centered {
+    margin: 0 auto
+}
+
+.modal-body .modal-only {
+    display: block
+}
+
+.modal-body .large-pin-code {
+    font-size: 45px
+}
+
+.modal-body .large-lock {
+    width: 40px
+}
+
+.modal-footer {
+    -webkit-border-radius: 0 0 3px 3px;
+    -moz-border-radius: 0 0 3px 3px;
+    border-radius: 0 0 3px 3px;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none
+}
+
+.modal-footer .btn-danger {
+    float: left
+}
+
+.modal-footer .footer-link {
+    margin-top: 6px;
+    float: left;
+    text-align: left
+}
+
+.modal-footer .logo {
+    float: left
+}
+
+.modal-only,
+.modal-output {
+    display: none
+}
+
+.modal-body .left {
+    float: left;
+    padding-right: 15px;
+    text-align: left
+}
+
+.modal-body .tab-content {
+    width: 99%
+}
+
+.modal-tabs-left {
+    margin-top: 10px
+}
+
+.modal-tabs-left .tab-content {
+    float: left;
+    width: 380px
+}
+
+.modal-tabs-left .nav-pills {
+    float: left;
+    margin-right: 0;
+    width: 120px
+}
+
+.iframe-modal {
+    width: 1060px;
+    margin-left: -530px;
+    margin-top: -337px
+}
+
+.iframe-modal .modal-header {
+    border-bottom: none
+}
+
+.iframe-modal .modal-body {
+    background-color: #fff;
+    height: 654px;
+    max-height: 654px;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    padding: 0 !important
+}
+
+.iframe-modal iframe {
+    width: 100%;
+    border: none;
+    height: 645px;
+    overflow-x: hidden
+}
+
+@media (max-height: 660px) {
+    .iframe-modal iframe {
+        height: 621px !important
+    }
+
+    .iframe-modal .modal-body {
+        height: 630px !important
+    }
+}
+
+@media (max-width: 1030px) {
+    .iframe-modal {
+        width: 100%;
+        margin-left: 0;
+        left: 0
+    }
+
+    .iframe-modal .modal-header h3 {
+        line-height: 20px
+    }
+
+    .iframe-modal .modal-header .close {
+        margin-top: -2px
+    }
+
+    .iframe-modal .modal-body {
+        height: 640px;
+        max-height: 640px
+    }
+
+    .iframe-modal iframe {
+        height: 640px
+    }
+}
+
+.cover-image-modal {
+    width: 820px;
+    margin-left: -410px;
+    margin-top: 370
+}
+
+@media (max-height: 768px) {
+    .modal {
+        margin-top: 0 !important;
+        top: 10px
+    }
+}
+
+@media (max-height: 660px) {
+    .modal {
+        margin-top: 0 !important;
+        top: 10px
+    }
+
+    .modal .modal-body {
+        padding: 5px 15px;
+        max-height: calc(100vh - 150px)
+    }
+
+    .modal .modal-body .nav {
+        margin-bottom: 10px
+    }
+
+    .modal .modal-body .nav a {
+        padding: 5px 12px
+    }
+
+    .modal .modal-body .control-group {
+        margin-bottom: 6px
+    }
+
+    .modal .modal-body label {
+        margin-bottom: 0
+    }
+
+    .ui-timepicker-list {
+        height: 120px
+    }
+}
+
+@media (max-height: 575px) and (min-width:768px) {
+    .modal .modal-header {
+        height: 20px;
+        padding: 2px 15px
+    }
+
+    .modal .modal-header h3 {
+        display: none
+    }
+
+    .modal .modal-header .modal-close {
+        margin-top: 0;
+        line-height: 20px
+    }
+
+    .modal .modal-body {
+        max-height: calc(100vh - 100px)
+    }
+}
+
+@media (max-height: 575px) {
+    .modal .modal-body .control-group {
+        margin-bottom: 3px
+    }
+
+    .modal .modal-footer {
+        padding: 5px 15px
+    }
+
+    .modal .modal-footer .btn-large {
+        font-size: 16px;
+        line-height: 28px;
+        padding: 4px 10px
+    }
+
+    .ui-timepicker-list {
+        height: 120px
+    }
+}
+
+@media (max-height: 480px) {
+    .modal .modal-body {
+        max-height: 330px
+    }
+}
+
+.customer-type-label {
+    display: inline-block
+}
+
+.gdpr-modal {
+    width: 844px;
+    margin-left: -422px
+}
+
+.roster-modal {
+    width: 725px;
+    margin-left: -350px
+}
+
+.customer-concession-modal {
+    width: 710px;
+    margin-left: -355px
+}
+
+.customer-concession-modal .modal-body {
+    overflow-y: auto
+}
+
+.customer-concession-modal .date-picker {
+    width: 92px !important
+}
+
+.customer-credit-modal,
+.customer-gift-voucher-modal {
+    width: 710px;
+    margin-left: -355px
+}
+
+.customer-credit-modal .modal-body,
+.customer-gift-voucher-modal .modal-body {
+    overflow-y: auto
+}
+
+.customer-credit-modal .date-picker,
+.customer-gift-voucher-modal .date-picker {
+    width: 92px !important
+}
+
+.customer-credit-modal .typeahead-container .selected,
+.customer-gift-voucher-modal .typeahead-container .selected {
+    width: 330px
+}
+
+.customer-credit-modal .form-rows-condensed,
+.customer-gift-voucher-modal .form-rows-condensed {
+    margin-bottom: 10px
+}
+
+.customer-credit-modal .form-rows-condensed .form-group,
+.customer-gift-voucher-modal .form-rows-condensed .form-group {
+    margin-bottom: 0
+}
+
+.customer-credit-modal .form-rows-condensed .form-group .control-label,
+.customer-credit-modal .form-rows-condensed .form-group .form-control-static,
+.customer-gift-voucher-modal .form-rows-condensed .form-group .control-label,
+.customer-gift-voucher-modal .form-rows-condensed .form-group .form-control-static {
+    padding-top: 0
+}
+
+@media (max-height: 365px) {
+    .booking-modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        margin: 0 !important
+    }
+}
+
+div.DTTT_print_info.modal {
+    height: 150px;
+    margin-top: -75px;
+    text-align: center
+}
+
+.nvl-fit-in-modal {
+    max-height: 420px;
+    overflow-x: hidden;
+    overflow-y: auto
+}
+
+
+.modal-preview {
+    margin-top: 32px;
+    overflow: auto;
+    width: 240px;
+    border: 0;
+    border-radius: 4px;
+    background-color: #fff;
+    box-shadow: 0 0 26px -1px rgba(33, 33, 33, .5);
+    outline: 0;
+    font-size: 15px
+}
+
+.modal-preview .modal-header {
+    background-color: #fff;
+    color: #39464e;
+    border-bottom: 1px solid #fff;
+    cursor: default;
+    font-weight: 700;
+    line-height: 1em;
+    font-size: 24px;
+    padding: 15px
+}
+
+.modal-preview .modal-footer {
+    background-color: #fff
+}
+
+.modal-preview .btn {
+    font-weight: 700
+}
+
+@media (max-width: 767px) {
+    body.app-body.modal-open .modal {
+        position: fixed !important;
+        margin: 0 !important;
+        left: 0 !important;
+        top: 0 !important;
+        bottom: 0 !important;
+        right: 0 !important;
+        width: 100%;
+        max-height: none;
+        border-radius: 0;
+        overflow-y: scroll;
+        -webkit-overflow-scrolling: touch
+    }
+
+    body.app-body.modal-open .modal .form-horizontal .tight-grid .form-group {
+        margin-left: 0;
+        margin-right: 0
+    }
+
+    body.app-body.modal-open .modal .form-horizontal .control-label {
+        width: 118px
+    }
+
+    body.app-body.modal-open .modal-header {
+        border-radius: 0
+    }
+
+    body.app-body.modal-open .modal-body {
+        max-height: none
+    }
+
+    body.app-body.modal-open .modal-body .flex-container {
+        flex-wrap: wrap
+    }
+
+    body.app-body.modal-open .modal-body .flex-container .flex-item:nth-child(2) {
+        margin-left: 0
+    }
+
+    body.app-body.modal-open .modal-body .scroller {
+        max-height: none
+    }
+
+    body.app-body.modal-open .modal-body .nav-tabs li a i {
+        display: none
+    }
+
+    body.app-body.modal-open .modal-footer {
+        border-radius: 0
+    }
+
+    body.app-body.modal-open .modal>div {
+        display: flex;
+        flex-direction: column;
+        min-height: 100%
+    }
+
+    body.app-body.modal-open .modal>div>form {
+        display: flex;
+        flex-direction: column;
+        flex: 1
+    }
+
+    body.app-body.modal-open .modal .modal-footer,
+    body.app-body.modal-open .modal .modal-header {
+        flex-shrink: 0
+    }
+
+    body.app-body.modal-open .modal .modal-body {
+        flex: 1
+    }
+}
+
+
+
+.modal-footer .add-appt__row {
+    float: left;
+    margin-bottom: 0
+}
+
+.modal-footer .add-appt__icon {
+    height: 34px
+}
+
+.modal-footer .add-appt__cancel a {
+    line-height: 34px;
+    font-weight: 700;
+    color: #bd362f;
+    cursor: pointer
+}
+
+.modal-footer .add-appt__cancel a:hover {
+    color: #bd362f
+}
+
+.modal-footer .btn-outline-charcoal {
+    background-color: #fff
+}
+
+
+.booking-modal {
+    width: 844px;
+    margin-left: -422px
+}
+
+.booking-modal .modal-body .tab-content {
+    width: 100%
+}
+
+.booking-modal .modal-body {
+    padding-bottom: 0
+}
+
+.booking-modal .btn-outline-charcoal {
+    background-color: #fff
+}
+
+.booking-modal .form-horizontal .controls {
+    margin-left: 120px
+}
+
+.booking-modal .add-appt__date-time p,
+.booking-modal .add-appt__location p {
+    font-size: 16px
+}
+
+.booking-modal .add-appt__customer-col {
+    flex: 1
+}
+
+.booking-modal .add-appt__customer-form {
+    margin-right: 32px;
+    background-color: #e3e6e8;
+    border-radius: 4px;
+    padding: 4px
+}
+
+.booking-modal .add-appt__customer-form .rg-row {
+    margin: 0
+}
+
+.booking-modal .add-appt__customer-form .input-vaccination-expiry {
+    text-transform: uppercase
+}
+
+.booking-modal .add-appt__customer-form .vaccination-expiry label {
+    font-weight: 400
+}
+
+.booking-modal .add-appt__customer-form input,
+.booking-modal .add-appt__customer-form select {
+    width: 100%;
+    max-width: none
+}
+
+.booking-modal .add-appt__customer-form input[type=checkbox] {
+    width: auto
+}
+
+.booking-modal .add-appt__customer-form .col-xs-12 {
+    padding: 4px
+}
+
+.booking-modal .add-appt__customer-form .input-email,
+.booking-modal .add-appt__customer-form .input-phone,
+.booking-modal .add-appt__customer-form .input-sms {
+    padding-left: 36px;
+    background-position: 0 50%;
+    background-repeat: no-repeat
+}
+
+.booking-modal .add-appt__customer-form .input-sms {
+    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg width='32' height='32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M13.5 23.5a2 2 0 01-2-2v-11a2 2 0 012-2h5a2 2 0 012 2v11a2 2 0 01-2 2h-5zm-2-3h9' stroke='%236A7982' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")
+}
+
+.booking-modal .add-appt__customer-form .input-phone {
+    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg width='32' height='32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M18.027 22.927l.008.004h0a3.689 3.689 0 004.589-.503l.516-.516h0a1.23 1.23 0 000-1.74L20.966 18h0a1.23 1.23 0 00-1.74 0h0a1.229 1.229 0 01-1.738 0l-3.479-3.48h0a1.23 1.23 0 010-1.739h0a1.229 1.229 0 000-1.738l-2.173-2.176h0a1.23 1.23 0 00-1.74 0l-.515.516h0a3.69 3.69 0 00-.504 4.589l.005.008h0a33.29 33.29 0 008.945 8.947h0z' stroke='%236A7982' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")
+}
+
+.booking-modal .add-appt__customer-form .input-email {
+    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg width='32' height='32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10 21.167a1 1 0 01-1-1v-8a1 1 0 011-1h12a1 1 0 011 1v8a1 1 0 01-1 1H10zm12.774-9.634l-5.43 4.176h0c-.792.61-1.896.61-2.689 0l-5.429-4.176' stroke='%236A7982' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")
+}
+
+.booking-modal #history table tbody tr td {
+    border-top: none;
+    border-bottom: 1px solid #ddd
+}
+
+.booking-modal .add-appt__customer-selected {
+    position: relative;
+    flex: 1;
+    margin-top: 8px;
+    margin-right: 32px
+}
+
+.booking-modal .add-appt__customer-selected .customer-name {
+    display: flex;
+    line-height: 24px;
+    font-size: 18px;
+    font-weight: 700
+}
+
+.booking-modal .add-appt__customer-selected .customer-name .customer-name-text,
+.booking-modal .add-appt__customer-selected .customer-name a {
+    margin-right: 4px
+}
+
+.booking-modal .add-appt__customer-selected .customer-type-label {
+    display: block;
+    margin-right: 4px;
+    padding: 0 8px;
+    font-size: 12px;
+    height: 24px;
+    line-height: 24px;
+    background-color: #f4f4f4;
+    border-radius: 4px
+}
+
+.booking-modal .add-appt__customer-selected .customer-type-label.hide {
+    display: none
+}
+
+.booking-modal .add-appt__customer-selected .customer-contact-details {
+    font-size: 14px;
+    font-style: italic
+}
+
+.booking-modal .add-appt__customer-selected .clear-customer {
+    position: absolute;
+    top: 0;
+    right: -32px;
+    width: 32px;
+    height: 32px;
+    color: #4f606b;
+    font-size: 20px;
+    line-height: 24px;
+    text-align: center
+}
+
+.booking-modal .add-appt__customer-selected .clear-customer:hover {
+    text-decoration: none
+}
+
+.booking-modal .add-appt__customer-selected .customer-not-available {
+    width: 24px;
+    height: 24px;
+    padding-left: 24px;
+    color: #bd362f;
+    line-height: 24px;
+    font-size: 12px;
+    white-space: nowrap;
+    background-position: 0 50%;
+    background-repeat: no-repeat;
+    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16'%3E%3Cpath stroke='%23BD362F' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M9.338 1.834l5.526 11.257A1.327 1.327 0 0113.674 15H2.327a1.327 1.327 0 01-1.19-1.909L6.662 1.834a1.491 1.491 0 012.676 0zM8 12.5a.25.25 0 10.25.25.25.25 0 00-.25-.25m0-2v-5' fill='none' fill-rule='evenodd'/%3E%3C/svg%3E")
+}
+
+.booking-modal .add-appt__customer-sms-warning {
+    margin: 8px 32px 0 0
+}
+
+.booking-modal .add-appt__booking-status {
+    flex: 1;
+    width: 100%
+}
+
+.booking-modal .add-appt__booking-status .rg-row {
+    padding: 0
+}
+
+.booking-modal .add-appt__row-booking-status .btn-group a {
+    padding: 0 8px;
+    line-height: 32px
+}
+
+.booking-modal .booking-status__invoice {
+    line-height: 34px;
+    text-align: right;
+    position: relative
+}
+
+.booking-modal .add-appt__row-video-link .alert {
+    margin-bottom: 0
+}
+
+.booking-modal .add-appt__row-video-link .alert .alert {
+    background-color: transparent;
+    border: none
+}
+
+.booking-modal .customer-alert,
+.booking-modal .customer-blocked,
+.booking-modal .vaccination-warning {
+    margin: 8px 32px 8px 0
+}
+
+.booking-modal .customer-name-container .customer-not-available {
+    position: absolute;
+    right: -19px;
+    top: 1px
+}
+
+.booking-modal .customer-inputs-column,
+.booking-modal .customer-name-section {
+    margin-left: 56px
+}
+
+.booking-modal .customer-column-right,
+.booking-modal .customer-inputs-right {
+    padding-left: 0
+}
+
+.booking-modal .customer-inputs {
+    margin-top: -5px
+}
+
+.booking-modal .typeahead-container input {
+    width: 100%
+}
+
+.booking-modal .typeahead-container .selected {
+    width: 100%;
+    padding: 0;
+    position: relative;
+    height: 100%;
+    cursor: default;
+    border: none
+}
+
+.booking-modal .typeahead-container .selected .customer-name {
+    font-size: 18px;
+    cursor: default;
+    height: 30px;
+    display: block
+}
+
+.booking-modal .typeahead-container .selected .customer-type-label {
+    background-color: #bbb;
+    margin-top: -1px;
+    font-weight: 400;
+    padding: 1px 4px 2px;
+    font-size: 12px;
+    line-height: 13px;
+    color: #fff;
+    vertical-align: middle;
+    white-space: nowrap;
+    border-radius: 3px
+}
+
+.booking-modal .typeahead-container .selected a.clear-customer {
+    right: 0;
+    left: auto
+}
+
+.booking-modal .typeahead-container .selected a.edit-customer {
+    top: 0;
+    left: 280px
+}
+
+.booking-modal .typeahead-container .selected a.customer-concessions {
+    top: -1px;
+    left: auto;
+    right: 21px
+}
+
+.booking-modal .delete-service {
+    color: #4f606b;
+    font-size: 20px;
+    text-decoration: none;
+    position: absolute;
+    top: 8px;
+    right: 0;
+    width: 32px;
+    height: 32px;
+    line-height: 32px;
+    text-align: center
+}
+
+.booking-modal .btn-link--regular {
+    text-decoration: underline
+}
+
+.booking-modal__ipad .service-row__service-picker,
+.service-row__service-picker--old {
+    display: none
+}
+
+.booking-modal__ipad .service-row__service-picker--old {
+    display: block
+}
+
+
+@media (max-width: 844px) {
+    .booking-modal {
+        width: 768px;
+        margin-left: -384px
+    }
+
+    .booking-modal .modal-body {
+        padding-left: 0;
+        padding-right: 0
+    }
+
+    .booking-modal #services_table .service-row-group {
+        display: none !important
+    }
+
+    .booking-modal #services_table tr.service-row td.service-row__service-cell--group {
+        padding: 8px;
+        border-radius: 4px
+    }
+
+    .booking-modal .add-appt__icon {
+        margin-left: 8px
+    }
+
+    .booking-modal .form-horizontal .tight-grid .form-group {
+        margin-left: -12px;
+        margin-right: -8px
+    }
+
+    .booking-modal .form-horizontal .control-label {
+        width: 83px
+    }
+
+    .booking-modal .customer-inputs-column,
+    .booking-modal .customer-name-section {
+        margin-left: 83px
+    }
+
+    .booking-modal .customer-inputs-column .rg-row,
+    .booking-modal .customer-name-section .rg-row {
+        margin-right: -8px
+    }
+}
+
+
+
+.invoice-modal {
+    width: 969px;
+    margin-left: -484px
+}
+
+.invoice-modal .modal-body {
+    overflow-y: auto
+}
+
+.invoice-modal .date-picker {
+    width: 97px !important
+}
+
+.delete-invoice .package-reservation-booking-summary,
+.invoice-modal .package-reservation-booking-summary {
+    list-style: none;
+    margin-left: 0
+}
+
+
+.refund-modal label {
+    font-size: 13px
+}
+
+.refund-modal .modal-body .popover.left {
+    padding-right: 5px
+}
+
+.refund-modal .wide-input {
+    width: 290px
+}
+
+.refund-modal table {
+    width: 100%
+}
+
+.refund-modal table .text-right {
+    padding-right: 12px
+}
+
+.refund-modal table .form-group {
+    margin-bottom: 0;
+    padding-right: 10px
+}
+
+.refund-modal table .price-input {
+    text-align: right;
+    width: 78px
+}
+
+.refund-modal table .textarea {
+    width: 290px;
+    height: 40px
+}
+
+.refund-modal table th {
+    font-size: 13px
+}
+
+.refund-modal table tr {
+    border-bottom: 1px solid #ccc
+}
+
+.refund-modal table td,
+.refund-modal table th {
+    width: 105px;
+    padding: 5px 0;
+    vertical-align: middle
+}
+
+.refund-modal table tfoot tr {
+    border-bottom: none
+}
+
+.refund-modal table tfoot tr .total-amount {
+    padding-right: 10px
+}
+
+.refund-modal table tfoot tr .single-border {
+    border-bottom: 1px solid #ccc
+}
+
+.refund-modal table tfoot tr .double-border {
+    border-bottom: 3px double #000
+}
+
+.refund-modal table tfoot tr:last-child td {
+    font-weight: 700
+}
+
+@media (max-width: 767px) {
+
+    .refund-modal table td,
+    .refund-modal table th {
+        width: auto
+    }
+
+    .refund-modal table tfoot tr {
+        display: flex
+    }
+}
+
+.refund-payment-modal .balance {
+    margin-bottom: 20px
+}
+
+.refund-payment-modal .payment-message {
+    margin-left: 15px
+}
+
+.refund-payment-modal .input-narrow input {
+    width: 130px
+}
+
+
+
+.rewards-selector-modal__content {
+    padding: 32px 40px 12px;
+    margin-bottom: 30px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px
+}
+
+@media (max-width: 768px) {
+    .rewards-selector-modal__content {
+        padding: 17px 20px 12px
+    }
+}
+
+.rewards-selector-modal__content input[type=checkbox] {
+    cursor: pointer
+}
+
+.rewards-selector-modal__content-empty {
+    display: flex;
+    justify-content: center;
+    padding: 100px 0
+}
+
+.rewards-selector-modal__content-empty a {
+    color: inherit;
+    cursor: pointer;
+    text-decoration: underline
+}
+
+.rewards-selector-modal__back-wrapper {
+    display: flex;
+    align-items: center;
+    height: 40px;
+    cursor: pointer
+}
+
+.rewards-selector-modal__back-wrapper a,
+.rewards-selector-modal__back-wrapper div {
+    height: 40px;
+    line-height: 40px
+}
+
+.rewards-selector-modal__back-wrapper a {
+    margin-left: 8px;
+    cursor: pointer
+}
+
+.rewards-selector-modal__back-wrapper svg {
+    margin-top: 5px;
+    height: 30px
+}
+
+.rewards-selector-modal__controls {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 66px
+}
+
+
+.customer__delete-modal {
+    margin: -15px
+}
+
+.customer__delete-modal .customer__delete-modal-body {
+    padding: 16px
+}
+
+.customer__block-modal {
+    margin: -15px
+}
+
+.customer__block-modal p {
+    color: #555
+}
+
+.customer__block-modal .customer__block-modal-body {
+    padding: 16px
+}
+
+.customer__block-modal .form-group {
+    padding: 16px 0;
+    margin: 0;
+    border-bottom: 1px solid #ddd
+}
+
+.customer__block-modal .form-group:first-of-type {
+    padding-top: 0
+}
+
+.customer__block-modal .form-group:last-of-type {
+    padding-bottom: 0;
+    border-bottom: 0
+}
+
+.customer__block-modal-matching-clients {
+    position: relative;
+    margin: 8px 0 0;
+    padding: 8px 16px;
+    border-radius: 4px;
+    background-color: var(--tui-charcoal-50)
+}
+
+.customer__block-modal-matching-client {
+    padding: 8px 0
+}
+
+.customer__block-modal-matching-client-name {
+    font-size: 16px;
+    font-weight: 700
+}
+
+.customer__block-modal-expand-matching-toggle {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 40px;
+    height: 40px;
+    font-size: 16px;
+    text-align: center;
+    line-height: 40px;
+    transition: transform .2s;
+    cursor: pointer
+}
+
+.customer__block-modal-expand-matching-toggle--open {
+    transform: rotate(180deg)
+}
+
+.customer__block-modal-matching-short {
+    cursor: pointer
+}
+
+.customer__block-modal-cancel-future-appointments-row {
+    display: flex;
+    align-items: center;
+    margin: 8px 0 0;
+    padding: 16px;
+    border-radius: 4px;
+    background-color: var(--tui-charcoal-50)
+}
+
+.customer__block-modal-cancel-future-appointments-row input {
+    margin: 0;
+    width: 16px;
+    height: 16px
+}
+
+.customer__block-modal-cancel-future-appointments-row label {
+    margin: 0 0 0 8px
+}
+
+.customer__block-modal-toggle-row {
+    display: flex
+}
+
+.customer__block-modal-toggle-row div:first-of-type {
+    flex: 1
+}
+
+.customer__block-modal-message-option {
+    display: flex
+}
+
+.customer__block-modal-message-option input {
+    margin-right: 16px;
+    width: 16px;
+    height: 16px
+}
+
+.customer__block-modal-message-option label {
+    width: 100%;
+    font-weight: 700
+}
+
+.customer__block-modal-message-option label p {
+    font-weight: 400
+}
+
+.customer__block-modal-message-option>div {
+    width: 100%
+}
+
+
+.report-feedback-modal {
+    border-radius: 8px
+}
+
+.report-feedback-modal .modal-close {
+    position: absolute;
+    top: 16px;
+    right: 20px;
+    text-decoration: underline
+}
+
+@media (max-width: 540px) {
+    .report-feedback-modal {
+        max-width: calc(100% - 2rem);
+        top: 0;
+        left: 0;
+        margin: 1rem
+    }
+}
+
+
+
+.booking-modal .hero-unit,
+.modal .hero-unit {
+    margin-bottom: 0
+}
+
+
+.setup .thumbnail .modal-open {
+    font-weight: 700
+}
+
+
+.staff-access-modal {
+    width: 800px;
+    margin-left: -400px
+}
+
+
+.staff-access-modal .staff-access-input,
+.staff-access .table.staff-access-table thead td {
+    text-align: center
+}
+
+.staff-modal {
+    width: 620px;
+    margin-left: -350px
+}
+
+
+.customer-import-modal__description {
+    margin-left: 21px;
+    margin-bottom: 9px;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 24px
+}
+
+.import-modal-ordered-list {
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 20px;
+    letter-spacing: .015em
+}
+
+
+.modal-body.timelypay-setup-modal {
+    max-height: 70vh
+}
+
+
+@media (min-height: 980px) {
+    .timelyPayTransactionModal .modal-body {
+        max-height: 700px
+    }
+}
+
+
+#appointment-modal-extras.no-show {
+    background-color: #e3e6e8;
+    border-radius: 3px;
+    padding-right: 13px;
+    padding-left: 13px;
+    margin-bottom: 8px
+}
+
+
+.sale__modal {
+    margin: -15px
+}
+
+.sale__modal-head {
+    color: #39464e;
+    padding: 16px;
+    font-size: 18px;
+    font-weight: 700;
+    text-align: center
+}
+
+.sale__modal-body {
+    padding: 24px;
+    max-height: 75vh;
+    overflow: auto
+}
+
+.sale__modal-body--grey {
+    background-color: #f5f5f5
+}
+
+.sale__updated-sale-modal .alert {
+    margin: 0
+}
+
+@media (max-width: 420px) {
+    .sale__modal {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh
+    }
+
+    .sale__modal-body {
+        flex: 1
+    }
+}
+
+
+.sale__package-modal-item {
+    display: flex
+}
+
+.sale__package-modal-item-check {
+    width: 32px
+}
+
+.sale__package-modal-item-check .checkbox input {
+    top: 8px
+}
+
+.sale__package-modal-item-details {
+    flex: 1
+}
+
+.sale__package-modal-card {
+    padding: 8px
+}
+
+.sale__package-modal-card .sale__package-modal-item-name {
+    display: flex;
+    justify-content: space-between;
+    font-size: 18px
+}
+
+.sale__package-modal-card .sale__package-modal-item-subtext {
+    margin-bottom: 0
+}
+
+.sale__package-modal-card .sale__package-modal-item-subtext span {
+    color: #999;
+    font-style: italic
+}
+
+.sale__package-modal-card .form-group {
+    padding: 8px;
+    margin: 0
+}
+
+.sale__package-modal-card .sale__form-group-row {
+    padding: 8px;
+    margin: 0 -8px
+}
+
+.sale__package-modal-card .sale__form-group-row .form-group {
+    margin: 0 8px;
+    padding: 0;
+    overflow: hidden
+}
+
+.sale__package-modal-card+.sale__package-modal-item {
+    margin-top: 16px
+}
+
+.sale__package-modal-card--grey {
+    background-color: #e3e6e8
+}
+
+
+.sale__invoice-modal-item {
+    display: flex;
+    padding: 8px;
+    margin-bottom: 16px
+}
+
+.sale__invoice-modal-item .form-group {
+    padding: 8px;
+    margin: 0
+}
+
+.sale__invoice-modal-item-check {
+    width: 32px
+}
+
+.sale__invoice-modal-item-check .checkbox input {
+    top: 8px
+}
+
+.sale__invoice-modal-item-details {
+    flex: 1
+}
+
+.sale__invoice-modal-item-title {
+    font-size: 18px;
+    font-weight: 700
+}
+
+.sale__invoice-modal-item-desc {
+    font-size: 16px
+}
+
+
+.staff-targets-modal section {
+    margin-top: .5rem
+}
+
+.staff-targets-modal__type-duration {
+    margin-bottom: .5rem
+}
+
+.staff-targets-modal .invalid {
+    border: 1px solid red
+}
+
+.staff-targets-modal .invalid-label {
+    color: red;
+    font-weight: lighter
+}
+
+.staff-targets-modal__type-duration,
+.staff-targets__item--flexed {
+    display: flex
+}
+
+.staff-targets-modal__type-duration>*,
+.staff-targets__item--flexed>* {
+    flex: 0 1 50%;
+    overflow: hidden
+}
+
+.staff-targets-modal__type-duration>*+*,
+.staff-targets__item--flexed>*+* {
+    margin-left: 5px
+}
+
+.staff-targets-adjust-modal .alert-text {
+    font-size: 14px
+}

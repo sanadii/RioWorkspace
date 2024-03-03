@@ -17,13 +17,14 @@ import resourceTimelinePlugin from "@fullcalendar/resource-timeline";
 import listPlugin from "@fullcalendar/list";
 
 // Calendar Settings
-import useCalendarToolbar from "./CalendarSettings/useCalendarToolbar ";
+import useCalendarToolbar from "./CalendarSettings/useCalendarToolbar";
+
 //redux
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { getSchedule, getClients } from "store/actions";
+import { appointmentsSelector, clientsSelector } from "Selectors";
 
-import { DeleteModal, BreadCrumb } from "Components/Common";
-
-//Simple bar
+import { DeleteModal } from "Components/Common";
 
 import {
   getEvents as onGetEvents,
@@ -35,6 +36,7 @@ import {
 } from "store/actions";
 import { createSelector } from "reselect";
 
+import createFullCalendarOptions from "./CalendarSettings/FullCalendarOptions"; // Adjust the path as needed
 import CalendarModal from "./CalendarModal";
 
 const Calender = () => {
@@ -48,8 +50,20 @@ const Calender = () => {
   const [deleteEvent, setDeleteEvent] = useState<string>("");
   const [eventName, setEventName] = useState<string>("");
 
+  // Data
+  const { appointments, services, staff } = useSelector(appointmentsSelector);
+  const { clients } = useSelector(clientsSelector);
+
+  // useEffect(() => {
+  //   if (!appointments || appointments.length === 0) {
+  //     dispatch(getSchedule());
+  //     dispatch(getClients());
+  //   }
+  // }, [dispatch, appointments]);
+
   // Hooks
   const { customButtons, selectedStaff } = useCalendarToolbar();
+  const fullCalendarOptions = createFullCalendarOptions(customButtons);
 
   const selectLayoutState = (state: any) => state.Calendar;
   const calendarDataProperties = createSelector(selectLayoutState, (state: any) => ({
@@ -57,13 +71,13 @@ const Calender = () => {
     categories: state.categories,
     isEventUpdated: state.isEventUpdated,
   }));
+
   // Inside your component
   const { events, categories, isEventUpdated } = useSelector(calendarDataProperties);
 
   useEffect(() => {
-    dispatch(onGetEvents());
-    dispatch(onGetCategories());
-    dispatch(onGetUpCommingEvent());
+    dispatch(getSchedule());
+    dispatch(getClients());
     new Draggable(document.getElementById("external-events") as HTMLElement, {
       itemSelector: ".external-event",
     });
@@ -129,6 +143,8 @@ const Calender = () => {
 
   const handleEventClick = (arg: any) => {
     const event = arg.event;
+    console.log("arg:", arg)
+    console.log("arg.event:", event)
 
     const st_date = event.start;
     const ed_date = event.end;
@@ -291,74 +307,82 @@ const Calender = () => {
           setDeleteModal(false);
         }}
       />
-      <div className="page-content">
-        <Container fluid>
-          <Row>
-            <Col xs={12}>
-              <Card className="card-h-100">
-                <CardBody>
-                  <FullCalendar
-                    schedulerLicenseKey="CC-Attribution-NonCommercial-NoDerivatives"
-                    plugins={[BootstrapTheme, dayGridPlugin, timeGridPlugin, interactionPlugin, listPlugin]}
-                    initialView="timeGridWeek"
-                    handleWindowResize={true}
-                    themeSystem="bootstrap"
-                    // Toolbar
-                    customButtons={{ ...customButtons }}
-                    headerToolbar={{
-                      left: "refresh print hide",
-                      center: "prev,today,next",
-                      right: "timeGridDay,timeGridWeek,dayGridMonth",
-                    }}
-                    buttonText={{
-                      timeGridDay: "Day",
-                      timeGridWeek: "Week",
-                      dayGridMonth: "Month",
-                    }}
-                    buttonIcons={{
-                      prev: "fa fa-angle-left",
-                      next: "fa fa-angle-right",
-                    }}
-                    events={events}
-                    editable={true}
-                    droppable={true}
-                    selectable={true}
-                    dateClick={handleDateClick}
-                    eventClick={handleEventClick}
-                    drop={onDrop}
-                  />
-                </CardBody>
-              </Card>
 
-              <Card className="card-h-100">
-                <CardBody>
-                  <button className="btn btn-primary w-100" id="btn-new-event" onClick={toggle}>
-                    <i className="mdi mdi-plus"></i> Create New Event
-                  </button>
+      {/* <FullCalendar
+        schedulerLicenseKey="CC-Attribution-NonCommercial-NoDerivatives"
+        plugins={[BootstrapTheme, dayGridPlugin, timeGridPlugin, interactionPlugin, listPlugin]}
+        initialView="timeGridWeek"
+        handleWindowResize={true}
+        themeSystem="bootstrap"
+        // Toolbar
+        headerToolbar={{
+          left: "refresh print hide",
+          center: "prev,today,next",
+          right: "timeGridDay,timeGridWeek,dayGridMonth",
+        }}
+        // Buttons
+        buttonText={{
+          timeGridDay: "Day",
+          timeGridWeek: "Week",
+          dayGridMonth: "Month",
+        }}
+        buttonIcons={{
+          prev: "fa fa-angle-left",
+          next: "fa fa-angle-right",
+        }}
+        allDaySlot={false} // This hides the all-day section
+        // Slot Duration and settings
+        slotMinTime="10:00:00" // 10 AM
+        slotMaxTime="20:00:00" // 8 PM
+        slotDuration="01:00:00" // 15 minutes
+        slotLabelInterval="00:15:00" // Subdivision labels every 15 minutes
+        events={appointments}
+        editable={true}
+        droppable={true}
+        selectable={true}
+        dateClick={handleDateClick}
+        eventClick={handleEventClick}
+        drop={onDrop}
+      /> */}
 
-                  <div id="external-events">
-                    <br />
-                    <p className="text-muted">Drag and drop your event or click in the calendar</p>
-                  </div>
-                </CardBody>
-              </Card>
+      <FullCalendar
+        handleWindowResize={true}
+        themeSystem="bootstrap"
+        events={appointments}
+        editable={true}
+        droppable={true}
+        selectable={true}
+        dateClick={handleDateClick}
+        eventClick={handleEventClick}
+        drop={onDrop}
+        {...fullCalendarOptions}
+      />
 
-              <div style={{ clear: "both" }}></div>
+      <Card className="card-h-100">
+        <CardBody>
+          <button className="btn btn-primary w-100" id="btn-new-event" onClick={toggle}>
+            <i className="mdi mdi-plus"></i> Create New Event
+          </button>
 
-              <CalendarModal
-                modal={modal}
-                id="event-modal"
-                toggle={toggle}
-                event={event}
-                setEvent={setEvent}
-                isEdit={isEdit}
-                setModal={setModal}
-                setDeleteModal={setDeleteModal}
-              />
-            </Col>
-          </Row>
-        </Container>
-      </div>
+          <div id="external-events">
+            <br />
+            <p className="text-muted">Drag and drop your event or click in the calendar</p>
+          </div>
+        </CardBody>
+      </Card>
+
+      <div style={{ clear: "both" }}></div>
+
+      <CalendarModal
+        modal={modal}
+        id="event-modal"
+        toggle={toggle}
+        event={event}
+        setEvent={setEvent}
+        isEdit={isEdit}
+        setModal={setModal}
+        setDeleteModal={setDeleteModal}
+      />
     </React.Fragment>
   );
 };

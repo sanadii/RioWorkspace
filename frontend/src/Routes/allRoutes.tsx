@@ -4,6 +4,7 @@ import { Navigate } from "react-router-dom";
 //Dashboard
 // import Scheduler from "../pages/Scheduler";
 import Calendar from "../pages/Calendar";
+import CalendarTest from "../pages/Calendar/CalendarTest";
 
 import Invoice from "../pages/Invoice/";
 // Revenues
@@ -72,6 +73,7 @@ const authProtectedRoutes = [
   // { path: "/dashboard", component: <Scheduler /> },
   // { path: "/index", component: <Scheduler /> },
   { path: "/calendar", component: <Calendar /> },
+  { path: "/calendar-test", component: <CalendarTest /> },
 
   //Revenues
   { path: "/revenues", component: <RevenueList /> },

@@ -39,9 +39,16 @@ const useCalendarToolbar = () => {
     }
 
     // Toolbar - Center
-    if (prevButton && !document.querySelector(".fc-jump-left-button")) {
+    // if (prevButton && !document.querySelector(".fc-jump-left-button")) {
+    //   const jumpLeftButton = document.createElement("span");
+    //   prevButton.parentNode.insertBefore(jumpLeftButton, prevButton);
+    //   const jumpLeftRoot = createRoot(jumpLeftButton);
+    //   jumpLeftRoot.render(<JumpLeft />);
+    // }
+
+    if (todayButton && !document.querySelector(".fc-jump-left-button")) {
       const jumpLeftButton = document.createElement("span");
-      prevButton.parentNode.insertBefore(jumpLeftButton, prevButton);
+      todayButton.parentNode.insertBefore(jumpLeftButton, todayButton);
       const jumpLeftRoot = createRoot(jumpLeftButton);
       jumpLeftRoot.render(<JumpLeft />);
     }

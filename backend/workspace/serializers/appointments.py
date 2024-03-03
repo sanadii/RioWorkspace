@@ -91,17 +91,19 @@ class AppointmentNoteSerializer(serializers.ModelSerializer):
 
 
 class AppointmentSerializer(serializers.ModelSerializer):
+    title = serializers.CharField(source='client.first_name', read_only=True)
     client_id = serializers.IntegerField(write_only=True)
     client = ClientSerializer(read_only=True)
     services = AppointmentServiceSerializer(many=True, required=False)
     packages = AppointmentPackageSerializer(many=True, required=False)
     products = AppointmentProductSerializer(many=True, required=False)
-    note = serializers.CharField( required=False, allow_blank=True)
+    note = serializers.CharField(required=False, allow_blank=True)
+    start = serializers.DateTimeField(source='start_time')  # Renaming start_time to start
 
     class Meta:
         model = Appointment
         fields = [
-            'id', 'start_time', 'end_time', 'status', 'client', 'client_id',
+            'id', 'start_time', 'end_time', 'start', 'status', 'title', 'client', 'client_id',
             'services', 'packages', 'products', 'note'
             ]
 

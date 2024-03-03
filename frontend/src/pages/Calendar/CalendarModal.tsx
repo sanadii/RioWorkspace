@@ -47,12 +47,12 @@ const Calender = ({ modal, id, isEdit, setModal, toggle, event, setEvent, setDel
     });
   }, [dispatch]);
 
-//   useEffect(() => {
-//     if (isEventUpdated) {
-//       setIsEdit(false);
-//       setEvent({});
-//     }
-//   }, [dispatch, isEventUpdated]);
+  //   useEffect(() => {
+  //     if (isEventUpdated) {
+  //       setIsEdit(false);
+  //       setEvent({});
+  //     }
+  //   }, [dispatch, isEventUpdated]);
 
   // events validation
   const validation: any = useFormik({
@@ -144,7 +144,7 @@ const Calender = ({ modal, id, isEdit, setModal, toggle, event, setEvent, setDel
         isOpen={modal}
         // toggle={toggle}
         centered
-        size="lg"
+        id="event-modal"
         className="border-0"
         modalClassName="modal fadeInLeft zoomIn"
       >
