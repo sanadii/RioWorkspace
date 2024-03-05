@@ -1,18 +1,29 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
+import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
-import { Card, CardBody, Container, Row, Col } from "reactstrap";
-import { DeleteModal, BreadCrumb } from "Components/Common";
 
+import { Card, CardBody, Container, Row, Col } from "reactstrap";
+
+import * as Yup from "yup";
+import { useFormik } from "formik";
 
 // Calendar
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin, { Draggable } from "@fullcalendar/interaction";
 import BootstrapTheme from "@fullcalendar/bootstrap";
+import timeGridPlugin from "@fullcalendar/timegrid";
+import resourceTimelinePlugin from "@fullcalendar/resource-timeline";
 import listPlugin from "@fullcalendar/list";
 
+// Calendar Settings
+// import useCalendarToolbar from "./CalendarSettings/useCalendarToolbar ";
 //redux
 import { useSelector, useDispatch } from "react-redux";
+
+import { DeleteModal, BreadCrumb } from "Components/Common";
+
+//Simple bar
 
 import {
   getEvents as onGetEvents,
@@ -37,6 +48,9 @@ const Calender = () => {
   const [deleteEvent, setDeleteEvent] = useState<string>("");
   const [eventName, setEventName] = useState<string>("");
 
+  // Hooks
+  // const { customButtons, selectedStaff } = useCalendarToolbar();
+
   const selectLayoutState = (state: any) => state.Calendar;
   const calendarDataProperties = createSelector(selectLayoutState, (state: any) => ({
     events: state.events,
@@ -50,9 +64,9 @@ const Calender = () => {
     dispatch(onGetEvents());
     dispatch(onGetCategories());
     dispatch(onGetUpCommingEvent());
-    // new Draggable(document.getElementById("external-events") as HTMLElement, {
-    //   itemSelector: ".external-event",
-    // });
+    new Draggable(document.getElementById("external-events") as HTMLElement, {
+      itemSelector: ".external-event",
+    });
   }, [dispatch]);
 
   useEffect(() => {
@@ -147,6 +161,89 @@ const Calender = () => {
     setDeleteModal(false);
   };
 
+  // events validation
+  const validation: any = useFormik({
+    // enableReinitialize : use this flag when initial values needs to be changed
+    enableReinitialize: true,
+
+    initialValues: {
+      id: (event && event.id) || "",
+      title: (event && event.title) || "",
+      category: (event && event.category) || "",
+      location: (event && event.location) || "",
+      description: (event && event.description) || "",
+      defaultDate: (event && event.defaultDate) || [],
+      datetag: (event && event.datetag) || "",
+      start: (event && event.start) || "",
+      end: (event && event.end) || "",
+    },
+
+    validationSchema: Yup.object({
+      title: Yup.string().required("Please Enter Your Event Name"),
+      category: Yup.string().required("Please Select Your Category"),
+      location: Yup.string().required("Please Enter Your Location"),
+      description: Yup.string().required("Please Enter Your Description"),
+      start: Yup.date().required("Start Time is required"),
+      end: Yup.date().required("End Time is required"),
+      defaultDate: Yup.array().of(Yup.date()).required("Date range is required").min(2, "Select at least two dates"),
+    }),
+    onSubmit: (values) => {
+      var updatedDay: any = "";
+      if (selectedNewDay) {
+        updatedDay = new Date(selectedNewDay[1]);
+        updatedDay.setDate(updatedDay.getDate() + 1);
+      }
+
+      if (isEdit) {
+        const updateEvent = {
+          id: event.id,
+          title: values.title,
+          className: values.category,
+          start: selectedNewDay ? selectedNewDay[0] : event.start,
+          end: selectedNewDay ? updatedDay : event.end,
+          location: values.location,
+          description: values.description,
+        };
+        // update event
+        dispatch(onUpdateEvent(updateEvent));
+        validation.resetForm();
+      } else {
+        const newEvent = {
+          id: Math.floor(Math.random() * 100),
+          title: values["title"],
+          start: selectedNewDay[0],
+          end: updatedDay,
+          className: values["category"],
+          location: values["location"],
+          description: values["description"],
+        };
+        // save new event
+        dispatch(onAddNewEvent(newEvent));
+        validation.resetForm();
+      }
+
+      // setSelectedDay(null);
+      setSelectedNewDay(null);
+      toggle();
+    },
+  });
+
+  const submitOtherEvent = () => {
+    document.getElementById("form-event")?.classList.remove("view-event");
+
+    document.getElementById("event-title")?.classList.replace("d-none", "d-block");
+    document.getElementById("event-category")?.classList.replace("d-none", "d-block");
+    (document.getElementById("event-start-date")?.parentNode as HTMLElement).classList.remove("d-none");
+    document.getElementById("event-start-date")?.classList.replace("d-none", "d-block");
+    document.getElementById("event-location")?.classList.replace("d-none", "d-block");
+    document.getElementById("event-description")?.classList.replace("d-none", "d-block");
+    document.getElementById("event-start-date-tag")?.classList.replace("d-block", "d-none");
+    document.getElementById("event-location-tag")?.classList.replace("d-block", "d-none");
+    document.getElementById("event-description-tag")?.classList.replace("d-block", "d-none");
+
+    setIsEditButton(true);
+  };
+
   /**
    * On category darg event
    */
@@ -182,6 +279,8 @@ const Calender = () => {
     }
   };
 
+  // Define the customButtons object
+
   document.title = "Calendar | Velzon - React Admin & Dashboard Template";
   return (
     <React.Fragment>
@@ -192,16 +291,6 @@ const Calender = () => {
           setDeleteModal(false);
         }}
       />
-      <CalendarModal
-        modal={modal}
-        id="event-modal"
-        toggle={toggle}
-        event={event}
-        setEvent={setEvent}
-        isEdit={isEdit}
-        setModal={setModal}
-        setDeleteModal={setDeleteModal}
-      />
       <div className="page-content">
         <Container fluid>
           <Row>
@@ -209,15 +298,26 @@ const Calender = () => {
               <Card className="card-h-100">
                 <CardBody>
                   <FullCalendar
-                    plugins={[BootstrapTheme, dayGridPlugin, interactionPlugin, listPlugin]}
-                    initialView="dayGridWeek"
-                    slotDuration={"00:01:00"}
+                    schedulerLicenseKey="CC-Attribution-NonCommercial-NoDerivatives"
+                    plugins={[BootstrapTheme, dayGridPlugin, timeGridPlugin, interactionPlugin, listPlugin]}
+                    initialView="timeGridWeek"
                     handleWindowResize={true}
                     themeSystem="bootstrap"
+                    // Toolbar
+                    // customButtons={{ ...customButtons }}
                     headerToolbar={{
-                      left: "prev,next today",
-                      center: "title",
-                      right: "dayGridMonth,dayGridWeek,dayGridDay,listWeek",
+                      left: "refresh print hide",
+                      center: "prev,today,next",
+                      right: "timeGridDay,timeGridWeek,dayGridMonth",
+                    }}
+                    buttonText={{
+                      timeGridDay: "Day",
+                      timeGridWeek: "Week",
+                      dayGridMonth: "Month",
+                    }}
+                    buttonIcons={{
+                      prev: "fa fa-angle-left",
+                      next: "fa fa-angle-right",
                     }}
                     events={events}
                     editable={true}
@@ -229,10 +329,34 @@ const Calender = () => {
                   />
                 </CardBody>
               </Card>
+
+              <Card className="card-h-100">
+                <CardBody>
+                  <button className="btn btn-primary w-100" id="btn-new-event" onClick={toggle}>
+                    <i className="mdi mdi-plus"></i> Create New Event
+                  </button>
+
+                  <div id="external-events">
+                    <br />
+                    <p className="text-muted">Drag and drop your event or click in the calendar</p>
+                  </div>
+                </CardBody>
+              </Card>
+
+              <div style={{ clear: "both" }}></div>
+
+              {/* <CalendarModal
+                modal={modal}
+                id="event-modal"
+                toggle={toggle}
+                event={event}
+                setEvent={setEvent}
+                isEdit={isEdit}
+                setModal={setModal}
+                setDeleteModal={setDeleteModal}
+              /> */}
             </Col>
           </Row>
-
-          <div style={{ clear: "both" }}></div>
         </Container>
       </div>
     </React.Fragment>

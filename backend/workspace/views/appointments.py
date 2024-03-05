@@ -64,8 +64,8 @@ class GetScheduleData(APIView):
         # Filter appointments between start and end dates, if provided
         if start_date and end_date:
             appointments = Appointment.objects.filter(
-                start_time__gte=start_date,
-                end_time__lte=end_date
+                start__gte=start_date,
+                end__lte=end_date
             )
         else:
             appointments = Appointment.objects.all()
@@ -150,8 +150,8 @@ class AddAppointment(APIView):
 
         appointment_data = {
             'client_id': client_id,
-            'start_time': request.data.get('start_time'),
-            'end_time': request.data.get('end_time'),
+            'start': request.data.get('start'),
+            'end': request.data.get('end'),
             'services': request.data.get('services', [])
         }
 

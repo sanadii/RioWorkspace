@@ -105,7 +105,7 @@ from django.db import models
 
 class CalendarSettings(models.Model):
     first_day_of_week = models.CharField(max_length=10, default='Sunday')
-    calendar_start_time = models.TimeField(blank=True, null=True)
+    calendar_start = models.TimeField(blank=True, null=True)
     calendar_intervals = models.PositiveIntegerField(default=15)
     high_contrast_mode = models.BooleanField(default=False)
     display_padding_times = models.BooleanField(default=False)

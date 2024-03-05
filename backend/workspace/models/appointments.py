@@ -163,8 +163,8 @@ STATUS_CHOICES = [
 class AppointmentService(models.Model):
     service = models.ForeignKey(Service, on_delete=models.CASCADE)
     price = models.DecimalField(max_digits=10, decimal_places=2)
-    start_time = models.DateTimeField()
-    end_time = models.DateTimeField()
+    start = models.DateTimeField()
+    end = models.DateTimeField()
     duration = models.PositiveIntegerField(default=30)
     staff = models.ForeignKey(Staff, on_delete=models.CASCADE)
     resources = models.ManyToManyField(ResourceItem, blank=True)
@@ -207,8 +207,8 @@ class AppointmentProduct(models.Model):
 # Appointment Model
 class Appointment(models.Model):
     client = models.ForeignKey(Client, on_delete=models.CASCADE)
-    start_time = models.DateTimeField()
-    end_time = models.DateTimeField()
+    start = models.DateTimeField()
+    end = models.DateTimeField()
     status = models.IntegerField(
         choices=STATUS_CHOICES, default=1, blank=True, null=True)
     services = models.ManyToManyField(
@@ -219,7 +219,7 @@ class Appointment(models.Model):
         AppointmentProduct, related_name='appointments_product')
 
     def __str__(self):
-        return f"Appointment with {self.client} on {self.start_time}"
+        return f"Appointment with {self.client} on {self.start}"
 
     def allocate_resources(self):
         # Logic to allocate resources based on minimize_switching and match_resources settings

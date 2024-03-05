@@ -1,31 +1,13 @@
 import React, { useEffect, useState, useRef } from "react";
-import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
-
-import { Card, CardBody, Container, Row, Col } from "reactstrap";
-
+import { Card, CardBody } from "reactstrap";
 import * as Yup from "yup";
 import { useFormik } from "formik";
-
-// Calendar
-import FullCalendar from "@fullcalendar/react";
-import dayGridPlugin from "@fullcalendar/daygrid";
-import interactionPlugin, { Draggable } from "@fullcalendar/interaction";
-import BootstrapTheme from "@fullcalendar/bootstrap";
-import timeGridPlugin from "@fullcalendar/timegrid";
-import resourceTimelinePlugin from "@fullcalendar/resource-timeline";
-import listPlugin from "@fullcalendar/list";
-
-// Calendar Settings
-import useCalendarToolbar from "./CalendarSettings/useCalendarToolbar";
 
 //redux
 import { useDispatch, useSelector } from "react-redux";
 import { getSchedule, getClients } from "store/actions";
 import { appointmentsSelector, clientsSelector } from "Selectors";
-
-import { DeleteModal } from "Components/Common";
-
 import {
   getEvents as onGetEvents,
   getCategories as onGetCategories,
@@ -36,8 +18,16 @@ import {
 } from "store/actions";
 import { createSelector } from "reselect";
 
-import createFullCalendarOptions from "./CalendarSettings/FullCalendarOptions"; // Adjust the path as needed
+// Calendar
+import FullCalendar from "@fullcalendar/react";
+import { Draggable } from "@fullcalendar/interaction";
+
+// Calendar Settings
+import useCalendarToolbar from "./CalendarSettings/useCalendarToolbar";
+import createCalendarSettings from "./CalendarSettings"; // Adjust the path as needed
 import CalendarModal from "./CalendarModal";
+
+import { DeleteModal } from "Components/Common";
 
 const Calender = () => {
   const dispatch: any = useDispatch();
@@ -50,6 +40,7 @@ const Calender = () => {
   const [deleteEvent, setDeleteEvent] = useState<string>("");
   const [eventName, setEventName] = useState<string>("");
 
+  console.log("event: ", event);
   // Data
   const { appointments, services, staff } = useSelector(appointmentsSelector);
   const { clients } = useSelector(clientsSelector);
@@ -63,7 +54,7 @@ const Calender = () => {
 
   // Hooks
   const { customButtons, selectedStaff } = useCalendarToolbar();
-  const fullCalendarOptions = createFullCalendarOptions(customButtons);
+  const fullCalendarOptions = createCalendarSettings(customButtons);
 
   const selectLayoutState = (state: any) => state.Calendar;
   const calendarDataProperties = createSelector(selectLayoutState, (state: any) => ({
@@ -108,6 +99,7 @@ const Calender = () => {
    */
 
   const handleDateClick = (arg: any) => {
+    console.log("ARG PLZ: ", arg)
     const date = arg["date"];
     setSelectedNewDay(date);
     toggle();
@@ -141,10 +133,11 @@ const Calender = () => {
    * Handling click on event on calendar
    */
 
+  
   const handleEventClick = (arg: any) => {
     const event = arg.event;
-    console.log("arg:", arg)
-    console.log("arg.event:", event)
+    console.log("arg:", arg);
+    console.log("arg.event:", event);
 
     const st_date = event.start;
     const ed_date = event.end;
@@ -156,10 +149,20 @@ const Calender = () => {
       title: event.title,
       start: event.start,
       end: event.end,
+
+      // client: event.client || "",
+      event: event || "",
+
+      // services: event.services || [],
+      // packages: event.packages || [],
+      // products: event.products || [],
+
+      duration: event.duration,
+      price: event.price,
+
       className: event.classNames,
       category: event.classNames[0],
-      location: event._def.extendedProps.location ? event._def.extendedProps.location : "No Loaction",
-      description: event._def.extendedProps.description,
+      note: event._def.extendedProps.note,
       defaultDate: er_date,
       datetag: r_date,
     });
@@ -185,6 +188,7 @@ const Calender = () => {
     initialValues: {
       id: (event && event.id) || "",
       title: (event && event.title) || "",
+      event: (event && event) || "",
       category: (event && event.category) || "",
       location: (event && event.location) || "",
       description: (event && event.description) || "",
@@ -308,44 +312,8 @@ const Calender = () => {
         }}
       />
 
-      {/* <FullCalendar
-        schedulerLicenseKey="CC-Attribution-NonCommercial-NoDerivatives"
-        plugins={[BootstrapTheme, dayGridPlugin, timeGridPlugin, interactionPlugin, listPlugin]}
-        initialView="timeGridWeek"
-        handleWindowResize={true}
-        themeSystem="bootstrap"
-        // Toolbar
-        headerToolbar={{
-          left: "refresh print hide",
-          center: "prev,today,next",
-          right: "timeGridDay,timeGridWeek,dayGridMonth",
-        }}
-        // Buttons
-        buttonText={{
-          timeGridDay: "Day",
-          timeGridWeek: "Week",
-          dayGridMonth: "Month",
-        }}
-        buttonIcons={{
-          prev: "fa fa-angle-left",
-          next: "fa fa-angle-right",
-        }}
-        allDaySlot={false} // This hides the all-day section
-        // Slot Duration and settings
-        slotMinTime="10:00:00" // 10 AM
-        slotMaxTime="20:00:00" // 8 PM
-        slotDuration="01:00:00" // 15 minutes
-        slotLabelInterval="00:15:00" // Subdivision labels every 15 minutes
-        events={appointments}
-        editable={true}
-        droppable={true}
-        selectable={true}
-        dateClick={handleDateClick}
-        eventClick={handleEventClick}
-        drop={onDrop}
-      /> */}
-
       <FullCalendar
+
         handleWindowResize={true}
         themeSystem="bootstrap"
         events={appointments}
@@ -375,13 +343,17 @@ const Calender = () => {
 
       <CalendarModal
         modal={modal}
-        id="event-modal"
+        services={services}
+        staff={staff}
+        clients={clients}
+        appointmentRef={""}
+        // id="event-modal"
         toggle={toggle}
         event={event}
-        setEvent={setEvent}
+        // setEvent={setEvent}
         isEdit={isEdit}
-        setModal={setModal}
-        setDeleteModal={setDeleteModal}
+        // setModal={setModal}
+        // setDeleteModal={setDeleteModal}
       />
     </React.Fragment>
   );

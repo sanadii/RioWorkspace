@@ -39,7 +39,7 @@ class AppointmentServiceSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = AppointmentService
-        fields = ['id', 'service', 'staff', 'start_time', 'end_time', 'duration', 'price',
+        fields = ['id', 'service', 'staff', 'start', 'end', 'duration', 'price',
                   'service_id', 'name']
 
 
@@ -98,12 +98,11 @@ class AppointmentSerializer(serializers.ModelSerializer):
     packages = AppointmentPackageSerializer(many=True, required=False)
     products = AppointmentProductSerializer(many=True, required=False)
     note = serializers.CharField(required=False, allow_blank=True)
-    start = serializers.DateTimeField(source='start_time')  # Renaming start_time to start
 
     class Meta:
         model = Appointment
         fields = [
-            'id', 'start_time', 'end_time', 'start', 'status', 'title', 'client', 'client_id',
+            'id', 'start', 'end', 'status', 'title', 'client', 'client_id',
             'services', 'packages', 'products', 'note'
             ]
 
@@ -155,9 +154,9 @@ class AppointmentSerializer(serializers.ModelSerializer):
 
     def update(self, instance, validated_data):
         # Updating basic appointment fields
-        instance.start_time = validated_data.get(
-            'start_time', instance.start_time)
-        instance.end_time = validated_data.get('end_time', instance.end_time)
+        instance.start = validated_data.get(
+            'start', instance.start)
+        instance.end = validated_data.get('end', instance.end)
         instance.status = validated_data.get('status', instance.status)
         instance.save()
 
@@ -248,8 +247,8 @@ class AppointmentSerializer(serializers.ModelSerializer):
     #     existing_service_ids = [service.id for service in instance.services.all()]
     #     updated_service_ids = []
 
-    #     instance.start_time = validated_data.get('start_time', instance.start_time)
-    #     instance.end_time = validated_data.get('end_time', instance.end_time)
+    #     instance.start = validated_data.get('start', instance.start)
+    #     instance.end = validated_data.get('end', instance.end)
     #     instance.status = validated_data.get('status', instance.status)
     #     instance.save()
 

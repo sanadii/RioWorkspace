@@ -1,0 +1,22 @@
+  .e-dlg-overlay {
+    height: 100%;
+    left: 0;
+    opacity: $dialog-overlay-opacity;
+    position: fixed;
+    top: 0;
+    transition: opacity .15s linear;
+    width: 100%;
+
+    &.e-fade {
+      opacity: 0;
+    }
+  }
+
+  div#_dialog_wrapper {
+    width: 844px!important;
+}
+
+
+  .e-dlg-overflow-hidden {
+    overflow: auto;
+  }
