@@ -1,28 +1,39 @@
-// Event Render Hooks
+// EventRenderHooks: https://fullcalendar.io/docs/event-render-hooks
+import { SvgIcon } from "Components/Common"; // Adjust the import path as needed
+import { AppointmentStatusOptions } from "Components/constants";
 
-// Customize the rendering of event elements with the following options:
-// eventClassNames - a ClassName Input for adding classNames to the outermost event element. If supplied as a callback function, it is called every time the associated event data changes.
-// eventContent - a Content Injection Input. Generated content is inserted inside the inner-most wrapper of the event element. If supplied as a callback function, it is called every time the associated event data changes.
-// eventDidMount - called right after the element has been added to the DOM. If the event data changes, this is NOT called again.
-// eventWillUnmount - called right before the element will be removed from the DOM.
+// fc-event-past
+// fc-timegrid-event
+// fc-v-event                                   // fc-event-vert
 
-// Argument
-// When the above hooks are specified as a function in the form function(arg), the arg is an object with the following properties:
+// //
+// fc-event-skin
+// fc-booking
+// fc-completed
+// fc-paid
 
-// event - Event Object
-// timeText
-// isStart
-// isEnd
-// isMirror
-// isPast
-// isFuture
-// isToday
-// el - the element. only available in eventDidMount and eventWillUnmount
-// view - View Object
+// fc-booking-id-387849989
+// fc-group-308827975
 
 const EventRenderHooks = {
   // Class names for events
-  eventClassNames: (arg) => [],
+  eventClassNames: function (arg) {
+    console.log("--- arg ---: ", arg.event.extendedProps.status);
+    const statusOption = AppointmentStatusOptions.find((option) => option.id === arg.event.extendedProps.status);
+    return [statusOption.className];
+
+    // if (arg.event.extendedProps.isUrgent) {
+    //   return [statusOption.className];
+    // } else {
+    //   return ["normal"];
+    // }
+  },
+
+  // eventClassNames: (arg) => {
+  //   console.log("--- arg ---: ", arg);
+  //   // const statusOption = AppointmentStatusOptions.find((option) => option.id === status);
+  //   return <></>;
+  // }
 
   // eventRender: function (info) {
   //   console.log("_______ info _______\n");
@@ -33,40 +44,46 @@ const EventRenderHooks = {
   eventContent: (arg) => {
     // Customize the content of the event element
     const event = arg.event;
+    function formatTime(date) {
+      return date.toLocaleTimeString([], { hour: "numeric", minute: "2-digit", hour12: true });
+    }
 
     return (
       <>
         <div className="fc-event-head"> </div>
         <div className="fc-event-content">
           <div className="fc-event-title">
-            <div className="fc-event-notes">
+            <div className="fc-event-icons">
               <i className="fc-comment-icon tip-init" data-original-title="Comment or note" data-placement="left">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16">
-                  <path
-                    fill="none"
-                    fillRule="evenodd"
-                    stroke="#13846e"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="1.5"
-                    d="M1.932 7.515a6.528 6.528 0 0 0 .985 3.456L1 15l4.025-1.918a6.524 6.524 0 0 0 8.99-2.099 6.537 6.537 0 0 0-2.097-8.998A6.524 6.524 0 0 0 8.46 1a6.521 6.521 0 0 0-6.528 6.515z"
-                  ></path>
-                </svg>
+                <SvgIcon icon="note" />
+              </i>
+              <i
+                className="fc-completed-icon tip-init"
+                data-original-title="Appointment completed"
+                data-placement="left"
+              >
+                <SvgIcon icon="completed" />
+              </i>
+              <i className="fc-paid-icon tip-init" data-original-title="Invoice paid" data-placement="left">
+                <SvgIcon icon="paid" />
               </i>
             </div>
+
             <b className="fc-staff-name tip-init">
               <i className="fa fa-fw fa-user"></i>
             </b>
             <b className="fc-customer-name tip-init">{event.title}&nbsp;&nbsp;&nbsp;</b>
             <span>
-              <i className="fc-new-customer">(new) &nbsp;</i> {arg.event.start.toString()}
+              <i className="fc-new-customer">(new) &nbsp;</i> {formatTime(arg.event.start)}
             </span>
           </div>
-          {event.extendedProps.services.map((service, index) => (
-            <div key={service.id} className="fc-event-body" style={{ whiteSpace: "normal", wordWrap: "break-word" }}>
-              {service.name} -<span>{service.price}</span>
-            </div>
-          ))}
+          <div className="fc-event-body">
+            {event.extendedProps.services.map((service, index) => (
+              <div className="fc-event-items" key={service.id}>
+                - {service.name} - <span>{service.price} KD</span>
+              </div>
+            ))}
+          </div>
         </div>
         <div className="e-appointment-bg"></div>
       </>

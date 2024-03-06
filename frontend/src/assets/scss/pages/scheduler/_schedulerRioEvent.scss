@@ -1,0 +1,305 @@
+.fc-day .fc-direction-ltr .fc-timegrid-col-events {
+    margin: 0 1px 0 1px;
+}
+
+.fc .fc-event {
+    border-style: solid;
+    cursor: default;
+    border-radius: 0;
+    border-color: #aaa;
+    background-color: #d5d5d5;
+    font-size: 13px;
+    line-height: 19px;
+    z-index: 2;
+
+    &:hover {
+        box-shadow: 0 0 5px rgba(0, 0, 0, .25), inset 0 8px 4px -7px hsla(0, 0%, 100%, .3), 0 8px 4px -8px rgba(33, 33, 33, .5);
+        z-index: 10000 !important;
+        opacity: 1;
+
+        .fc-event-resizer {
+            display: block;
+        }
+    }
+
+    .fc-event-time {
+        color: #000;
+        font-weight: 400;
+        font-size: 12px;
+    }
+
+    .fc-event-title {
+        color: #000;
+        font-weight: 700;
+        padding-top: 1px;
+        word-wrap: break-word;
+        hyphens: auto;
+        -webkit-hyphenate-character: auto;
+
+        b,
+        span {
+            position: relative;
+            z-index: 3;
+        }
+    }
+
+    .fc-event-title span {
+        font-weight: 400;
+        font-size: 12px;
+    }
+
+    .fc-event-body {
+        color: #000;
+
+        .fc-event-items {
+            padding-top: 4px;
+            padding-left: 4px;
+
+            span {
+                font-weight: bold;
+            }
+
+        }
+    }
+
+    .fc-event-resizer {
+        display: none;
+    }
+
+    .fc-event-draggable,
+    a.fc-event {
+        cursor: pointer;
+        text-decoration: none;
+        margin-left: 0;
+    }
+
+    .fc-event-head {
+        display: none;
+    }
+
+    .fc-rtl .fc-event {
+        text-align: right;
+    }
+
+    &-time,
+    &-title {
+        padding: 0 1px;
+    }
+
+    &-body,
+    &-title {
+        padding: 0 3px;
+    }
+
+    .fc .fc-event-resizer {
+        position: absolute;
+        z-index: 99999;
+        overflow: hidden;
+        font-size: 300%;
+        line-height: 50%;
+        color: #000;
+    }
+
+    .fc-staff-name {
+        display: none;
+    }
+}
+
+
+// start of fc-event-main
+.fc-event-main {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-style: solid;
+    border-width: 0;
+    overflow: hidden
+}
+
+// End of fc-event-main
+
+
+a.fc-pending {
+    border-left-width: 3px;
+    border-top: 1px dashed hsla(0, 0%, 100%, 0) !important;
+    border-right: 1px dashed hsla(0, 0%, 100%, 0) !important;
+    border-bottom: 1px dashed hsla(0, 0%, 100%, 0) !important;
+    -webkit-transform: translateZ(0);
+    -moz-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    -o-transform: translateZ(0);
+    transform: translateZ(0);
+
+    .fc-event-main {
+        background-image: url(https://app.gettimely.com/images/calendar-pending-v3.png);
+
+        &.fc-light-pink {
+            background-image: url(../../../images/scheduler/calendar-pending-dark-pink.png);
+        }
+
+        &.fc-light-yellow {
+            background-image: url(../../../images/scheduler/calendar-pending-dark-yellow.png);
+        }
+
+        &.fc-light-blue {
+            background-image: url(../../../images/scheduler/calendar-pending-dark-blue.png);
+        }
+
+        &.fc-light-green {
+            background-image: url(../../../images/scheduler/calendar-pending-dark-green.png);
+        }
+
+        &.fc-lighten {
+            background-image: url(../../../images/scheduler/calendar-pending-lighten.png);
+        }
+    }
+
+    &.fc-group-highlight .fc-event-main {
+        background-image: url(https://app.gettimely.com/images/calendar-pending-v3.png);
+    }
+}
+
+// end of fc-pending
+
+
+
+
+.fc-event-icons {
+    float: right;
+    line-height: 14px;
+    z-index: 3;
+
+    &.fc-event-icons--vert {
+        width: 15px
+    }
+
+    i {
+        // display: none;
+        float: right;
+        margin-left: 4px;
+        font-size: 14px
+    }
+}
+
+
+// start fc-v-event
+.fc-v-event {
+
+    .fc-event-content,
+    .fc-event-head {
+        position: absolute;
+        z-index: 2;
+        width: 100%;
+        overflow: visible;
+        padding-right: 0;
+        box-sizing: border-box;
+    }
+
+    .fc-event-time {
+        white-space: nowrap;
+        font-size: 10px;
+    }
+
+    .fc-event-bg {
+        position: absolute;
+        z-index: 1;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: #fff;
+        opacity: .6;
+        filter: alpha(opacity=60);
+
+        .fc-new-palette & {
+            opacity: .6;
+            filter: alpha(opacity=60);
+        }
+    }
+
+    .fc-class-indicator {
+        position: absolute;
+        z-index: 1;
+        top: 0;
+        right: 0;
+        width: 100%;
+        height: 100%;
+        background: #fff;
+        opacity: .5;
+        filter: alpha(opacity=50);
+    }
+
+    .fc-event-resizer-end {
+        bottom: 0 !important;
+        width: 100% !important;
+        height: 8px !important;
+        overflow: hidden !important;
+        line-height: 8px !important;
+        font-size: 11px !important;
+        font-family: monospace;
+        text-align: center;
+        cursor: s-resize;
+    }
+}
+
+// end of fc-v-event  
+
+
+// start of event alerts
+
+.fc-new-customer {
+    display: none;
+    font-style: normal;
+    text-transform: uppercase
+}
+
+a.fc-alert i.fc-alert-icon,
+a.fc-arrived i.fc-arrived-icon,
+a.fc-booked-online i.fc-booked-online-icon,
+a.fc-comment i.fc-comment-icon,
+a.fc-completed i.fc-completed-icon,
+a.fc-concession i.fc-package-icon,
+a.fc-deposit i.fc-deposit-icon,
+a.fc-dns i.fc-dns-icon,
+a.fc-external i.fc-google-icon,
+a.fc-has-vc-link-invalid i.fc-booking-link-invalid,
+a.fc-has-vc-link i.fc-booking-link,
+a.fc-invoiced i.fc-invoiced-icon,
+a.fc-new i.fc-new-icon,
+a.fc-package i.fc-package-icon,
+a.fc-paid i.fc-paid-icon,
+a.fc-promo i.fc-promo-icon,
+a.fc-recurring i.fc-recurring-icon,
+a.fc-resource-booked i.fc-resource-booked-icon,
+a.fc-staff-requested-invalid i.fc-staff-requested-invalid-icon,
+a.fc-staff-requested i.fc-staff-requested-icon,
+a.fc-vip i.fc-vip-icon {
+    display: block
+}
+
+a.fc-staff-requested-invalid i.fc-staff-requested-invalid-icon g {
+    stroke: red
+}
+
+a.fc-staff-requested-unable-to-perform i.fc-staff-requested-invalid-icon {
+    display: block
+}
+
+a.fc-staff-requested-unable-to-perform i.fc-staff-requested-invalid-icon g {
+    stroke: #c09853
+}
+
+a.fc-staff-assigned-unable-to-perform i.fc-staff-requested-invalid-icon {
+    display: block
+}
+
+a.fc-staff-assigned-unable-to-perform i.fc-staff-requested-invalid-icon g {
+    stroke: #000
+}
+
+a.fc-vaccinated i.fc-vaccinated-customer-icon,
+a.fc-vaccination-info-required i.fc-vaccination-required-icon {
+    display: block
+}
+
+// end of event alerts

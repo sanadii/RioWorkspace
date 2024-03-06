@@ -821,17 +821,9 @@ html .fc {
   filter: alpha(opacity=0.2)
 }
 
-.fc-non-business {
-  background-image: linear-gradient(45deg, #303b42 10%, #70787c 0, #70787c 50%, #303b42 0, #303b42 60%, #70787c 0, #70787c);
-  background-size: 7.07px 7.07px;
-  opacity: .2
-}
 
-.high-contrast .fc-non-business {
-  background-image: linear-gradient(45deg, #303b42 10%, #39464e 0, #39464e 50%, #303b42 0, #303b42 60%, #39464e 0, #39464e);
-  background-size: 7.07px 7.07px;
-  opacity: .6
-}
+
+
 
 .fc-cell-overlay {
   background: #9cf;
@@ -843,140 +835,6 @@ html .fc {
   background: #f5fff5;
 }
 
-.fc-event {
-  border-style: solid;
-  cursor: default;
-  -webkit-border-radius: 0;
-  -moz-border-radius: 0;
-  border-radius: 0;
-  border-color: #aaa;
-  background-color: #d5d5d5;
-  font-size: 13px;
-  line-height: 19px;
-  z-index: 2
-}
-
-.fc-event:hover {
-  -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, .25);
-  -moz-box-shadow: 0 0 5px rgba(0, 0, 0, .25);
-  box-shadow: 0 0 5px rgba(0, 0, 0, .25);
-  box-shadow: inset 0 8px 4px -7px hsla(0, 0%, 100%, .3), 0 8px 4px -8px rgba(33, 33, 33, .5);
-  z-index: 10000 !important;
-  opacity: 1
-}
-
-.fc-event:hover .ui-resizable-handle {
-  display: block
-}
-
-.fc-event .fc-event-time {
-  color: #000;
-  font-weight: 400;
-  font-size: 12px
-}
-
-.fc-event .fc-event-title {
-  color: #000;
-  font-weight: 700;
-  padding-top: 1px;
-  word-wrap: break-word;
-  -moz-hyphens: auto;
-  -webkit-hyphens: auto;
-  -ms-hyphens: auto;
-  hyphens: auto;
-  -webkit-hyphenate-character: auto
-}
-
-.fc-event .fc-event-title b {
-  position: relative;
-  z-index: 3
-}
-
-.fc-event .fc-event-title span {
-  font-weight: 400;
-  font-size: 12px;
-  position: relative;
-  z-index: 3
-}
-
-.fc-event .fc-event-body {
-  color: #000
-}
-
-.fc-event .ui-resizable-handle {
-  display: none
-}
-
-.fc-event-draggable,
-a.fc-event {
-  cursor: pointer
-}
-
-a.fc-event {
-  text-decoration: none;
-  margin-left: 0
-}
-
-.fc-event-head {
-  display: none
-}
-
-.fc-rtl .fc-event {
-  text-align: right
-}
-
-.fc-event-inner {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  border-style: solid;
-  border-width: 0;
-  overflow: hidden
-}
-
-.fc-event-time,
-.fc-event-title {
-  padding: 0 1px
-}
-
-.fc-event-body,
-.fc-event-title {
-  padding: 0 3px
-}
-
-.fc .ui-resizable-handle {
-  position: absolute;
-  z-index: 99999;
-  overflow: hidden;
-  font-size: 300%;
-  line-height: 50%;
-  color: #000
-}
-
-.fc-staff-name {
-  display: none
-}
-
-.fc-showing-resource-groups .fc-staff-name,
-.fc-showing-resources .fc-staff-name {
-  display: inline
-}
-
-.fc-showing-resource-groups .fc-customer-name,
-.fc-showing-resource-groups .fc-event-body,
-.fc-showing-resource-groups .fc-event-name,
-.fc-showing-resource-groups .fc-print-btn,
-.fc-showing-resources .fc-customer-name,
-.fc-showing-resources .fc-event-body,
-.fc-showing-resources .fc-event-name,
-.fc-showing-resources .fc-print-btn {
-  display: none
-}
-
-.fc-showing-resource-groups .fc-new-customer,
-.fc-showing-resources .fc-new-customer {
-  display: none !important
-}
 
 a.fc-arrived {
   border-left: 3px dashed rgba(0, 0, 0, .5) !important;
@@ -999,8 +857,8 @@ a.fc-recurring {
   transition: transform .1s ease-in-out, opacity .1s ease-in-out
 }
 
-a.fc-booking.ui-resizable-resizing,
-a.fc-recurring.ui-resizable-resizing {
+a.fc-booking.fc-event-resizable-resizing,
+a.fc-recurring.fc-event-resizable-resizing {
   transition: none
 }
 
@@ -1077,166 +935,8 @@ a.fc-busy {
   color: #999
 }
 
-a.fc-pending {
-  border-left-width: 3px;
-  border-top: 1px dashed hsla(0, 0%, 100%, 0) !important;
-  border-right: 1px dashed hsla(0, 0%, 100%, 0) !important;
-  border-bottom: 1px dashed hsla(0, 0%, 100%, 0) !important;
-  -webkit-transform: translateZ(0);
-  -moz-transform: translateZ(0);
-  -ms-transform: translateZ(0);
-  -o-transform: translateZ(0);
-  transform: translateZ(0)
-}
 
-a.fc-pending .fc-event-inner {
-  background-image: url(https://app.gettimely.com/images/calendar-pending-v3.png)
-}
 
-a.fc-pending .fc-event-inner.fc-light-pink {
-  background-image: url(../../../images/scheduler/calendar-pending-dark-pink.png)
-}
-
-a.fc-pending .fc-event-inner.fc-light-yellow {
-  background-image: url(../../../images/scheduler/calendar-pending-dark-yellow.png)
-}
-
-a.fc-pending .fc-event-inner.fc-light-blue {
-  background-image: url(../../../images/scheduler/calendar-pending-dark-blue.png)
-}
-
-a.fc-pending .fc-event-inner.fc-light-green {
-  background-image: url(../../../images/scheduler/calendar-pending-dark-green.png)
-}
-
-a.fc-pending .fc-event-inner.fc-lighten {
-  background-image: url(../../../images/scheduler/calendar-pending-lighten.png)
-}
-
-a.fc-pending.fc-group-highlight .fc-event-inner {
-  background-image: url(https://app.gettimely.com/images/calendar-pending-v3.png)
-}
-
-.fc-padding-time {
-  display: none !important;
-  border: transparent !important;
-  opacity: .5;
-  cursor: default;
-  pointer-events: none
-}
-
-.fc-padding-time .fc-event-inner {
-  display: block
-}
-
-.fc-padding-time .fc-event-inner .fc-event-title {
-  color: rgba(0, 0, 0, .7);
-  text-align: center;
-  font-size: 11px
-}
-
-.fc-padding-time .fc-event-inner .fc-event-title span {
-  display: none
-}
-
-.fc-padding-time .fc-event-inner .fc-event-title .fc-event-name {
-  font-style: normal
-}
-
-.fc-padding-time .fc-event-inner .fc-event-bg {
-  opacity: .8
-}
-
-.fc-padding-time .fc-event-inner .fc-event-body {
-  display: none !important
-}
-
-.fc-padding-time .ui-resizable-handle,
-.fc-padding-time:hover .ui-resizable-handle {
-  display: none
-}
-
-.fc-padding-time--pre .fc-event-content {
-  bottom: 0
-}
-
-.show-padding-times .fc-padding-time {
-  display: block !important
-}
-
-.fc-padding {
-  position: absolute;
-  left: -3px;
-  width: 100%;
-  background-color: rgba(243, 194, 191, .54902);
-  border: 1px solid #e84c3d;
-  border-left-width: 3px
-}
-
-.fc-pre-padding {
-  border-bottom: none;
-  border-radius: 3px 3px 0 0
-}
-
-.fc-post-padding {
-  border-top: none;
-  border-radius: 0 0 3px 3px
-}
-
-.fc-break-event {
-  border-color: transparent;
-  border-width: 1px;
-  background-color: transparent;
-  border-bottom: none;
-  cursor: move;
-  opacity: 1;
-  -webkit-transform: translateZ(0);
-  -moz-transform: translateZ(0);
-  -ms-transform: translateZ(0);
-  -o-transform: translateZ(0);
-  transform: translateZ(0);
-  z-index: 1;
-  background-image: linear-gradient(45deg, rgba(48, 59, 66, .15) 10%, rgba(112, 120, 124, .15) 0, rgba(112, 120, 124, .15) 50%, rgba(48, 59, 66, .15) 0, rgba(48, 59, 66, .15) 60%, rgba(112, 120, 124, .15) 0, rgba(112, 120, 124, .15));
-  background-size: 7.07px 7.07px;
-  transition: transform .1s ease-in-out, opacity .1s ease-in-out
-}
-
-.fc-break-event:hover {
-  -webkit-box-shadow: 0 0 0 transparent;
-  -moz-box-shadow: 0 0 0 transparent;
-  box-shadow: 0 0 0 transparent;
-  z-index: 0;
-  opacity: 1
-}
-
-.fc-break-event:hover .ui-resizable-handle {
-  display: none
-}
-
-.fc-break-event .fc-event-inner {
-  display: block
-}
-
-.fc-break-event .fc-event-inner .fc-event-title {
-  color: rgba(0, 0, 0, .7)
-}
-
-.fc-break-event .fc-event-inner .fc-event-bg {
-  display: none
-}
-
-.fc-break-event .fc-event-inner .fc-event-body {
-  display: none !important
-}
-
-.fc-view-month .fc-break-event .fc-event-body,
-.fc-view-resourceWeek .fc-break-event .fc-event-body {
-  display: block
-}
-
-.fc-view-resourceWeek .fc-break-event {
-  border-left-width: 3px
-}
 
 .fc-marker-event {
   border-color: transparent;
@@ -1265,22 +965,13 @@ a.fc-pending.fc-group-highlight .fc-event-inner {
   opacity: .15
 }
 
-.fc-marker-event .fc-event-inner,
-.fc-marker-event .ui-resizable-handle,
-.fc-marker-event:hover .ui-resizable-handle {
+.fc-marker-event .fc-event-main,
+.fc-marker-event .fc-event-resizer,
+.fc-marker-event:hover .fc-event-resizer {
   display: none
 }
 
-.high-contrast .fc-break-event,
-.high-contrast .fc-marker-event {
-  opacity: .6;
-  background-image: linear-gradient(45deg, #303b42 10%, #39464e 0, #39464e 50%, #303b42 0, #303b42 60%, #39464e 0, #39464e)
-}
 
-.high-contrast .fc-break-event .fc-event-body,
-.high-contrast .fc-break-event .fc-event-title {
-  color: #e5e5e5
-}
 
 .fc-day .fc-highlight {
   border-width: 1px;
@@ -1317,102 +1008,8 @@ a.fc-pending.fc-group-highlight .fc-event-inner {
   transform: translate3d(0, 5px, 0)
 }
 
-.fc-new-customer {
-  display: none;
-  font-style: normal;
-  text-transform: uppercase
-}
 
-.fc-event-notes {
-  float: right;
-  line-height: 14px;
-  z-index: 3
-}
 
-.fc-event-notes.fc-event-notes--vert {
-  width: 15px
-}
-
-.fc-event-notes i {
-  display: none;
-  float: right;
-  margin-left: 4px;
-  font-size: 14px
-}
-
-a.fc-alert i.fc-alert-icon,
-a.fc-arrived i.fc-arrived-icon,
-a.fc-booked-online i.fc-booked-online-icon,
-a.fc-comment i.fc-comment-icon,
-a.fc-completed i.fc-completed-icon,
-a.fc-concession i.fc-package-icon,
-a.fc-deposit i.fc-deposit-icon,
-a.fc-dns i.fc-dns-icon,
-a.fc-external i.fc-google-icon,
-a.fc-has-vc-link-invalid i.fc-booking-link-invalid,
-a.fc-has-vc-link i.fc-booking-link,
-a.fc-invoiced i.fc-invoiced-icon,
-a.fc-new i.fc-new-icon,
-a.fc-package i.fc-package-icon,
-a.fc-paid i.fc-paid-icon,
-a.fc-promo i.fc-promo-icon,
-a.fc-recurring i.fc-recurring-icon,
-a.fc-resource-booked i.fc-resource-booked-icon,
-a.fc-staff-requested-invalid i.fc-staff-requested-invalid-icon,
-a.fc-staff-requested i.fc-staff-requested-icon,
-a.fc-vip i.fc-vip-icon {
-  display: block
-}
-
-a.fc-staff-requested-invalid i.fc-staff-requested-invalid-icon g {
-  stroke: red
-}
-
-a.fc-staff-requested-unable-to-perform i.fc-staff-requested-invalid-icon {
-  display: block
-}
-
-a.fc-staff-requested-unable-to-perform i.fc-staff-requested-invalid-icon g {
-  stroke: #c09853
-}
-
-a.fc-staff-assigned-unable-to-perform i.fc-staff-requested-invalid-icon {
-  display: block
-}
-
-a.fc-staff-assigned-unable-to-perform i.fc-staff-requested-invalid-icon g {
-  stroke: #000
-}
-
-a.fc-vaccinated i.fc-vaccinated-customer-icon,
-a.fc-vaccination-info-required i.fc-vaccination-required-icon {
-  display: block
-}
-
-.fc-timeline {
-  position: absolute;
-  width: 100%;
-  left: 0;
-  margin: 0;
-  padding: 0;
-  border: none;
-  border-top: 1px solid red;
-  z-index: 999
-}
-
-.fc-group-highlight {
-  border-color: rgba(0, 179, 240, .8) !important;
-  border-style: solid !important
-}
-
-.fc-group-highlight .fc-event-inner {
-  background-color: rgba(0, 179, 240, .6)
-}
-
-.fc-group-highlight .fc-padding {
-  border-color: rgba(0, 179, 240, .8) !important;
-  background-color: rgba(0, 179, 240, .2) !important
-}
 
 a.fc-bounce {
   opacity: 1;
@@ -1440,10 +1037,7 @@ a.fc-bounce {
   filter: alpha(opacity=60)
 }
 
-.high-contrast .fc-event-hori .fc-event-bg {
-  opacity: .5;
-  filter: alpha(opacity=50)
-}
+
 
 .fc-new-palette .fc-event-hori .fc-event-bg {
   opacity: .4;
@@ -1473,7 +1067,7 @@ a.fc-bounce {
   display: none
 }
 
-.fc-event-hori .ui-resizable-e {
+.fc-event-hori .fc-event-resizable-e {
   top: 0 !important;
   right: -3px !important;
   width: 7px !important;
@@ -1481,7 +1075,7 @@ a.fc-bounce {
   cursor: e-resize
 }
 
-.fc-event-hori .ui-resizable-w {
+.fc-event-hori .fc-event-resizable-w {
   top: 0 !important;
   left: -3px !important;
   width: 7px !important;
@@ -1489,7 +1083,7 @@ a.fc-bounce {
   cursor: w-resize
 }
 
-.fc-event-hori .ui-resizable-handle {
+.fc-event-hori .fc-event-resizer {
   _padding-bottom: 14px
 }
 
@@ -1536,13 +1130,6 @@ table.fc-border-separate {
   padding: 2px 2px 1px
 }
 
-.high-contrast .fc-day {
-  border-color: #121619
-}
-
-.high-contrast .fc-non-business .fc-day-number {
-  color: #fff
-}
 
 .fc-grid .fc-event-time {
   font-weight: 700
@@ -1647,15 +1234,6 @@ table.fc-border-separate {
   border-top-color: #eaeaea
 }
 
-.high-contrast .fc-timegrid-slots tr td,
-.high-contrast .fc-timegrid-slots tr th {
-  border-top-color: #aaa
-}
-
-.high-contrast .fc-timegrid-slots tr.fc-minor td,
-.high-contrast .fc-timegrid-slots tr.fc-minor th {
-  border-top-color: #d3d3d3
-}
 
 .fc-timegrid-slots tr.fc-minor td:nth-child(odd) {
   border-top-style: solid;
@@ -1666,19 +1244,19 @@ table.fc-border-separate {
   *border-top-style: solid
 }
 
-.fc-fc-non-business {
+.fc .fc-non-buiness {
   background-color: #f9f9f9
 }
 
-.fc-timegrid-slots tr.fc-fc-non-business td,
-.fc-timegrid-slots tr.fc-fc-non-business th {
+.fc-timegrid-slots tr.fc-non-buiness td,
+.fc-timegrid-slots tr.fc-non-buiness th {
   opacity: .6;
   filter: alpha(opacity=60);
   background-color: #f9f9f9
 }
 
-.fc-timegrid-slots tr.fc-fc-non-business td,
-.fc-timegrid-slots tr.fc-fc-non-business th {
+.fc-timegrid-slots tr.fc-non-buiness td,
+.fc-timegrid-slots tr.fc-non-buiness th {
   border-top-style: solid;
   border-top-color: #fff
 }
@@ -1714,9 +1292,6 @@ table.fc-border-separate {
   cursor: default
 }
 
-.high-contrast .fc-slot-time {
-  color: grey
-}
 
 @media (max-width: 1200px) {
   .fc-slot-time:nth-child(odd) {
@@ -1724,93 +1299,15 @@ table.fc-border-separate {
   }
 }
 
-.fc-event-vert .fc-event-content,
-.fc-event-vert .fc-event-head {
-  position: absolute;
-  z-index: 2;
-  width: 100%;
-  overflow: visible;
-  padding-right: 0;
-  box-sizing: border-box
-}
-
-.fc-event-vert .fc-event-time {
-  white-space: nowrap;
-  font-size: 10px
-}
-
-.fc-event-vert .fc-event-bg {
-  position: absolute;
-  z-index: 1;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: #fff;
-  opacity: .6;
-  filter: alpha(opacity=60)
-}
-
-.high-contrast .fc-event-vert .fc-event-bg {
-  opacity: .5;
-  filter: alpha(opacity=50)
-}
-
-.fc-new-palette .fc-event-vert .fc-event-bg {
-  opacity: .6;
-  filter: alpha(opacity=60)
-}
-
-.fc-event-vert .fc-class-indicator {
-  position: absolute;
-  z-index: 1;
-  top: 0;
-  right: 0;
-  width: 100%;
-  height: 100%;
-  background: #fff;
-  opacity: .5;
-  filter: alpha(opacity=50)
-}
-
 .fc-day .fc-highlight .fc-event-bg,
-.fc .ui-draggable-dragging .fc-event-bg {
+.fc .fc-event-draggable-dragging .fc-event-bg {
   display: none\9
 }
 
-.fc-event-vert .ui-resizable-s {
-  bottom: 0 !important;
-  width: 100% !important;
-  height: 8px !important;
-  overflow: hidden !important;
-  line-height: 8px !important;
-  font-size: 11px !important;
-  font-family: monospace;
-  text-align: center;
-  cursor: s-resize
-}
 
-.fc-agenda .ui-resizable-resizing {
+
+.fc-agenda .fc-event-resizable-resizing {
   _overflow: hidden
-}
-
-td.fc-resourceName {
-  white-space: nowrap
-}
-
-.fc-view-resourceWeek th.fc-resourceName {
-  white-space: nowrap;
-  font-weight: 700;
-  vertical-align: top
-}
-
-.fc-view-resourceWeek th.fc-resourceName a {
-  line-height: 16px !important;
-  display: inline-block;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-width: 155px
 }
 
 

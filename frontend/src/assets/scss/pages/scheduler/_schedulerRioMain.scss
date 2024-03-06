@@ -1,0 +1,207 @@
+// High Contrast Theme
+.fc .high-contrast {
+    .fc-day {
+        border-color: #121619;
+    }
+
+    .fc-non-business {
+        .fc-day-number {
+            color: #fff;
+        }
+
+        background-image: linear-gradient(45deg, #303b42 10%, #39464e 0, #39464e 50%, #303b42 0, #303b42 60%, #39464e 0, #39464e);
+        background-size: 7.07px 7.07px;
+        opacity: .6;
+    }
+
+    .fc-timegrid-slots {
+        tr {
+
+            td,
+            th {
+                border-top-color: #aaa;
+
+                &.fc-minor {
+                    border-top-color: #d3d3d3;
+                }
+            }
+        }
+    }
+
+    .fc-slot-time {
+        color: grey;
+    }
+
+    .fc-v-event {
+        .fc-event-bg {
+            opacity: .5;
+            filter: alpha(opacity=50);
+        }
+    }
+
+    .fc-break-event,
+    .fc-marker-event {
+        opacity: .6;
+        background-image: linear-gradient(45deg, #303b42 10%, #39464e 0, #39464e 50%, #303b42 0, #303b42 60%, #39464e 0, #39464e);
+    }
+
+    .fc-break-event,
+    .fc-marker-event .fc-event-body,
+    .fc-break-event,
+    .fc-marker-event .fc-event-title {
+        color: #e5e5e5;
+    }
+
+    .fc-event-hori {
+        .fc-event-bg {
+            opacity: .5;
+            filter: alpha(opacity=50);
+        }
+    }
+}
+
+// End of High Contrast Theme
+
+
+
+// Start of fc-ground-highlight
+.fc-group-highlight {
+    border-color: rgba(0, 179, 240, .8) !important;
+    border-style: solid !important;
+
+    .fc-event-main {
+        background-color: rgba(0, 179, 240, .6)
+    }
+
+    .fc-padding {
+        border-color: rgba(0, 179, 240, .8) !important;
+        background-color: rgba(0, 179, 240, .2) !important
+    }
+
+    // End of fc-group-highlight
+
+    // start of fc-break-event
+    .fc-break-event {
+        border-color: transparent;
+        border-width: 1px;
+        background-color: transparent;
+        border-bottom: none;
+        cursor: move;
+        opacity: 1;
+        -webkit-transform: translateZ(0);
+        -moz-transform: translateZ(0);
+        -ms-transform: translateZ(0);
+        -o-transform: translateZ(0);
+        transform: translateZ(0);
+        z-index: 1;
+        background-image: linear-gradient(45deg, rgba(48, 59, 66, .15) 10%, rgba(112, 120, 124, .15) 0, rgba(112, 120, 124, .15) 50%, rgba(48, 59, 66, .15) 0, rgba(48, 59, 66, .15) 60%, rgba(112, 120, 124, .15) 0, rgba(112, 120, 124, .15));
+        background-size: 7.07px 7.07px;
+        transition: transform .1s ease-in-out, opacity .1s ease-in-out;
+
+        &:hover {
+            -webkit-box-shadow: 0 0 0 transparent;
+            -moz-box-shadow: 0 0 0 transparent;
+            box-shadow: 0 0 0 transparent;
+            z-index: 0;
+            opacity: 1;
+
+            .fc-event-resizer {
+                display: none;
+            }
+        }
+
+        .fc-event-main {
+            display: block;
+
+            .fc-event-title {
+                color: rgba(0, 0, 0, .7);
+            }
+
+            .fc-event-bg {
+                display: none;
+            }
+
+            .fc-event-body {
+                display: none !important;
+            }
+        }
+    }
+}
+
+// end of fc-break-event
+
+
+// Start of fc-padding, fc-padding-time, fc-pre-padding, fc-post-padding
+.fc-padding {
+    position: absolute;
+    left: -3px;
+    width: 100%;
+    background-color: rgba(243, 194, 191, .54902);
+    border: 1px solid #e84c3d;
+    border-left-width: 3px;
+}
+
+.fc-pre-padding {
+    border-bottom: none;
+    border-radius: 3px 3px 0 0;
+}
+
+.fc-post-padding {
+    border-top: none;
+    border-radius: 0 0 3px 3px;
+}
+
+.fc-padding-time {
+    display: none !important;
+    border: transparent !important;
+    opacity: .5;
+    cursor: default;
+    pointer-events: none;
+
+    .fc-event-main {
+        display: block;
+
+        .fc-event-title {
+            color: rgba(0, 0, 0, .7);
+            text-align: center;
+            font-size: 11px;
+
+            span {
+                display: none;
+            }
+
+            .fc-event-name {
+                font-style: normal;
+            }
+        }
+
+        .fc-event-bg {
+            opacity: .8;
+        }
+
+        .fc-event-body {
+            display: none !important;
+        }
+    }
+
+    .fc-event-resizer,
+    &:hover .fc-event-resizer {
+        display: none;
+    }
+
+    &--pre .fc-event-content {
+        bottom: 0;
+    }
+}
+
+
+// End of fc-padding, fc-pre-padding, fc-post-padding
+
+
+
+
+.fc .fc-non-business {
+    background-image: linear-gradient(45deg, #303b42 10%, #70787c 0, #70787c 50%, #303b42 0, #303b42 60%, #70787c 0, #70787c);
+    background-size: 7.07px 7.07px;
+    opacity: .2
+}

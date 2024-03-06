@@ -1,0 +1,43 @@
+<!-- icons.svg -->
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+    <!-- Note Icon -->
+    <symbol id="note-icon" viewBox="0 0 16 16">
+        <path
+            fill="none"
+            fill-rule="evenodd"
+            stroke="#13846e"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="1.5"
+            d="M1.932 7.515a6.528 6.528 0 0 0 .985 3.456L1 15l4.025-1.918a6.524 6.524 0 0 0 8.99-2.099 6.537 6.537 0 0 0-2.097-8.998A6.524 6.524 0 0 0 8.46 1a6.521 6.521 0 0 0-6.528 6.515z"
+        ></path>
+    </symbol>
+
+    <!-- Check Icon -->
+    <symbol id="check-icon" viewBox="0 0 16 16">
+        <path
+            fill="none"
+            fill-rule="evenodd"
+            stroke="#13846e"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="1.5"
+            d="M14 2.5L7.703 12.625c-.283.455-.716.738-1.186.78-.47.04-.931-.167-1.266-.568L2 8.916">
+        </path>
+    </symbol>
+
+    <!-- Paid Icon -->
+    <symbol id="paid-icon" viewBox="0 0 16 16">
+        <path
+            fill="none"
+            fill-rule="evenodd"
+            stroke="#13846e"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="1.5"
+            d="M15 10l-1.93 4.629a.667.667 0 0 1-.949.321L10 13.73m-4.806-3.578c.427.56 1.1.876 1.804.848C8.103 11 9 10.328 9 9.5s-.894-1.499-1.999-1.499C5.897 8.001 5 7.329 5 6.5 5 5.67 5.897 5 7.001 5a2.157 2.157 0 0 1 1.804.848M7 11.001V12m0-8v.999M7 15H2.333A1.333 1.333 0 0 1 1 13.667V2.333C1 1.597 1.597 1 2.333 1H9.29c.33 0 .646.121.891.341l2.377 2.133c.282.253.443.614.443.993V7"
+        >
+        </path>
+    </symbol>
+    <!-- Add other icons with unique IDs -->
+</svg>

@@ -4,6 +4,7 @@
 export { StatusOptions, StatusBadge } from "./StatusOptions";
 export { PriorityOptions, PriorityBadge } from "./PriorityOptions";
 export { AppointmentStatusOptions } from "./AppointmentStatusOptions";
+export { SvgIcons } from "./SvgIcons";
 // Uncomment and export other options as needed
 // export { dataGroup, messageTypes, socketChannels, dataTypes, userGroups } from "./webSocketOptions";
 // Member Options

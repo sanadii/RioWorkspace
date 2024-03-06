@@ -25,7 +25,7 @@ export const AppointmentStatusOptions = [
     name: "Arrived",
     value: "arrived",
     badgeClass: "badge bg-success",
-    className: "fc-pending fc-event-inner fc-light-blue",
+    className: "fc-booking fc-pending fc-light-blue",
     color: "#2ecc71", // Example color
   },
   {
@@ -33,7 +33,7 @@ export const AppointmentStatusOptions = [
     name: "Started",
     value: "started",
     badgeClass: "badge bg-warning",
-    className: "fc-event-start fc-event-end fc-event-inner fc-light-green",
+    className: "fc-booking fc-event-end fc-light-green",
     color: "#f1c40f", // Example color
   },
 
@@ -52,7 +52,7 @@ export const AppointmentStatusOptions = [
     name: "Did not show",
     value: "did-not-show",
     badgeClass: "badge bg-danger",
-    className: "fc-pending fc-event-inner fc-group-highlight",
+    className: "fc-booking fc-pending fc-group-highlight",
     color: "#e74c3c", // Example color
   },
 ];

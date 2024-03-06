@@ -37,7 +37,8 @@ const ThemeSettings = {
 
   // Theme and styling
   handleWindowResize: true, // Allows the calendar to automatically resize when the window resizes
-  themeSystem: "high-contrast",
+  // themeSystem: "standard",
+  viewClassNames: 'high-contrast', // Need to change this to higher than view
 
   expandRows: true, // Expands row heights to fill available height
   height: "auto", // Sets the height of the calendar, can be 'auto', a number, or a function

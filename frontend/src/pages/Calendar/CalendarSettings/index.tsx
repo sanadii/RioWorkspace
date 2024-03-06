@@ -29,11 +29,7 @@ import TimeAxisSettings from "./TimeAxisSettings";
 import SlotRenderHooks from "./SlotRenderHooks";
 import EventRenderHooks from "./EventRenderHooks";
 import DragingAndResizingSettings from "./DragingAndResizingSettings";
-import {
-  InteractionSettings,
-  EventDisplaySettings,
-  SelectAndClickSettings,
-} from "./OtherSettings";
+import { InteractionSettings, EventDisplaySettings, SelectAndClickSettings } from "./OtherSettings";
 
 import { WeekNumberSettings, WeekTextSettings } from "./WeekSettings";
 import EventSourceSettings from "./EventSourceSettings";
@@ -62,13 +58,14 @@ const createCalendarSettings = (customButtons) => ({
 
   ...SelectAndClickSettings,
   ...DragingAndResizingSettings,
+  ...EventRenderHooks,
+
   // ...EventDurationAndHeaders,
   // ...WholeDaySettings,
 
   // // Hooks
   // ...DayHeaderRenderHooks,
   // ...DayCellRenderHooks,
-  // ...EventRenderHooks,
 
   // ...TimeAndLocaleSettings,
   // ...InteractionSettings,

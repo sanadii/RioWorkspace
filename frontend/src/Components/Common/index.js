@@ -25,6 +25,10 @@ export { default as LightDark } from "./Components/LightDark";
 export { default as FullScreenDropdown } from "./Components/FullScreenDropdown";
 
 
+// Images and SVGs
+export { default as SvgIcon } from "./Components/SvgIcon";
+
+
 // Table use
 export { default as ExportCSVModal } from "./Table/ExportCSVModal";
 export { default as TableContainer } from "./Table/TableContainer.tsx";

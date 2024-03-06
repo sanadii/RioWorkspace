@@ -1,0 +1,51 @@
+
+.fc-showing-resource-groups .fc-staff-name,
+.fc-showing-resources .fc-staff-name {
+  display: inline
+}
+
+.fc-showing-resource-groups .fc-customer-name,
+.fc-showing-resource-groups .fc-event-body,
+.fc-showing-resource-groups .fc-event-name,
+.fc-showing-resource-groups .fc-print-btn,
+.fc-showing-resources .fc-customer-name,
+.fc-showing-resources .fc-event-body,
+.fc-showing-resources .fc-event-name,
+.fc-showing-resources .fc-print-btn {
+  display: none
+}
+
+.fc-showing-resource-groups .fc-new-customer,
+.fc-showing-resources .fc-new-customer {
+  display: none !important
+}
+
+.fc-view-month .fc-break-event .fc-event-body,
+.fc-view-resourceWeek .fc-break-event .fc-event-body {
+  display: block
+}
+
+.fc-view-resourceWeek .fc-break-event {
+  border-left-width: 3px
+}
+
+
+td.fc-resourceName {
+    white-space: nowrap
+  }
+  
+  .fc-view-resourceWeek th.fc-resourceName {
+    white-space: nowrap;
+    font-weight: 700;
+    vertical-align: top
+  }
+  
+  .fc-view-resourceWeek th.fc-resourceName a {
+    line-height: 16px !important;
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 155px
+  }
+  
