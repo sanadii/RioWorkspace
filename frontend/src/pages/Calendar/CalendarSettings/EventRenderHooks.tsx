@@ -85,7 +85,7 @@ const EventRenderHooks = {
             ))}
           </div>
         </div>
-        <div className="e-appointment-bg"></div>
+        <div className="fc-event-bg"></div>
       </>
     );
   },

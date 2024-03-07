@@ -32,7 +32,7 @@ import DragingAndResizingSettings from "./DragingAndResizingSettings";
 import { InteractionSettings, EventDisplaySettings, SelectAndClickSettings } from "./OtherSettings";
 
 import { WeekNumberSettings, WeekTextSettings } from "./WeekSettings";
-import EventSourceSettings from "./EventSourceSettings";
+import EventDisplay from "./EventDisplay";
 import { DateSettings, TimeAndLocaleSettings } from "./DateTimeSettings";
 import NowIndicatorRenderHooks from "./NowIndicatorRenderHooks";
 //
@@ -58,6 +58,8 @@ const createCalendarSettings = (customButtons) => ({
 
   ...SelectAndClickSettings,
   ...DragingAndResizingSettings,
+
+  ...EventDisplay,
   ...EventRenderHooks,
 
   // ...EventDurationAndHeaders,
@@ -73,7 +75,6 @@ const createCalendarSettings = (customButtons) => ({
 
   // ...WeekTextSettings,
 
-  // ...EventSourceSettings,
 
   // ...SlotRenderHooks,
 
