@@ -27,12 +27,11 @@ import {
 
 import TimeAxisSettings from "./TimeAxisSettings";
 import SlotRenderHooks from "./SlotRenderHooks";
-import EventRenderHooks from "./EventRenderHooks";
+import {EventRenderHooks, EventDisplay} from "./EventOptions";
 import DragingAndResizingSettings from "./DragingAndResizingSettings";
 import { InteractionSettings, EventDisplaySettings, SelectAndClickSettings } from "./OtherSettings";
 
 import { WeekNumberSettings, WeekTextSettings } from "./WeekSettings";
-import EventDisplay from "./EventDisplay";
 import { DateSettings, TimeAndLocaleSettings } from "./DateTimeSettings";
 import NowIndicatorRenderHooks from "./NowIndicatorRenderHooks";
 //

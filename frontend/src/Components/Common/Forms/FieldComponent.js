@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { Col, Label, Input, FormFeedback } from "reactstrap";
+import { Col, Label, Input, Table, FormFeedback } from "reactstrap";
+import Select from 'react-select';
 import Flatpickr from "react-flatpickr";
+
 import defaultAvatar from 'assets/images/users/default.jpg';
 import config from '../../../config';
 
@@ -12,8 +14,8 @@ if (api && api.MEDIA_URL) {
 }
 
 
-const FieldComponent = ({ field, validation }) => {
-    const { id, label, name, type, colSize, icon, iconBg } = field;
+const FieldComponent = ({ field, validation, formStructure }) => {
+    const { id, label, name, type, colSize, className, isSearchable, isClearable, isDisabled, options, icon, iconBg } = field;
     const imageValue = validation.values.image;
 
     const [imageSrc, setImageSrc] = useState(defaultAvatar);
@@ -45,19 +47,34 @@ const FieldComponent = ({ field, validation }) => {
         }
     };
 
-    const dateformate = (e) => {
-        const selectedDate = new Date(e);
-        const formattedDate = `${selectedDate.getFullYear()}-${(
-            "0" +
-            (selectedDate.getMonth() + 1)
-        ).slice(-2)}-${("0" + selectedDate.getDate()).slice(-2)}`;
+    // const dateformate = (e) => {
+    //     const selectedDate = new Date(e);
+    //     const formattedDate = `${selectedDate.getFullYear()}-${(
+    //         "0" +
+    //         (selectedDate.getMonth() + 1)
+    //     ).slice(-2)}-${("0" + selectedDate.getDate()).slice(-2)}`;
 
-        // Update the form field value directly with the formatted date
-        validation.setFieldValue(name, formattedDate);
-    };
+    //     // Update the form field value directly with the formatted date
+    //     validation.setFieldValue(name, formattedDate);
+    // };
 
+    const DateTimeFormat = (e) => {
+        const updatedStartDate = new Date(e);
+        // updatedStartDate.setHours(updatedStartDate.getHours() + 1);
+        // selectedNewDate[1] = updatedStartDate.toISOString(); // Update the array with the new end date
+        // console.log("selectedNewDate: ", selectedNewDate[0], "updatedEndDate: ", selectedNewDate[1]);
 
-    const renderInput = () => {
+        console.log("e:  ", e)
+        validation.setFieldValue(name, updatedStartDate);
+
+        // const updatedEndDate = new Date(selectedNewDate[0]);
+        // updatedEndDate.setHours(updatedEndDate.getHours() + 1);
+        // selectedNewDate[1] = updatedEndDate.toISOString(); // Update the array with the new end date
+        // console.log("selectedNewDate: ", selectedNewDate[0], "updatedEndDate: ", selectedNewDate[1]);
+
+    }
+
+    const renderInputFields = () => {
         switch (type) {
             case 'text':
             case 'tel':
@@ -76,7 +93,7 @@ const FieldComponent = ({ field, validation }) => {
                             type={type !== 'social' ? type : 'text'}
                             name={name}
                             id={id}
-                            placeholder={`ادخل ${label}`}
+                            placeholder={`Enter ${label}`}
                             onChange={validation.handleChange}
                             onBlur={validation.handleBlur}
                             value={validation.values[name] || ""}
@@ -99,25 +116,72 @@ const FieldComponent = ({ field, validation }) => {
                 );
             case 'select':
                 return (
-                    <Input
+                    <Select
                         type="select"
-                        className="form-select"
+                        className={className ? className : "form-select"}
+                        isSearchable={isSearchable || false}
+                        isClearable={isClearable || false}
+                        // isDisabled={true}
+                        options={options}
+
                         name={name}
                         id={id}
                         onChange={validation.handleChange}
                         onBlur={validation.handleBlur}
-                        value={validation.values[name] || ""}
-                        invalid={validation.touched[name] && validation.errors[name]}
+                        value={validation.values[id] || ""}
+                        invalid={validation.touched[id] && validation.errors[id]}
                     >
-                        {/* <option value="">-- اختر --</option> */}
+                        {/* <option value="">-- Choose --</option> */}
                         {field.options &&
                             field.options.map((option) => (
                                 <option key={option.value} value={option.value}>
                                     {option.label}
                                 </option>
                             ))}
-                    </Input>
+                    </Select>
                 );
+            case 'select2':
+                return (
+                    <Select
+                        id={id}
+                        name={name}
+
+                        type="select"
+                        classNamePrefix="select"
+                        className={className ? className : "form-select"}
+                        isSearchable={isSearchable || false}
+                        isClearable={isClearable || false}
+                        isDisabled={false}
+                        options={options}
+
+                        onChange={validation.handleChange}
+                        onBlur={validation.handleBlur}
+                        value={validation.values[name] || ""}
+                        invalid={validation.touched[name] && validation.errors[name]}
+                    >
+                    </Select>
+                );
+
+            case 'date':
+                return (
+                    <Flatpickr
+                        name={name}
+                        id={id}
+                        className="form-control"
+                        placeholder={`اختر ${label}`}
+                        options={{
+                            enableTime: true,
+                            dateFormat: "Y-m-d",
+                        }}
+                        onChange={(e) => DateTimeFormat(e)}
+                        value={validation.values.start || ""}
+                    />
+                );
+
+
+
+
+
             case "image":
                 return (
                     <div className="profile-user position-relative d-inline-block mx-auto mb-4">
@@ -156,7 +220,7 @@ const FieldComponent = ({ field, validation }) => {
                         type="password"
                         name={name}
                         id={id}
-                        placeholder={`ادخل ${label}`}
+                        placeholder={`Enter ${label}`}
                         onChange={validation.handleChange}
                         onBlur={validation.handleBlur}
                         value={validation.values[name] || ""}
@@ -168,19 +232,47 @@ const FieldComponent = ({ field, validation }) => {
                 return null;
         }
     };
+
+    const renderFormStructure = ({ formStructure }) => {
+        switch (formStructure) {
+            case 'table':
+                return (
+                    <React.Fragment>
+                        {renderInputFields()}
+                        {validation.touched[name] && validation.errors[name] && (
+                            <FormFeedback type="invalid">
+                                {validation.errors[name]}
+                            </FormFeedback>
+                        )}
+                    </React.Fragment>
+                );
+            default:
+                return (
+                    <Col lg={colSize} className="mb-3">
+                        {!icon &&
+                            <Label htmlFor={id} className="form-label">{label}</Label>
+                        }
+                        {renderInputFields()}
+                        {validation.touched[name] && validation.errors[name] && (
+                            <FormFeedback type="invalid">
+                                {validation.errors[name]}
+                            </FormFeedback>
+                        )}
+                    </Col>
+
+                );
+        }
+    }
+
     return (
-        <Col lg={colSize} className="mb-3">
-            {!icon &&
-                <Label htmlFor={id} className="form-label">{label}</Label>
+        <React.Fragment>
+            {renderFormStructure({ formStructure })
             }
-            {renderInput()}
-            {validation.touched[name] && validation.errors[name] && (
-                <FormFeedback type="invalid">
-                    {validation.errors[name]}
-                </FormFeedback>
-            )}
-        </Col>
+        </React.Fragment>
     );
 };
+
+
+
 
 export default FieldComponent;

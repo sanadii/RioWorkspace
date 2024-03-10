@@ -25,6 +25,9 @@
       "interfaces/*": ["interfaces/*"],
       "helpers/*": ["helpers/*"],
       "assets/*": ["assets/*"],
+      "shared/components/*": ["shared/components*"],
+      "shared/hooks/*": ["shared/hooks/*"],
+      "shared/constants/*": ["shared/constants/*"],
       "Components/*": ["Components/*"],
       "@/*": ["./*"]
     }

@@ -139,7 +139,8 @@ class AddAppointment(APIView):
         if not client_data:
             return Response({"client": ["Client data is required."]}, status=status.HTTP_400_BAD_REQUEST)
 
-        client_id = client_data.get('id')
+        client_id = client_data
+        # client_id = client_data.get('id')
         if not client_id:
             client_serializer = ClientSerializer(data=client_data)
             if client_serializer.is_valid():

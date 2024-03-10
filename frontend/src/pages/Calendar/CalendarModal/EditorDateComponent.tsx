@@ -1,16 +1,17 @@
-import React, { useState, useCallback } from "react";
-import { DatePickerComponent } from "@syncfusion/ej2-react-calendars";
-import { setTime } from "@syncfusion/ej2-react-schedule";
+import React, { useState } from "react";
+import { FieldComponent } from "Components/Common";
 
-const EditorDateComponent = ({ data, appointmentDetails, setAppointmentDetails }) => {
+const EditorDateComponent = ({
+  appointment,
+  setSelectedNewDate,
+  validation,
+  // appointment, setAppointmentDetails
+}) => {
   const [isEditDate, setIsEditDate] = useState(false);
-  const [appointmentData, setAppointmentData] = useState(null);
-  // console.log("appointmentData: ", appointmentData);
-  // console.log("appointmentData data: ", data);
-  
-  const getAppointmentDate = (date) => {
-    if (!date) return "";
-    return new Date(date).toLocaleDateString("en-US", {
+
+  const getAppointmentDate = (appointment) => {
+    if (!appointment) return "";
+    return new Date(appointment).toLocaleDateString("en-US", {
       weekday: "short",
       day: "numeric",
       month: "short",
@@ -18,25 +19,25 @@ const EditorDateComponent = ({ data, appointmentDetails, setAppointmentDetails }
     });
   };
 
-  const startDate = getAppointmentDate(appointmentDetails.startTime);
+  const startDate = getAppointmentDate(appointment?.start);
 
   const handleEditDate = () => {
     setIsEditDate(true);
   };
 
-  const handleAppointmentDateChange = (event) => {
-    setIsEditDate(false);
-  
-    const newStartTime = new Date(event);
-    const newEndTime = new Date(newStartTime.getTime() + 3600000); // Add 1 hour to startTime
-  
-    setAppointmentDetails((prevState) => ({
-      ...prevState,
-      startTime: newStartTime,
-      endTime: newEndTime,
-    }));
-  };
-  
+  const fields = [
+    {
+      id: "start-field",
+      name: "start",
+      label: "Start",
+      type: "date",
+      onChange: (e) => {
+        validation.handleChange(e);
+        setSelectedNewDate(e);
+      },
+
+    },
+  ];
 
   return (
     <React.Fragment>
@@ -44,23 +45,20 @@ const EditorDateComponent = ({ data, appointmentDetails, setAppointmentDetails }
         <div className="add-appt__icon add-appt__icon-date" title="Date"></div>
         <div className="add-appt__date-time">
           {!isEditDate ? (
-            <p className="form-control-static">
+            <p>
               {startDate}
-              <a
-                className="change-booking add-appt__edit-button modal-close"
+              <button
+                className="change-booking add-appt__edit-button modal-close no-border"
                 onClick={handleEditDate}
                 title="Change date"
-              ></a>
+              ></button>
             </p>
           ) : (
-            <DatePickerComponent
-              value={appointmentDetails.startTime}
-              id="appointmentDate"
-              data-name="appointmentDate"
-              format="yyy-MM-dd"
-              placeholder="Appointment Date"
-              change={(e) => handleAppointmentDateChange(e.value)}
-            />
+            fields.map((field) => (
+              <td key={field.id}>
+                <FieldComponent formStructure="" field={field} validation={validation} />
+              </td>
+            ))
           )}
         </div>
       </div>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useCallback } from "react";
 import PropTypes from "prop-types";
 import { Card, CardBody } from "reactstrap";
 import * as Yup from "yup";
@@ -31,7 +31,7 @@ import { DeleteModal } from "Components/Common";
 
 const Calender = () => {
   const dispatch: any = useDispatch();
-  const [event, setEvent] = useState<any>({});
+  const [appointment, setAppointment] = useState<any>({});
   const [modal, setModal] = useState<boolean>(false);
   const [selectedNewDay, setSelectedNewDay] = useState<any>();
   const [isEdit, setIsEdit] = useState<boolean>(false);
@@ -40,17 +40,10 @@ const Calender = () => {
   const [deleteEvent, setDeleteEvent] = useState<string>("");
   const [eventName, setEventName] = useState<string>("");
 
-  console.log("event: ", event);
+  // console.log("event: ", event);
   // Data
   const { appointments, services, staff } = useSelector(appointmentsSelector);
   const { clients } = useSelector(clientsSelector);
-
-  // useEffect(() => {
-  //   if (!appointments || appointments.length === 0) {
-  //     dispatch(getSchedule());
-  //     dispatch(getClients());
-  //   }
-  // }, [dispatch, appointments]);
 
   // Hooks
   const { customButtons, selectedStaff } = useCalendarToolbar();
@@ -69,38 +62,38 @@ const Calender = () => {
   useEffect(() => {
     dispatch(getSchedule());
     dispatch(getClients());
-    new Draggable(document.getElementById("external-events") as HTMLElement, {
-      itemSelector: ".external-event",
-    });
   }, [dispatch]);
 
   useEffect(() => {
     if (isEventUpdated) {
       setIsEdit(false);
-      setEvent({});
+      setAppointment({});
     }
   }, [dispatch, isEventUpdated]);
 
   /**
    * Handling the modal state
    */
-  const toggle = () => {
+
+  const toggle = useCallback(() => {
     if (modal) {
       setModal(false);
-      setEvent(null);
+      setAppointment(null);
       setIsEdit(false);
-      setIsEditButton(true);
     } else {
       setModal(true);
     }
-  };
+  }, [modal]);
+
   /**
    * Handling date click on calendar
    */
 
   const handleDateClick = (arg: any) => {
-    console.log("ARG PLZ: ", arg)
+    // console.log("ARG PLZ: ", arg);
     const date = arg["date"];
+    console.log("dataaaa: ", arg)
+    console.log("dataaaa: ", arg["date"])
     setSelectedNewDay(date);
     toggle();
   };
@@ -133,45 +126,45 @@ const Calender = () => {
    * Handling click on event on calendar
    */
 
-  
-  const handleEventClick = (arg: any) => {
-    const event = arg.event;
-    console.log("arg:", arg);
-    console.log("arg.event:", event);
 
-    const st_date = event.start;
-    const ed_date = event.end;
-    const r_date = ed_date == null ? str_dt(st_date) : str_dt(st_date) + " to " + str_dt(ed_date);
-    const er_date = ed_date === null ? [st_date] : [st_date, ed_date];
+  // Update Data
+  const handleAppointmentClick = useCallback(
+    (arg: any) => {
+      const appointment = arg.event;
 
-    setEvent({
-      id: event.id,
-      title: event.title,
-      start: event.start,
-      end: event.end,
+      const st_date = appointment.start;
+      const ed_date = appointment.end;
+      const r_date = ed_date == null ? str_dt(st_date) : str_dt(st_date) + " to " + str_dt(ed_date);
+      const er_date = ed_date === null ? [st_date] : [st_date, ed_date];
 
-      // client: event.client || "",
-      event: event || "",
+      setAppointment({
+        id: appointment.id,
+        title: appointment.title,
+        start: appointment.start,
+        end: appointment.end,
 
-      // services: event.services || [],
-      // packages: event.packages || [],
-      // products: event.products || [],
+        client: appointment.extendedProps.client,
+        services: appointment.extendedProps.services,
+        packages: appointment.extendedProps.packages,
+        products: appointment.extendedProps.products,
+        // event: event || "",
 
-      duration: event.duration,
-      price: event.price,
+        duration: appointment.duration,
+        price: appointment.price,
 
-      className: event.classNames,
-      category: event.classNames[0],
-      note: event._def.extendedProps.note,
-      defaultDate: er_date,
-      datetag: r_date,
-    });
-    setEventName(event.title);
-    setDeleteEvent(event.id);
-    setIsEdit(true);
-    setIsEditButton(false);
-    toggle();
-  };
+        className: appointment.classNames,
+        category: appointment.classNames[0],
+        note: appointment._def.extendedProps.note,
+        defaultDate: er_date,
+        datetag: r_date,
+      });
+
+      setIsEdit(true);
+      toggle();
+    },
+    [toggle]
+  );
+
   /**
    * On delete event
    */
@@ -179,74 +172,6 @@ const Calender = () => {
     dispatch(onDeleteEvent(deleteEvent));
     setDeleteModal(false);
   };
-
-  // events validation
-  const validation: any = useFormik({
-    // enableReinitialize : use this flag when initial values needs to be changed
-    enableReinitialize: true,
-
-    initialValues: {
-      id: (event && event.id) || "",
-      title: (event && event.title) || "",
-      event: (event && event) || "",
-      category: (event && event.category) || "",
-      location: (event && event.location) || "",
-      description: (event && event.description) || "",
-      defaultDate: (event && event.defaultDate) || [],
-      datetag: (event && event.datetag) || "",
-      start: (event && event.start) || "",
-      end: (event && event.end) || "",
-    },
-
-    validationSchema: Yup.object({
-      title: Yup.string().required("Please Enter Your Event Name"),
-      category: Yup.string().required("Please Select Your Category"),
-      location: Yup.string().required("Please Enter Your Location"),
-      description: Yup.string().required("Please Enter Your Description"),
-      start: Yup.date().required("Start Time is required"),
-      end: Yup.date().required("End Time is required"),
-      defaultDate: Yup.array().of(Yup.date()).required("Date range is required").min(2, "Select at least two dates"),
-    }),
-    onSubmit: (values) => {
-      var updatedDay: any = "";
-      if (selectedNewDay) {
-        updatedDay = new Date(selectedNewDay[1]);
-        updatedDay.setDate(updatedDay.getDate() + 1);
-      }
-
-      if (isEdit) {
-        const updateEvent = {
-          id: event.id,
-          title: values.title,
-          className: values.category,
-          start: selectedNewDay ? selectedNewDay[0] : event.start,
-          end: selectedNewDay ? updatedDay : event.end,
-          location: values.location,
-          description: values.description,
-        };
-        // update event
-        dispatch(onUpdateEvent(updateEvent));
-        validation.resetForm();
-      } else {
-        const newEvent = {
-          id: Math.floor(Math.random() * 100),
-          title: values["title"],
-          start: selectedNewDay[0],
-          end: updatedDay,
-          className: values["category"],
-          location: values["location"],
-          description: values["description"],
-        };
-        // save new event
-        dispatch(onAddNewEvent(newEvent));
-        validation.resetForm();
-      }
-
-      // setSelectedDay(null);
-      setSelectedNewDay(null);
-      toggle();
-    },
-  });
 
   const submitOtherEvent = () => {
     document.getElementById("form-event")?.classList.remove("view-event");
@@ -313,7 +238,6 @@ const Calender = () => {
       />
 
       <FullCalendar
-
         handleWindowResize={true}
         themeSystem="bootstrap"
         events={appointments}
@@ -321,23 +245,10 @@ const Calender = () => {
         droppable={true}
         selectable={true}
         dateClick={handleDateClick}
-        eventClick={handleEventClick}
+        eventClick={handleAppointmentClick}
         drop={onDrop}
         {...fullCalendarOptions}
       />
-
-      <Card className="card-h-100">
-        <CardBody>
-          <button className="btn btn-primary w-100" id="btn-new-event" onClick={toggle}>
-            <i className="mdi mdi-plus"></i> Create New Event
-          </button>
-
-          <div id="external-events">
-            <br />
-            <p className="text-muted">Drag and drop your event or click in the calendar</p>
-          </div>
-        </CardBody>
-      </Card>
 
       <div style={{ clear: "both" }}></div>
 
@@ -349,8 +260,8 @@ const Calender = () => {
         appointmentRef={""}
         // id="event-modal"
         toggle={toggle}
-        event={event}
-        // setEvent={setEvent}
+        appointment={appointment}
+        // setAppointment={setAppointment}
         isEdit={isEdit}
         // setModal={setModal}
         // setDeleteModal={setDeleteModal}

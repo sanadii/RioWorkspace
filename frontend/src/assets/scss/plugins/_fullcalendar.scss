@@ -2,16 +2,16 @@
 // // _fullcalendar.scss
 // // 
 
-// :root {
-//     --fc-border-color:       var(--#{$prefix}border-color);
-//     --fc-page-bg-color:      var(--#{$prefix}secondary-bg);
-//     --fc-neutral-bg-color:   var(--#{$prefix}light);
-// }
+:root {
+    --fc-border-color:       #AAAAAA;
+    --fc-page-bg-color:      var(--#{$prefix}secondary-bg);
+    --fc-neutral-bg-color:   var(--#{$prefix}light);
+}
 
-// .fc td,
-// .fc th {
-//     border: $table-border-width solid $table-border-color;
-// }
+.fc td,
+.fc th {
+    border: $table-border-width solid $table-border-color;
+}
 
 // .fc {
 //     .fc-toolbar {
@@ -56,7 +56,7 @@
 //         padding: 8px 4px;
 //         color: var(--#{$prefix}body-color);
 //     }
-    
+
 //     .fc-daygrid-day-number {
 //         width: 24px;
 //         height: 24px;
@@ -74,7 +74,7 @@
 //     .fc-daygrid-day {
 //         &.fc-day-today {
 //             background-color: rgba($primary, 0.1);
-    
+
 //             .fc-daygrid-day-number {
 //                 background-color: $primary;
 //                 color: $white;
@@ -87,7 +87,7 @@
 //             background-color: rgba($primary, 0.1);
 //         }
 //     }
-    
+
 //     .fc-timegrid-col {
 //         &.fc-day-today {
 //             background-color: rgba($primary, 0.1);
