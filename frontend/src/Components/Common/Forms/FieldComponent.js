@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Col, Label, Input, Table, FormFeedback } from "reactstrap";
 import Select from 'react-select';
+import CreatableSelect from 'react-select/creatable';
+
 import Flatpickr from "react-flatpickr";
 
 import defaultAvatar from 'assets/images/users/default.jpg';
@@ -15,7 +17,7 @@ if (api && api.MEDIA_URL) {
 
 
 const FieldComponent = ({ field, validation, formStructure }) => {
-    const { id, label, name, type, colSize, className, isSearchable, isClearable, isDisabled, options, icon, iconBg } = field;
+    const { id, label, name, type, colSize, className, placeholder, isSearchable, isClearable, isDisabled, onChange, options, icon, iconBg } = field;
     const imageValue = validation.values.image;
 
     const [imageSrc, setImageSrc] = useState(defaultAvatar);
@@ -117,6 +119,9 @@ const FieldComponent = ({ field, validation, formStructure }) => {
             case 'select':
                 return (
                     <Select
+                        id={id}
+                        name={name}
+
                         type="select"
                         className={className ? className : "form-select"}
                         isSearchable={isSearchable || false}
@@ -124,9 +129,7 @@ const FieldComponent = ({ field, validation, formStructure }) => {
                         // isDisabled={true}
                         options={options}
 
-                        name={name}
-                        id={id}
-                        onChange={validation.handleChange}
+                        onChange={onChange}
                         onBlur={validation.handleBlur}
                         value={validation.values[id] || ""}
                         invalid={validation.touched[id] && validation.errors[id]}
@@ -145,21 +148,35 @@ const FieldComponent = ({ field, validation, formStructure }) => {
                     <Select
                         id={id}
                         name={name}
-
-                        type="select"
                         classNamePrefix="select"
-                        className={className ? className : "form-select"}
-                        isSearchable={isSearchable || false}
-                        isClearable={isClearable || false}
-                        isDisabled={false}
-                        options={options}
+                        className={className || "form-select"}
+                        isSearchable={true}
+                        isClearable={true}
 
-                        onChange={validation.handleChange}
+                        options={options}
+                        onChange={onChange}
+
                         onBlur={validation.handleBlur}
-                        value={validation.values[name] || ""}
-                        invalid={validation.touched[name] && validation.errors[name]}
-                    >
-                    </Select>
+                        value={options.find(option => option.value === validation.values[name]) || ""}
+                    // Ensure you handle 'invalid' prop correctly
+                    />
+                );
+            case 'creatableSelect':
+                return (
+                    <CreatableSelect
+                        id={id}
+                        name={name}
+                        isSearchable={true}
+                        isClearable={true}
+                        // no auto complete
+                        placeholder={placeholder}
+                        options={options}
+                        onChange={onChange}
+
+                        onBlur={validation.handleBlur}
+                    // value={validation.values[name] || ""}
+                    // Ensure you handle 'invalid' prop correctly
+                    />
                 );
 
             case 'date':

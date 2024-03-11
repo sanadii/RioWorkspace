@@ -35,7 +35,6 @@ const EditorDateComponent = ({
         validation.handleChange(e);
         setSelectedNewDate(e);
       },
-
     },
   ];
 
@@ -55,9 +54,9 @@ const EditorDateComponent = ({
             </p>
           ) : (
             fields.map((field) => (
-              <td key={field.id}>
-                <FieldComponent formStructure="" field={field} validation={validation} />
-              </td>
+              <div key={field.id}>
+                <FieldComponent formStructure="table" field={field} validation={validation} />
+              </div>
             ))
           )}
         </div>

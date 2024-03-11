@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 // Form and Validation
 import * as Yup from "yup";
 import { useFormik } from "formik";
-import { FormFields } from "Components/Common";
+import { FieldComponent } from "Components/Common";
 import "react-toastify/dist/ReactToastify.css";
 
 const EditorClientComponent = ({ appointment, clients, isEdit, setClientDetails, clientDetails }) => {
@@ -15,6 +15,8 @@ const EditorClientComponent = ({ appointment, clients, isEdit, setClientDetails,
   // Creating Client List
   const clientList = clients.map((client) => {
     return {
+      id: client.id,
+      name: client.name,
       label: `${client.name} | ${client.mobile}`,
       value: client.id,
     };
@@ -62,7 +64,7 @@ const EditorClientComponent = ({ appointment, clients, isEdit, setClientDetails,
   };
 
   const initialValues = {
-    id: (appointment && appointment.client && appointment.client.id) || 1,
+    id: (appointment && appointment.client && appointment.client.id) || null,
     name: (appointment && appointment.client && appointment.client.name) || "",
     mobile: (appointment && appointment.client && appointment.client.mobile) || "",
     email: (appointment && appointment.client && appointment.client.email) || "",
@@ -78,28 +80,28 @@ const EditorClientComponent = ({ appointment, clients, isEdit, setClientDetails,
     }),
     onSubmit: (values) => {
       if (isEdit) {
-        const updatedAppointment = {
-          id: appointment.id,
-          name: values.name,
+        const updatedClient = {
+          // id: values.id,
+          // name: values.name,
           mobile: values.mobile,
           email: values.email,
           dateOfBirth: values.dateOfBirth,
         };
 
         // update event
-        // dispatch(updateAppointment(updatedAppointment));
+        // dispatch(updateAppointment(updatedClient));
         validation.resetForm();
       } else {
-        const newEvent = {
-          id: Math.floor(Math.random() * 100),
-          name: values["name"] || 1,
+        const newClient = {
+          // id: Math.floor(Math.random() * 100),
+          // name: values["name"] || "",
           mobile: values["mobile"] || "",
           email: values["email"] || 1,
-          dateOfBirth: values["dateOfBirth"] || 1,
+          dateOfBirth: values["dateOfBirth"] || "",
         };
         // save new event
-        console.log("newEvent: ", newEvent);
-        // dispatch(addAppointment(newEvent));
+        console.log("newClient: ", newClient);
+        // dispatch(addAppointment(newClient));
         validation.resetForm();
       }
 
@@ -111,16 +113,17 @@ const EditorClientComponent = ({ appointment, clients, isEdit, setClientDetails,
   const fields = [
     {
       id: "client-name-field",
-      name: "name",
+      name: "id",
       label: "Client Name",
       type: "select2",
       className: "basic-single",
       isSearchable: true,
       isClearable: true,
       options: clientList,
-      onChange: (e) => {
-        validation.handleChange(e);
-        onClientNameChange(e);
+      onChange: (client) => {
+        // validation.handleChange(client);
+        console.log("client: ", client);
+        // onClientNameChange(e);
       },
     },
     {
@@ -129,7 +132,7 @@ const EditorClientComponent = ({ appointment, clients, isEdit, setClientDetails,
       label: "Mobile",
       type: "text",
       onChange: (e) => {
-        validation.handleChange(e);
+        validation.handleChange(e.value);
         // handleClientMobileChange(e);
       },
     },
@@ -187,36 +190,26 @@ const EditorClientComponent = ({ appointment, clients, isEdit, setClientDetails,
             </div>
           </Row>
         ) : (
-          <Table className="table-cell-background-grey">
-            {/* <thead>
-              {fields.map((field) => (
-                <th>{field.label}</th>
-              ))}{" "}
-            </thead> */}
-            <Form
-              className="tablelist-form"
-              onSubmit={(e) => {
-                e.preventDefault();
-                validation.handleSubmit();
-                return false;
-              }}
-            >
+          <Form
+            className="tablelist-form"
+            on={(e) => {
+              e.preventDefault();
+              validation.handleSubmit();
+              return false;
+            }}
+          >
+            <Table className="table-cell-background-grey">
               <tbody>
                 <tr>
-                {fields.map((field) => {
-              return (
-                <FormFields
-                  key={field.id}
-                  field={field}
-                  validation={validation}
-                  inLineStyle={false} // Add this prop or make it optional in FormFields component
-                />
-              );
-            })}
+                  {fields.map((field) => (
+                    <td key={field.id}>
+                      <FieldComponent formStructure="table" field={field} validation={validation} />
+                    </td>
+                  ))}
                 </tr>
               </tbody>
-            </Form>
-          </Table>
+            </Table>
+          </Form>
         )}
       </div>
     </React.Fragment>

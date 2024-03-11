@@ -146,7 +146,7 @@ const CalendarModal = ({ modal, isEdit, toggle, appointment, services, staff, cl
         isOpen={modal}
         // toggle={toggle}
         centered
-        size="xl"
+        size="lg"
         id="event-modal"
         className="border-0"
         modalClassName="modal fadeInLeft zoomIn"
