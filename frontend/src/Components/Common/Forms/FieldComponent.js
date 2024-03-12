@@ -96,11 +96,49 @@ const FieldComponent = ({ field, validation, formStructure }) => {
                             name={name}
                             id={id}
                             placeholder={`Enter ${label}`}
-                            onChange={validation.handleChange}
+                            onChange={onChange}
                             onBlur={validation.handleBlur}
                             value={validation.values[name] || ""}
                             invalid={validation.touched[name] && validation.errors[name]}
                         />
+                    </div>
+                );
+            case 'textSearch':
+                return (
+                    <div className="d-flex">
+                        {icon && (
+                            <div className="avatar-xs d-block flex-shrink-0 me-3">
+                                <span className={`avatar-title rounded-circle fs-16 ${iconBg}`}>
+                                    <i className={icon}></i>
+                                </span>
+                            </div>
+                        )}
+                        <Input
+                            type={type !== 'social' ? type : 'text'}
+                            name={name}
+                            id={id}
+                            placeholder={`Enter ${label}`}
+                            onChange={onChange}
+                            onBlur={validation.handleBlur}
+                            value={validation.values[name] || ""}
+                            invalid={validation.touched[name] && validation.errors[name]}
+                        />
+                        <ul className="typeahead dropdown-menu">
+                            {options.map((item) => (
+                                <li
+                                    key={item.id}
+                                    className={validation.values[name] === item.id ? "active" : ""}
+                                    // onMouseEnter={() => setFocusedClient(item.id)}
+                                    // onMouseLeave={() => setFocusedClient(null)}
+                                    // onClick={() => handleSelectClient(client)}
+                                >
+                                    <a href="#">
+                                        <strong>{item.name}</strong> {item.mobile}
+                                    </a>
+                                </li>
+                            ))}
+                        </ul>
+
                     </div>
                 );
             case 'textarea':

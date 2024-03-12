@@ -1,6 +1,8 @@
 import React, { KeyboardEventHandler, useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { Form, Table, Row, Col } from "reactstrap";
 import { FieldComponent } from "Components/Common";
+import SimpleBar from "simplebar-react";
 
 // Redux
 import { useDispatch, useSelector } from "react-redux";
@@ -16,6 +18,8 @@ import CreatableSelect from "react-select/creatable";
 const CalendarTest = () => {
   const dispatch = useDispatch();
   const { clientSearch } = useSelector(clientsSelector);
+  const [dropdownVisible, setDropdownVisible] = useState(true);
+  const [focusedClient, setFocusedClient] = useState(null);
 
   const [clientDetails, setClientDetails] = useState({
     id: null,
@@ -25,9 +29,8 @@ const CalendarTest = () => {
     dateOfBirth: "",
   });
 
-  const [inputValue, setInputValue] = React.useState("");
+  const [clientSearchValue, setClientSearchValue] = React.useState("");
   const [clientList, setClientList] = React.useState([]);
-  const [value, setValue] = React.useState<readonly Option[]>([]);
 
   useEffect(() => {
     dispatch(getSchedule());
@@ -47,9 +50,20 @@ const CalendarTest = () => {
     setClientList(clientList);
   }, [clientSearch]);
 
-  const handleClientNameSearch = (inputValue) => {
-    setInputValue(inputValue);
-    dispatch(getClientSearch(inputValue));
+  const handleClientSearch = (clientSearchValue) => {
+    setClientSearchValue(clientSearchValue);
+    if (clientSearchValue.length > 0) {
+      dispatch(getClientSearch(clientSearchValue));
+      setDropdownVisible(true);
+    } else {
+      setDropdownVisible(false);
+    }
+  };
+
+  const handleSelectClient = (client) => {
+    setClientDetails(client);
+    setDropdownVisible(false);
+    // Set other form fields here if needed
   };
 
   // Handling Client Change
@@ -107,14 +121,16 @@ const CalendarTest = () => {
 
   const fields = [
     {
-      id: "client-name-field",
+      id: "clientName",
       name: "name", // Not "id"
       label: "Client Name",
       placeholder: "First and Last Name OR Mobile",
-      type: "creatableSelect",
+      type: "textSearch",
+      onChange: (e) => {
+        validation.handleChange(e);
+        handleClientSearch(e.target.value);
+      },
       options: clientList,
-      onChange: handleClientNameChange,
-      onInputChange: handleClientNameSearch,
     },
     {
       id: "client-mobile-field",
@@ -145,35 +161,8 @@ const CalendarTest = () => {
     },
   ];
 
-  const components = {
-    DropdownIndicator: null,
-  };
-
-  interface Option {
-    readonly label: string;
-    readonly value: string;
-  }
-
-  const createOption = (label: string) => ({
-    label,
-    value: label,
-  });
-
   return (
     <React.Fragment>
-      <CreatableSelect
-        components={components}
-        inputValue={inputValue}
-        isClearable
-        options={clientList}
-        isMulti
-        menuIsOpen={false}
-        onChange={(newValue) => setValue(newValue)}
-        onInputChange={(newValue) => handleClientNameSearch(newValue)}
-        placeholder="Type something and press enter..."
-        value={value}
-      />
-
       <Form>
         <div className="add-appt__customer-col">
           <Row>
@@ -182,10 +171,57 @@ const CalendarTest = () => {
                 <FieldComponent formStructure="table" field={field} validation={validation} />
               </Col>
             ))}
+            <ClientDropdown
+              clientSearchValue={clientSearchValue}
+              clients={clientList}
+              onSelectClient={handleSelectClient}
+            />
           </Row>
         </div>
       </Form>
     </React.Fragment>
+  );
+};
+
+// ClientDropdown.js
+
+const ClientDropdown = ({ clientSearchValue, clients, onSelectClient }) => {
+  useEffect(() => {
+    const clientDropdown = document.getElementById("search-dropdown") as HTMLElement;
+    const clientSearchInput = document.getElementById("clientName") as HTMLInputElement;
+
+    clientSearchInput.addEventListener("focus", function () {
+      var inputLength = clientSearchValue.value.length;
+      if (inputLength > 0) {
+        clientDropdown.classList.add("show");
+      } else {
+        clientDropdown.classList.remove("show");
+      }
+    });
+
+    clientSearchInput.addEventListener("keyup", function () {
+      var inputLength = clientSearchValue.value.length;
+      if (inputLength > 0) {
+        clientDropdown.classList.add("show");
+      } else {
+        clientDropdown.classList.remove("show");
+      }
+    });
+
+  }, []);
+
+  return (
+    <div className="dropdown-menu dropdown-menu-lg" id="search-dropdown">
+      <SimpleBar style={{ height: "320px" }}>
+        {clients.map((client) => (
+          <div className="dropdown-header" key={client.id} onClick={() => onSelectClient(client)}>
+            <Link to="#">
+              <strong>{client.name}</strong> {client.mobile}
+            </Link>
+          </div>
+        ))}
+      </SimpleBar>
+    </div>
   );
 };
 

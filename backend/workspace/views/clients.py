@@ -23,24 +23,20 @@ class GetClientSearch(APIView):
         client_search = request.GET.get('clientName', '').strip()
 
         if client_search.isdigit():
+            # Search by mobile number
             clients = Client.objects.filter(mobile__icontains=client_search)
         else:
-            # Split the client_search into words
-            keywords = client_search.split()
-            # Filter clients by first name, last name, or mobile number
+            # Search by first name or last name
             clients = Client.objects.filter(
-                Q(first_name__icontains=client_search) | 
+                Q(first_name__icontains=client_search) |
                 Q(last_name__icontains=client_search)
             )
-            for keyword in keywords:
-                # Filter clients by mobile field
-                clients = clients | Client.objects.filter(mobile__icontains=keyword)
 
         if not clients.exists():
             return Response({"data": [], "count": 0, "code": 404}, status=status.HTTP_404_NOT_FOUND)
 
         serializer = ClientSerializer(clients, many=True)
-        client_count = clients.count()  # Get the count of clients
+        client_count = clients.count()
 
         return Response({"data": serializer.data, "count": client_count, "code": 200}, status=status.HTTP_200_OK)
 
