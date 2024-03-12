@@ -17,7 +17,7 @@ if (api && api.MEDIA_URL) {
 
 
 const FieldComponent = ({ field, validation, formStructure }) => {
-    const { id, label, name, type, colSize, className, placeholder, isSearchable, isClearable, isDisabled, onChange, options, icon, iconBg } = field;
+    const { id, label, name, type, colSize, className, placeholder, isSearchable, isClearable, isDisabled, onChange, onInputChange, options, icon, iconBg } = field;
     const imageValue = validation.values.image;
 
     const [imageSrc, setImageSrc] = useState(defaultAvatar);
@@ -172,6 +172,7 @@ const FieldComponent = ({ field, validation, formStructure }) => {
                         placeholder={placeholder}
                         options={options}
                         onChange={onChange}
+                        onInputChange={onInputChange}
 
                         onBlur={validation.handleBlur}
                     // value={validation.values[name] || ""}

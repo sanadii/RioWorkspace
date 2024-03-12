@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { Form } from "reactstrap";
+import React, { KeyboardEventHandler, useState, useEffect } from "react";
+import { Form, Table, Row, Col } from "reactstrap";
 import { FieldComponent } from "Components/Common";
 
 // Redux
@@ -13,10 +13,9 @@ import { useFormik } from "formik";
 import "react-toastify/dist/ReactToastify.css";
 import CreatableSelect from "react-select/creatable";
 
-import { Card } from "reactstrap";
 const CalendarTest = () => {
   const dispatch = useDispatch();
-  const { clients } = useSelector(clientsSelector);
+  const { clientSearch } = useSelector(clientsSelector);
 
   const [clientDetails, setClientDetails] = useState({
     id: null,
@@ -26,20 +25,32 @@ const CalendarTest = () => {
     dateOfBirth: "",
   });
 
+  const [inputValue, setInputValue] = React.useState("");
+  const [clientList, setClientList] = React.useState([]);
+  const [value, setValue] = React.useState<readonly Option[]>([]);
+
   useEffect(() => {
     dispatch(getSchedule());
-    dispatch(getClients());
   }, [dispatch]);
 
   // Creating Client List
-  const clientList = clients.map((client) => ({
-    id: client.id,
-    name: client.name,
-    mobile: client.mobile,
-    email: "example@gmail.com",
-    label: `${client.name} | ${client.mobile}`,
-    value: client.id,
-  }));
+  useEffect(() => {
+    const clientList = clientSearch.map((client) => ({
+      id: client.id,
+      name: client.name,
+      mobile: client.mobile,
+      email: "example@gmail.com",
+      label: `${client.name} | ${client.mobile}`,
+      value: client.id,
+    }));
+
+    setClientList(clientList);
+  }, [clientSearch]);
+
+  const handleClientNameSearch = (inputValue) => {
+    setInputValue(inputValue);
+    dispatch(getClientSearch(inputValue));
+  };
 
   // Handling Client Change
   const handleClientNameChange = (selectedOption) => {
@@ -102,7 +113,8 @@ const CalendarTest = () => {
       placeholder: "First and Last Name OR Mobile",
       type: "creatableSelect",
       options: clientList,
-      onChange: handleClientNameChange, // Use the custom change handler
+      onChange: handleClientNameChange,
+      onInputChange: handleClientNameSearch,
     },
     {
       id: "client-mobile-field",
@@ -133,15 +145,45 @@ const CalendarTest = () => {
     },
   ];
 
+  const components = {
+    DropdownIndicator: null,
+  };
+
+  interface Option {
+    readonly label: string;
+    readonly value: string;
+  }
+
+  const createOption = (label: string) => ({
+    label,
+    value: label,
+  });
+
   return (
     <React.Fragment>
-      <CreatableSelect isClearable options={clientList} />
+      <CreatableSelect
+        components={components}
+        inputValue={inputValue}
+        isClearable
+        options={clientList}
+        isMulti
+        menuIsOpen={false}
+        onChange={(newValue) => setValue(newValue)}
+        onInputChange={(newValue) => handleClientNameSearch(newValue)}
+        placeholder="Type something and press enter..."
+        value={value}
+      />
+
       <Form>
-        {fields.map((field) => (
-          <td key={field.id}>
-            <FieldComponent formStructure="table" field={field} validation={validation} />
-          </td>
-        ))}
+        <div className="add-appt__customer-col">
+          <Row>
+            {fields.map((field) => (
+              <Col lg={6} key={field.id}>
+                <FieldComponent formStructure="table" field={field} validation={validation} />
+              </Col>
+            ))}
+          </Row>
+        </div>
       </Form>
     </React.Fragment>
   );
