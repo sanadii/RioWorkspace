@@ -7,6 +7,7 @@ import Flatpickr from "react-flatpickr";
 
 import defaultAvatar from 'assets/images/users/default.jpg';
 import config from '../../../config';
+import ClientDropdown from "Components/Common/Forms/clieentDropDown";
 
 const { api } = config;
 
@@ -105,7 +106,7 @@ const FieldComponent = ({ field, validation, formStructure }) => {
                 );
             case 'textSearch':
                 return (
-                    <div className="d-flex">
+                    <div className="dropdown add-appt__customer-col">
                         {icon && (
                             <div className="avatar-xs d-block flex-shrink-0 me-3">
                                 <span className={`avatar-title rounded-circle fs-16 ${iconBg}`}>
@@ -123,22 +124,11 @@ const FieldComponent = ({ field, validation, formStructure }) => {
                             value={validation.values[name] || ""}
                             invalid={validation.touched[name] && validation.errors[name]}
                         />
-                        <ul className="typeahead dropdown-menu">
-                            {options.map((item) => (
-                                <li
-                                    key={item.id}
-                                    className={validation.values[name] === item.id ? "active" : ""}
-                                    // onMouseEnter={() => setFocusedClient(item.id)}
-                                    // onMouseLeave={() => setFocusedClient(null)}
-                                    // onClick={() => handleSelectClient(client)}
-                                >
-                                    <a href="#">
-                                        <strong>{item.name}</strong> {item.mobile}
-                                    </a>
-                                </li>
-                            ))}
-                        </ul>
-
+                        <ClientDropdown
+                            clientSearchValue={validation.values[name] || ""}
+                            clients={options}
+                            // onSelectClient={handleSelectClient}
+                        />
                     </div>
                 );
             case 'textarea':

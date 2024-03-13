@@ -1,19 +1,16 @@
 import React, { KeyboardEventHandler, useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import { Form, Table, Row, Col } from "reactstrap";
+import { Form, Table, Row, Col, Container } from "reactstrap";
 import { FieldComponent } from "Components/Common";
-import SimpleBar from "simplebar-react";
 
 // Redux
 import { useDispatch, useSelector } from "react-redux";
-import { getSchedule, getClients, getClientSearch } from "store/actions";
+import { getSchedule, getClientSearch } from "store/actions";
 import { clientsSelector } from "Selectors";
 
 // Form and Validation
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import "react-toastify/dist/ReactToastify.css";
-import CreatableSelect from "react-select/creatable";
 
 const CalendarTest = () => {
   const dispatch = useDispatch();
@@ -32,6 +29,7 @@ const CalendarTest = () => {
   const [clientSearchValue, setClientSearchValue] = React.useState("");
   const [clientList, setClientList] = React.useState([]);
 
+  // console.log("clientSearchValue: ", clientSearchValue)
   useEffect(() => {
     dispatch(getSchedule());
   }, [dispatch]);
@@ -163,66 +161,32 @@ const CalendarTest = () => {
 
   return (
     <React.Fragment>
-      <Form>
-        <div className="add-appt__customer-col">
-          <Row>
-            {fields.map((field) => (
-              <Col lg={6} key={field.id}>
-                <FieldComponent formStructure="table" field={field} validation={validation} />
-              </Col>
-            ))}
-            <ClientDropdown
-              clientSearchValue={clientSearchValue}
-              clients={clientList}
-              onSelectClient={handleSelectClient}
-            />
-          </Row>
-        </div>
-      </Form>
+      <div className="page-content">
+        <Container fluid>
+          <div className="add-appt__customer-col">
+            <Form>
+              <Row>
+                <div>
+                  {fields.map((field) => (
+                    <Col lg={6} key={field.id}>
+                      <FieldComponent formStructure="table" field={field} validation={validation} />
+                    </Col>
+                  ))}
+                </div>
+                {/* <ClientDropdown
+                  clientSearchValue={clientSearchValue}
+                  clients={clientList}
+                  onSelectClient={handleSelectClient}
+                /> */}
+              </Row>
+            </Form>
+          </div>
+        </Container>
+      </div>
     </React.Fragment>
   );
 };
 
 // ClientDropdown.js
-
-const ClientDropdown = ({ clientSearchValue, clients, onSelectClient }) => {
-  useEffect(() => {
-    const clientDropdown = document.getElementById("search-dropdown") as HTMLElement;
-    const clientSearchInput = document.getElementById("clientName") as HTMLInputElement;
-
-    clientSearchInput.addEventListener("focus", function () {
-      var inputLength = clientSearchValue.value.length;
-      if (inputLength > 0) {
-        clientDropdown.classList.add("show");
-      } else {
-        clientDropdown.classList.remove("show");
-      }
-    });
-
-    clientSearchInput.addEventListener("keyup", function () {
-      var inputLength = clientSearchValue.value.length;
-      if (inputLength > 0) {
-        clientDropdown.classList.add("show");
-      } else {
-        clientDropdown.classList.remove("show");
-      }
-    });
-
-  }, []);
-
-  return (
-    <div className="dropdown-menu dropdown-menu-lg" id="search-dropdown">
-      <SimpleBar style={{ height: "320px" }}>
-        {clients.map((client) => (
-          <div className="dropdown-header" key={client.id} onClick={() => onSelectClient(client)}>
-            <Link to="#">
-              <strong>{client.name}</strong> {client.mobile}
-            </Link>
-          </div>
-        ))}
-      </SimpleBar>
-    </div>
-  );
-};
 
 export default CalendarTest;
