@@ -19,6 +19,17 @@ $color_11: #da4f49;
 // some specifications
 // e-appointment-inner             => e-appointment-inner
 // Pages
+@import "./_schedulerRioMain";
+@import "./_schedulerRioEvent";
+@import "./_schedulerRioResources";
+
+@import "./_schedulerTimelyHeader";
+@import "./_schedulerTimelyBody";
+@import "./_schedulerTimelyNavigation";
+@import "./_schedulerTimelyTabs";
+
+
+
 // @import "./_schedulerIcons";
 // @import "./_scheduleSale";
 // @import "./_scheduleSaleBody";
@@ -33,14 +44,6 @@ $color_11: #da4f49;
 // @import "./schedulerMore";
 // @import "./scheduleSaleSummary";
 
-@import "./_schedulerRioMain";
-@import "./_schedulerRioEvent";
-@import "./_schedulerRioResources";
-
-
-
-@import "./_schedulerTimelyHeader";
-@import "./_schedulerTimelyBody";
 
 
 

@@ -17,6 +17,8 @@ const CalendarTest = () => {
   const { clientSearch } = useSelector(clientsSelector);
   const [dropdownVisible, setDropdownVisible] = useState(true);
   const [focusedClient, setFocusedClient] = useState(null);
+  const [clientSearchValue, setClientSearchValue] = React.useState("");
+  const [clientList, setClientList] = React.useState([]);
 
   const [clientDetails, setClientDetails] = useState({
     id: null,
@@ -26,8 +28,6 @@ const CalendarTest = () => {
     dateOfBirth: "",
   });
 
-  const [clientSearchValue, setClientSearchValue] = React.useState("");
-  const [clientList, setClientList] = React.useState([]);
 
   // console.log("clientSearchValue: ", clientSearchValue)
   useEffect(() => {
@@ -123,7 +123,7 @@ const CalendarTest = () => {
       name: "name", // Not "id"
       label: "Client Name",
       placeholder: "First and Last Name OR Mobile",
-      type: "textSearch",
+      type: "searchDropdown",
       onChange: (e) => {
         validation.handleChange(e);
         handleClientSearch(e.target.value);

@@ -46,8 +46,14 @@ type AppointmentItem = {
 // const CalendarModal = ({ event, scheduleObj, services, staff, clients, appointmentRef }) => {
 const CalendarModal = ({ modal, isEdit, toggle, appointment, services, staff, clients, appointmentRef }) => {
   const dispatch: any = useDispatch();
-
   const [selectedNewDate, setSelectedNewDate] = useState<any>();
+
+  // Refs
+  const clientRef = useRef([]);
+  const serviceRef = useRef([]);
+  const statusRef = useRef([]);
+  const productRef = useRef([]);
+  const packageRef = useRef([]);
 
   const initialValues = {
     title: (appointment && appointment.title) || "",
@@ -55,7 +61,7 @@ const CalendarModal = ({ modal, isEdit, toggle, appointment, services, staff, cl
     end: (appointment && appointment.end) || "",
 
     // ExtendedProps
-    client: (appointment && appointment.client) || 1,
+    client: (appointment && appointment.client) || clientRef.current,
     services: (appointment && appointment.services) || [],
     packages: (appointment && appointment.packages) || [],
     products: (appointment && appointment.products) || [],
@@ -75,6 +81,7 @@ const CalendarModal = ({ modal, isEdit, toggle, appointment, services, staff, cl
     validationSchema: Yup.object({
       // start: Yup.date().required("Start Time is required"),
     }),
+
     onSubmit: (values) => {
       // if (selectedNewDate) {
       //   let updatedEndDate = new Date(selectedNewDate[0]);
@@ -106,7 +113,7 @@ const CalendarModal = ({ modal, isEdit, toggle, appointment, services, staff, cl
       } else {
         const newEvent = {
           id: Math.floor(Math.random() * 100),
-          clientName: values["clientName"] || 1,
+          client: values["clientName"] || clientRef.current,
 
           title: values["title"],
           start: values["start"],
@@ -131,14 +138,7 @@ const CalendarModal = ({ modal, isEdit, toggle, appointment, services, staff, cl
     },
   });
 
-  // Set Client Details
-  const [clientDetails, setClientDetails] = useState<ClientItem>({
-    id: (appointment && appointment.client && appointment.client.id) || null,
-    name: (appointment && appointment.client && appointment.client.name) || "",
-    mobile: (appointment && appointment.client && appointment.client.mobile) || "",
-    dateOfBirth: (appointment && appointment.client && appointment.client.dateOfBirth) || "",
-    email: (appointment && appointment.client && appointment.client.email) || "",
-  });
+  // clientRef.current = clientDetails || [];
 
   return (
     <React.Fragment>
@@ -171,13 +171,7 @@ const CalendarModal = ({ modal, isEdit, toggle, appointment, services, staff, cl
               // setAppointmentDetails={setAppointmentDetails}
             />
 
-            <EditorClientComponent
-              appointment={appointment}
-              clients={clients}
-              clientDetails={clientDetails}
-              setClientDetails={setClientDetails}
-              isEdit={isEdit}
-            />
+            <EditorClientComponent clientRef={clientRef} appointment={appointment} clients={clients} isEdit={isEdit} />
 
             {/* <EditorServiceComponent
             appointment={appointment}

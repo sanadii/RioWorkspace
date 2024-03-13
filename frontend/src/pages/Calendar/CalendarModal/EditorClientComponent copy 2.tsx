@@ -14,34 +14,13 @@ import { FieldComponent } from "Components/Common";
 import { Form, Row, Table, Badge } from "reactstrap";
 import "react-toastify/dist/ReactToastify.css";
 
-type ClientItem = {
-  id: number;
-  name: string;
-  mobile: string;
-  email: string;
-  dateOfBirth: string;
-};
-
-
-const EditorClientComponent = ({ clientRef, appointment, clients, isEdit }) => {
+const EditorClientComponent = ({ clientRef, appointment, clients, isEdit, setClientDetails, clientDetails }) => {
   const dispatch = useDispatch();
 
-  // Set Client Details
-  const [clientDetails, setClientDetails] = useState<ClientItem>({
-    id: (appointment && appointment.client && appointment.client.id) || null,
-    name: (appointment && appointment.client && appointment.client.name) || "",
-    mobile: (appointment && appointment.client && appointment.client.mobile) || "",
-    dateOfBirth: (appointment && appointment.client && appointment.client.dateOfBirth) || "",
-    email: (appointment && appointment.client && appointment.client.email) || "",
-  });
-
-  console.log("appointment: ", appointment);
-  console.log("clientDetails: ", clientDetails);
-
-  console.log("clientDetails: ", clientDetails);
+  // console.log("clientRef: ", clientRef.current);
 
   // console.log("appointment: ", appointment);
-  const [isDisplayClientDetails, setIsDisplayClientDetails] = useState(clientDetails.id ? true : false);
+  const [isDisplayClientDetails, setIsDisplayClientDetails] = useState(clientDetails.client ? true : false);
 
   const { clientSearch } = useSelector(clientsSelector);
   const [clientList, setClientList] = React.useState([]);
@@ -69,6 +48,9 @@ const EditorClientComponent = ({ clientRef, appointment, clients, isEdit }) => {
   // Client Constants
   const onClientNameChange = (event) => {
     const selectedClient = event;
+    console.log("onClientNameChange is running:");
+    console.log("selectedClient:", selectedClient);
+    console.log("event:", event);
     if (selectedClient) {
       setClientDetails((prevState) => ({
         ...prevState,
@@ -80,7 +62,32 @@ const EditorClientComponent = ({ clientRef, appointment, clients, isEdit }) => {
       }));
 
       setIsDisplayClientDetails(true);
+
+      // Set input value to the selected client
+      // setInputValue(selectedClient.name || "");
     }
+  };
+
+  const handleClientMobileChange = (event) => {
+    setClientDetails((prevState) => ({
+      ...prevState,
+      mobile: event ? event : "",
+    }));
+  };
+
+  const handleClientEmailChange = (event) => {
+    setClientDetails((prevState) => ({
+      ...prevState,
+      email: event ? event : "",
+    }));
+  };
+
+  const handleClientBirthdayChange = (event) => {
+    const newDate = event.value ? event.value.toLocaleDateString("en-CA") : "";
+    setClientDetails((prevState) => ({
+      ...prevState,
+      dateOfBirth: newDate,
+    }));
   };
 
   const validation: any = useFormik({
@@ -101,46 +108,58 @@ const EditorClientComponent = ({ clientRef, appointment, clients, isEdit }) => {
     },
   });
 
-  clientRef.current = validation.values;
-  console.log("clientRef: ", clientRef.current);
   const fields = [
-    {
-      id: "clientName",
-      name: "name",
-      label: "Client Name",
-      placeholder: "First and Last Name OR Mobile",
-      type: "searchDropdown",
-      onChange: (e) => {
-        validation.handleChange(e);
-        const inputValue = e.target.value;
-        if (inputValue.length > 1) {
-          handleClientSearch(inputValue);
-        }
-      },
-      onSelect: (client) => {
-        onClientNameChange(client);
-      },
-      options: clientList,
-    },
+    // {
+    //   id: "clientName",
+    //   name: "name",
+    //   label: "Client Name",
+    //   placeholder: "First and Last Name OR Mobile",
+    //   type: "searchDropdown",
+    //   onChange: (e) => {
+    //     validation.handleChange(e);
+    //     const inputValue = e.target.value;
+    //     if (inputValue.length > 1) {
+    //       handleClientSearch(inputValue);
+    //     }
+    //   },
+    //   onSelect: (client) => {
+    //     onClientNameChange(client);
+    //   },
+    //   options: clientList,
+    // },
     {
       id: "client-mobile-field",
       name: "mobile",
       label: "Mobile",
       type: "text",
+      // onChange: (e) => {
+      //   validation.handleChange(e);
+      //   handleClientMobileChange(e);
+      // },
     },
     {
       id: "client-email-field",
       name: "email",
       label: "Client Email",
       type: "email",
+      // onChange: (e) => {
+      //   validation.handleChange(e);
+      //   handleClientEmailChange(e);
+      // },
     },
     {
       id: "client-date-of-birth-field",
       name: "dateOfBirth",
       label: "Client Date of Birth",
       type: "date",
+      onChange: (e) => {
+        validation.handleChange(e);
+        // setSelectedNewDate(e);
+        handleClientBirthdayChange(e);
+      },
     },
   ];
+  const { id, name, mobile, email, dateOfBirth } = clientDetails;
 
   return (
     <React.Fragment>

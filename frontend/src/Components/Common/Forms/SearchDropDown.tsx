@@ -2,15 +2,19 @@ import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import SimpleBar from "simplebar-react";
 
-const SearchDropDown = ({ clientSearchValue, clients, onSelectClient }) => {
-  console.log("clientSearchValue ", clientSearchValue, "[", clientSearchValue.length, "]");
+const SearchDropDown = ({ id, inputSearchValue, options, onSelect }) => {
+  const handleClientSelect = (client) => {
+    onSelect(client); // Trigger the onSelect event handler
+    // searchDropdown.classList.remove("show");
+    // searchDropdown.classList.add("hide");
+  };
 
   useEffect(() => {
     const searchDropdown = document.getElementById("client-dropdown") as HTMLElement;
-    const clientSearchInput = document.getElementById("clientName") as HTMLInputElement;
+    const clientSearchInput = document.getElementById(id) as HTMLInputElement;
 
     clientSearchInput.addEventListener("focus", function () {
-      if (clientSearchValue.length > 0) {
+      if (inputSearchValue.length > 1) {
         searchDropdown.classList.add("show");
       } else {
         searchDropdown.classList.add("hide");
@@ -18,7 +22,7 @@ const SearchDropDown = ({ clientSearchValue, clients, onSelectClient }) => {
     });
 
     clientSearchInput.addEventListener("keyup", function () {
-      if (clientSearchValue.length > 0) {
+      if (inputSearchValue.length > 1) {
         searchDropdown.classList.add("show");
       } else {
         searchDropdown.classList.add("hide");
@@ -31,15 +35,15 @@ const SearchDropDown = ({ clientSearchValue, clients, onSelectClient }) => {
         // searchOptions.classList.add("d-none");
       }
     });
-  }, [clientSearchValue]);
+  }, [inputSearchValue]);
 
   return (
-    <div className="dropdown dropdown-menu dropdown-menu-lg" id="client-dropdown">
+    <div className="typeahead dropdown-menu dropdown-menu-lg" id="client-dropdown">
       <SimpleBar style={{ height: "320px" }}>
-        {clients.map((client) => (
-          <div className="dropdown-header" key={client.id} onClick={() => onSelectClient(client)}>
+        {options.map((client) => (
+          <div key={client.id} onClick={() => handleClientSelect(client)}>
             <Link to="#">
-              <strong>{client.name}</strong> {client.mobile}
+              <strong>{client.name}</strong> +{client.mobile}
             </Link>
           </div>
         ))}
