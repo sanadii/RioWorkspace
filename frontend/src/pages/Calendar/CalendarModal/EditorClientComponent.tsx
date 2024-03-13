@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 // Redux
 import { useDispatch, useSelector } from "react-redux";
@@ -11,7 +12,7 @@ import { useFormik } from "formik";
 import { FieldComponent } from "Components/Common";
 
 // Styling
-import { Form, Row, Table, Badge } from "reactstrap";
+import { Form, Table, Row, Badge } from "reactstrap";
 import "react-toastify/dist/ReactToastify.css";
 
 type ClientItem = {
@@ -22,7 +23,6 @@ type ClientItem = {
   dateOfBirth: string;
 };
 
-
 const EditorClientComponent = ({ clientRef, appointment, clients, isEdit }) => {
   const dispatch = useDispatch();
 
@@ -31,14 +31,12 @@ const EditorClientComponent = ({ clientRef, appointment, clients, isEdit }) => {
     id: (appointment && appointment.client && appointment.client.id) || null,
     name: (appointment && appointment.client && appointment.client.name) || "",
     mobile: (appointment && appointment.client && appointment.client.mobile) || "",
-    dateOfBirth: (appointment && appointment.client && appointment.client.dateOfBirth) || "",
+    dateOfBirth: (appointment && appointment.client && appointment.client.dateOfBirth) || null,
     email: (appointment && appointment.client && appointment.client.email) || "",
   });
 
-  console.log("appointment: ", appointment);
-  console.log("clientDetails: ", clientDetails);
-
-  console.log("clientDetails: ", clientDetails);
+  // console.log("appointment: ", appointment);
+  // console.log("clientDetails: ", clientDetails);
 
   // console.log("appointment: ", appointment);
   const [isDisplayClientDetails, setIsDisplayClientDetails] = useState(clientDetails.id ? true : false);
@@ -46,13 +44,13 @@ const EditorClientComponent = ({ clientRef, appointment, clients, isEdit }) => {
   const { clientSearch } = useSelector(clientsSelector);
   const [clientList, setClientList] = React.useState([]);
 
-  // Creating Client List
+  // Creating Client List for the form selection
   useEffect(() => {
     const clientList = clientSearch.map((client) => ({
       id: client.id,
       name: client.name,
       mobile: client.mobile,
-      email: "example@gmail.com",
+      email: client.email,
       label: `${client.name} | ${client.mobile}`,
       value: client.id,
     }));
@@ -76,11 +74,13 @@ const EditorClientComponent = ({ clientRef, appointment, clients, isEdit }) => {
         name: selectedClient.name || "",
         mobile: selectedClient.mobile || "",
         email: selectedClient.email || "",
-        dateOfBirth: selectedClient.dateOfBirth || "",
+        dateOfBirth: selectedClient.dateOfBirth || null,
       }));
 
       setIsDisplayClientDetails(true);
     }
+    clientRef.current = selectedClient;
+    console.log("clientRef.current: ", clientRef.current);
   };
 
   const validation: any = useFormik({
@@ -91,7 +91,7 @@ const EditorClientComponent = ({ clientRef, appointment, clients, isEdit }) => {
       name: (clientDetails && clientDetails.name) || "",
       mobile: (clientDetails && clientDetails.mobile) || "",
       email: (clientDetails && clientDetails.email) || "",
-      dateOfBirth: (clientDetails && clientDetails.dateOfBirth) || "",
+      dateOfBirth: (clientDetails && clientDetails.dateOfBirth) || null,
     },
     validationSchema: Yup.object({
       // start: Yup.date().required("Start Time is required"),
@@ -102,7 +102,7 @@ const EditorClientComponent = ({ clientRef, appointment, clients, isEdit }) => {
   });
 
   clientRef.current = validation.values;
-  console.log("clientRef: ", clientRef.current);
+  // console.log("clientRef: ", clientRef.current);
   const fields = [
     {
       id: "clientName",
@@ -146,27 +146,57 @@ const EditorClientComponent = ({ clientRef, appointment, clients, isEdit }) => {
     <React.Fragment>
       <div className="d-flex mb-8">
         <div className="add-appt__icon add-appt__icon-customer" title="Client"></div>
-        <div className="add-appt__customer-col"></div>
-        <Form
-          className="tablelist-form"
-          on={(e) => {
-            e.preventDefault();
-            validation.handleSubmit();
-            return false;
-          }}
-        >
-          <Table className="table-cell-background-grey">
-            <tbody>
-              <tr>
-                {fields.map((field) => (
-                  <td key={field.id}>
-                    <FieldComponent formStructure="table" field={field} validation={validation} />
-                  </td>
-                ))}
-              </tr>
-            </tbody>
-          </Table>
-        </Form>
+        <div className="add-appt__date-time">
+          {isDisplayClientDetails ? (
+            <div className="add-appt__customer-selected">
+              <h4 className="customer-name-holder">
+                <span className="customer-name-text pe-2">{clientDetails.name}</span>
+                <Badge text-size="10" color="success" pill>
+                  New
+                </Badge>
+
+                <li className="list-inline-item edit">
+                  <Link
+                    to="#"
+                    className="text-primary d-inline-block edit-item-btn"
+                    onClick={() => {
+                      // const orderData = cellProps.row.original;
+                      // handleOrderClick(orderData);
+                    }}
+                  >
+                    <i className="ri-pencil-fill fs-16"></i>
+                  </Link>
+                </li>
+              </h4>
+              <p className="selected-client">
+                <span className="pe-2">Mobile: {clientDetails.mobile}</span>
+                <span className="pe-2">Email: {clientDetails.email}</span>
+                <span className="pe-2">DOB: {clientDetails.dateOfBirth}</span>
+              </p>
+            </div>
+          ) : (
+            <Form
+              className="tablelist-form"
+              on={(e) => {
+                e.preventDefault();
+                validation.handleSubmit();
+                return false;
+              }}
+            >
+              <Table className="table-cell-background-grey">
+                <tbody>
+                  <tr>
+                    {fields.map((field) => (
+                      <td key={field.id}>
+                        <FieldComponent formStructure="table" field={field} validation={validation} />
+                      </td>
+                    ))}
+                  </tr>
+                </tbody>
+              </Table>
+            </Form>
+          )}
+        </div>
       </div>
     </React.Fragment>
   );

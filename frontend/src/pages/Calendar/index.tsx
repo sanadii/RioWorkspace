@@ -89,14 +89,41 @@ const Calender = () => {
    * Handling date click on calendar
    */
 
-  const handleDateClick = (arg: any) => {
-    // console.log("ARG PLZ: ", arg);
-    const date = arg["date"];
-    console.log("dataaaa: ", arg)
-    console.log("dataaaa: ", arg["date"])
-    setSelectedNewDay(date);
+  const handleDateClick = (arg) => {
+    const now = new Date();
+    const startDate = new Date(arg.date);
+    const endDate = new Date(startDate);
+    endDate.setHours(startDate.getHours() + 2);
+
+    // Adjust for timezone offset before converting to ISO string
+    const timezoneOffset = startDate.getTimezoneOffset() * 60000; // offset in milliseconds
+    const adjustedStart = new Date(startDate.getTime() - timezoneOffset);
+    const adjustedEnd = new Date(endDate.getTime() - timezoneOffset);
+
+    console.log(`CHECKING TIME --- NOW: ${now}\nstartTime: ${startDate}\nendTime: ${endDate}`);
+
+    setAppointment({
+      start: adjustedStart.toISOString(),
+      end: adjustedEnd.toISOString(),
+    });
+    setSelectedNewDay(startDate.toISOString());
     toggle();
   };
+
+  console.log("CHECKING TIME --- AppointmentTime: ", appointment);
+
+  const displayLocalTime = (isoString) => {
+    return new Date(isoString).toLocaleString("en-US", {
+      hour: "numeric",
+      minute: "numeric",
+      second: "numeric",
+      hour12: false,
+      timeZoneName: "short",
+    });
+  };
+
+  console.log("123 Local Start Time: ", displayLocalTime(appointment?.start));
+  console.log("123 Local End Time: ", displayLocalTime(appointment?.end));
 
   const str_dt = function formatDate(date: any) {
     var monthNames = [
@@ -125,7 +152,6 @@ const Calender = () => {
   /**
    * Handling click on event on calendar
    */
-
 
   // Update Data
   const handleAppointmentClick = useCallback(
@@ -238,6 +264,7 @@ const Calender = () => {
       />
 
       <FullCalendar
+        timeZone="local" // the default (unnecessary to specify)
         handleWindowResize={true}
         themeSystem="bootstrap"
         events={appointments}

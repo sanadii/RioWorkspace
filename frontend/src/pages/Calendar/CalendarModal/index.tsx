@@ -47,7 +47,7 @@ type AppointmentItem = {
 const CalendarModal = ({ modal, isEdit, toggle, appointment, services, staff, clients, appointmentRef }) => {
   const dispatch: any = useDispatch();
   const [selectedNewDate, setSelectedNewDate] = useState<any>();
-
+  console.log("appointment: ", appointment);
   // Refs
   const clientRef = useRef([]);
   const serviceRef = useRef([]);
@@ -55,6 +55,7 @@ const CalendarModal = ({ modal, isEdit, toggle, appointment, services, staff, cl
   const productRef = useRef([]);
   const packageRef = useRef([]);
 
+  // console.log("clientRef:", clientRef.current);
   const initialValues = {
     title: (appointment && appointment.title) || "",
     start: (appointment && appointment.start) || "",
@@ -66,7 +67,7 @@ const CalendarModal = ({ modal, isEdit, toggle, appointment, services, staff, cl
     packages: (appointment && appointment.packages) || [],
     products: (appointment && appointment.products) || [],
 
-    // Not used
+    // Not used yes
     category: (appointment && appointment.category) || "",
     location: (appointment && appointment.location) || "",
     description: (appointment && appointment.description) || "",
@@ -74,6 +75,7 @@ const CalendarModal = ({ modal, isEdit, toggle, appointment, services, staff, cl
     datetag: (appointment && appointment.datetag) || "",
   };
 
+  console.log("initialValues: ", initialValues);
   const validation: any = useFormik({
     // enableReinitialize : use this flag when initial values needs to be changed
     enableReinitialize: true,
@@ -96,7 +98,7 @@ const CalendarModal = ({ modal, isEdit, toggle, appointment, services, staff, cl
           title: values.title,
           className: values.category,
           start: values.start,
-          end: values.start,
+          end: values.end,
           duration: 60,
           location: values.location,
           description: values.description,
@@ -173,14 +175,13 @@ const CalendarModal = ({ modal, isEdit, toggle, appointment, services, staff, cl
 
             <EditorClientComponent clientRef={clientRef} appointment={appointment} clients={clients} isEdit={isEdit} />
 
-            {/* <EditorServiceComponent
-            appointment={appointment}
-            services={services}
-            staff={staff}
-            serviceDetails={serviceDetails}
-            setServiceDetails={setServiceDetails}
-          />
-
+            <EditorServiceComponent
+              serviceRef={serviceRef}
+              appointment={appointment}
+              services={services}
+              staff={staff}
+            />
+            {/* 
           <EditorStatusComponent
             appointment={appointment}
             appointmentDetails={appointmentDetails}

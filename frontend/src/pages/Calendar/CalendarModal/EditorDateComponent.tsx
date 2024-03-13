@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
+
 import { FieldComponent } from "Components/Common";
 
 const EditorDateComponent = ({
@@ -9,9 +11,9 @@ const EditorDateComponent = ({
 }) => {
   const [isEditDate, setIsEditDate] = useState(false);
 
-  const getAppointmentDate = (appointment) => {
-    if (!appointment) return "";
-    return new Date(appointment).toLocaleDateString("en-US", {
+  const getAppointmentDate = (appointmentDate) => {
+    if (!appointmentDate) return "";
+    return new Date(appointmentDate).toLocaleDateString("en-US", {
       weekday: "short",
       day: "numeric",
       month: "short",
@@ -19,7 +21,19 @@ const EditorDateComponent = ({
     });
   };
 
-  const startDate = getAppointmentDate(appointment?.start);
+  const getAppointmentStartTime = (appointmentStartTime) => {
+    if (!appointment || !appointmentStartTime) return "";
+
+    const appointmentDate = new Date(appointmentStartTime);
+    return appointmentDate.toLocaleTimeString("en-US", {
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: true,
+    });
+  };
+
+  const appointmentDate = getAppointmentDate(appointment?.start);
+  const appointmentStartTime = getAppointmentStartTime(appointment?.start);
 
   const handleEditDate = () => {
     setIsEditDate(true);
@@ -30,7 +44,7 @@ const EditorDateComponent = ({
       id: "start-field",
       name: "start",
       label: "Start",
-      type: "date",
+      type: "dateTime",
       onChange: (e) => {
         validation.handleChange(e);
         setSelectedNewDate(e);
@@ -45,12 +59,12 @@ const EditorDateComponent = ({
         <div className="add-appt__date-time">
           {!isEditDate ? (
             <p>
-              {startDate}
-              <button
-                className="change-booking add-appt__edit-button modal-close no-border"
-                onClick={handleEditDate}
-                title="Change date"
-              ></button>
+              <strong>{appointmentDate}</strong> {appointmentStartTime}
+              <li className="list-inline-item edit">
+                <Link to="#" className="text-primary d-inline-block edit-item-btn" onClick={handleEditDate}>
+                  <i className="ri-pencil-fill fs-16"></i>
+                </Link>
+              </li>
             </p>
           ) : (
             fields.map((field) => (

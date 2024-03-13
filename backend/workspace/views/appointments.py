@@ -23,6 +23,8 @@ from workspace.models.vouchers import Voucher
 
 from workspace.serializers.appointments import AppointmentSerializer, AppointmentServiceSerializer, ScheduleSerializer
 from workspace.serializers.staff import StaffSerializer
+from workspace.serializers.clients import ClientSerializer
+
 from workspace.serializers.services import ServiceSerializer
 from workspace.serializers.products import ProductSerializer
 from workspace.serializers.packages import PackageSerializer
@@ -133,28 +135,39 @@ class GetScheduleData(APIView):
 
 class AddAppointment(APIView):
     def post(self, request):
-        print("Request Data:", request.data)  # Print the incoming request data
 
         client_data = request.data.get('client')
         if not client_data:
             return Response({"client": ["Client data is required."]}, status=status.HTTP_400_BAD_REQUEST)
 
-        client_id = client_data
-        # client_id = client_data.get('id')
-        if not client_id:
+        client_id = client_data.get('id')
+        if client_id:
+            # Existing client, validate client ID
+            try:
+                client = Client.objects.get(id=client_id)
+            except Client.DoesNotExist:
+                return Response({"client": ["Invalid client ID."]}, status=status.HTTP_404_NOT_FOUND)
+        else:
+            # New client, create client
             client_serializer = ClientSerializer(data=client_data)
             if client_serializer.is_valid():
-                new_client = client_serializer.save()
-                client_id = new_client.id
+                client = client_serializer.save()
             else:
                 return Response(client_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-        appointment_data = {
-            'client_id': client_id,
-            'start': request.data.get('start'),
-            'end': request.data.get('end'),
-            'services': request.data.get('services', [])
-        }
+        # Prepare appointment data with client ID
+        appointment_data = request.data.copy()
+        appointment_data['client_id'] = client.id
+        
+        print("i want to see the client: ", client.id)
+
+        # appointment_data = {
+        #     'client': client,
+        #     'start': request.data.get('start'),
+        #     'end': request.data.get('end'),
+        #     'note': request.data.get('description'),
+        #     'services': request.data.get('services', [])
+        # }
 
         print("Appointment Data:", appointment_data)  # Print the processed appointment data
 
@@ -166,7 +179,6 @@ class AddAppointment(APIView):
         else:
             print("Appointment Serializer Errors:", appointment_serializer.errors)  # Print serializer errors
             return Response(appointment_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
 
 class UpdateAppointment(UpdateAPIView):
     queryset = Appointment.objects.all()

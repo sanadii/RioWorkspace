@@ -1,16 +1,39 @@
 import React, { useEffect, useState } from "react";
-import { DropDownListComponent } from "@syncfusion/ej2-react-dropdowns";
-import { TextBoxComponent } from "@syncfusion/ej2-react-inputs";
-import { ButtonComponent } from "@syncfusion/ej2-react-buttons";
-import { Table, Row, Col, Button, Input, Label, ButtonGroup } from "reactstrap";
-import { TimePickerComponent } from "@syncfusion/ej2-react-calendars";
+import { Table, Row, Col } from "reactstrap";
 
-const EditorServiceComponent = ({ data, services, staff, serviceDetails, setServiceDetails }) => {
+// Form and Validation
+import * as Yup from "yup";
+import { useFormik } from "formik";
+import { FieldComponent } from "Components/Common";
 
-  const startTime = data.startTime;
-  // console.log("startTime: ", startTime)
+type ServiceItem = {
+  id?: number;
+  service: number;
+  staff: number;
+  start: Date;
+  end: Date;
+  duration: string;
+  price: string;
+};
 
-  const [serviceStartTime, setServiceStartTime] = useState(startTime);
+const EditorServiceComponent = ({ serviceRef, appointment, services, staff }) => {
+  const [serviceDetails, setServiceDetails] = useState<ServiceItem[]>([
+    {
+      id: (appointment && appointment.service && appointment.service.id) || null,
+      service: (appointment && appointment.service && appointment.service.service) || null,
+      staff: (appointment && appointment.service && appointment.service.staff) || null,
+      start: (appointment && appointment.service && appointment.service.start) || null,
+      end: (appointment && appointment.service && appointment.service.end) || null,
+      duration: (appointment && appointment.service && appointment.service.duration) || 0,
+      price: (appointment && appointment.service && appointment.service.price) || 0,
+    },
+  ]);
+
+  const start = appointment.start;
+
+  // console.log("start: ", start)
+
+  const [serviceStartTime, setServiceStartTime] = useState(start);
   const [autoPopulated, setAutoPopulated] = useState<boolean>(false);
 
   // TimePicker Settings
@@ -21,19 +44,19 @@ const EditorServiceComponent = ({ data, services, staff, serviceDetails, setServ
   maxTime.setHours(20, 0, 0);
 
   useEffect(() => {
-    if (data && data.services) {
-      const initialServices = data.services.map(service => ({
+    if (appointment && appointment.services) {
+      const initialServices = appointment.services.map((service) => ({
         id: service.id, // Assuming serviceId is the ID of the service
         service: service.serviceId, // Assuming serviceId is the ID of the service
         staff: service.staff, // Assuming staff is the ID of the staff
-        startTime: new Date(service.startTime), // Convert to Date object if necessary
-        endTime: new Date(service.endTime), // Convert to Date object if necessary
+        start: new Date(service.start), // Convert to Date object if necessary
+        end: new Date(service.end), // Convert to Date object if necessary
         duration: service.duration,
         price: service.price.toString(), // Convert to string if necessary
       }));
       setServiceDetails(initialServices);
     }
-  }, [data, setServiceDetails]);
+  }, [appointment, setServiceDetails]);
 
   // Form Field Functions
   const formatDuration = (minutes) => {
@@ -57,7 +80,7 @@ const EditorServiceComponent = ({ data, services, staff, serviceDetails, setServ
         service: selectedService ? selectedService.id : null,
         duration: selectedService ? selectedService.duration : 0,
         price: selectedService ? selectedService.price : 0,
-        startTime: startTime,
+        start: start,
       };
       updatedServiceList[serviceIndex] = updatedServiceItem;
       // console.log("updatedServiceList: ", updatedServiceList)
@@ -83,13 +106,13 @@ const EditorServiceComponent = ({ data, services, staff, serviceDetails, setServ
 
     // Ensure durationValue is a number
     if (typeof durationValue === "number") {
-      const startTime = new Date(startTimeValue); // Convert start time to Date object
-      const endTime = new Date(startTime.getTime() + durationValue * 60000); // Calculate end time (add duration in milliseconds)
+      const start = new Date(startTimeValue); // Convert start time to Date object
+      const end = new Date(start.getTime() + durationValue * 60000); // Calculate end time (add duration in milliseconds)
 
       updatedServiceList[serviceIndex] = {
         ...updatedServiceList[serviceIndex],
-        startTime: startTimeValue,
-        endTime: endTime,
+        start: startTimeValue,
+        end: end,
       };
       setServiceDetails(updatedServiceList);
     } else {
@@ -100,14 +123,14 @@ const EditorServiceComponent = ({ data, services, staff, serviceDetails, setServ
   const handleServiceDurationChange = (serviceObj, serviceIndex) => {
     const updatedServiceList = [...serviceDetails];
     const durationValue = serviceObj.itemData ? serviceObj.itemData.value : ""; // Duration value in minutes
-    const startTimeValue = updatedServiceList[serviceIndex].startTime; // Start time value
-    const startTime = new Date(startTimeValue); // Convert start time to Date object
-    const endTime = new Date(startTime.getTime() + durationValue * 60000); // Calculate end time (add duration in milliseconds)
+    const startTimeValue = updatedServiceList[serviceIndex].start; // Start time value
+    const start = new Date(startTimeValue); // Convert start time to Date object
+    const end = new Date(start.getTime() + durationValue * 60000); // Calculate end time (add duration in milliseconds)
 
     updatedServiceList[serviceIndex] = {
       ...updatedServiceList[serviceIndex],
       duration: durationValue,
-      endTime: endTime,
+      end: end,
     };
     setServiceDetails(updatedServiceList);
   };
@@ -125,7 +148,7 @@ const EditorServiceComponent = ({ data, services, staff, serviceDetails, setServ
 
   const generateDurationOptions = () => {
     const options = [];
-    for (let i = 0; i <= 24 * 4; i++) {
+    for (let i = 0; i <= 8 * 4; i++) {
       const hours = Math.floor(i / 4);
       const minutes = (i % 4) * 15;
       const totalMinutes = hours * 60 + minutes;
@@ -162,10 +185,18 @@ const EditorServiceComponent = ({ data, services, staff, serviceDetails, setServ
   };
 
   const handleAddService = () => {
-    const previousEndTime = serviceDetails.length > 0 ? serviceDetails[serviceDetails.length - 1].endTime : startTime; // Get the end time of the last service or set it to the current time if there are no services
+    const previousEndTime = serviceDetails.length > 0 ? serviceDetails[serviceDetails.length - 1].end : start;
     const newServiceList = [
       ...serviceDetails,
-      { service: null, staff: null, startTime: previousEndTime, endTime: startTime, duration: "", price: "" },
+      {
+        id: null, // You can set this to null or omit it entirely
+        service: null,
+        staff: null,
+        start: previousEndTime,
+        end: start,
+        duration: "",
+        price: "",
+      },
     ];
     setServiceDetails(newServiceList);
     setServiceStartTime(previousEndTime);
@@ -178,6 +209,76 @@ const EditorServiceComponent = ({ data, services, staff, serviceDetails, setServ
     // Update the state with the new serviceDetails
     setServiceDetails(updatedServiceList);
   };
+
+  const flattenServices = (servicesArray) => {
+    const flattened = {};
+    servicesArray.forEach((service, index) => {
+      Object.keys(service).forEach((key) => {
+        flattened[`${key}_${index}`] = service[key];
+      });
+    });
+    return flattened;
+  };
+
+  const validation: any = useFormik({
+    // enableReinitialize : use this flag when initial values needs to be changed
+    enableReinitialize: true,
+    initialValues: appointment && appointment.services ? flattenServices(appointment.services) : {},
+    validationSchema: Yup.object({
+      // start: Yup.date().required("Start Time is required"),
+    }),
+    onSubmit: () => {
+      // No submission
+    },
+  });
+
+  const fields = [
+    {
+      id: "service-field",
+      name: "Service",
+      label: "Service",
+      type: "select",
+      options: services.map((items) => ({
+        id: items.id,
+        label: items.name,
+        value: items.id,
+      })),
+      // onChange: (e) => handleServiceChange(e, serviceIndex),
+    },
+    {
+      id: "service-staff-field",
+      name: "serviceStaff",
+      label: "Staff",
+      type: "select",
+      options: staff.map((items) => ({
+        id: items.id,
+        label: items.name,
+        value: items.id,
+      })),
+      // onChange: (e) => handleStaffChange(e, serviceIndex),
+    },
+    {
+      id: "service-start-field",
+      name: "ServiceStart",
+      label: "Start at",
+      type: "date",
+      // onChange: (e) => handleStartTimeChange(e, serviceIndex),
+    },
+    {
+      id: "service-duration-field",
+      name: "serviceDuration",
+      label: "Duration",
+      type: "select",
+      // onChange: (e) => handleServiceDurationChange(e, serviceIndex),
+    },
+    {
+      id: "service-price-field",
+      name: "servicePrice",
+      label: "Price",
+      type: "text",
+      // onChange: (e) => handleServicePriceChange(e, serviceIndex),
+    },
+  ];
 
   return (
     <React.Fragment>
@@ -195,74 +296,11 @@ const EditorServiceComponent = ({ data, services, staff, serviceDetails, setServ
             <tbody>
               {serviceDetails.map((serviceItem, serviceIndex) => (
                 <tr key={serviceIndex} className="services">
-                  <td>
-                    <DropDownListComponent
-                      id={`servic-${serviceIndex}`}
-                      dataSource={services}
-                      fields={{ text: "name", value: "id" }}
-                      change={(e) => handleServiceChange(e, serviceIndex)}
-                      placeholder="Select a Service"
-                      allowFiltering={true}
-                      value={serviceItem.service}
-                    />
-                  </td>
-                  <td>
-                    <DropDownListComponent
-                      id={`servicStaff-${serviceIndex}`}
-                      dataSource={staff}
-                      fields={{ text: "name", value: "id" }}
-                      change={(e) => !autoPopulated && handleStaffChange(e, serviceIndex)}
-                      placeholder="Select a Staff"
-                      allowFiltering={true}
-                      value={serviceItem.staff}
-                    />
-                  </td>
-                  <td>
-                    <TimePickerComponent
-                      id={`startTime-${serviceIndex}`}
-                      placeholder="Select a Start Time"
-                      value={serviceItem.startTime || serviceStartTime}
-                      step={15}
-                      min={minTime}
-                      max={maxTime}
-                      format="hh:mm a" // Set the time format to 'hh:mm AM/PM'
-                      change={(e) => !autoPopulated && handleStartTimeChange(e, serviceIndex)}
-                    />
-                  </td>
-
-                  {/* <td>
-                <DropDownListComponent
-                  id={`serviceResource-${serviceIndex}`}
-                  allowFiltering={true}
-                  value={serviceItem.staff}
-                />
-              </td> */}
-                  <td>
-                    <DropDownListComponent
-                      id={`serviceDuration-${serviceIndex}`}
-                      dataSource={generateDurationOptions()}
-                      placeholder="Select Duration"
-                      value={formatDuration(serviceItem.duration) || 0}
-                      change={(e) => !autoPopulated && handleServiceDurationChange(e, serviceIndex)}
-                    />
-                  </td>
-                  <td>
-                    <TextBoxComponent
-                      id={`price-${serviceIndex}`}
-                      placeholder="Price"
-                      value={serviceItem.price}
-                      type="number"
-                      change={(e) => !autoPopulated && handleServicePriceChange(e.value, serviceIndex)}
-                    />
-                  </td>
-                  <td className="justify-content-center align-items-center">
-                    <button
-                      className="btn btn-sm text-danger remove-list"
-                      onClick={() => handleDeleteService(serviceIndex)}
-                    >
-                      <i className="ri-delete-bin-line"></i>
-                    </button>
-                  </td>
+                  {fields.map((field) => (
+                    <td key={field.id}>
+                      <FieldComponent formStructure="table" field={field} validation={validation} />
+                    </td>
+                  ))}
                 </tr>
               ))}
             </tbody>
@@ -282,7 +320,7 @@ const EditorServiceComponent = ({ data, services, staff, serviceDetails, setServ
 
           <Row>
             <Col lg={6}>
-              <ButtonComponent onClick={handleAddService}>Add More Service</ButtonComponent>
+              <button onClick={handleAddService}>Add More Service</button>
             </Col>
             <Col lg={6}></Col>
           </Row>

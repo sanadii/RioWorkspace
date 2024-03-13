@@ -75,7 +75,6 @@ const FieldComponent: React.FC<FieldComponentProps> = ({ field, validation, form
     isSearchable,
     isClearable,
     onChange,
-    onSelect,
     onInputChange,
     options,
     icon,
@@ -86,6 +85,7 @@ const FieldComponent: React.FC<FieldComponentProps> = ({ field, validation, form
   const [imageSrc, setImageSrc] = useState(defaultAvatar);
 
   const onChangeHandler = (onChange && onChange) || validation.handleChange;
+  const invalidHandler = !!(validation.touched[name] && validation.errors[name]);
 
   useEffect(() => {
     if (imageValue) {
@@ -114,10 +114,23 @@ const FieldComponent: React.FC<FieldComponentProps> = ({ field, validation, form
     }
   };
 
-  const DateTimeFormat = (e: Date[]) => {
-    const updatedStartDate = e[0];
-    console.log("e:  ", e);
-    validation.setFieldValue(name, updatedStartDate);
+  const DateFormat = (isoString) => {
+    const date = new Date(isoString);
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1).toString().padStart(2, "0"); // Months are 0-based
+    const day = date.getDate().toString().padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  };
+
+  const DateTimeFormat = (e, type) => {
+    const updatedDate = e[0];
+    if (type === "date") {
+      // Format as date only
+      validation.setFieldValue(name, DateFormat(updatedDate.toISOString()));
+    } else {
+      // Format as datetime
+      validation.setFieldValue(name, updatedDate.toISOString());
+    }
   };
 
   const renderInputFields = () => {
@@ -143,7 +156,7 @@ const FieldComponent: React.FC<FieldComponentProps> = ({ field, validation, form
               onChange={onChangeHandler}
               onBlur={validation.handleBlur}
               value={validation.values[name] || ""}
-              invalid={!!(validation.touched[name] && validation.errors[name])}
+              invalid={invalidHandler}
             />
           </div>
         );
@@ -157,23 +170,7 @@ const FieldComponent: React.FC<FieldComponentProps> = ({ field, validation, form
                 </span>
               </div>
             )}
-            <Input
-              type={"text"}
-              name={name}
-              id={id}
-              placeholder={`Enter ${label}`}
-              onChange={onChangeHandler}
-              onSelect={onSelect}
-              onBlur={validation.handleBlur}
-              value={validation.values[name] || ""}
-              invalid={!!(validation.touched[name] && validation.errors[name])}
-            />
-            <SearchDropDown
-              id={id}
-              inputSearchValue={validation.values[name] || ""}
-              options={options}
-              onSelect={onSelect}
-            />
+            <SearchDropDown validation={validation} field={field} onChangeHandler={onChangeHandler} />
           </div>
         );
       case "textarea":
@@ -186,7 +183,7 @@ const FieldComponent: React.FC<FieldComponentProps> = ({ field, validation, form
             onChange={onChangeHandler}
             onBlur={validation.handleBlur}
             value={validation.values[name] || ""}
-            invalid={!!(validation.touched[name] && validation.errors[name])}
+            invalid={invalidHandler}
           />
         );
       case "select":
@@ -195,9 +192,9 @@ const FieldComponent: React.FC<FieldComponentProps> = ({ field, validation, form
             id={id}
             name={name}
             type="select"
-            className={className ? className : "form-select"}
-            isSearchable={isSearchable || false}
-            isClearable={isClearable || false}
+            className="form-select"
+            // isSearchable={isSearchable || false}
+            // isClearable={isClearable || false}
             // isDisabled={true}
             options={options}
             onChange={onChangeHandler}
@@ -248,18 +245,19 @@ const FieldComponent: React.FC<FieldComponentProps> = ({ field, validation, form
           />
         );
       case "date":
+      case "dateTime":
         return (
           <Flatpickr
             name={name}
             id={id}
             className="form-control"
-            placeholder={`Choose  ${label}`}
+            placeholder={`Choose ${label}`}
             options={{
-              enableTime: true,
-              dateFormat: "Y-m-d",
+              enableTime: type === "dateTime",
+              dateFormat: type === "dateTime" ? "Y-m-d H:i" : "Y-m-d",
             }}
-            onChange={(e) => DateTimeFormat(e)}
-            value={validation.values.start || ""}
+            onChange={(e) => DateTimeFormat(e, type)}
+            value={validation.values[name] || ""}
           />
         );
       case "image":
