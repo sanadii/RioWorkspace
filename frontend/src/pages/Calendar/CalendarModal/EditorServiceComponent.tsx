@@ -13,7 +13,7 @@ type ServiceItem = {
   start: Date;
   end: Date;
   duration: string;
-  price: string;
+  price: number;
 };
 
 const EditorServiceComponent = ({ serviceRef, appointment, services, staff }) => {
@@ -84,7 +84,7 @@ const EditorServiceComponent = ({ serviceRef, appointment, services, staff }) =>
         start: new Date(service.start), // Convert to Date object if necessary
         end: new Date(service.end), // Convert to Date object if necessary
         duration: service.duration,
-        price: service.price.toString(), // Convert to string if necessary
+        price: service.price, // Convert to string if necessary
       }));
       setServiceDetails(initialServices);
     }
@@ -96,27 +96,6 @@ const EditorServiceComponent = ({ serviceRef, appointment, services, staff }) =>
     const mins = minutes % 60;
     return `${hours.toString().padStart(2, "0")}:${mins.toString().padStart(2, "0")}`;
   };
-
-  // Client Constants
-  const handleServiceChange = (event) => {
-    const selectedService = event;
-    if (selectedService) {
-      setServiceDetails((prevState) => ({
-        ...prevState,
-        id: Number.isInteger(selectedService.id) ? selectedService.id : null,
-        name: selectedService.name || "",
-        mobile: selectedService.mobile || "",
-        email: selectedService.email || "",
-        dateOfBirth: selectedService.dateOfBirth || null,
-      }));
-    }
-    serviceRef.current = selectedService;
-    console.log("clientRef.current: ", serviceRef.current);
-  };
-
-  // const handleServiceChange = (e, serviceIndex) => {
-  //   setAutoPopulated(true); // Set autoPopulated to true after the initial service selection
-  // };
 
   const generateDurationOptions = () => {
     const options = [];
@@ -135,7 +114,7 @@ const EditorServiceComponent = ({ serviceRef, appointment, services, staff }) =>
   const calculateTotalPrice = () => {
     let totalPrice = 0;
     serviceDetails.forEach((serviceItem) => {
-      totalPrice += parseFloat(serviceItem.price) || 0; // Ensure price is always a number
+      // totalPrice += parseFloat(serviceItem.price) || 0; // Ensure price is always a number
     });
     return totalPrice.toFixed(2); // Round to 2 decimal places
   };
@@ -164,10 +143,10 @@ const EditorServiceComponent = ({ serviceRef, appointment, services, staff }) =>
       id: null,
       service: null,
       staff: null,
-      start: new Date(), // Initialize with a default date, or as required
-      end: new Date(), // Initialize with a default date, or as required
+      start: new Date(),
+      end: new Date(),
       duration: "",
-      price: "",
+      price: null,
     };
 
     setServiceDetails((prevServiceDetails) => [...prevServiceDetails, newService]);
@@ -192,6 +171,7 @@ const EditorServiceComponent = ({ serviceRef, appointment, services, staff }) =>
     price: serviceItem.price || 0,
   }));
 
+  console.log("servicesInitialValues:: ", servicesInitialValues);
   const validation = useFormik({
     enableReinitialize: true,
     initialValues: { services: servicesInitialValues },
@@ -203,19 +183,59 @@ const EditorServiceComponent = ({ serviceRef, appointment, services, staff }) =>
     },
   });
 
+  const handleServiceChange = (e, serviceIndex) => {
+    setAutoPopulated(true); // Set autoPopulated to true after the initial service selection
+    handleAutoPopulation(e, serviceIndex);
+  };
+
+  const handleAutoPopulation = (e, serviceIndex) => {
+    const selectedService = e.value;
+    // console.log("selectedService: ", selectedService)
+    setServiceDetails((prevServiceList) => {
+      const updatedServiceList = [...prevServiceList];
+      const updatedServiceItem = {
+        ...updatedServiceList[serviceIndex],
+        service: selectedService ? selectedService.id : null,
+        duration: selectedService ? selectedService.duration : 0,
+        price: selectedService ? selectedService.price : 0,
+        start: start,
+      };
+      updatedServiceList[serviceIndex] = updatedServiceItem;
+      // console.log("updatedServiceList: ", updatedServiceList)
+
+      return updatedServiceList;
+    });
+    setAutoPopulated(false); // Reset autoPopulated to false after the auto-population
+  };
+
+  const handleFieldChange = (event, serviceIndex, fieldName) => {
+    const updatedServiceDetails = [...serviceDetails];
+    updatedServiceDetails[serviceIndex] = {
+      ...updatedServiceDetails[serviceIndex],
+      [fieldName]: event.target.value,
+    };
+    setServiceDetails(updatedServiceDetails);
+  };
+
   const fields = (serviceIndex) => [
     {
       id: `service-field-${serviceIndex}`,
       name: "Service",
       label: "Service",
       type: "reactSelect",
+      value: serviceDetails[serviceIndex].service,
       options: serviceList,
-      onChange: (service) => {
-        console.log("e is: ", service);
-        // console.log("service is: ", service);
+      width: "30%", // Set width for the first column
+      // onChange: (event) => handleServiceChange(event, serviceIndex),
+      onChange: (event) => {
+        const updatedServiceDetails = [...serviceDetails];
+        updatedServiceDetails[serviceIndex] = {
+          ...updatedServiceDetails[serviceIndex],
+          service: event.value,
+        };
 
-        handleServiceChange(service);
-        // validation.handleChange(e.label);
+        console.log("serviceDetails[serviceIndex].service", serviceDetails[serviceIndex].service);
+        setServiceDetails(updatedServiceDetails);
       },
     },
     {
@@ -223,25 +243,32 @@ const EditorServiceComponent = ({ serviceRef, appointment, services, staff }) =>
       name: "serviceStaff",
       label: "Staff",
       type: "select",
+      width: "25%", // Set width for the first column
+      value: serviceDetails[serviceIndex].staff,
+      onChange: (event) => handleFieldChange(event, serviceIndex, "staff"),
       options: staff.map((items) => ({
         id: items.id,
         label: items.name,
         value: items.id,
       })),
-      // onChange: (e) => handleStaffChange(e, serviceIndex),
     },
     {
       id: `service-start-field-${serviceIndex}`,
       name: "ServiceStart",
-      label: "Start at",
-      type: "date",
-      // onChange: (e) => handleStartTimeChange(e, serviceIndex),
+      label: "StartTime",
+      type: "time",
+      width: "15%", // Set width for the first column
+      value: serviceDetails[serviceIndex].start,
+      onChange: (event) => handleFieldChange(event, serviceIndex, "start"),
     },
     {
       id: `service-duration-field-${serviceIndex}`,
       name: "serviceDuration",
       label: "Duration",
       type: "select",
+      width: "15%", // Set width for the first column
+      value: serviceDetails[serviceIndex].duration,
+      onChange: (event) => handleFieldChange(event, serviceIndex, "duration"),
       options: durationOptions.map((items) => ({
         id: items.id,
         label: items.name,
@@ -253,7 +280,9 @@ const EditorServiceComponent = ({ serviceRef, appointment, services, staff }) =>
       name: "servicePrice",
       label: "Price",
       type: "text",
-      // onChange: (e) => handleServicePriceChange(e, serviceIndex),
+      width: "15%", // Set width for the first column
+      value: serviceDetails[serviceIndex].price,
+      onChange: (event) => handleFieldChange(event, serviceIndex, "price"),
     },
   ];
 
@@ -274,7 +303,7 @@ const EditorServiceComponent = ({ serviceRef, appointment, services, staff }) =>
               {serviceDetails.map((serviceItem, serviceIndex) => (
                 <tr key={serviceIndex} className="services">
                   {fields(serviceIndex).map((field) => (
-                    <td key={field.id}>
+                    <td key={field.id} style={{ width: field.width }}>
                       <FieldComponent formStructure="table" field={field} validation={validation} />
                     </td>
                   ))}
@@ -286,10 +315,15 @@ const EditorServiceComponent = ({ serviceRef, appointment, services, staff }) =>
               <td></td>
               <td></td>
               <td>
-                <b>Duration: {calcualteTotalTime()} Hrs</b>
+                <b>
+                  Duration: <br /> {calcualteTotalTime()} Hrs
+                </b>
               </td>
               <td>
-                <b>Total: {calculateTotalPrice()} KD</b>
+                <b>
+                  Total:
+                  <br /> {calculateTotalPrice()} KD
+                </b>
               </td>
               <td></td>
             </tr>

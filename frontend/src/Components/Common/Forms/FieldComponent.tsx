@@ -54,7 +54,7 @@ interface Validation {
 
 interface FieldComponentProps {
   field: any;
-  validation: Validation;
+  validation?: Validation;
   selectedOption?: any;
   inLineStyle?: boolean;
   formStructure?: string;
@@ -70,21 +70,24 @@ const FieldComponent: React.FC<FieldComponentProps> = ({ field, validation, form
     name,
     type,
     colSize,
+    value,
     className,
     placeholder,
     isSearchable,
     isClearable,
     onChange,
+    onBlur,
     onInputChange,
     options,
     icon,
     iconBg,
   } = field;
-  const imageValue = validation.values.image;
+  const imageValue = validation?.values.image;
 
   const [imageSrc, setImageSrc] = useState(defaultAvatar);
 
   const onChangeHandler = (onChange && onChange) || validation.handleChange;
+  const onBlurHandler = (onBlur && onBlur) || validation.handleBlur;
   const invalidHandler = !!(validation.touched[name] && validation.errors[name]);
 
   useEffect(() => {
@@ -154,8 +157,8 @@ const FieldComponent: React.FC<FieldComponentProps> = ({ field, validation, form
               id={id}
               placeholder={`Enter ${label}`}
               onChange={onChangeHandler}
-              onBlur={validation.handleBlur}
-              value={validation.values[name] || ""}
+              onBlur={onBlurHandler}
+              value={value || validation.values[name] || ""}
               invalid={invalidHandler}
             />
           </div>
@@ -181,7 +184,7 @@ const FieldComponent: React.FC<FieldComponentProps> = ({ field, validation, form
             id={id}
             placeholder={`Enter ${label}`}
             onChange={onChangeHandler}
-            onBlur={validation.handleBlur}
+            onBlur={onBlurHandler}
             value={validation.values[name] || ""}
             invalid={invalidHandler}
           />
@@ -193,9 +196,9 @@ const FieldComponent: React.FC<FieldComponentProps> = ({ field, validation, form
             className="form-control"
             name={name}
             id={id}
-            onChange={validation.handleChange}
-            onBlur={validation.handleBlur}
-            value={validation.values[name] || ""}
+            onChange={onChangeHandler}
+            onBlur={onBlurHandler}
+            value={value || validation.values[name] || ""}
             invalid={validation.touched[name] && validation.errors[name]}
           >
             {/* <option value="">-- اختر --</option> */}
@@ -216,9 +219,9 @@ const FieldComponent: React.FC<FieldComponentProps> = ({ field, validation, form
             isClearable={true}
             options={options}
             onChange={onChangeHandler}
-            onBlur={validation.handleBlur}
-            value={options.find((option) => option.value === validation.values[name]) || ""}
-            // Ensure you handle 'invalid' prop correctly
+            onBlur={onBlurHandler}
+            // value={value || options.find((option) => option.value === validation.values[name]) || ""}
+            value={options.find((option) => option.value === value || null)}
           />
         );
       case "creatableSelect":
@@ -231,24 +234,26 @@ const FieldComponent: React.FC<FieldComponentProps> = ({ field, validation, form
             // no auto complete
             placeholder={placeholder}
             options={options}
-            onChange={onChangeHandler}
             onInputChange={onInputChange}
-            onBlur={validation.handleBlur}
+            onChange={onChangeHandler}
+            onBlur={onBlurHandler}
             // value={validation.values[name] || ""}
             // Ensure you handle 'invalid' prop correctly
           />
         );
       case "date":
+      case "time":
       case "dateTime":
         return (
           <Flatpickr
             name={name}
             id={id}
             className="form-control"
-            placeholder={`Choose ${label}`}
+            placeholder={`${label}`}
             options={{
-              enableTime: type === "dateTime",
-              dateFormat: type === "dateTime" ? "Y-m-d H:i" : "Y-m-d",
+              enableTime: type === "dateTime" || type === "time",
+              noCalendar: type === "time",
+              dateFormat: type === "dateTime" ? "Y-m-d H:i" : type === "time" ? "H:i" : "Y-m-d",
             }}
             onChange={(e) => DateTimeFormat(e, type)}
             value={validation.values[name] || ""}
@@ -270,7 +275,7 @@ const FieldComponent: React.FC<FieldComponentProps> = ({ field, validation, form
                 className="profile-img-file-input"
                 accept="image/png, image/gif, image/jpeg"
                 onChange={handleImageSelect}
-                onBlur={validation.handleBlur}
+                onBlur={onBlurHandler}
                 invalid={validation.touched[name] && validation.errors[name] ? true : undefined}
               />
               <Label htmlFor={id} className="profile-photo-edit avatar-xs">
@@ -292,7 +297,7 @@ const FieldComponent: React.FC<FieldComponentProps> = ({ field, validation, form
             id={id}
             placeholder={`Enter ${label}`}
             onChange={onChangeHandler}
-            onBlur={validation.handleBlur}
+            onBlur={onBlurHandler}
             value={validation.values[name] || ""}
             invalid={validation.touched[name] && validation.errors[name] ? true : undefined}
           />
