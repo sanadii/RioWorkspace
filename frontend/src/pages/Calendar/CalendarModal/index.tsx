@@ -47,7 +47,7 @@ type AppointmentItem = {
 const CalendarModal = ({ modal, isEdit, toggle, appointment, services, staff, clients, appointmentRef }) => {
   const dispatch: any = useDispatch();
   const [selectedNewDate, setSelectedNewDate] = useState<any>();
-  console.log("appointment: ", appointment);
+  // console.log("appointment: ", appointment);
   // Refs
   const clientRef = useRef([]);
   const serviceRef = useRef([]);
@@ -75,7 +75,7 @@ const CalendarModal = ({ modal, isEdit, toggle, appointment, services, staff, cl
     datetag: (appointment && appointment.datetag) || "",
   };
 
-  console.log("initialValues: ", initialValues);
+  // console.log("initialValues: ", initialValues);
   const validation: any = useFormik({
     // enableReinitialize : use this flag when initial values needs to be changed
     enableReinitialize: true,

@@ -80,7 +80,7 @@ const EditorClientComponent = ({ clientRef, appointment, clients, isEdit }) => {
       setIsDisplayClientDetails(true);
     }
     clientRef.current = selectedClient;
-    console.log("clientRef.current: ", clientRef.current);
+    // console.log("clientRef.current: ", clientRef.current);
   };
 
   const validation: any = useFormik({

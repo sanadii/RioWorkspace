@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Table, Row, Col, Button } from "reactstrap";
+import { Table, Row, Col } from "reactstrap";
 
 // Form and Validation
 import * as Yup from "yup";
@@ -50,6 +50,8 @@ const EditorServiceComponent = ({ serviceRef, appointment, services, staff }) =>
     setServiceList(groupedServices);
   }, [services]);
 
+  console.log("serviceList: ", serviceList);
+
   const [serviceDetails, setServiceDetails] = useState<ServiceItem[]>([
     {
       id: (appointment && appointment.service && appointment.service.id) || null,
@@ -61,9 +63,10 @@ const EditorServiceComponent = ({ serviceRef, appointment, services, staff }) =>
       price: (appointment && appointment.service && appointment.service.price) || 0,
     },
   ]);
-  console.log("serviceDetails: ", serviceDetails);
 
-  const start = (appointment && appointment.start) || null;
+  const start = appointment.start;
+
+  // console.log("start: ", start)
 
   const [serviceStartTime, setServiceStartTime] = useState(start);
   const [autoPopulated, setAutoPopulated] = useState<boolean>(false);
@@ -76,10 +79,10 @@ const EditorServiceComponent = ({ serviceRef, appointment, services, staff }) =>
   maxTime.setHours(20, 0, 0);
 
   useEffect(() => {
-    if (serviceDetails) {
-      const initialServices = serviceDetails.map((service) => ({
+    if (appointment && appointment.services) {
+      const initialServices = appointment.services.map((service) => ({
         id: service.id, // Assuming serviceId is the ID of the service
-        service: service.service, // Assuming serviceId is the ID of the service
+        service: service.serviceId, // Assuming serviceId is the ID of the service
         staff: service.staff, // Assuming staff is the ID of the staff
         start: new Date(service.start), // Convert to Date object if necessary
         end: new Date(service.end), // Convert to Date object if necessary
@@ -160,17 +163,21 @@ const EditorServiceComponent = ({ serviceRef, appointment, services, staff }) =>
 
   // Add and Remove Services
   const handleAddService = () => {
-    const newService = {
-      id: null,
-      service: null,
-      staff: null,
-      start: new Date(), // Initialize with a default date, or as required
-      end: new Date(), // Initialize with a default date, or as required
-      duration: "",
-      price: "",
-    };
-
-    setServiceDetails((prevServiceDetails) => [...prevServiceDetails, newService]);
+    const previousEndTime = serviceDetails.length > 0 ? serviceDetails[serviceDetails.length - 1].end : start;
+    const newServiceList = [
+      ...serviceDetails,
+      {
+        id: null, // You can set this to null or omit it entirely
+        service: null,
+        staff: null,
+        start: previousEndTime,
+        end: start,
+        duration: "",
+        price: "",
+      },
+    ];
+    setServiceDetails(newServiceList);
+    setServiceStartTime(previousEndTime);
   };
 
   const handleDeleteService = (index) => {
@@ -181,31 +188,31 @@ const EditorServiceComponent = ({ serviceRef, appointment, services, staff }) =>
     setServiceDetails(updatedServiceList);
   };
 
-  // Assuming servicesDetails is an array of service items
-  const servicesInitialValues = serviceDetails.map((serviceItem, index) => ({
-    index, // Include the index
-    id: serviceItem.id || null,
-    service: serviceItem.service || null,
-    staff: serviceItem.staff || null,
-    start: serviceItem.start || null, // Assuming clientDetails.start is not an array
-    duration: serviceItem.duration || 0,
-    price: serviceItem.price || 0,
-  }));
+  const flattenServices = (servicesArray) => {
+    const flattened = {};
+    servicesArray.forEach((service, index) => {
+      Object.keys(service).forEach((key) => {
+        flattened[`${key}_${index}`] = service[key];
+      });
+    });
+    return flattened;
+  };
 
-  const validation = useFormik({
+  const validation: any = useFormik({
+    // enableReinitialize : use this flag when initial values needs to be changed
     enableReinitialize: true,
-    initialValues: { services: servicesInitialValues },
+    initialValues: appointment && appointment.services ? flattenServices(appointment.services) : {},
     validationSchema: Yup.object({
-      // Define your validation schema here
+      // start: Yup.date().required("Start Time is required"),
     }),
     onSubmit: () => {
-      // Handle form submission
+      // No submission
     },
   });
 
-  const fields = (serviceIndex) => [
+  const fields = [
     {
-      id: `service-field-${serviceIndex}`,
+      id: "service-field",
       name: "Service",
       label: "Service",
       type: "reactSelect",
@@ -219,7 +226,7 @@ const EditorServiceComponent = ({ serviceRef, appointment, services, staff }) =>
       },
     },
     {
-      id: `service-staff-field-${serviceIndex}`,
+      id: "service-staff-field",
       name: "serviceStaff",
       label: "Staff",
       type: "select",
@@ -231,14 +238,14 @@ const EditorServiceComponent = ({ serviceRef, appointment, services, staff }) =>
       // onChange: (e) => handleStaffChange(e, serviceIndex),
     },
     {
-      id: `service-start-field-${serviceIndex}`,
+      id: "service-start-field",
       name: "ServiceStart",
       label: "Start at",
       type: "date",
       // onChange: (e) => handleStartTimeChange(e, serviceIndex),
     },
     {
-      id: `service-duration-field-${serviceIndex}`,
+      id: "service-duration-field",
       name: "serviceDuration",
       label: "Duration",
       type: "select",
@@ -249,7 +256,7 @@ const EditorServiceComponent = ({ serviceRef, appointment, services, staff }) =>
       })),
     },
     {
-      id: `service-price-field-${serviceIndex}`,
+      id: "service-price-field",
       name: "servicePrice",
       label: "Price",
       type: "text",
@@ -273,7 +280,7 @@ const EditorServiceComponent = ({ serviceRef, appointment, services, staff }) =>
             <tbody>
               {serviceDetails.map((serviceItem, serviceIndex) => (
                 <tr key={serviceIndex} className="services">
-                  {fields(serviceIndex).map((field) => (
+                  {fields.map((field) => (
                     <td key={field.id}>
                       <FieldComponent formStructure="table" field={field} validation={validation} />
                     </td>
@@ -297,7 +304,7 @@ const EditorServiceComponent = ({ serviceRef, appointment, services, staff }) =>
 
           <Row>
             <Col lg={6}>
-              <Button onClick={handleAddService}>Add More Service</Button>
+              <button onClick={handleAddService}>Add More Service</button>
             </Col>
             <Col lg={6}></Col>
           </Row>

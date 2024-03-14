@@ -188,36 +188,30 @@ const FieldComponent: React.FC<FieldComponentProps> = ({ field, validation, form
         );
       case "select":
         return (
-          <Select
-            id={id}
-            name={name}
+          <Input
             type="select"
-            className="form-select"
-            // isSearchable={isSearchable || false}
-            // isClearable={isClearable || false}
-            // isDisabled={true}
-            options={options}
-            onChange={onChangeHandler}
+            className="form-control"
+            name={name}
+            id={id}
+            onChange={validation.handleChange}
             onBlur={validation.handleBlur}
-            value={validation.values[id] || ""}
-            invalid={!!(validation.touched[id] && validation.errors[id])}
+            value={validation.values[name] || ""}
+            invalid={validation.touched[name] && validation.errors[name]}
           >
-            {/* <option value="">-- Choose --</option> */}
+            {/* <option value="">-- اختر --</option> */}
             {field.options &&
               field.options.map((option) => (
-                <option key={option.value} value={option.value}>
+                <option key={option.id} value={option.value}>
                   {option.label}
                 </option>
               ))}
-          </Select>
+          </Input>
         );
-      case "select2":
+      case "reactSelect":
         return (
           <Select
             id={id}
             name={name}
-            classNamePrefix="select"
-            className={className || "form-select"}
             isSearchable={true}
             isClearable={true}
             options={options}
