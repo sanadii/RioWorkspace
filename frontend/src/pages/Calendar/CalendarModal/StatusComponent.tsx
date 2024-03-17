@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Button } from "reactstrap";
 import { AppointmentStatusOptions } from "Components/constants";
 
-const EditorStatusComponent = ({ appointment, statusRef, validation }) => {
+const StatusComponent = ({ appointment, statusRef, validation }) => {
   const [appointmentStatus, setAppointmentStatus] = useState((appointment && appointment.status) || 1);
 
   useEffect(() => {
@@ -55,4 +55,4 @@ const EditorStatusComponent = ({ appointment, statusRef, validation }) => {
   );
 };
 
-export { EditorStatusComponent };
+export { StatusComponent };

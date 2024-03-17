@@ -16,7 +16,7 @@ type ServiceItem = {
   price: number;
 };
 
-const EditorServiceComponent = ({ serviceRef, appointment, services, staff }) => {
+const ServiceComponent = ({ serviceRef, appointment, services, staff }) => {
   // Initialize with an empty service if no services are available in the appointment
 
   const [serviceDetails, setServiceDetails] = useState<ServiceItem[]>([]);
@@ -215,7 +215,13 @@ const EditorServiceComponent = ({ serviceRef, appointment, services, staff }) =>
             </tbody>
             <tr className="mt-3">
               <td>
-                <Button onClick={handleAddService}>Add More Service</Button>
+                <button
+                  type="button"
+                  className="btn btn-block btn-secondary"
+                  onClick={handleAddService}
+                >
+                  Add another service
+                </button>
               </td>
               <td></td>
               <td></td>
@@ -234,4 +240,4 @@ const EditorServiceComponent = ({ serviceRef, appointment, services, staff }) =>
   );
 };
 
-export { EditorServiceComponent };
+export { ServiceComponent };

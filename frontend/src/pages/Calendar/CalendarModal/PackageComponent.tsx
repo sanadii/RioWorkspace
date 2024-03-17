@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Button, ButtonGroup, Col, Row } from "reactstrap";
 
-const EditorProductComponent = ({ productRef }) => {
+const PackageComponent = ({ packageRef }) => {
   return <Row className="mt-3"></Row>;
 };
 
-export { EditorProductComponent };
+export { PackageComponent };

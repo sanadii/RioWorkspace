@@ -8,41 +8,15 @@ import { useFormik } from "formik";
 import { Form, Modal, ModalBody, ModalHeader, ModalFooter } from "reactstrap";
 import { updateAppointment, addAppointment } from "store/actions";
 
-import { EditorNavigation } from "./EditorNavigation";
-import { EditorDateComponent } from "./EditorDateComponent";
-import { EditorClientComponent } from "./EditorClientComponent";
-import { EditorServiceComponent } from "./EditorServiceComponent";
-import { EditorProductComponent } from "./EditorProductComponent";
-import { EditorPackageComponent } from "./EditorPackageComponent";
-import { EditorStatusComponent } from "./EditorStatusComponent";
+import { NavigationComponent } from "./Navigation";
+import { DateComponent } from "./DateComponent";
+import { ClientComponent } from "./ClientComponent";
+import { ServiceComponent } from "./ServiceComponent";
+import { ProductComponent } from "./ProductComponent";
+import { PackageComponent } from "./PackageComponent";
+import { StatusComponent } from "./StatusComponent";
 
-type ClientItem = {
-  id: number;
-  name: string;
-  mobile: string;
-  email: string;
-  dateOfBirth: string;
-};
-
-// Define the type for a service item
-type ServiceItem = {
-  id: number;
-  service: number;
-  staff: number;
-  start: Date; // Change the type to Date
-  end: Date; // Change the type to Date
-  duration: string;
-  price: string;
-};
-
-type AppointmentItem = {
-  id: number;
-  start: Date;
-  end: Date;
-  status: number;
-  client: ClientItem[];
-  services: ServiceItem[];
-};
+import { AppointmentItem, ServiceItem, ClientItem } from "types";
 
 // const CalendarModal = ({ event, scheduleObj, services, staff, clients, appointmentRef }) => {
 const CalendarModal = ({ modal, isEdit, toggle, appointment, services, staff, clients, appointmentRef }) => {
@@ -184,30 +158,30 @@ const CalendarModal = ({ modal, isEdit, toggle, appointment, services, staff, cl
             {!!isEdit ? appointment.title : "Add Event"}
           </ModalHeader>
           <ModalBody>
-            <EditorNavigation />
+            <NavigationComponent />
 
             <div className="tab-content tight-grid">
-              <EditorDateComponent
+              <DateComponent
                 appointment={appointment}
                 setSelectedNewDate={setSelectedNewDate}
                 validation={validation}
               />
 
-              <EditorClientComponent
+              <ClientComponent
                 clientRef={clientRef}
                 appointment={appointment}
                 clients={clients}
                 isEdit={isEdit}
               />
 
-              <EditorServiceComponent
+              <ServiceComponent
                 serviceRef={serviceRef}
                 appointment={appointment}
                 services={services}
                 staff={staff}
               />
 
-              <EditorStatusComponent statusRef={statusRef} appointment={appointment} validation={validation} />
+              <StatusComponent statusRef={statusRef} appointment={appointment} validation={validation} />
             </div>
           </ModalBody>
           <ModalFooter>

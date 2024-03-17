@@ -2,19 +2,6 @@
 import { SvgIcon } from "Components/Common"; // Adjust the import path as needed
 import { AppointmentStatusOptions } from "Components/constants";
 
-// fc-event-past
-// fc-timegrid-event
-// fc-v-event                                   // fc-event-vert
-
-// //
-// fc-event-skin
-// fc-booking
-// fc-completed
-// fc-paid
-
-// fc-booking-id-387849989
-// fc-group-308827975
-
 const EventDisplay = {
   // Callback function invoked when event source fails to load
   eventSourceFailure: (error) => console.error("Event source failed:", error),
@@ -45,58 +32,88 @@ const EventDisplay = {
 
 const EventRenderHooks = {
   // Class names for events
-  eventClassNames: function (arg) {
-    // console.log("--- arg ---: ", arg.event.extendedProps.status);
-    // const statusOption = AppointmentStatusOptions.find((option) => option.id === arg.event.extendedProps.status);
-    return [arg.className];
+  // eventClassNames: function (arg) {
+  //   // console.log("--- arg ---: ", arg.event.extendedProps.status);
+  //   // const statusOption = AppointmentStatusOptions.find((option) => option.id === arg.event.extendedProps.status);
+  //   return [arg.classNames];
 
-    // if (arg.event.extendedProps.isUrgent) {
-    //   return [statusOption.className];
-    // } else {
-    //   return ["normal"];
-    // }
-  },
+  //   // if (arg.event.extendedProps.isUrgent) {
+  //   //   return [statusOption.className];
+  //   // } else {
+  //   //   return ["normal"];
+  //   // }
+  // },
 
   // eventClassNames: (arg) => {
-  //   console.log("--- arg ---: ", arg);
-  //   // const statusOption = AppointmentStatusOptions.find((option) => option.id === status);
-  //   return <></>;
-  // }
-
-  // eventRender: function (info) {
-  //   console.log("_______ info _______\n");
-  //   console.log(info.event.extendedProps.My_Custom_Value);
+  //   console.log("check arg(eventClassNames): arg: ", arg);
   // },
+
+  // eventRender: (arg) => {
+  //   console.log("check arg: arg(eventClassNames): ", arg);
+  // },
+
+  // Callback function when an event is mounted
+  eventDidMount: (arg) => {
+    console.log("check arg: (eventDidMount): ", arg.el.classList);
+  },
 
   // Custom content for events
   eventContent: (arg) => {
-    // Customize the content of the event element
     const event = arg.event;
-    const className = arg.event.className;
-    console.log("className: ", arg.event)
+    const classNames = event.classNames;
+    console.log("classNames: ", classNames);
+
     function formatTime(date) {
       return date.toLocaleTimeString([], { hour: "numeric", minute: "2-digit", hour12: true });
     }
 
+    const hasNote = classNames.includes("fc-note");
+    const isCompleted = classNames.includes("fc-completed");
+    const isPaid = classNames.includes("fc-paid");
+    const didNotShow = classNames.includes("fc-dns");
+    const isPackageApplied = classNames.includes("fc-package-applied");
+    const isNewClient = classNames.includes("fc-new-client");
+    
     return (
       <>
         <div className="fc-event-head"> </div>
         <div className="fc-event-content">
           <div className="fc-event-title">
             <div className="fc-event-icons">
-              <i className="fc-comment-icon tip-init" data-original-title="Comment or note" data-placement="left">
-                <SvgIcon icon="note" />
-              </i>
-              <i
-                className="fc-completed-icon tip-init"
-                data-original-title="Appointment completed"
-                data-placement="left"
-              >
-                <SvgIcon icon="completed" />
-              </i>
-              <i className="fc-paid-icon tip-init" data-original-title="Invoice paid" data-placement="left">
-                <SvgIcon icon="paid" />
-              </i>
+              {isNewClient && (
+                <i className="fc-new-icon tip-init" data-original-title="New Client" data-placement="left">
+                  <SvgIcon icon="new" />
+                </i>
+              )}
+              {hasNote && (
+                <i className="fc-comment-icon tip-init" data-original-title="Comment or note" data-placement="left">
+                  <SvgIcon icon="note" />
+                </i>
+              )}
+              {isPackageApplied && (
+                <i className="fc-package-icon tip-init" data-original-title="Has package applied" data-placement="left">
+                  <SvgIcon icon="packageApplied" />
+                </i>
+              )}
+              {isCompleted && (
+                <i
+                  className="fc-completed-icon tip-init"
+                  data-original-title="Appointment completed"
+                  data-placement="left"
+                >
+                  <SvgIcon icon="completed" />
+                </i>
+              )}
+              {isPaid && (
+                <i className="fc-paid-icon tip-init" data-original-title="Invoice paid" data-placement="left">
+                  <SvgIcon icon="paid" />
+                </i>
+              )}
+              {didNotShow && (
+                <i className="fc-dns-icon tip-init" data-original-title="Did Not Show" data-placement="left">
+                  <SvgIcon icon="didNotShow" />
+                </i>
+              )}
             </div>
 
             <b className="fc-staff-name tip-init">
@@ -119,9 +136,6 @@ const EventRenderHooks = {
       </>
     );
   },
-
-  // Callback function when an event is mounted
-  eventDidMount: (arg) => {},
 
   // Callback function before an event is unmounted
   eventWillUnmount: (arg) => {},

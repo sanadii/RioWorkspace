@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Button, ButtonGroup, Col, Row } from "reactstrap";
 import { AppointmentStatusOptions } from "Components/constants";
 
-const EditorNavigation = () => {
+const NavigationComponent = () => {
 
   return (
     <React.Fragment>
@@ -32,4 +32,4 @@ const EditorNavigation = () => {
   );
 };
 
-export { EditorNavigation };
+export { NavigationComponent };

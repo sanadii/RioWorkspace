@@ -1,6 +1,18 @@
 # Appointments
 
 STATUS_CHOICES = [
+    (1, 'pencilled-in', "fc-pending"),
+    (2, 'not-started', "fc-ns"),
+    (3, 'arrived', "fc-arrived"),
+    (4, 'started', "fc-arrived"),
+    (5, 'completed', "fc-completed"),
+    (6, 'did-not-show', "fc-dns"),
+    (7, 'cancelled', "fc-cancelled"),
+]
+STATUS_CLASS_MAP = {status[0]: status[2] for status in STATUS_CHOICES}
+
+
+STATUS_CHOICES = [
     (1, 'pencilled-in'),
     (2, 'not-started'),
     (3, 'arrived'),
@@ -9,13 +21,3 @@ STATUS_CHOICES = [
     (6, 'did-not-show'),
     (7, 'cancelled'),
 ]
-
-STATUS_CLASS_MAP = {
-    1: "fc-pending",
-    2: "fc-ns",
-    3: "fc-arrived",
-    4: "fc-arrived",
-    5: "fc-completed",
-    6: "fc-dns",
-    7: "fc-cancelled",
-}

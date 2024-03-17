@@ -23,7 +23,7 @@ type ClientItem = {
   dateOfBirth: string;
 };
 
-const EditorClientComponent = ({ clientRef, appointment, clients, isEdit }) => {
+const ClientComponent = ({ clientRef, appointment, clients, isEdit }) => {
   const dispatch = useDispatch();
 
   // Set Client Details
@@ -214,4 +214,4 @@ const EditorClientComponent = ({ clientRef, appointment, clients, isEdit }) => {
   );
 };
 
-export { EditorClientComponent };
+export { ClientComponent };

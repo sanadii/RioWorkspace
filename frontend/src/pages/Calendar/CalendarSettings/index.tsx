@@ -1,20 +1,25 @@
 // FullCalendarOptions.js
+import { useDispatch } from "react-redux";
 
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import BootstrapTheme from "@fullcalendar/bootstrap";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import listPlugin from "@fullcalendar/list";
+import { onActions } from './onActions';
 
 // Setting Imports
-import { ViewAPI, ViewRenderHooks } from "./ViewSettings";
 import {
-  LicenseOption,
+  plugins,
+  CalendarSettings,
   ToolbarSettings,
   ThemeSettings,
   BusinessHours,
   EventDurationAndHeaders,
 } from "./GeneralSettings";
+import { viewOptions } from "./ViewSettings";
+
+import { onActions } from "./onActions";
 import {
   dayEventLimits,
   dayDimensions,
@@ -25,28 +30,33 @@ import {
   DateRangeSeparatorOptions,
 } from "./DaySettings";
 
+import { useCalendarActions } from "./path/to/useCalendarActions";
+
+
 import TimeAxisSettings from "./TimeAxisSettings";
 import SlotRenderHooks from "./SlotRenderHooks";
-import {EventRenderHooks, EventDisplay} from "./EventOptions";
+import { EventRenderHooks, EventDisplay } from "./EventOptions";
 import DragingAndResizingSettings from "./DragingAndResizingSettings";
 import { InteractionSettings, EventDisplaySettings, SelectAndClickSettings } from "./OtherSettings";
 
-import { WeekNumberSettings, WeekTextSettings } from "./WeekSettings";
+import { WeekNumberSettings, WeekTextSettings } from "./AllOptions/WeekSettings";
 import { DateSettings, TimeAndLocaleSettings } from "./DateTimeSettings";
 import NowIndicatorRenderHooks from "./NowIndicatorRenderHooks";
 //
-const plugins = [BootstrapTheme, dayGridPlugin, timeGridPlugin, interactionPlugin, listPlugin];
+
+const { onDrag, onDrop } = onActions(dispatch);
 
 // Higher-order function to create full calendar options
 const createCalendarSettings = (customButtons) => ({
+
+
   plugins,
   customButtons,
 
-  ...LicenseOption,
+  ...CalendarSettings,
 
   // View Settings
-  ...ViewAPI,
-  ...ViewRenderHooks,
+  ...viewOptions,
   //
   ...ThemeSettings,
   ...TimeAxisSettings,
@@ -57,6 +67,7 @@ const createCalendarSettings = (customButtons) => ({
 
   ...SelectAndClickSettings,
   ...DragingAndResizingSettings,
+  ...onActions,
 
   ...EventDisplay,
   ...EventRenderHooks,
@@ -73,7 +84,6 @@ const createCalendarSettings = (customButtons) => ({
   // ...WeekNumberSettings,
 
   // ...WeekTextSettings,
-
 
   // ...SlotRenderHooks,
 

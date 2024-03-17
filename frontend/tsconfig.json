@@ -29,6 +29,7 @@
       "shared/hooks/*": ["shared/hooks/*"],
       "shared/constants/*": ["shared/constants/*"],
       "Components/*": ["Components/*"],
+      "types/*": ["types/*"],
       "@/*": ["./*"]
     }
   },

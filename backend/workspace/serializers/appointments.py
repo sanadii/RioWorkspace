@@ -100,19 +100,29 @@ class AppointmentSerializer(serializers.ModelSerializer):
     packages = AppointmentPackageSerializer(many=True, required=False)
     products = AppointmentProductSerializer(many=True, required=False)
     note = serializers.CharField(required=False, allow_blank=True)
-    class_names = serializers.SerializerMethodField()
+    class_name = serializers.SerializerMethodField()
 
     class Meta:
         model = Appointment
         fields = [
             'id', 'start', 'end', 'title', 'client', 'client_id',
-            'status', 'class_names',
+            'status', 'class_name',
             'services', 'packages', 'products', 'note'
             ]
 
-    def get_class_names(self, obj):
-        return f"fc-booking {STATUS_CLASS_MAP.get(obj.status, '')}"
-
+    def get_class_name(self, obj):
+        class_names = ["fc-booking"]
+        status_class = STATUS_CLASS_MAP.get(obj.status, '')
+        if status_class:
+            class_names.append(status_class)
+        return class_names
+    
+    def get_something(self, obj):
+        class_names = ["fc-booking"]
+        status_class = STATUS_CLASS_MAP.get(obj.status, '')
+        if status_class:
+            class_names.append(status_class)
+        return class_names
 
 
         # class_names

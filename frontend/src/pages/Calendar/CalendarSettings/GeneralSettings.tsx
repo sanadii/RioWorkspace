@@ -1,6 +1,12 @@
-const LicenseOption = {
-  schedulerLicenseKey: "CC-Attribution-NonCommercial-NoDerivatives",
-};
+import dayGridPlugin from "@fullcalendar/daygrid";
+import interactionPlugin from "@fullcalendar/interaction";
+import BootstrapTheme from "@fullcalendar/bootstrap";
+import timeGridPlugin from "@fullcalendar/timegrid";
+import listPlugin from "@fullcalendar/list";
+
+const plugins = [BootstrapTheme, dayGridPlugin, timeGridPlugin, interactionPlugin, listPlugin];
+
+const CalendarSettings = {};
 const ToolbarSettings = {
   headerToolbar: {
     left: "refresh print hide",
@@ -38,7 +44,7 @@ const ThemeSettings = {
   // Theme and styling
   handleWindowResize: true, // Allows the calendar to automatically resize when the window resizes
   // themeSystem: "standard",
-  viewClassNames: 'high-contrast', // Need to change this to higher than view
+  viewClassNames: "high-contrast", // Need to change this to higher than view
 
   expandRows: true, // Expands row heights to fill available height
   height: "auto", // Sets the height of the calendar, can be 'auto', a number, or a function
@@ -80,7 +86,6 @@ const BusinessHours = {
     endTime: "20:00", // an end time (6pm in this example)
   },
 
-
   /*
   The main businessHours settings can be applied more granularly to individual resources via the businessHours property
   on the Resource input like so:
@@ -106,4 +111,4 @@ const BusinessHours = {
   // ],
 };
 
-export { LicenseOption, ToolbarSettings, ThemeSettings, EventDurationAndHeaders, BusinessHours };
+export { plugins, CalendarSettings, ToolbarSettings, ThemeSettings, EventDurationAndHeaders, BusinessHours };

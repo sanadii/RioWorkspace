@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 import { FieldComponent } from "Components/Common";
 
-const EditorDateComponent = ({
+const DateComponent = ({
   appointment,
   setSelectedNewDate,
   validation,
@@ -79,4 +79,4 @@ const EditorDateComponent = ({
   );
 };
 
-export { EditorDateComponent };
+export { DateComponent };

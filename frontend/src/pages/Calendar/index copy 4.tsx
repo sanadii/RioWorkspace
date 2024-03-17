@@ -1,12 +1,6 @@
 import React, { useEffect, useState, useRef, useCallback } from "react";
 import PropTypes from "prop-types";
 
-import dayGridPlugin from "@fullcalendar/daygrid";
-import interactionPlugin from "@fullcalendar/interaction";
-import BootstrapTheme from "@fullcalendar/bootstrap";
-import timeGridPlugin from "@fullcalendar/timegrid";
-import listPlugin from "@fullcalendar/list";
-
 //redux
 import { useDispatch, useSelector } from "react-redux";
 import { getSchedule, getClients } from "store/actions";
@@ -153,7 +147,8 @@ const Calender = () => {
   const handleAppointmentClick = useCallback(
     (arg: any) => {
       const appointment = arg.event;
-
+      console.log("check arg: appointment: ", appointment);
+      console.log("check arg: arg", arg);
       const st_date = appointment.start;
       const ed_date = appointment.end;
       const r_date = ed_date == null ? str_dt(st_date) : str_dt(st_date) + " to " + str_dt(ed_date);
@@ -195,6 +190,87 @@ const Calender = () => {
     setDeleteModal(false);
   };
 
+  // fc-timegrid-slot fc-timegrid-slot-lane
+
+  /**
+   * On category darg event
+   */
+  const onDrag = (event: any) => {
+    event.preventDefault();
+  };
+
+  /**
+   * On calendar drop event
+   */
+  const onDrop = (event: any) => {
+    const date = event["date"];
+    const day = date.getDate();
+    const month = date.getMonth();
+    const year = date.getFullYear();
+
+    const currectDate = new Date();
+    const currentHour = currectDate.getHours();
+    const currentMin = currectDate.getMinutes();
+    const currentSec = currectDate.getSeconds();
+    const modifiedDate = new Date(year, month, day, currentHour, currentMin, currentSec);
+
+    const draggedEl = event.draggedEl;
+    const draggedElclass = draggedEl.className;
+    if (draggedEl.classList.contains("external-event") && draggedElclass.indexOf("fc-event-draggable") === -1) {
+      const modifiedData = {
+        id: Math.floor(Math.random() * 1000),
+        title: draggedEl.innerText,
+        start: modifiedDate,
+        className: draggedEl.className,
+      };
+      dispatch(onAddNewEvent(modifiedData));
+    }
+  };
+
+  function formatTime(timeString) {
+    if (!timeString) return "";
+    const [hours, minutes] = timeString.split(":");
+    const hoursInt = parseInt(hours, 10);
+    const ampm = hoursInt >= 12 ? "pm" : "am";
+    const formattedHours = ((hoursInt + 11) % 12) + 1; // Convert 24h to 12h format
+    return `${formattedHours}:${minutes} ${ampm}`;
+  }
+
+  const generateTimeSlots = () => {
+    // Select all the relevant <td> elements, excluding those with 'fc-timegrid-slot-minor'
+    const timeSlots = document.querySelectorAll(".fc-timegrid-slot.fc-timegrid-slot-lane:not(.fc-timegrid-slot-minor)");
+
+    // Iterate over each <td> element
+    timeSlots.forEach((slot) => {
+      // Check if the slot already contains the 'fc-slot-times' div
+      if (!slot.querySelector(".fc-slot-times")) {
+        // Extract the time from the data-time attribute
+        const time = slot.getAttribute("data-time");
+        const formattedTime = formatTime(time);
+
+        // Create the div structure to be inserted
+        const div = document.createElement("div");
+        div.className = "fc-slot-times";
+        div.style.position = "relative";
+
+        // Add multiple divs inside the main div
+        for (let i = 0; i < 7; i++) {
+          const innerDiv = document.createElement("div");
+          innerDiv.className = "fc-slot-time";
+
+          const span = document.createElement("span");
+          span.className = "fc-slot-time-inner";
+          span.textContent = formattedTime + " "; // Set the time as content
+
+          innerDiv.appendChild(span);
+          div.appendChild(innerDiv);
+        }
+
+        // Append the created div structure to the <td> element
+        slot.appendChild(div);
+      }
+    });
+  };
 
   document.title = "Calendar | Velzon - React Admin & Dashboard Template";
   return (
@@ -208,9 +284,6 @@ const Calender = () => {
       />
 
       <FullCalendar
-        schedulerLicenseKey="CC-Attribution-NonCommercial-NoDerivatives"
-        // View
-        initialView="timeGridWeek"
         timeZone="local" // the default (unnecessary to specify)
         handleWindowResize={true}
         themeSystem="bootstrap"
@@ -220,7 +293,9 @@ const Calender = () => {
         selectable={true}
         dateClick={handleDateClick}
         eventClick={handleAppointmentClick}
+        drop={onDrop}
         {...fullCalendarOptions}
+        datesSet={() => generateTimeSlots()} // Call the function here
         // slotLaneRender={slotLaneRender}
       />
 
