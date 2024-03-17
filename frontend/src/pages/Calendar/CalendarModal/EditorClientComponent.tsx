@@ -127,18 +127,21 @@ const EditorClientComponent = ({ clientRef, appointment, clients, isEdit }) => {
       name: "mobile",
       label: "Mobile",
       type: "text",
+      prefix: { type: "text", text: "P" },
     },
     {
       id: "client-email-field",
       name: "email",
       label: "Client Email",
       type: "email",
+      prefix: { type: "text", text: "@" },
     },
     {
       id: "client-date-of-birth-field",
       name: "dateOfBirth",
-      label: "Client Date of Birth",
+      label: "BirthDay",
       type: "date",
+      prefix: { type: "text", text: "D" },
     },
   ];
 
@@ -146,7 +149,7 @@ const EditorClientComponent = ({ clientRef, appointment, clients, isEdit }) => {
     <React.Fragment>
       <div className="d-flex mb-8">
         <div className="add-appt__icon add-appt__icon-customer" title="Client"></div>
-        <div className="add-appt__date-time">
+        <div className="client-group">
           {isDisplayClientDetails ? (
             <div className="add-appt__customer-selected">
               <h4 className="customer-name-holder">
@@ -168,11 +171,20 @@ const EditorClientComponent = ({ clientRef, appointment, clients, isEdit }) => {
                   </Link>
                 </li>
               </h4>
-              <p className="selected-client">
-                <span className="pe-2">Mobile: {clientDetails.mobile}</span>
-                <span className="pe-2">Email: {clientDetails.email}</span>
-                <span className="pe-2">DOB: {clientDetails.dateOfBirth}</span>
-              </p>
+              <div className="table">
+                <Table>
+                  <tbody>
+                    <tr>
+                      <td>Mobile:</td>
+                      <td>{clientDetails.mobile}</td>
+                      <td>Email:</td>
+                      <td>{clientDetails.email}</td>
+                      <td>DOB:</td>
+                      <td>{clientDetails.dateOfBirth}</td>
+                    </tr>
+                  </tbody>
+                </Table>
+              </div>
             </div>
           ) : (
             <Form

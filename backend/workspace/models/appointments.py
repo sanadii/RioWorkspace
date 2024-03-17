@@ -6,6 +6,8 @@ from workspace.models.services import Service
 from workspace.models.packages import Package
 from workspace.models.products import Product
 
+from workspace.utils.choices import STATUS_CHOICES
+
 # Invoice
 # {
 #     "cashupEnabled": false,
@@ -147,15 +149,7 @@ from workspace.models.products import Product
 #     "packageTemplate": false
 # }
 
-STATUS_CHOICES = [
-    (1, 'pencilled-in'),
-    (2, 'not-started'),
-    (3, 'arrived'),
-    (4, 'started'),
-    (5, 'finished'),
-    (6, 'did-not-show'),
-    (7, 'cancelled'),
-]
+
 
 
 
@@ -209,14 +203,14 @@ class Appointment(models.Model):
     client = models.ForeignKey(Client, on_delete=models.CASCADE)
     start = models.DateTimeField()
     end = models.DateTimeField()
-    status = models.IntegerField(
-        choices=STATUS_CHOICES, default=1, blank=True, null=True)
-    services = models.ManyToManyField(
-        AppointmentService, related_name='appointments_service')
-    packages = models.ManyToManyField(
-        AppointmentPackage, related_name='appointments_package')
-    products = models.ManyToManyField(
-        AppointmentProduct, related_name='appointments_product')
+    status = models.IntegerField(choices=STATUS_CHOICES, default=1, blank=True, null=True)
+    services = models.ManyToManyField(AppointmentService, related_name='appointments_service')
+    packages = models.ManyToManyField(AppointmentPackage, related_name='appointments_package')
+    products = models.ManyToManyField(AppointmentProduct, related_name='appointments_product')
+    
+    # className: " fc-booking fc-pending fc-booking-id-390770017 fc-group-311035140  fc-hidden-event"
+    # className = models.ManyToManyField(AppointmentProduct, related_name='appointments_product')
+    
 
     def __str__(self):
         return f"Appointment with {self.client} on {self.start}"

@@ -49,7 +49,7 @@ const SearchDropDown = ({ field, validation, onChangeHandler }) => {
         type="text"
         id={id}
         name={name}
-        className="form-control"
+        className="form-control form-control-sm"
         placeholder={`Enter ${label}`}
         ref={inputRef}
         value={validation.values[name] || ""}

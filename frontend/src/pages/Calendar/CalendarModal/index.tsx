@@ -8,6 +8,7 @@ import { useFormik } from "formik";
 import { Form, Modal, ModalBody, ModalHeader, ModalFooter } from "reactstrap";
 import { updateAppointment, addAppointment } from "store/actions";
 
+import { EditorNavigation } from "./EditorNavigation";
 import { EditorDateComponent } from "./EditorDateComponent";
 import { EditorClientComponent } from "./EditorClientComponent";
 import { EditorServiceComponent } from "./EditorServiceComponent";
@@ -63,7 +64,7 @@ const CalendarModal = ({ modal, isEdit, toggle, appointment, services, staff, cl
 
     // ExtendedProps
     client: (appointment && appointment.client) || clientRef.current,
-    services: (appointment && appointment.services) || [],
+    services: (appointment && appointment.services) || serviceRef.current,
     packages: (appointment && appointment.packages) || [],
     products: (appointment && appointment.products) || [],
 
@@ -79,7 +80,25 @@ const CalendarModal = ({ modal, isEdit, toggle, appointment, services, staff, cl
   const validation: any = useFormik({
     // enableReinitialize : use this flag when initial values needs to be changed
     enableReinitialize: true,
-    initialValues,
+    initialValues: {
+      title: (appointment && appointment.title) || "",
+      start: (appointment && appointment.start) || "",
+      end: (appointment && appointment.end) || "",
+      status: (appointment && appointment.status) || statusRef.current,
+
+      // ExtendedProps
+      client: (appointment && appointment.client) || clientRef.current,
+      services: (appointment && appointment.services) || serviceRef.current,
+      packages: (appointment && appointment.packages) || [],
+      products: (appointment && appointment.products) || [],
+
+      // Not used yes
+      category: (appointment && appointment.category) || "",
+      location: (appointment && appointment.location) || "",
+      description: (appointment && appointment.description) || "",
+      defaultDate: (appointment && appointment.defaultDate) || [],
+      datetag: (appointment && appointment.datetag) || "",
+    },
     validationSchema: Yup.object({
       // start: Yup.date().required("Start Time is required"),
     }),
@@ -96,7 +115,7 @@ const CalendarModal = ({ modal, isEdit, toggle, appointment, services, staff, cl
         const updatedAppointment = {
           id: appointment.id,
           title: values.title,
-          className: values.category,
+          status: values.status,
           start: values.start,
           end: values.end,
           duration: 60,
@@ -121,8 +140,8 @@ const CalendarModal = ({ modal, isEdit, toggle, appointment, services, staff, cl
           start: values["start"],
           end: values["start"],
           // start: selectedNewDate ? selectedNewDate[0] : appointment.start,
-          // end: selectedNewDate ? selectedNewDate[1] : appointment.end,
-          className: values["category"],
+          services: values["services"],
+          status: values["status"],
           location: values["location"],
           description: values["description"],
 
@@ -165,28 +184,31 @@ const CalendarModal = ({ modal, isEdit, toggle, appointment, services, staff, cl
             {!!isEdit ? appointment.title : "Add Event"}
           </ModalHeader>
           <ModalBody>
-            <EditorDateComponent
-              appointment={appointment}
-              setSelectedNewDate={setSelectedNewDate}
-              validation={validation}
-              // appointmentDetails={appointmentDetails}
-              // setAppointmentDetails={setAppointmentDetails}
-            />
+            <EditorNavigation />
 
-            <EditorClientComponent clientRef={clientRef} appointment={appointment} clients={clients} isEdit={isEdit} />
+            <div className="tab-content tight-grid">
+              <EditorDateComponent
+                appointment={appointment}
+                setSelectedNewDate={setSelectedNewDate}
+                validation={validation}
+              />
 
-            <EditorServiceComponent
-              serviceRef={serviceRef}
-              appointment={appointment}
-              services={services}
-              staff={staff}
-            />
-            {/* 
-          <EditorStatusComponent
-            appointment={appointment}
-            appointmentDetails={appointmentDetails}
-            setAppointmentDetails={setAppointmentDetails}
-          /> */}
+              <EditorClientComponent
+                clientRef={clientRef}
+                appointment={appointment}
+                clients={clients}
+                isEdit={isEdit}
+              />
+
+              <EditorServiceComponent
+                serviceRef={serviceRef}
+                appointment={appointment}
+                services={services}
+                staff={staff}
+              />
+
+              <EditorStatusComponent statusRef={statusRef} appointment={appointment} validation={validation} />
+            </div>
           </ModalBody>
           <ModalFooter>
             <div className="d-flex justify-content-between w-100">

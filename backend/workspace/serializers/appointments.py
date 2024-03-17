@@ -19,6 +19,8 @@ from workspace.serializers.clients import ClientSerializer
 from workspace.serializers.services import ServiceSerializer
 from workspace.serializers.staff import StaffSerializer
 
+from workspace.utils.choices import STATUS_CLASS_MAP
+
 # class AppointmentServiceSerializer (serializers.ModelSerializer):
 #         service_id = serializers.IntegerField(source='service.id', read_only=True)
 #         name = serializers.CharField(source='service.name', read_only=True)
@@ -98,13 +100,37 @@ class AppointmentSerializer(serializers.ModelSerializer):
     packages = AppointmentPackageSerializer(many=True, required=False)
     products = AppointmentProductSerializer(many=True, required=False)
     note = serializers.CharField(required=False, allow_blank=True)
+    class_names = serializers.SerializerMethodField()
 
     class Meta:
         model = Appointment
         fields = [
-            'id', 'start', 'end', 'status', 'title', 'client', 'client_id',
+            'id', 'start', 'end', 'title', 'client', 'client_id',
+            'status', 'class_names',
             'services', 'packages', 'products', 'note'
             ]
+
+    def get_class_names(self, obj):
+        return f"fc-booking {STATUS_CLASS_MAP.get(obj.status, '')}"
+
+
+
+        # class_names
+        # get Status classes
+        
+        
+        # get Note Class
+        # fc-note
+
+        # get id Class
+        # get group class
+        # get hidden class
+        # get Invoice Class
+        # get Paid Class
+        
+        
+        return f"{obj.first_name} {obj.last_name}".strip()
+
 
     def to_representation(self, instance):
         representation = super().to_representation(instance)

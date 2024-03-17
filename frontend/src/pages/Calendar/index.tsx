@@ -1,26 +1,15 @@
 import React, { useEffect, useState, useRef, useCallback } from "react";
 import PropTypes from "prop-types";
-import { Card, CardBody } from "reactstrap";
-import * as Yup from "yup";
-import { useFormik } from "formik";
 
 //redux
 import { useDispatch, useSelector } from "react-redux";
 import { getSchedule, getClients } from "store/actions";
 import { appointmentsSelector, clientsSelector } from "Selectors";
-import {
-  getEvents as onGetEvents,
-  getCategories as onGetCategories,
-  addNewEvent as onAddNewEvent,
-  deleteEvent as onDeleteEvent,
-  updateEvent as onUpdateEvent,
-  getUpCommingEvent as onGetUpCommingEvent,
-} from "store/actions";
+import { addNewEvent as onAddNewEvent, deleteEvent as onDeleteEvent } from "store/actions";
 import { createSelector } from "reselect";
 
 // Calendar
 import FullCalendar from "@fullcalendar/react";
-import { Draggable } from "@fullcalendar/interaction";
 
 // Calendar Settings
 import useCalendarToolbar from "./CalendarSettings/useCalendarToolbar";
@@ -35,7 +24,6 @@ const Calender = () => {
   const [modal, setModal] = useState<boolean>(false);
   const [selectedNewDay, setSelectedNewDay] = useState<any>();
   const [isEdit, setIsEdit] = useState<boolean>(false);
-  const [isEditButton, setIsEditButton] = useState<boolean>(true);
   const [deleteModal, setDeleteModal] = useState<boolean>(false);
   const [deleteEvent, setDeleteEvent] = useState<string>("");
   const [eventName, setEventName] = useState<string>("");
@@ -100,7 +88,7 @@ const Calender = () => {
     const adjustedStart = new Date(startDate.getTime() - timezoneOffset);
     const adjustedEnd = new Date(endDate.getTime() - timezoneOffset);
 
-    console.log(`CHECKING TIME --- NOW: ${now}\nstartTime: ${startDate}\nendTime: ${endDate}`);
+    // console.log(`CHECKING TIME --- NOW: ${now}\nstartTime: ${startDate}\nendTime: ${endDate}`);
 
     setAppointment({
       start: adjustedStart.toISOString(),
@@ -110,7 +98,7 @@ const Calender = () => {
     toggle();
   };
 
-  console.log("CHECKING TIME --- AppointmentTime: ", appointment);
+  // console.log("CHECKING TIME --- AppointmentTime: ", appointment);
 
   const displayLocalTime = (isoString) => {
     return new Date(isoString).toLocaleString("en-US", {
@@ -122,8 +110,8 @@ const Calender = () => {
     });
   };
 
-  console.log("123 Local Start Time: ", displayLocalTime(appointment?.start));
-  console.log("123 Local End Time: ", displayLocalTime(appointment?.end));
+  // console.log("123 Local Start Time: ", displayLocalTime(appointment?.start));
+  // console.log("123 Local End Time: ", displayLocalTime(appointment?.end));
 
   const str_dt = function formatDate(date: any) {
     var monthNames = [
@@ -168,8 +156,10 @@ const Calender = () => {
         title: appointment.title,
         start: appointment.start,
         end: appointment.end,
+        className: appointment.className,
 
         client: appointment.extendedProps.client,
+        
         services: appointment.extendedProps.services,
         packages: appointment.extendedProps.packages,
         products: appointment.extendedProps.products,
@@ -178,8 +168,7 @@ const Calender = () => {
         duration: appointment.duration,
         price: appointment.price,
 
-        className: appointment.classNames,
-        category: appointment.classNames[0],
+        // category: appointment.classNames[0],
         note: appointment._def.extendedProps.note,
         defaultDate: er_date,
         datetag: r_date,
@@ -199,21 +188,7 @@ const Calender = () => {
     setDeleteModal(false);
   };
 
-  const submitOtherEvent = () => {
-    document.getElementById("form-event")?.classList.remove("view-event");
-
-    document.getElementById("event-title")?.classList.replace("d-none", "d-block");
-    document.getElementById("event-category")?.classList.replace("d-none", "d-block");
-    (document.getElementById("event-start-date")?.parentNode as HTMLElement).classList.remove("d-none");
-    document.getElementById("event-start-date")?.classList.replace("d-none", "d-block");
-    document.getElementById("event-location")?.classList.replace("d-none", "d-block");
-    document.getElementById("event-description")?.classList.replace("d-none", "d-block");
-    document.getElementById("event-start-date-tag")?.classList.replace("d-block", "d-none");
-    document.getElementById("event-location-tag")?.classList.replace("d-block", "d-none");
-    document.getElementById("event-description-tag")?.classList.replace("d-block", "d-none");
-
-    setIsEditButton(true);
-  };
+  // fc-timegrid-slot fc-timegrid-slot-lane
 
   /**
    * On category darg event
@@ -250,7 +225,50 @@ const Calender = () => {
     }
   };
 
-  // Define the customButtons object
+  function formatTime(timeString) {
+    if (!timeString) return "";
+    const [hours, minutes] = timeString.split(":");
+    const hoursInt = parseInt(hours, 10);
+    const ampm = hoursInt >= 12 ? "pm" : "am";
+    const formattedHours = ((hoursInt + 11) % 12) + 1; // Convert 24h to 12h format
+    return `${formattedHours}:${minutes} ${ampm}`;
+  }
+
+  const generateTimeSlots = () => {
+    // Select all the relevant <td> elements, excluding those with 'fc-timegrid-slot-minor'
+    const timeSlots = document.querySelectorAll(".fc-timegrid-slot.fc-timegrid-slot-lane:not(.fc-timegrid-slot-minor)");
+
+    // Iterate over each <td> element
+    timeSlots.forEach((slot) => {
+      // Check if the slot already contains the 'fc-slot-times' div
+      if (!slot.querySelector(".fc-slot-times")) {
+        // Extract the time from the data-time attribute
+        const time = slot.getAttribute("data-time");
+        const formattedTime = formatTime(time);
+
+        // Create the div structure to be inserted
+        const div = document.createElement("div");
+        div.className = "fc-slot-times";
+        div.style.position = "relative";
+
+        // Add multiple divs inside the main div
+        for (let i = 0; i < 7; i++) {
+          const innerDiv = document.createElement("div");
+          innerDiv.className = "fc-slot-time";
+
+          const span = document.createElement("span");
+          span.className = "fc-slot-time-inner";
+          span.textContent = formattedTime + " "; // Set the time as content
+
+          innerDiv.appendChild(span);
+          div.appendChild(innerDiv);
+        }
+
+        // Append the created div structure to the <td> element
+        slot.appendChild(div);
+      }
+    });
+  };
 
   document.title = "Calendar | Velzon - React Admin & Dashboard Template";
   return (
@@ -275,6 +293,8 @@ const Calender = () => {
         eventClick={handleAppointmentClick}
         drop={onDrop}
         {...fullCalendarOptions}
+        datesSet={() => generateTimeSlots()} // Call the function here
+        // slotLaneRender={slotLaneRender}
       />
 
       <div style={{ clear: "both" }}></div>

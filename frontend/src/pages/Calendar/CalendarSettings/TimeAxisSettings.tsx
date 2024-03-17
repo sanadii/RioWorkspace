@@ -26,6 +26,14 @@ const TimeAxisSettings = {
 
   // Reset the scroll time to the initial value when the date changes
   //   scrollTimeReset: true,
+
+  eventClassNames: function (arg) {
+    return (
+      <div className="fc-slot-time">
+        <span className="fc-slot-time-inner">${arg.date.toLocaleTimeString()}</span>
+      </div>
+    );
+  },
 };
 
 export default TimeAxisSettings;

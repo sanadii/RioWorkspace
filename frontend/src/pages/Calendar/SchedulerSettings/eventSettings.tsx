@@ -18,6 +18,7 @@ const getEventSettings = (appointments, calendarSettings) => {
       startTime: { name: "startTime" },
       endTime: { name: "endTime" },
       description: { name: "notes" },
+      className: { name: "className" },
 
       // services: { name: "services" },
       // location: { name: "ShipCountry" },

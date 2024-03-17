@@ -47,8 +47,8 @@ const EventRenderHooks = {
   // Class names for events
   eventClassNames: function (arg) {
     // console.log("--- arg ---: ", arg.event.extendedProps.status);
-    const statusOption = AppointmentStatusOptions.find((option) => option.id === arg.event.extendedProps.status);
-    return [statusOption.className];
+    // const statusOption = AppointmentStatusOptions.find((option) => option.id === arg.event.extendedProps.status);
+    return [arg.className];
 
     // if (arg.event.extendedProps.isUrgent) {
     //   return [statusOption.className];
@@ -72,6 +72,8 @@ const EventRenderHooks = {
   eventContent: (arg) => {
     // Customize the content of the event element
     const event = arg.event;
+    const className = arg.event.className;
+    console.log("className: ", arg.event)
     function formatTime(date) {
       return date.toLocaleTimeString([], { hour: "numeric", minute: "2-digit", hour12: true });
     }

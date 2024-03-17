@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { Table, Row, Col, Button } from "reactstrap";
-
-// Form and Validation
+import { useDurationOptions, useTotalPrice, useTotalTime, useGroupedServices } from "Components/Hooks";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import { FieldComponent } from "Components/Common";
@@ -11,201 +11,93 @@ type ServiceItem = {
   service: number;
   staff: number;
   start: Date;
-  end: Date;
+  end?: Date;
   duration: string;
   price: number;
 };
 
 const EditorServiceComponent = ({ serviceRef, appointment, services, staff }) => {
-  // Creating Client List for the form selection
-  const [serviceList, setServiceList] = React.useState([]);
+  // Initialize with an empty service if no services are available in the appointment
+
+  const [serviceDetails, setServiceDetails] = useState<ServiceItem[]>([]);
+
+  const serviceList = useGroupedServices(services);
+  const defaultStaffId = staff.length > 0 ? staff[0].id : null;
+  const durationOptions = useDurationOptions();
+  const totalPrice = useTotalPrice(serviceDetails);
+  const totalTime = useTotalTime(serviceDetails);
 
   useEffect(() => {
-    const groupedServices = services.reduce((acc, service) => {
-      // Find an existing category in the accumulator
-      const category = acc.find((c) => c.label === service.categoryName);
-
-      // Create the service option
-      const serviceOption = {
-        label: service.name,
-        value: service.id,
+    if (appointment && Array.isArray(appointment.services) && appointment.services.length > 0) {
+      const initialServices = appointment.services.map((service) => ({
+        id: service.id,
+        service: service.service,
+        staff: service.staff,
+        start: new Date(service.start),
+        end: new Date(service.end),
         duration: service.duration,
-        price: service.price,
-      };
-
-      if (category) {
-        // If the category exists, push the new service into it
-        category.options.push(serviceOption);
-      } else {
-        // Otherwise, create a new category with the service
-        acc.push({
-          label: service.categoryName,
-          options: [serviceOption],
-        });
-      }
-
-      return acc;
-    }, []);
-
-    setServiceList(groupedServices);
-  }, [services]);
-
-  const [serviceDetails, setServiceDetails] = useState<ServiceItem[]>([
-    {
-      id: (appointment && appointment.service && appointment.service.id) || null,
-      service: (appointment && appointment.service && appointment.service.service) || null,
-      staff: (appointment && appointment.service && appointment.service.staff) || null,
-      start: (appointment && appointment.service && appointment.service.start) || null,
-      end: (appointment && appointment.service && appointment.service.end) || null,
-      duration: (appointment && appointment.service && appointment.service.duration) || 0,
-      price: (appointment && appointment.service && appointment.service.price) || 0,
-    },
-  ]);
-  console.log("serviceDetails: ", serviceDetails);
-
-  const start = (appointment && appointment.start) || null;
-
-  const [serviceStartTime, setServiceStartTime] = useState(start);
-  const [autoPopulated, setAutoPopulated] = useState<boolean>(false);
-
-  // TimePicker Settings
-  const minTime = new Date();
-  minTime.setHours(10, 0, 0);
-
-  const maxTime = new Date();
-  maxTime.setHours(20, 0, 0);
-
-  useEffect(() => {
-    if (serviceDetails) {
-      const initialServices = serviceDetails.map((service) => ({
-        id: service.id, // Assuming serviceId is the ID of the service
-        service: service.service, // Assuming serviceId is the ID of the service
-        staff: service.staff, // Assuming staff is the ID of the staff
-        start: new Date(service.start), // Convert to Date object if necessary
-        end: new Date(service.end), // Convert to Date object if necessary
-        duration: service.duration,
-        price: service.price, // Convert to string if necessary
+        price: service.price.toString(),
       }));
       setServiceDetails(initialServices);
+    } else {
+      // Start with an empty service if no services are available
+      setServiceDetails([
+        {
+          id: null,
+          service: null,
+          staff: null,
+          start: new Date(),
+          end: new Date(),
+          duration: "",
+          price: null,
+        },
+      ]);
     }
-  }, [appointment, setServiceDetails]);
+  }, [appointment]);
 
-  // Form Field Functions
-  const formatDuration = (minutes) => {
-    const hours = Math.floor(minutes / 60);
-    const mins = minutes % 60;
-    return `${hours.toString().padStart(2, "0")}:${mins.toString().padStart(2, "0")}`;
-  };
+  // Update serviceRef with the current state of serviceDetails
+  useEffect(() => {
+    serviceRef.current = serviceDetails;
+  }, [serviceRef, serviceDetails]);
 
-  const generateDurationOptions = () => {
-    const options = [];
-    for (let i = 0; i <= 8 * 4; i++) {
-      const hours = Math.floor(i / 4);
-      const minutes = (i % 4) * 15;
-      const totalMinutes = hours * 60 + minutes;
-      const formattedTime = `${hours.toString().padStart(2, "0")}:${minutes.toString().padStart(2, "0")}`;
-      options.push({ id: totalMinutes, name: formattedTime, value: totalMinutes });
-    }
-    return options;
-  };
-  const durationOptions = generateDurationOptions();
-
-  // Service Summary
-  const calculateTotalPrice = () => {
-    let totalPrice = 0;
-    serviceDetails.forEach((serviceItem) => {
-      // totalPrice += parseFloat(serviceItem.price) || 0; // Ensure price is always a number
-    });
-    return totalPrice.toFixed(2); // Round to 2 decimal places
-  };
-
-  const calcualteTotalTime = () => {
-    let totalTimeDuration = 0;
-
-    // Step 1: Iterate through each item in the serviceDetails
-    serviceDetails.forEach((serviceItem) => {
-      // Step 2: Sum up the duration of each service item
-      totalTimeDuration += parseFloat(serviceItem.duration) || 0; // Ensure duration is always a number
-    });
-
-    // Step 3: Convert the total duration to Hh:Mm format
-    const hours = Math.floor(totalTimeDuration / 60);
-    const minutes = totalTimeDuration % 60;
-    const formattedTotalTime = `${hours.toString().padStart(2, "0")}:${minutes.toString().padStart(2, "0")}`;
-
-    // Step 4: Return the formatted total time
-    return formattedTotalTime;
-  };
-
-  // Add and Remove Services
-  const handleAddService = () => {
-    const newService = {
-      id: null,
-      service: null,
-      staff: null,
-      start: new Date(),
-      end: new Date(),
-      duration: "",
-      price: null,
-    };
-
-    setServiceDetails((prevServiceDetails) => [...prevServiceDetails, newService]);
-  };
-
-  const handleDeleteService = (index) => {
-    const updatedServiceList = [...serviceDetails];
-    updatedServiceList.splice(index, 1);
-
-    // Update the state with the new serviceDetails
-    setServiceDetails(updatedServiceList);
-  };
-
-  // Assuming servicesDetails is an array of service items
-  const servicesInitialValues = serviceDetails.map((serviceItem, index) => ({
-    index, // Include the index
-    id: serviceItem.id || null,
-    service: serviceItem.service || null,
-    staff: serviceItem.staff || null,
-    start: serviceItem.start || null, // Assuming clientDetails.start is not an array
-    duration: serviceItem.duration || 0,
-    price: serviceItem.price || 0,
-  }));
-
-  console.log("servicesInitialValues:: ", servicesInitialValues);
   const validation = useFormik({
     enableReinitialize: true,
-    initialValues: { services: servicesInitialValues },
+    initialValues: { services: serviceDetails },
     validationSchema: Yup.object({
       // Define your validation schema here
     }),
-    onSubmit: () => {
-      // Handle form submission
-    },
+    onSubmit: () => {},
   });
 
-  const handleServiceChange = (e, serviceIndex) => {
-    setAutoPopulated(true); // Set autoPopulated to true after the initial service selection
-    handleAutoPopulation(e, serviceIndex);
+  // Add and Remove Services
+  const handleAddService = () => {
+    setServiceDetails([
+      ...serviceDetails,
+      {
+        id: null,
+        service: null,
+        staff: defaultStaffId,
+        start: new Date(),
+        end: new Date(),
+        duration: "",
+        price: null,
+      },
+    ]);
   };
 
-  const handleAutoPopulation = (e, serviceIndex) => {
-    const selectedService = e.value;
-    // console.log("selectedService: ", selectedService)
-    setServiceDetails((prevServiceList) => {
-      const updatedServiceList = [...prevServiceList];
-      const updatedServiceItem = {
-        ...updatedServiceList[serviceIndex],
-        service: selectedService ? selectedService.id : null,
-        duration: selectedService ? selectedService.duration : 0,
-        price: selectedService ? selectedService.price : 0,
-        start: start,
-      };
-      updatedServiceList[serviceIndex] = updatedServiceItem;
-      // console.log("updatedServiceList: ", updatedServiceList)
+  const handleServiceChange = (event, serviceIndex) => {
+    const selectedService = event;
+    // console.log("selectedService: ", selectedService);
 
-      return updatedServiceList;
-    });
-    setAutoPopulated(false); // Reset autoPopulated to false after the auto-population
+    const updatedServiceDetails = [...serviceDetails];
+    updatedServiceDetails[serviceIndex] = {
+      ...updatedServiceDetails[serviceIndex],
+      service: selectedService.value, // Update with the service ID
+      staff: defaultStaffId,
+      duration: selectedService.duration || null,
+      price: selectedService.price || null,
+    };
+    setServiceDetails(updatedServiceDetails);
   };
 
   const handleFieldChange = (event, serviceIndex, fieldName) => {
@@ -217,26 +109,28 @@ const EditorServiceComponent = ({ serviceRef, appointment, services, staff }) =>
     setServiceDetails(updatedServiceDetails);
   };
 
+  const handleDeleteService = (index) => {
+    const updatedServiceList = [...serviceDetails];
+    updatedServiceList.splice(index, 1);
+
+    // Update the state with the new serviceDetails
+    setServiceDetails(updatedServiceList);
+  };
+
   const fields = (serviceIndex) => [
     {
       id: `service-field-${serviceIndex}`,
-      name: "Service",
+      name: "service",
       label: "Service",
       type: "reactSelect",
-      value: serviceDetails[serviceIndex].service,
+      // value: serviceList.find(option => option.value === servicesInitialValues[serviceIndex].service),
+      value: serviceList
+        .flatMap((group) => group.options)
+        .find((option) => option.value === serviceDetails[serviceIndex].service),
+
       options: serviceList,
       width: "30%", // Set width for the first column
-      // onChange: (event) => handleServiceChange(event, serviceIndex),
-      onChange: (event) => {
-        const updatedServiceDetails = [...serviceDetails];
-        updatedServiceDetails[serviceIndex] = {
-          ...updatedServiceDetails[serviceIndex],
-          service: event.value,
-        };
-
-        console.log("serviceDetails[serviceIndex].service", serviceDetails[serviceIndex].service);
-        setServiceDetails(updatedServiceDetails);
-      },
+      onChange: (event) => handleServiceChange(event, serviceIndex),
     },
     {
       id: `service-staff-field-${serviceIndex}`,
@@ -254,7 +148,7 @@ const EditorServiceComponent = ({ serviceRef, appointment, services, staff }) =>
     },
     {
       id: `service-start-field-${serviceIndex}`,
-      name: "ServiceStart",
+      name: "serviceStart",
       label: "StartTime",
       type: "time",
       width: "15%", // Set width for the first column
@@ -282,6 +176,7 @@ const EditorServiceComponent = ({ serviceRef, appointment, services, staff }) =>
       type: "text",
       width: "15%", // Set width for the first column
       value: serviceDetails[serviceIndex].price,
+      suffix: { text: "KD" },
       onChange: (event) => handleFieldChange(event, serviceIndex, "price"),
     },
   ];
@@ -290,51 +185,49 @@ const EditorServiceComponent = ({ serviceRef, appointment, services, staff }) =>
     <React.Fragment>
       <div className="d-flex mb-8">
         <div className="add-appt__icon add-appt__icon-service" title="Date"></div>
-        <div className="add-appt__date-time">
-          <Table className="table-responsive table-cell-background-grey">
-            <thead>
-              <th>Service</th>
-              <th>Staff</th>
-              <th>Start at</th>
-              <th>Duration</th>
-              <th>Price</th>
-            </thead>
+        <div className="services-group">
+          <Table className="table-responsive table-cell-background-grey" id="services_table">
             <tbody>
               {serviceDetails.map((serviceItem, serviceIndex) => (
-                <tr key={serviceIndex} className="services">
+                <tr key={serviceIndex} className={`service-row service-${serviceIndex}`}>
                   {fields(serviceIndex).map((field) => (
                     <td key={field.id} style={{ width: field.width }}>
                       <FieldComponent formStructure="table" field={field} validation={validation} />
                     </td>
                   ))}
+                  <td className="multi-book-add-cell">
+                    {serviceDetails && serviceDetails.length > 1 && (
+                      <Link
+                        className="btn-secondary btn-link pop delete-service inline"
+                        to="#"
+                        data-original-class="delete-service"
+                        title="Delete service"
+                        data-original-title="Delete this service?"
+                        data-content='<a class="btn  bln-close"><i class="fa fa-times"></i> Cancel</a> <div class="btn btn-danger deleter bln-close multi-book-remove" data-delete-service="service-0"><i class="fa fa-trash-o"></i> Delete</div>'
+                        onClick={() => handleDeleteService(serviceIndex)}
+                      >
+                        ×
+                      </Link>
+                    )}
+                  </td>
                 </tr>
               ))}
             </tbody>
             <tr className="mt-3">
-              <td></td>
+              <td>
+                <Button onClick={handleAddService}>Add More Service</Button>
+              </td>
               <td></td>
               <td></td>
               <td>
-                <b>
-                  Duration: <br /> {calcualteTotalTime()} Hrs
-                </b>
+                <b>{totalTime} Hrs</b>
               </td>
               <td>
-                <b>
-                  Total:
-                  <br /> {calculateTotalPrice()} KD
-                </b>
+                <b>{totalPrice} KD</b>
               </td>
               <td></td>
             </tr>
           </Table>
-
-          <Row>
-            <Col lg={6}>
-              <Button onClick={handleAddService}>Add More Service</Button>
-            </Col>
-            <Col lg={6}></Col>
-          </Row>
         </div>
       </div>
     </React.Fragment>

@@ -31,7 +31,7 @@ const SlotRenderHooks = {
   slotLabelClassNames: (arg) => "",
 
   // Content generator for slot labels
-  slotLabelContent: (arg) => "",
+  // slotLabelContent: (arg) => "",
 
   // Handler invoked when a slot label is mounted
   slotLabelDidMount: (arg) => {},

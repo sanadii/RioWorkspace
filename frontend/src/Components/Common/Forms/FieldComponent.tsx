@@ -80,6 +80,8 @@ const FieldComponent: React.FC<FieldComponentProps> = ({ field, validation, form
     onInputChange,
     options,
     icon,
+    prefix,
+    suffix,
     iconBg,
   } = field;
   const imageValue = validation?.values.image;
@@ -90,6 +92,92 @@ const FieldComponent: React.FC<FieldComponentProps> = ({ field, validation, form
   const onBlurHandler = (onBlur && onBlur) || validation.handleBlur;
   const invalidHandler = !!(validation.touched[name] && validation.errors[name]);
 
+  const dot = (color = "transparent") => ({
+    alignItems: "center",
+    display: "flex",
+
+    ":before": {
+      backgroundColor: color,
+      borderRadius: 10,
+      display: "block",
+      marginRight: 8,
+      height: 10,
+      width: 10,
+    },
+  });
+
+  const colourStyles = {
+    control: (styles) => ({ ...styles, backgroundColor: "white" }),
+    option: (styles, { data, isDisabled, isFocused, isSelected }) => {
+      const color = data.color;
+      return {
+        ...styles,
+        backgroundColor: isDisabled
+          ? undefined
+          : isSelected
+          ? data.color
+          : isFocused
+          ? color.alpha(0.1).css()
+          : undefined,
+
+        cursor: isDisabled ? "not-allowed" : "default",
+
+        ":active": {
+          ...styles[":active"],
+          backgroundColor: !isDisabled ? (isSelected ? data.color : color.alpha(0.3).css()) : undefined,
+        },
+      };
+    },
+    input: (styles) => ({ ...styles, ...dot() }),
+    placeholder: (styles) => ({ ...styles, ...dot("#ccc") }),
+    singleValue: (styles, { data }) => ({ ...styles, ...dot(data.color) }),
+  };
+
+  // const customStyles = {
+  //   control: (provided) => ({
+  //     ...provided,
+  //     minHeight: "32px",
+  //     height: "32px",
+  //     padding: "0.25rem 0.5rem",
+  //     fontSize: "1rem",
+  //     border: "0px",
+  //     boxShadow: "none",
+  //     "&:hover": {
+  //       borderColor: "var(--vz-input-border-custom)",
+  //     },
+  //   }),
+  //   // Add other style overrides if needed
+  // };
+
+  const customStyles = {
+    control: (provided) => ({
+      ...provided,
+      minHeight: '20px',
+      // minHeight: "32px",
+      // height: "32px",
+      padding: "0px",
+      fontSize: "1rem",
+      border: "0px",
+      boxShadow: "none",
+      "&:hover": {
+        borderColor: "var(--vz-input-border-custom)",
+      },
+
+      // Add other styles as needed
+    }),
+    input: (provided) => ({
+      ...provided,
+      minHeight: '20px',
+      margin: '0',
+      // Add other styles as needed
+    }),
+    indicatorContainer: (provided) => ({
+      // ...provided,
+      padding: '0px',
+      // Add other styles as needed
+    }),
+    // Add other style overrides if needed
+  };
   useEffect(() => {
     if (imageValue) {
       if (typeof imageValue === "string") {
@@ -143,46 +231,27 @@ const FieldComponent: React.FC<FieldComponentProps> = ({ field, validation, form
       case "email":
       case "social":
         return (
-          <div className="d-flex">
-            {icon && (
-              <div className="avatar-xs d-block flex-shrink-0 me-3">
-                <span className={`avatar-title rounded-circle fs-16 ${iconBg}`}>
-                  <i className={icon}></i>
-                </span>
-              </div>
-            )}
-            <Input
-              type={type !== "social" ? type : "text"}
-              name={name}
-              id={id}
-              placeholder={`Enter ${label}`}
-              onChange={onChangeHandler}
-              onBlur={onBlurHandler}
-              value={value || validation.values[name] || ""}
-              invalid={invalidHandler}
-            />
-          </div>
+          <Input
+            type={type !== "social" ? type : "text"}
+            name={name}
+            id={id}
+            placeholder={label}
+            onChange={onChangeHandler}
+            className="form-control-sm"
+            onBlur={onBlurHandler}
+            value={value || validation.values[name] || ""}
+            invalid={invalidHandler}
+          />
         );
       case "searchDropdown":
-        return (
-          <div className="dropdown add-appt__customer-col">
-            {icon && (
-              <div className="avatar-xs d-block flex-shrink-0 me-3">
-                <span className={`avatar-title rounded-circle fs-16 ${iconBg}`}>
-                  <i className={icon}></i>
-                </span>
-              </div>
-            )}
-            <SearchDropDown validation={validation} field={field} onChangeHandler={onChangeHandler} />
-          </div>
-        );
+        return <SearchDropDown validation={validation} field={field} onChangeHandler={onChangeHandler} />;
       case "textarea":
         return (
           <Input
             type="textarea"
             name={name}
             id={id}
-            placeholder={`Enter ${label}`}
+            placeholder={label}
             onChange={onChangeHandler}
             onBlur={onBlurHandler}
             value={validation.values[name] || ""}
@@ -216,12 +285,16 @@ const FieldComponent: React.FC<FieldComponentProps> = ({ field, validation, form
             id={id}
             name={name}
             isSearchable={true}
+            // className="form-control form-control-sm"
+            styles={customStyles}
+            // ... other props
+            // classNamePrefix="sanad-select sanad2-select"
             isClearable={true}
             options={options}
             onChange={onChangeHandler}
             onBlur={onBlurHandler}
             // value={value || options.find((option) => option.value === validation.values[name]) || ""}
-            value={options.find((option) => option.value === value || null)}
+            value={value}
           />
         );
       case "creatableSelect":
@@ -231,6 +304,7 @@ const FieldComponent: React.FC<FieldComponentProps> = ({ field, validation, form
             name={name}
             isSearchable={true}
             isClearable={true}
+            className="form-control-sm"
             // no auto complete
             placeholder={placeholder}
             options={options}
@@ -249,14 +323,14 @@ const FieldComponent: React.FC<FieldComponentProps> = ({ field, validation, form
             name={name}
             id={id}
             className="form-control"
-            placeholder={`${label}`}
+            placeholder={label}
             options={{
               enableTime: type === "dateTime" || type === "time",
               noCalendar: type === "time",
               dateFormat: type === "dateTime" ? "Y-m-d H:i" : type === "time" ? "H:i" : "Y-m-d",
             }}
             onChange={(e) => DateTimeFormat(e, type)}
-            value={validation.values[name] || ""}
+            value={value || validation.values[name] || ""}
           />
         );
       case "image":
@@ -295,7 +369,7 @@ const FieldComponent: React.FC<FieldComponentProps> = ({ field, validation, form
             type="password"
             name={name}
             id={id}
-            placeholder={`Enter ${label}`}
+            placeholder={label}
             onChange={onChangeHandler}
             onBlur={onBlurHandler}
             value={validation.values[name] || ""}
@@ -308,18 +382,41 @@ const FieldComponent: React.FC<FieldComponentProps> = ({ field, validation, form
     }
   };
 
+  const generatePrefixSuffix = (prefix) => {
+    if (!prefix) return null;
+
+    if (prefix.type === "icon") {
+      return (
+        <div className="avatar-xs d-block flex-shrink-0 me-3">
+          <span className={`avatar-title rounded-circle fs-16 ${prefix.iconBg}`}>
+            <i className={prefix.icon}></i>
+          </span>
+        </div>
+      );
+    } else if (prefix.type === "text") {
+      return <span className="input-group-text">{prefix.text}</span>;
+    }
+
+    return null;
+  };
+
   return (
     <React.Fragment>
-      <FormStructureRenderer
-        formStructure={formStructure} // Pass the formStructure prop
-        renderInputFields={renderInputFields} // Pass the renderInputFields function
-        validation={validation} // Pass the validation prop
-        colSize={colSize} // Pass any other props you need
-        icon={icon}
-        id={id}
-        label={label}
-        name={name}
-      />
+      <div className="input-group input-group-sm">
+        {generatePrefixSuffix(prefix)}
+
+        <FormStructureRenderer
+          formStructure={formStructure} // Pass the formStructure prop
+          renderInputFields={renderInputFields} // Pass the renderInputFields function
+          validation={validation} // Pass the validation prop
+          colSize={colSize} // Pass any other props you need
+          icon={icon}
+          id={id}
+          label={label}
+          name={name}
+        />
+        {suffix && <span className="input-group-text">{suffix.text}</span>}
+      </div>
     </React.Fragment>
   );
 };
