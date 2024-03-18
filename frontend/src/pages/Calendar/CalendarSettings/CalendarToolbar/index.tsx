@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import ReactDOM, { createPortal } from "react-dom";
 import { createRoot } from "react-dom/client"; // Import createRoot
-import StaffDropdown from "./StaffDropdown"; // Adjust the path as needed
+import StaffDropdown from "../StaffDropdown"; // Adjust the path as needed
 import { HeaderTitle, JumpLeft, JumpRight } from "./ToolbarButtons"; // Adjust the path as needed
 
 const useCalendarToolbar = () => {
@@ -101,4 +101,12 @@ const useCalendarToolbar = () => {
   return { customButtons, selectedStaff };
 };
 
-export default useCalendarToolbar;
+export const CalendarToolbar = () => {
+  const { customButtons } = useCalendarToolbar();
+
+  return {
+    customButtons: customButtons,
+  };
+};
+
+export default CalendarToolbar;

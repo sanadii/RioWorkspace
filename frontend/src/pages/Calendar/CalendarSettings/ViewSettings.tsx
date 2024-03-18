@@ -84,6 +84,28 @@ const viewOptions = {
   // viewWillUnmount: (arg) => {
   //   /* code to run on unmount */
   // },
+
+  nowIndicator: true,
+  nowIndicatorClassNames: (arg) => {
+    // Custom class names for the now indicator
+    return ["custom-now-indicator"];
+  },
+
+  //   Remove the rest // not sure whether to remove or not
+  showNonCurrentDates: true,
+  lazyFetching: true,
+  startParam: "start",
+  endParam: "end",
+  dragRevertDuration: 500,
+  dragScroll: true,
+  dropAccept: (draggable) => {
+    // Logic to determine if the draggable should be accepted
+    return true;
+  },
+  eventOrder: "title", // or a function or array
+  eventOrderStrict: false,
+  longPressDelay: 1000,
+  eventDragMinDistance: 5,
 };
 
 // Calendar::view

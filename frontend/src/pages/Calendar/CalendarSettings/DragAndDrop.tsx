@@ -1,13 +1,18 @@
 import { useDispatch } from "react-redux";
 import { addAppointment } from "store/actions";
 
-// onActions.js
-export const onActions = (dispatch) => ({
-  onDrag: (event) => {
-    event.preventDefault();
-  },
+export const useCalendarActions = () => {
+  const dispatch = useDispatch();
 
-  onDrop: (event) => {
+  const onDrag = (event) => {
+    event.preventDefault();
+    console.log("we are draging")
+
+  };
+
+  const onDrop = (event) => {
+    console.log("we are droping")
+
     const date = event.date;
     const day = date.getDate();
     const month = date.getMonth();
@@ -21,6 +26,7 @@ export const onActions = (dispatch) => ({
 
     const draggedEl = event.draggedEl;
     const draggedElClass = draggedEl.className;
+    console.log("we are droping")
     if (draggedEl.classList.contains("external-event") && draggedElClass.indexOf("fc-event-draggable") === -1) {
       const modifiedData = {
         id: Math.floor(Math.random() * 1000),
@@ -30,5 +36,16 @@ export const onActions = (dispatch) => ({
       };
       dispatch(addAppointment(modifiedData));
     }
-  },
-});
+  };
+
+  return { onDrag, onDrop };
+};
+
+export const DragAndDrop = () => {
+  const { onDrag, onDrop } = useCalendarActions();
+
+  return {
+    // drag: onDrag,
+    drop: onDrop,
+  };
+};

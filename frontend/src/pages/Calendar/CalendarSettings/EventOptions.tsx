@@ -1,4 +1,5 @@
 // EventRenderHooks: https://fullcalendar.io/docs/event-render-hooks
+import React from "react";
 import { SvgIcon } from "Components/Common"; // Adjust the import path as needed
 import { AppointmentStatusOptions } from "Components/constants";
 
@@ -73,9 +74,9 @@ const EventRenderHooks = {
     const didNotShow = classNames.includes("fc-dns");
     const isPackageApplied = classNames.includes("fc-package-applied");
     const isNewClient = classNames.includes("fc-new-client");
-    
+
     return (
-      <>
+      <React.Fragment>
         <div className="fc-event-head"> </div>
         <div className="fc-event-content">
           <div className="fc-event-title">
@@ -133,7 +134,7 @@ const EventRenderHooks = {
           </div>
         </div>
         <div className="fc-event-bg"></div>
-      </>
+      </React.Fragment>
     );
   },
 

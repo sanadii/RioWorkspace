@@ -1,12 +1,11 @@
 // FullCalendarOptions.js
 import { useDispatch } from "react-redux";
-
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import BootstrapTheme from "@fullcalendar/bootstrap";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import listPlugin from "@fullcalendar/list";
-import { onActions } from './onActions';
+// import { onActions } from "./useCalendarActions";
 
 // Setting Imports
 import {
@@ -18,80 +17,65 @@ import {
   EventDurationAndHeaders,
 } from "./GeneralSettings";
 import { viewOptions } from "./ViewSettings";
-
-import { onActions } from "./onActions";
-import {
-  dayEventLimits,
-  dayDimensions,
-  AllDaySettings,
-  WholeDaySettings,
-  DayHeaderRenderHooks,
-  DayCellRenderHooks,
-  DateRangeSeparatorOptions,
-} from "./DaySettings";
-
-import { useCalendarActions } from "./path/to/useCalendarActions";
-
-
 import TimeAxisSettings from "./TimeAxisSettings";
-import SlotRenderHooks from "./SlotRenderHooks";
 import { EventRenderHooks, EventDisplay } from "./EventOptions";
-import DragingAndResizingSettings from "./DragingAndResizingSettings";
 import { InteractionSettings, EventDisplaySettings, SelectAndClickSettings } from "./OtherSettings";
-
+import { DaySettings } from "./DaySettings";
 import { WeekNumberSettings, WeekTextSettings } from "./AllOptions/WeekSettings";
-import { DateSettings, TimeAndLocaleSettings } from "./DateTimeSettings";
-import NowIndicatorRenderHooks from "./NowIndicatorRenderHooks";
-//
+import SlotRenderHooks from "./SlotRenderHooks";
+import { DragAndDrop } from "./DragAndDrop";
+import { CalendarToolbar } from "./CalendarToolbar";
 
-const { onDrag, onDrop } = onActions(dispatch);
+const useFullCalendarSettings = () => {
+  const dragAndDropSettings = DragAndDrop();
+  const toolbarSettings = CalendarToolbar();
 
-// Higher-order function to create full calendar options
-const createCalendarSettings = (customButtons) => ({
+  // Define other settings and configurations for FullCalendar
+  const fullCalendarOptions = {
+    plugins,
+    // customButtons,
+    ...CalendarSettings,
+    ...toolbarSettings,
+    // View Settings
+    ...viewOptions,
+    // Event Settings
+    ...EventDisplay,
+    ...EventRenderHooks,
+
+    //
+    ...ThemeSettings,
+    ...TimeAxisSettings,
+    ...ToolbarSettings,
+    ...BusinessHours,
+
+    ...SelectAndClickSettings,
+    // ...onActions,
+    ...dragAndDropSettings, // Spread the DragAndDrop settings
 
 
-  plugins,
-  customButtons,
+    // ...EventDurationAndHeaders,
+    // ...WholeDaySettings,
 
-  ...CalendarSettings,
+    // // Hooks
+    // ...DayHeaderRenderHooks,
+    // ...DayCellRenderHooks,
 
-  // View Settings
-  ...viewOptions,
-  //
-  ...ThemeSettings,
-  ...TimeAxisSettings,
-  ...ToolbarSettings,
-  ...NowIndicatorRenderHooks,
-  ...BusinessHours,
-  ...DateSettings,
+    // ...TimeAndLocaleSettings,
+    // ...InteractionSettings,
+    // ...WeekNumberSettings,
 
-  ...SelectAndClickSettings,
-  ...DragingAndResizingSettings,
-  ...onActions,
+    // ...WeekTextSettings,
 
-  ...EventDisplay,
-  ...EventRenderHooks,
+    // ...SlotRenderHooks,
 
-  // ...EventDurationAndHeaders,
-  // ...WholeDaySettings,
+    // ...dayEventLimits,
+    // ...dayDimensions,
+    // ...AllDaySettings,
 
-  // // Hooks
-  // ...DayHeaderRenderHooks,
-  // ...DayCellRenderHooks,
+    // ...DateRangeSeparatorOptions,
+  };
 
-  // ...TimeAndLocaleSettings,
-  // ...InteractionSettings,
-  // ...WeekNumberSettings,
+  return fullCalendarOptions;
+};
 
-  // ...WeekTextSettings,
-
-  // ...SlotRenderHooks,
-
-  // ...dayEventLimits,
-  // ...dayDimensions,
-  // ...AllDaySettings,
-
-  ...DateRangeSeparatorOptions,
-});
-
-export default createCalendarSettings;
+export default useFullCalendarSettings;

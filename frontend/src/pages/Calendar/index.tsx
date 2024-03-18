@@ -18,7 +18,6 @@ import { createSelector } from "reselect";
 import FullCalendar from "@fullcalendar/react";
 
 // Calendar Settings
-import useCalendarToolbar from "./CalendarSettings/useCalendarToolbar";
 import createCalendarSettings from "./CalendarSettings"; // Adjust the path as needed
 import CalendarModal from "./CalendarModal";
 
@@ -38,12 +37,7 @@ const Calender = () => {
   // Data
   const { appointments, services, staff } = useSelector(appointmentsSelector);
   const { clients } = useSelector(clientsSelector);
-
-  console.log("THE APPOINTMENTS: ", appointments);
-
-  // Hooks
-  const { customButtons, selectedStaff } = useCalendarToolbar();
-  const fullCalendarOptions = createCalendarSettings(customButtons);
+  const fullCalendarOptions = createCalendarSettings();
 
   const selectLayoutState = (state: any) => state.Calendar;
   const calendarDataProperties = createSelector(selectLayoutState, (state: any) => ({
@@ -194,7 +188,13 @@ const Calender = () => {
     dispatch(onDeleteEvent(deleteEvent));
     setDeleteModal(false);
   };
+  const [popoverOpen, setPopoverOpen] = useState(false);
 
+  const togglePopover = () => {
+    setPopoverOpen(!popoverOpen);
+  };
+
+  
 
   document.title = "Calendar | Velzon - React Admin & Dashboard Template";
   return (
@@ -208,16 +208,7 @@ const Calender = () => {
       />
 
       <FullCalendar
-        schedulerLicenseKey="CC-Attribution-NonCommercial-NoDerivatives"
-        // View
-        initialView="timeGridWeek"
-        timeZone="local" // the default (unnecessary to specify)
-        handleWindowResize={true}
-        themeSystem="bootstrap"
         events={appointments}
-        editable={true}
-        droppable={true}
-        selectable={true}
         dateClick={handleDateClick}
         eventClick={handleAppointmentClick}
         {...fullCalendarOptions}
