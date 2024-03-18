@@ -2,6 +2,15 @@
 import React from "react";
 import { SvgIcon } from "Components/Common"; // Adjust the import path as needed
 import { AppointmentStatusOptions } from "Components/constants";
+import ReactDOM from "react-dom";
+import EventPopover from "./EventPopover";
+
+// const EventPopover = ({ title, content }) => (
+//   <Popover isOpen={true} target={title}>
+//     <PopoverHeader>{title}</PopoverHeader>
+//     <PopoverBody>{content}</PopoverBody>
+//   </Popover>
+// );
 
 const EventDisplay = {
   // Callback function invoked when event source fails to load
@@ -45,17 +54,36 @@ const EventRenderHooks = {
   //   // }
   // },
 
-  // eventClassNames: (arg) => {
-  //   console.log("check arg(eventClassNames): arg: ", arg);
-  // },
-
   // eventRender: (arg) => {
   //   console.log("check arg: arg(eventClassNames): ", arg);
   // },
 
   // Callback function when an event is mounted
-  eventDidMount: (arg) => {
-    console.log("check arg: (eventDidMount): ", arg.el.classList);
+
+  // eventDidMount: (arg) => {
+  //   const el = arg.el;
+  //   const title = arg.event.title;
+  //   const content = "<p>Please check</p>";
+
+  //   const popoverElement = document.createElement("div");
+  //   el.appendChild(popoverElement);
+
+  //   const popoverComponent = <EventPopover title={title} content={content} />;
+
+  //   ReactDOM.render(popoverComponent, popoverElement);
+
+  //   // Clean up
+  //   return () => {
+  //     ReactDOM.unmountComponentAtNode(popoverElement);
+  //     el.removeChild(popoverElement);
+  //   };
+  // },
+
+  eventDidMount: (info) => {
+    ReactDOM.render(
+      <EventPopover eventEl={info.el} event={info.event} />,
+      document.createElement("div") // This div acts as a temporary container
+    );
   },
 
   // Custom content for events

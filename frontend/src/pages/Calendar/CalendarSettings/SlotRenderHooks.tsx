@@ -1,56 +1,75 @@
 // Slot Render Hooks
-// The horizontal time slots in timegrid view or the vertical datetime slots in timeline view.
 
-// Label Hooks
-// Where the date/time text is displayed.
-// slotLabelClassNames - a ClassName Input
-// slotLabelContent - a Content Injection Input
-// slotLabelDidMount
-// slotLabelWillUnmount
-
-// Lane Hooks
-// The long span of content next to the slot’s date/time text. In timegrid view, this is the horizontal space that passes under all of the days. In timeline view, this is the vertical space that passes through the resources.
-// slotLaneClassNames - a ClassName Input
-// slotLaneContent - a Content Injection Input
-// slotLaneDidMount
-// slotLaneWillUnmount
-
-// Argument
-// When the above hooks are specified as a function in the form function(arg), the arg is an object with the following properties:
-// date - Date object
-// text
-// isPast
-// isFuture
-// isToday
-// el - the <td> element. only available in slotLabelDidMount, slotLabelWillUnmount, slotLaneDidMount, and slotLaneWillUnmount
-// level - only for slot labels, and only for timeline view when slotLabelFormat is specified as an array. Indicates which tier of the header is being rendered. 0 is the topmost.
+function formatTime(timeString) {
+  if (!timeString) return "";
+  const [hours, minutes] = timeString.split(":");
+  const hoursInt = parseInt(hours, 10);
+  const ampm = hoursInt >= 12 ? "pm" : "am";
+  const formattedHours = ((hoursInt + 11) % 12) + 1; // Convert 24h to 12h format
+  return `${formattedHours}:${minutes} ${ampm}`;
+}
 
 const SlotRenderHooks = {
-  // Slot Label Hooks
-  // Class names generator for slot labels
-  slotLabelClassNames: (arg) => "",
+  // // Slot Label Hooks
+  // // Class names generator for slot labels
+  // slotLabelClassNames: (arg) => "",
 
-  // Content generator for slot labels
-  // slotLabelContent: (arg) => "",
+  // // Content generator for slot labels
+  // // slotLabelContent: (arg) => "",
 
-  // Handler invoked when a slot label is mounted
-  slotLabelDidMount: (arg) => {},
+  // // Handler invoked when a slot label is mounted
+  // slotLabelDidMount: (arg) => {},
 
-  // Handler invoked when a slot label is about to be unmounted
-  slotLabelWillUnmount: (arg) => {},
+  // // Handler invoked when a slot label is about to be unmounted
+  // slotLabelWillUnmount: (arg) => {},
 
-  // Slot Lane Hook
-  // Class names generator for slot lanes
-  slotLaneClassNames: (arg) => "",
+  // // Slot Lane Hook
+  // // Class names generator for slot lanes
+  // slotLaneClassNames: (arg) => "",
 
-  // Content generator for slot lanes
-  slotLaneContent: (arg) => "",
+  // // Content generator for slot lanes
+  // slotLaneContent: (arg) => "",
 
   // Handler invoked when a slot lane is mounted
-  slotLaneDidMount: (arg) => {},
+  slotLaneDidMount: (arg) => {
+    const timeSlots = document.querySelectorAll(".fc-timegrid-slot.fc-timegrid-slot-lane");
+    timeSlots.forEach((slot) => {
+      // Check if the slot already contains the 'fc-slot-times' div
+      if (!slot.querySelector(".fc-slot-times")) {
+        // Extract the time from the data-time attribute
+        const time = slot.getAttribute("data-time");
+        const formattedTime = formatTime(time);
 
-  // Handler invoked when a slot lane is about to be unmounted
-  slotLaneWillUnmount: (arg) => {},
+        // Create the div structure to be inserted
+        const div = document.createElement("div");
+        div.className = "fc-slot-times";
+        div.style.position = "relative";
+
+        // Add multiple divs inside the main div
+        for (let i = 0; i < 7; i++) {
+          const innerDiv = document.createElement("div");
+          innerDiv.className = "fc-slot-time";
+
+          const span = document.createElement("span");
+          span.className = "fc-slot-time-inner";
+
+          // Set text content only if it's not a minor slot
+          if (!slot.classList.contains("fc-timegrid-slot-minor")) {
+            span.textContent = formattedTime + " "; // Set the time as content
+          }
+
+          innerDiv.appendChild(span);
+          div.appendChild(innerDiv);
+        }
+
+        // Append the created div structure to the <td> element
+        slot.appendChild(div);
+      }
+    });
+  },
+
+  // // Handler invoked when a slot lane is about to be unmounted
+  // slotLaneWillUnmount: (arg) => {},
 };
 
 export default SlotRenderHooks;

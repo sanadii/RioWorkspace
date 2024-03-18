@@ -66,7 +66,7 @@ const useFullCalendarSettings = () => {
 
     // ...WeekTextSettings,
 
-    // ...SlotRenderHooks,
+    ...SlotRenderHooks,
 
     // ...dayEventLimits,
     // ...dayDimensions,

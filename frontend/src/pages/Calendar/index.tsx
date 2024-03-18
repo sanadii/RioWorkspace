@@ -1,12 +1,6 @@
 import React, { useEffect, useState, useRef, useCallback } from "react";
 import PropTypes from "prop-types";
 
-import dayGridPlugin from "@fullcalendar/daygrid";
-import interactionPlugin from "@fullcalendar/interaction";
-import BootstrapTheme from "@fullcalendar/bootstrap";
-import timeGridPlugin from "@fullcalendar/timegrid";
-import listPlugin from "@fullcalendar/list";
-
 //redux
 import { useDispatch, useSelector } from "react-redux";
 import { getSchedule, getClients } from "store/actions";
@@ -16,6 +10,7 @@ import { createSelector } from "reselect";
 
 // Calendar
 import FullCalendar from "@fullcalendar/react";
+
 
 // Calendar Settings
 import createCalendarSettings from "./CalendarSettings"; // Adjust the path as needed
@@ -32,6 +27,31 @@ const Calender = () => {
   const [deleteModal, setDeleteModal] = useState<boolean>(false);
   const [deleteEvent, setDeleteEvent] = useState<string>("");
   const [eventName, setEventName] = useState<string>("");
+
+  // popover take 2
+  const popoverContainerRef = useRef(null);
+
+  useEffect(() => {
+    // Create a container for the popover
+    popoverContainerRef.current = document.createElement("div");
+    document.body.appendChild(popoverContainerRef.current);
+
+    return () => {
+      // Clean up the container when the component unmounts
+      document.body.removeChild(popoverContainerRef.current);
+    };
+  }, []);
+
+  // Popover
+  const [popoverOpen, setPopoverOpen] = useState(false);
+  const [popoverTarget, setPopoverTarget] = useState(null); // Initialize as null
+
+
+  // useEffect(() => {
+  //   if (popoverTargetRef.current) {
+  //     setPopoverTarget(true);
+  //   }
+  // }, []);
 
   // console.log("event: ", event);
   // Data
@@ -80,6 +100,7 @@ const Calender = () => {
    */
 
   const handleDateClick = (arg) => {
+    console.log("handleDateClick: ", arg);
     const now = new Date();
     const startDate = new Date(arg.date);
     const endDate = new Date(startDate);
@@ -90,17 +111,20 @@ const Calender = () => {
     const adjustedStart = new Date(startDate.getTime() - timezoneOffset);
     const adjustedEnd = new Date(endDate.getTime() - timezoneOffset);
 
-    // console.log(`CHECKING TIME --- NOW: ${now}\nstartTime: ${startDate}\nendTime: ${endDate}`);
-
     setAppointment({
       start: adjustedStart.toISOString(),
       end: adjustedEnd.toISOString(),
     });
     setSelectedNewDay(startDate.toISOString());
-    toggle();
-  };
 
-  // console.log("CHECKING TIME --- AppointmentTime: ", appointment);
+    // Create a unique ID for the popover target
+    // Replace ':' with '_' and '+' with 'plus' to create a valid ID
+    const popoverTargetId = `popover-${arg.dateStr.replace(/:/g, "_").replace(/\+/g, "plus")}`;
+    arg.dayEl.id = popoverTargetId; // Assign the ID to the clicked date element
+
+    setPopoverOpen(true); // Open the popover
+    setPopoverTarget(popoverTargetId); // Set the target for the popover
+  };
 
   const displayLocalTime = (isoString) => {
     return new Date(isoString).toLocaleString("en-US", {
@@ -111,9 +135,6 @@ const Calender = () => {
       timeZoneName: "short",
     });
   };
-
-  // console.log("123 Local Start Time: ", displayLocalTime(appointment?.start));
-  // console.log("123 Local End Time: ", displayLocalTime(appointment?.end));
 
   const str_dt = function formatDate(date: any) {
     var monthNames = [
@@ -188,17 +209,15 @@ const Calender = () => {
     dispatch(onDeleteEvent(deleteEvent));
     setDeleteModal(false);
   };
-  const [popoverOpen, setPopoverOpen] = useState(false);
 
-  const togglePopover = () => {
-    setPopoverOpen(!popoverOpen);
-  };
 
   
 
   document.title = "Calendar | Velzon - React Admin & Dashboard Template";
   return (
     <React.Fragment>
+      {/* {popoverTarget && <AppointmentPopover isOpen={popoverOpen} toggle={togglePopover} target={popoverTarget} />} */}
+
       <DeleteModal
         show={deleteModal}
         onDeleteClick={handleDeleteEvent}
@@ -210,9 +229,11 @@ const Calender = () => {
       <FullCalendar
         events={appointments}
         dateClick={handleDateClick}
-        eventClick={handleAppointmentClick}
+        // eventClick={handleAppointmentClick}
         {...fullCalendarOptions}
         // slotLaneRender={slotLaneRender}
+
+        // eventDidMount={eventDidMount}
       />
 
       <div style={{ clear: "both" }}></div>
