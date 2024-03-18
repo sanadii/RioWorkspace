@@ -7,15 +7,6 @@ const InteractionSettings = {
 };
 
 // Event Displaying Settings
-const EventDisplaySettings = {
-  eventOrder: "title", // Defines the order in which events are displayed, can be a string, array, or function
-  eventOrderStrict: false, // When true, events are sorted strictly by the eventOrder setting
-  eventResizableFromStart: true, // Determines whether events can be resized from their start
-  displayEventTime: true, // Determines whether to display the time of events
-  displayEventEnd: true, // Determines whether to display the end time of events
-
-  progressiveEventRendering: true, // Determines whether to use progressive event rendering
-};
 
 // Select Options
 const SelectAndClickSettings = {
@@ -79,4 +70,4 @@ const SelectAndClickSettings = {
   // Calendar::unselect
 };
 
-export { InteractionSettings, EventDisplaySettings, SelectAndClickSettings };
+export { InteractionSettings, SelectAndClickSettings };

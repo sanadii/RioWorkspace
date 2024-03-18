@@ -16,15 +16,17 @@ import {
   BusinessHours,
   EventDurationAndHeaders,
 } from "./GeneralSettings";
+import { CalendarToolbar } from "./CalendarToolbar";
+
+
 import { viewOptions } from "./ViewSettings";
 import TimeAxisSettings from "./TimeAxisSettings";
-import { EventRenderHooks, EventDisplay } from "./EventOptions";
-import { InteractionSettings, EventDisplaySettings, SelectAndClickSettings } from "./OtherSettings";
+import SlotRenderHooks from "./SlotRenderHooks";
+import { EventRenderHooks, EventDisplaySettings } from "./EventOptions";
+import { InteractionSettings, SelectAndClickSettings } from "./OtherSettings";
 import { DaySettings } from "./DaySettings";
 import { WeekNumberSettings, WeekTextSettings } from "./AllOptions/WeekSettings";
-import SlotRenderHooks from "./SlotRenderHooks";
 import { DragAndDrop } from "./DragAndDrop";
-import { CalendarToolbar } from "./CalendarToolbar";
 
 const useFullCalendarSettings = () => {
   const dragAndDropSettings = DragAndDrop();
@@ -39,7 +41,7 @@ const useFullCalendarSettings = () => {
     // View Settings
     ...viewOptions,
     // Event Settings
-    ...EventDisplay,
+    ...EventDisplaySettings,
     ...EventRenderHooks,
 
     //

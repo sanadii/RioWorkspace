@@ -1,23 +1,25 @@
 import React, { useEffect, useState } from "react";
-import { a } from "react-router-dom";
 import { createRoot } from "react-dom/client";
 import { Button, Popover, PopoverHeader, PopoverBody } from "reactstrap";
+import { formatTime } from "../CalendarHooks";
+import { C } from "@fullcalendar/core/internal-common";
 
 const EventPopover = ({ eventEl, event }) => {
   const [popoverOpen, setPopoverOpen] = useState(false);
   const popoverContentRef = React.createRef<HTMLDivElement>(); // Specify the type of the ref
 
-  const formatTime = (date) => {
-    return date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", hour12: true }).toLowerCase();
-  };
-
+  console.log("THE MOBILE: ", event);
   const clientName = event.title;
-  const clientMobile = event && event.client && event.client.mobile;
   const appointmentStatus = event && event.client && event.status;
+  const ppointmentStart = formatTime(event.start);
+  const appointmentEnd = formatTime(event.end);
 
-  const start = formatTime(event.start);
-  const end = formatTime(event.end);
-  const services = (event && event.extendedProps && event.extendedProps.services) || [];
+  const clientMobile = event && event.extendedProps.client && event.extendedProps.client.mobile;
+  const services = (event && event.extendedProps.services) || [];
+
+  const closePopOver = () => {
+    setPopoverOpen(!popoverOpen);
+  };
 
   useEffect(() => {
     const togglePopover = () => {
@@ -67,7 +69,14 @@ const EventPopover = ({ eventEl, event }) => {
             >
               <i className="ri-printer-fill"></i>
             </a>
-            <Button className="close bln-close">×</Button>
+            <Button
+              type="button"
+              className="btn-close"
+              onClick={() => {
+                closePopOver();
+              }}
+              aria-label="Close"
+            ></Button>
             <p>
               <a href="tel:+965201068811086">
                 <i className="ri-smartphone-line">&nbsp;</i>+{clientMobile}
@@ -90,7 +99,7 @@ const EventPopover = ({ eventEl, event }) => {
                     <div className="calendar-balloon__icon staff-icon"></div>
                     <div className="calendar-balloon__staff-time">{service.staff}</div>
                     <div className="calendar-balloon__icon time-icon"></div>
-                    <div className="calendar-balloon__time">{start}</div>
+                    <div className="calendar-balloon__time">{ppointmentStart}</div>
                   </div>
                 </div>
               ))}
