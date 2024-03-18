@@ -10,12 +10,8 @@ import { createSelector } from "reselect";
 
 // Calendar
 import FullCalendar from "@fullcalendar/react";
-
-
-// Calendar Settings
 import createCalendarSettings from "./CalendarSettings"; // Adjust the path as needed
 import CalendarModal from "./CalendarModal";
-
 import { DeleteModal } from "Components/Common";
 
 const Calender = () => {

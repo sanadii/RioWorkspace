@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
+import { a } from "react-router-dom";
 import { createRoot } from "react-dom/client";
-import { Popover, PopoverHeader, PopoverBody } from "reactstrap";
+import { Button, Popover, PopoverHeader, PopoverBody } from "reactstrap";
 
 const EventPopover = ({ eventEl, event }) => {
   const [popoverOpen, setPopoverOpen] = useState(false);
@@ -24,7 +25,7 @@ const EventPopover = ({ eventEl, event }) => {
     };
 
     if (eventEl) {
-      // Add click event listener to the event element
+      // Add click event listener href the event element
       eventEl.addEventListener("click", togglePopover);
 
       // Create a root for the popover content
@@ -66,7 +67,7 @@ const EventPopover = ({ eventEl, event }) => {
             >
               <i className="ri-printer-fill"></i>
             </a>
-            <a className="close bln-close">×</a>
+            <Button className="close bln-close">×</Button>
             <p>
               <a href="tel:+965201068811086">
                 <i className="ri-smartphone-line">&nbsp;</i>+{clientMobile}
