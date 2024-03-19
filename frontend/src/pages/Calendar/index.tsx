@@ -1,5 +1,9 @@
 import React, { useEffect, useState, useRef, useCallback } from "react";
 import PropTypes from "prop-types";
+import { Popover } from "reactstrap";
+
+import EventPopover2 from "./CalendarSettings/EventOptions/EventPopover2";
+import EventPopover from "./CalendarSettings/EventOptions/EventPopover";
 
 //redux
 import { useDispatch, useSelector } from "react-redux";
@@ -17,6 +21,8 @@ import { DeleteModal } from "Components/Common";
 const Calender = () => {
   const dispatch: any = useDispatch();
   const [appointment, setAppointment] = useState<any>({});
+
+
   const [modal, setModal] = useState<boolean>(false);
   const [selectedNewDay, setSelectedNewDay] = useState<any>();
   const [isEdit, setIsEdit] = useState<boolean>(false);
@@ -41,7 +47,6 @@ const Calender = () => {
   // Popover
   const [popoverOpen, setPopoverOpen] = useState(false);
   const [popoverTarget, setPopoverTarget] = useState(null); // Initialize as null
-
 
   // useEffect(() => {
   //   if (popoverTargetRef.current) {
@@ -206,14 +211,37 @@ const Calender = () => {
     setDeleteModal(false);
   };
 
+  const [show, setShow] = useState(false);
+  const [target, setTarget] = useState(null);
+  const ref = useRef(null);
+
+const handleEventClick = (arg) => {
+  setAppointment(arg.event);
+
+  // Use the event's element as the popover target
+  setPopoverTarget(arg.el);
+
+  setPopoverOpen(true);
+};
 
   
+  // Close popover when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (popoverOpen && popoverTarget && !popoverTarget.contains(event.target)) {
+        setPopoverOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [popoverOpen, popoverTarget]);
 
   document.title = "Calendar | Velzon - React Admin & Dashboard Template";
   return (
     <React.Fragment>
-      {/* {popoverTarget && <AppointmentPopover isOpen={popoverOpen} toggle={togglePopover} target={popoverTarget} />} */}
-
       <DeleteModal
         show={deleteModal}
         onDeleteClick={handleDeleteEvent}
@@ -226,28 +254,11 @@ const Calender = () => {
         events={appointments}
         dateClick={handleDateClick}
         // eventClick={handleAppointmentClick}
+        eventClick={handleEventClick}
         {...fullCalendarOptions}
-        // slotLaneRender={slotLaneRender}
-
-        // eventDidMount={eventDidMount}
       />
 
-      <div style={{ clear: "both" }}></div>
-
-      <CalendarModal
-        modal={modal}
-        services={services}
-        staff={staff}
-        clients={clients}
-        appointmentRef={""}
-        // id="event-modal"
-        toggle={toggle}
-        appointment={appointment}
-        // setAppointment={setAppointment}
-        isEdit={isEdit}
-        // setModal={setModal}
-        // setDeleteModal={setDeleteModal}
-      />
+      <EventPopover eventEl={popoverTarget} event={appointment} />
     </React.Fragment>
   );
 };

@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
+
+// Redux
 import { useSelector, useDispatch } from "react-redux";
-import { createSelector } from "reselect";
+import { appointmentsSelector, clientsSelector } from "Selectors";
 
 import * as Yup from "yup";
 import { useFormik } from "formik";
@@ -18,9 +20,14 @@ import { StatusComponent } from "./StatusComponent";
 
 import { AppointmentItem, ServiceItem, ClientItem } from "types";
 
-// const CalendarModal = ({ event, scheduleObj, services, staff, clients, appointmentRef }) => {
-const CalendarModal = ({ modal, isEdit, toggle, appointment, services, staff, clients, appointmentRef }) => {
+const CalendarModal = ({ modal, isEdit, toggle, appointment }) => {
   const dispatch: any = useDispatch();
+
+  const { appointments, services, staff } = useSelector(appointmentsSelector);
+  const { clients } = useSelector(clientsSelector);
+
+  // console.log("appointments:", appointments, "staff: ", staff, "services:", services);
+
   const [selectedNewDate, setSelectedNewDate] = useState<any>();
   // console.log("appointment: ", appointment);
   // Refs
@@ -167,19 +174,9 @@ const CalendarModal = ({ modal, isEdit, toggle, appointment, services, staff, cl
                 validation={validation}
               />
 
-              <ClientComponent
-                clientRef={clientRef}
-                appointment={appointment}
-                clients={clients}
-                isEdit={isEdit}
-              />
+              <ClientComponent clientRef={clientRef} appointment={appointment} clients={clients} isEdit={isEdit} />
 
-              <ServiceComponent
-                serviceRef={serviceRef}
-                appointment={appointment}
-                services={services}
-                staff={staff}
-              />
+              <ServiceComponent serviceRef={serviceRef} appointment={appointment} services={services} staff={staff} />
 
               <StatusComponent statusRef={statusRef} appointment={appointment} validation={validation} />
             </div>

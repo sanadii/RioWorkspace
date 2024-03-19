@@ -1,50 +1,48 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
+import { createRoot } from "react-dom/client";
 import { Button, Popover, PopoverHeader, PopoverBody } from "reactstrap";
 import { formatTime } from "../CalendarHooks";
-import { createPortal } from "react-dom";
+import { C } from "@fullcalendar/core/internal-common";
 
 const EventPopover = ({ eventEl, event }) => {
   const [popoverOpen, setPopoverOpen] = useState(false);
-  const popoverContainerRef = useRef(null);
+  const popoverContentRef = React.createRef<HTMLDivElement>(); // Specify the type of the ref
 
-  useEffect(() => {
-    // Create a container for the popover only once
-    popoverContainerRef.current = document.createElement("div");
-    document.body.appendChild(popoverContainerRef.current);
+  console.log("THE MOBILE: ", event);
+  const groupId = event.groupId;
+  const publicId = event.publicId;
 
-    return () => {
-      // Clean up the container when the component unmounts
-      document.body.removeChild(popoverContainerRef.current);
-    };
-  }, []);
+  const isAllDay = event.allDay;
+  const defId = event.defId;
+  const hasEnd = event.hasEnd;
 
-  const togglePopover = () => {
+  const clientName = event.title;
+  const clientId = event && event.client && event.client.id;
+  const appointmentStatus = event && event.extendedProps && event.extendedProps.status;
+  const ppointmentStart = formatTime(event.start);
+  const appointmentEnd = formatTime(event.end);
+
+  const clientMobile = event && event.extendedProps.client && event.extendedProps.client.mobile;
+  const services = (event && event.extendedProps.services) || [];
+
+  const closePopOver = () => {
     setPopoverOpen(!popoverOpen);
   };
 
-  const closePopOver = () => {
-    setPopoverOpen(false);
-  };
+  useEffect(() => {
+    const togglePopover = () => {
+      setPopoverOpen(!popoverOpen);
+    };
 
-  const handleEditAction = (e) => {
-    console.log("Handling Edit Action");
-    // Your edit logic here
-  };
+    if (eventEl) {
+      // Add click event listener href the event element
+      eventEl.addEventListener("click", togglePopover);
 
-  const clientName = event.title;
-  const clientId = event?.client?.id;
-  const clientMobile = event?.extendedProps?.client?.mobile;
-  const services = event?.extendedProps?.services || [];
-  const appointmentStart = formatTime(event?.start);
-  const appointmentEnd = formatTime(event?.end);
-  const publicId = event?.extendedProps?.publicId;
-  const groupId = event?.extendedProps?.groupId;
-  const appointmentStatus = event?.extendedProps?.status;
+      // Create a root for the popover content
+      const root = createRoot(popoverContentRef.current);
 
-  return (
-    eventEl &&
-    createPortal(
-      <React.Fragment>
+      // Render the popover content
+      root.render(
         <Popover placement="auto" isOpen={popoverOpen} target={eventEl} toggle={togglePopover}>
           <PopoverHeader className="popover-title">
             <a
@@ -109,36 +107,24 @@ const EventPopover = ({ eventEl, event }) => {
                     <div className="calendar-balloon__icon staff-icon"></div>
                     <div className="calendar-balloon__staff-time">{service.staff}</div>
                     <div className="calendar-balloon__icon time-icon"></div>
-                    <div className="calendar-balloon__time">{appointmentStart}</div>
+                    <div className="calendar-balloon__time">{ppointmentStart}</div>
                   </div>
                 </div>
               ))}
             </div>
           </PopoverBody>
-          <div className="quick-info-footer">
-            <div className="event-footer">
-              <p>status: {appointmentStatus}</p>
-              <div className="calendar-balloon__action-buttons">
-                <Button
-                  id="edit"
-                  color="success"
-                  // disabled={loader && true}
-                  className="btn btn-success w-100"
-                  // className="btn btn-primary-light btn-small bln-close"
-
-                  type="submit"
-                  onClick={(e) => handleEditAction(e)}
-                >
-                  Edit
-                </Button>
-              </div>
-            </div>
-          </div>
         </Popover>
-      </React.Fragment>,
-      popoverContainerRef.current // Use popoverContainerRef.current here
-    )
-  );
+      );
+
+      // Clean up
+      return () => {
+        root.unmount();
+      };
+    }
+  }, [eventEl, popoverOpen]);
+
+  // Render the popover using React Portal if the event element exists
+  return <div ref={popoverContentRef} />;
 };
 
 export default EventPopover;

@@ -4,7 +4,7 @@ const useGroupedServices = (services) => {
   const [groupedServices, setGroupedServices] = useState([]);
 
   useEffect(() => {
-    const newGroupedServices = services.reduce((acc, service) => {
+    const newGroupedServices = services && services.reduce((acc, service) => {
       // Find an existing category in the accumulator
       const category = acc.find((category) => category.label === service.categoryName);
 

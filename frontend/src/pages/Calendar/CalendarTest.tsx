@@ -1,24 +1,37 @@
-import React, { useState } from "react";
-import { Button } from "reactstrap";
-// import AppointmentPopover from "./AppointmentPopover";
+import React from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { Button, Popover, PopoverHeader, PopoverBody } from "reactstrap";
 
-const CalenderTest = () => {
-  const [popoverOpen, setPopoverOpen] = useState(false);
-
-  const togglePopover = () => {
-    setPopoverOpen(!popoverOpen);
-  };
+const CalendarTest = () => {
+  // Popover open state
+  const [popoverOpen, setPopoverOpen] = React.useState(false);
 
   return (
-    <React.Fragment>
-      <div>
-        <Button id="Popover1" onClick={togglePopover}>
-          Launch Popover
-        </Button>
-        {/* <AppointmentPopover isOpen={popoverOpen} toggle={togglePopover} target="Popover1" /> */}
-      </div>
-    </React.Fragment>
+    <div
+      style={{
+        display: "block",
+        width: 700,
+        padding: 30,
+      }}
+    >
+      <h4>ReactJS Reactstrap Popover Component</h4>
+      <Button id="Popover1" type="button">
+        Click me to Open Popover
+      </Button>{" "}
+      <br></br>
+      <Popover
+        placement="bottom"
+        isOpen={popoverOpen}
+        target="Popover1"
+        toggle={() => {
+          setPopoverOpen(!popoverOpen);
+        }}
+      >
+        <PopoverHeader>Sample Popover Title</PopoverHeader>
+        <PopoverBody>Sample Body Text to display...</PopoverBody>
+      </Popover>
+    </div>
   );
 };
 
-export default CalenderTest;
+export default CalendarTest;

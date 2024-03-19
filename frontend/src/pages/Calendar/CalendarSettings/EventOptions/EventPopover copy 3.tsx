@@ -1,50 +1,92 @@
-import React, { useEffect, useState, useRef } from "react";
-import { Button, Popover, PopoverHeader, PopoverBody } from "reactstrap";
-import { formatTime } from "../CalendarHooks";
+import React, { useEffect, useState, useCallback } from "react";
+import { createRoot } from "react-dom/client";
 import { createPortal } from "react-dom";
 
+import { Button, Popover, PopoverHeader, PopoverBody } from "reactstrap";
+import { formatTime } from "../CalendarHooks";
+
+import { closest } from "@syncfusion/ej2-base";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { addAppointment, updateAppointment, deleteAppointment } from "store/actions";
+
+import CalendarModal from "../../CalendarModal";
 const EventPopover = ({ eventEl, event }) => {
   const [popoverOpen, setPopoverOpen] = useState(false);
-  const popoverContainerRef = useRef(null);
+  const popoverContainer = document.createElement("div");
 
-  useEffect(() => {
-    // Create a container for the popover only once
-    popoverContainerRef.current = document.createElement("div");
-    document.body.appendChild(popoverContainerRef.current);
+  // Modal
+  const [modal, setModal] = useState<boolean>(false);
+  const [isEdit, setIsEdit] = useState<boolean>(false);
 
-    return () => {
-      // Clean up the container when the component unmounts
-      document.body.removeChild(popoverContainerRef.current);
-    };
-  }, []);
+  console.log("THE MOBILE: ", event);
+  const groupId = event.groupId;
+  const publicId = event.publicId;
+
+  const isAllDay = event.allDay;
+  const defId = event.defId;
+  const hasEnd = event.hasEnd;
+
+  const clientName = event.title;
+  const clientId = event && event.client && event.client.id;
+  const appointmentStatus = event && event.extendedProps && event.extendedProps.status;
+  const ppointmentStart = formatTime(event.start);
+  const appointmentEnd = formatTime(event.end);
+
+  const clientMobile = event && event.extendedProps.client && event.extendedProps.client.mobile;
+  const services = (event && event.extendedProps.services) || [];
+
+  const toggle = useCallback(() => {
+    if (modal) {
+      setModal(false);
+      // setAppointment(null);
+      setIsEdit(false);
+    } else {
+      setModal(true);
+    }
+  }, [modal]);
 
   const togglePopover = () => {
     setPopoverOpen(!popoverOpen);
   };
 
   const closePopOver = () => {
-    setPopoverOpen(false);
+    setPopoverOpen(!popoverOpen);
   };
 
   const handleEditAction = (e) => {
-    console.log("Handling Edit Action");
-    // Your edit logic here
+    console.log("handeling Edit Action");
+    toggle();
   };
 
-  const clientName = event.title;
-  const clientId = event?.client?.id;
-  const clientMobile = event?.extendedProps?.client?.mobile;
-  const services = event?.extendedProps?.services || [];
-  const appointmentStart = formatTime(event?.start);
-  const appointmentEnd = formatTime(event?.end);
-  const publicId = event?.extendedProps?.publicId;
-  const groupId = event?.extendedProps?.groupId;
-  const appointmentStatus = event?.extendedProps?.status;
+  useEffect(() => {
+    const togglePopover = () => {
+      setPopoverOpen(!popoverOpen);
+    };
+
+    if (eventEl) {
+      eventEl.addEventListener("click", togglePopover);
+      document.body.appendChild(popoverContainer);
+
+      return () => {
+        eventEl.removeEventListener("click", togglePopover);
+        document.body.removeChild(popoverContainer);
+      };
+    }
+  }, [eventEl]);
 
   return (
     eventEl &&
     createPortal(
       <React.Fragment>
+        <CalendarModal
+          modal={modal}
+          // id="event-modal"
+          toggle={toggle}
+          appointment={event}
+          isEdit={isEdit}
+        />
+
         <Popover placement="auto" isOpen={popoverOpen} target={eventEl} toggle={togglePopover}>
           <PopoverHeader className="popover-title">
             <a
@@ -109,7 +151,7 @@ const EventPopover = ({ eventEl, event }) => {
                     <div className="calendar-balloon__icon staff-icon"></div>
                     <div className="calendar-balloon__staff-time">{service.staff}</div>
                     <div className="calendar-balloon__icon time-icon"></div>
-                    <div className="calendar-balloon__time">{appointmentStart}</div>
+                    <div className="calendar-balloon__time">{ppointmentStart}</div>
                   </div>
                 </div>
               ))}
@@ -136,9 +178,26 @@ const EventPopover = ({ eventEl, event }) => {
           </div>
         </Popover>
       </React.Fragment>,
-      popoverContainerRef.current // Use popoverContainerRef.current here
+      popoverContainer
     )
   );
 };
 
 export default EventPopover;
+
+//   // Render the popover using React Portal if the event element exists
+//   return (
+//     <React.Fragment>
+//       <div ref={popoverContentRef} />
+//       <CalendarModal
+//         modal={modal}
+//         // id="event-modal"
+//         toggle={toggle}
+//         appointment={event}
+//         isEdit={isEdit}
+//       />
+//     </React.Fragment>
+//   );
+// };
+
+// export default EventPopover;

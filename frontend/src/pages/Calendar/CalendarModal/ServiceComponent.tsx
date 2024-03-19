@@ -22,7 +22,7 @@ const ServiceComponent = ({ serviceRef, appointment, services, staff }) => {
   const [serviceDetails, setServiceDetails] = useState<ServiceItem[]>([]);
 
   const serviceList = useGroupedServices(services);
-  const defaultStaffId = staff.length > 0 ? staff[0].id : null;
+  const defaultStaffId = staff && staff.length > 0 ? staff[0].id : null;
   const durationOptions = useDurationOptions();
   const totalPrice = useTotalPrice(serviceDetails);
   const totalTime = useTotalTime(serviceDetails);
@@ -215,11 +215,7 @@ const ServiceComponent = ({ serviceRef, appointment, services, staff }) => {
             </tbody>
             <tr className="mt-3">
               <td>
-                <button
-                  type="button"
-                  className="btn btn-block btn-secondary"
-                  onClick={handleAddService}
-                >
+                <button type="button" className="btn btn-block btn-secondary" onClick={handleAddService}>
                   Add another service
                 </button>
               </td>

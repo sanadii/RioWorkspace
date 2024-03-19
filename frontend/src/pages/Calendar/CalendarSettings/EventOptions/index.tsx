@@ -2,17 +2,17 @@
 import { createRoot } from "react-dom/client";
 import EventPopover from "./EventPopover";
 import EventContent from "./EventContent";
+import { Provider } from 'react-redux';
+import { BrowserRouter } from 'react-router-dom';
+import { configureStore } from "store";
 
 const EventDisplaySettings = {
-
   eventOrder: "title", // Defines the order in which events are displayed, can be a string, array, or function
   eventOrderStrict: false, // When true, events are sorted strictly by the eventOrder setting
   eventResizableFromStart: true, // Determines whether events can be resized from their start
   displayEventTime: true, // Determines whether to display the time of events
   displayEventEnd: true, // Determines whether to display the end time of events
   progressiveEventRendering: true, // Determines whether to use progressive event rendering
-
-
 
   // Callback function invoked when event source fails to load
   eventSourceFailure: (error) => console.error("Event source failed:", error),
@@ -60,18 +60,32 @@ const EventRenderHooks = {
   // },
 
   // Callback function when an event is mounted
-  eventDidMount: (info) => {
-    const container = document.createElement("div");
-    document.body.appendChild(container);
-    const root = createRoot(container);
-    root.render(<EventPopover eventEl={info.el} event={info.event} />);
+  // Callback function when an event is mounted
+  // eventDidMount: (info) => {
+  //   // If you need to create an additional container and append it to the body
+  //   const eventPopoverDiv = document.createElement("div");
+  //   eventPopoverDiv.className = "fc-event-popover";
+  //   document.body.appendChild(eventPopoverDiv);
+  // },
 
-    // Clean up: Remove the container when the popover is unmounted
-    return () => {
-      root.unmount();
-      container.remove();
-    };
-  },
+  // eventDidMount: (info) => {
+  //   const container = document.createElement("div");
+  //   document.body.appendChild(container);
+  //   const root = createRoot(container);
+  //   root.render(
+  //     <Provider store={configureStore({})}>
+  //       <BrowserRouter basename={process.env.PUBLIC_URL}>
+  //         <EventPopover eventEl={info.el} event={info.event} />
+  //       </BrowserRouter>
+  //     </Provider>
+  //   );
+
+  //   // Clean up: Remove the container when the popover is unmounted
+  //   return () => {
+  //     root.unmount();
+  //     container.remove();
+  //   };
+  // },
 
   // Custom content for events
   eventContent: (arg) => {
