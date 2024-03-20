@@ -1,36 +1,32 @@
 import React, { useEffect, useState, useRef, useCallback } from "react";
-import PropTypes from "prop-types";
-import { Popover } from "reactstrap";
-
-import EventPopover2 from "./CalendarSettings/EventOptions/EventPopover2";
+import { CalenderProps } from "types";
 import EventPopover from "./CalendarSettings/EventOptions/EventPopover";
 
-//redux
+// Redux
 import { useDispatch, useSelector } from "react-redux";
 import { getSchedule, getClients } from "store/actions";
 import { appointmentsSelector, clientsSelector } from "Selectors";
-import { addNewEvent as onAddNewEvent, deleteEvent as onDeleteEvent } from "store/actions";
 import { createSelector } from "reselect";
 
 // Calendar
 import FullCalendar from "@fullcalendar/react";
 import createCalendarSettings from "./CalendarSettings"; // Adjust the path as needed
-import CalendarModal from "./CalendarModal";
 import { DeleteModal } from "Components/Common";
 
 const Calender = () => {
   const dispatch: any = useDispatch();
   const [appointment, setAppointment] = useState<any>({});
-
-
+  const [showBackdrop, setShowBackdrop] = useState(false);
   const [modal, setModal] = useState<boolean>(false);
   const [selectedNewDay, setSelectedNewDay] = useState<any>();
   const [isEdit, setIsEdit] = useState<boolean>(false);
   const [deleteModal, setDeleteModal] = useState<boolean>(false);
-  const [deleteEvent, setDeleteEvent] = useState<string>("");
   const [eventName, setEventName] = useState<string>("");
 
   // popover take 2
+  const [popoverOpen, setPopoverOpen] = useState(false);
+  const [popoverTarget, setPopoverTarget] = useState(null); // Initialize as null
+
   const popoverContainerRef = useRef(null);
 
   useEffect(() => {
@@ -44,17 +40,6 @@ const Calender = () => {
     };
   }, []);
 
-  // Popover
-  const [popoverOpen, setPopoverOpen] = useState(false);
-  const [popoverTarget, setPopoverTarget] = useState(null); // Initialize as null
-
-  // useEffect(() => {
-  //   if (popoverTargetRef.current) {
-  //     setPopoverTarget(true);
-  //   }
-  // }, []);
-
-  // console.log("event: ", event);
   // Data
   const { appointments, services, staff } = useSelector(appointmentsSelector);
   const { clients } = useSelector(clientsSelector);
@@ -125,111 +110,28 @@ const Calender = () => {
 
     setPopoverOpen(true); // Open the popover
     setPopoverTarget(popoverTargetId); // Set the target for the popover
+    setShowBackdrop(true); // Show the backdrop when the popover is opened
   };
 
-  const displayLocalTime = (isoString) => {
-    return new Date(isoString).toLocaleString("en-US", {
-      hour: "numeric",
-      minute: "numeric",
-      second: "numeric",
-      hour12: false,
-      timeZoneName: "short",
-    });
+  const handleEventClick = (arg) => {
+    setAppointment(arg.event);
+    setPopoverTarget(arg.el); // Use the event's element as the popover target
+    setPopoverOpen(true); // Open the popover
+    setShowBackdrop(true); // Show the backdrop when the popover is opened
   };
 
-  const str_dt = function formatDate(date: any) {
-    var monthNames = [
-      "January",
-      "February",
-      "March",
-      "April",
-      "May",
-      "June",
-      "July",
-      "August",
-      "September",
-      "October",
-      "November",
-      "December",
-    ];
-    var d = new Date(date),
-      month = "" + monthNames[d.getMonth()],
-      day = "" + d.getDate(),
-      year = d.getFullYear();
-    if (month.length < 2) month = "0" + month;
-    if (day.length < 2) day = "0" + day;
-    return [day + " " + month, year].join(",");
+  console.log("popoverTarget:: ", popoverTarget);
+
+  const closePopover = () => {
+    setPopoverOpen(false);
+    setShowBackdrop(false); // Hide the backdrop when the popover is closed
   };
 
-  /**
-   * Handling click on event on calendar
-   */
-
-  // Update Data
-  const handleAppointmentClick = useCallback(
-    (arg: any) => {
-      const appointment = arg.event;
-
-      const st_date = appointment.start;
-      const ed_date = appointment.end;
-      const r_date = ed_date == null ? str_dt(st_date) : str_dt(st_date) + " to " + str_dt(ed_date);
-      const er_date = ed_date === null ? [st_date] : [st_date, ed_date];
-
-      setAppointment({
-        id: appointment.id,
-        title: appointment.title,
-        start: appointment.start,
-        end: appointment.end,
-        classNames: appointment.classNames,
-
-        client: appointment.extendedProps.client,
-
-        services: appointment.extendedProps.services,
-        packages: appointment.extendedProps.packages,
-        products: appointment.extendedProps.products,
-
-        duration: appointment.duration,
-        price: appointment.price,
-
-        // category: appointment.classNames[0],
-        note: appointment._def.extendedProps.note,
-        defaultDate: er_date,
-        datetag: r_date,
-      });
-
-      setIsEdit(true);
-      toggle();
-    },
-    [toggle]
-  );
-
-  /**
-   * On delete event
-   */
-  const handleDeleteEvent = () => {
-    dispatch(onDeleteEvent(deleteEvent));
-    setDeleteModal(false);
-  };
-
-  const [show, setShow] = useState(false);
-  const [target, setTarget] = useState(null);
-  const ref = useRef(null);
-
-const handleEventClick = (arg) => {
-  setAppointment(arg.event);
-
-  // Use the event's element as the popover target
-  setPopoverTarget(arg.el);
-
-  setPopoverOpen(true);
-};
-
-  
-  // Close popover when clicking outside
+  // Close popover and backdrop when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (popoverOpen && popoverTarget && !popoverTarget.contains(event.target)) {
-        setPopoverOpen(false);
+        closePopover();
       }
     };
 
@@ -242,35 +144,20 @@ const handleEventClick = (arg) => {
   document.title = "Calendar | Velzon - React Admin & Dashboard Template";
   return (
     <React.Fragment>
-      <DeleteModal
-        show={deleteModal}
-        onDeleteClick={handleDeleteEvent}
-        onCloseClick={() => {
-          setDeleteModal(false);
-        }}
-      />
-
       <FullCalendar
         events={appointments}
         dateClick={handleDateClick}
-        // eventClick={handleAppointmentClick}
         eventClick={handleEventClick}
         {...fullCalendarOptions}
       />
-
-      <EventPopover eventEl={popoverTarget} event={appointment} />
+      <EventPopover
+        eventEl={popoverTarget}
+        event={appointment}
+        isOpen={popoverOpen}
+        toggle={() => setPopoverOpen(false)}
+      />
     </React.Fragment>
   );
-};
-
-Calender.propTypes = {
-  events: PropTypes.any,
-  categories: PropTypes.array,
-  onGetEvents: PropTypes.func,
-  onAddNewEvent: PropTypes.func,
-  onUpdateEvent: PropTypes.func,
-  onDeleteEvent: PropTypes.func,
-  onGetCategories: PropTypes.func,
 };
 
 export default Calender;

@@ -1,3 +1,13 @@
+export type CalenderProps = {
+  events: any;
+  categories: [];
+  onGetEvents: () => void;
+  onAddNewEvent: () => void;
+  onUpdateEvent: () => void;
+  onDeleteEvent: () => void;
+  onGetCategories: () => void;
+};
+
 export type AppointmentItem = {
   id: number;
   start: Date;
@@ -26,5 +36,3 @@ export type ServiceItem = {
   duration: string;
   price: string;
 };
-
-

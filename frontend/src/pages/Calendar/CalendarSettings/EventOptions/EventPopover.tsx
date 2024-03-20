@@ -3,24 +3,8 @@ import { Button, Popover, PopoverHeader, PopoverBody } from "reactstrap";
 import { formatTime } from "../CalendarHooks";
 import { createPortal } from "react-dom";
 
-const EventPopover = ({ eventEl, event }) => {
+const EventPopover = ({ eventEl, event, isOpen, toggle }) => {
   const [popoverOpen, setPopoverOpen] = useState(false);
-  const popoverContainerRef = useRef(null);
-
-  useEffect(() => {
-    // Create a container for the popover only once
-    popoverContainerRef.current = document.createElement("div");
-    document.body.appendChild(popoverContainerRef.current);
-
-    return () => {
-      // Clean up the container when the component unmounts
-      document.body.removeChild(popoverContainerRef.current);
-    };
-  }, []);
-
-  const togglePopover = () => {
-    setPopoverOpen(!popoverOpen);
-  };
 
   const closePopOver = () => {
     setPopoverOpen(false);
@@ -35,8 +19,8 @@ const EventPopover = ({ eventEl, event }) => {
   const clientId = event?.client?.id;
   const clientMobile = event?.extendedProps?.client?.mobile;
   const services = event?.extendedProps?.services || [];
-  const appointmentStart = formatTime(event?.start);
-  const appointmentEnd = formatTime(event?.end);
+  // const appointmentStart = formatTime(event?.start);
+  // const appointmentEnd = formatTime(event?.end);
   const publicId = event?.extendedProps?.publicId;
   const groupId = event?.extendedProps?.groupId;
   const appointmentStatus = event?.extendedProps?.status;
@@ -45,7 +29,21 @@ const EventPopover = ({ eventEl, event }) => {
     eventEl &&
     createPortal(
       <React.Fragment>
-        <Popover placement="auto" isOpen={popoverOpen} target={eventEl} toggle={togglePopover}>
+        <div
+          className="balloon-backing sanad-blocking"
+          style={{
+            width: "100%",
+            height: "100%",
+            position: "fixed",
+            top: 0,
+            left: 0,
+            zIndex: 5000,
+            backgroundColor: "rgba(0, 0, 0, 0.5)", // Optional: for a semi-transparent backdrop
+          }}
+          // onClick={closePopover}
+        ></div>
+
+        <Popover placement="auto" isOpen={isOpen} target={eventEl} toggle={toggle}>
           <PopoverHeader className="popover-title">
             <a
               className="fc-customer-name goto-customer"
@@ -109,7 +107,7 @@ const EventPopover = ({ eventEl, event }) => {
                     <div className="calendar-balloon__icon staff-icon"></div>
                     <div className="calendar-balloon__staff-time">{service.staff}</div>
                     <div className="calendar-balloon__icon time-icon"></div>
-                    <div className="calendar-balloon__time">{appointmentStart}</div>
+                    {/* <div className="calendar-balloon__time">{appointmentStart}</div> */}
                   </div>
                 </div>
               ))}
@@ -136,7 +134,7 @@ const EventPopover = ({ eventEl, event }) => {
           </div>
         </Popover>
       </React.Fragment>,
-      popoverContainerRef.current // Use popoverContainerRef.current here
+      document.body // Render directly into the body
     )
   );
 };
