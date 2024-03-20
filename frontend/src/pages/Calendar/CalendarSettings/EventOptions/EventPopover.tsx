@@ -12,7 +12,6 @@ const EventPopover = ({ eventEl, event, isOpen, toggle }) => {
 
   const handleEditAction = (e) => {
     console.log("Handling Edit Action");
-    // Your edit logic here
   };
 
   const clientName = event.title;
@@ -29,22 +28,15 @@ const EventPopover = ({ eventEl, event, isOpen, toggle }) => {
     eventEl &&
     createPortal(
       <React.Fragment>
-        <div
-          className="balloon-backing sanad-blocking"
-          style={{
-            width: "100%",
-            height: "100%",
-            position: "fixed",
-            top: 0,
-            left: 0,
-            zIndex: 5000,
-            backgroundColor: "rgba(0, 0, 0, 0.5)", // Optional: for a semi-transparent backdrop
-          }}
-          // onClick={closePopover}
-        ></div>
-
-        <Popover placement="auto" isOpen={isOpen} target={eventEl} toggle={toggle}>
-          <PopoverHeader className="popover-title">
+        <Popover
+          placement="auto"
+          className="event-popover calendar-balloon"
+          isOpen={isOpen}
+          target={eventEl}
+          toggle={toggle}
+          onClose={console.log("")}
+        >
+          <PopoverHeader>
             <a
               className="fc-customer-name goto-customer"
               data-customer-id={clientId}
@@ -77,14 +69,14 @@ const EventPopover = ({ eventEl, event, isOpen, toggle }) => {
             >
               <i className="ri-printer-fill"></i>
             </a>
-            <Button
-              type="button"
-              className="btn-close"
+            <a
+              className="close bln-close"
               onClick={() => {
                 closePopOver();
               }}
-              aria-label="Close"
-            ></Button>
+            >
+              ×
+            </a>
             <p>
               <a href={`tel:+${clientMobile}}`}>
                 <i className="ri-smartphone-line">&nbsp;</i>+{clientMobile}
@@ -92,46 +84,69 @@ const EventPopover = ({ eventEl, event, isOpen, toggle }) => {
             </p>
           </PopoverHeader>
           <PopoverBody>
-            <div className="calendar-balloon__event-details">
-              {services.map((service) => (
+            {services.map((service) => (
+              <div className="calendar-balloon__event-details">
                 <div key={service.id} className="calendar-balloon__service-entry">
                   <div className="fc-event-body calendar-balloon__detail-line">
                     <div className="calendar-balloon__icon service-icon"></div>
                     <div>
-                      {service.name.substring(0, 30)}
-                      <span className="fc-price"> - {service.price} KD</span>
+                      <p>
+                        {service.name.substring(0, 30)}
+                        <span className="fc-price"> - {service.price}KD</span>
+                      </p>
+                      <p>
+                        <span className="calendar-balloon__staff-time">with {service.staff} </span>
+                        {/* <div className="calendar-balloon__icon time-icon"></div> */}
+                        <span className="calendar-balloon__time">
+                          at
+                          {/* {appointmentStart} */}
+                        </span>
+                      </p>
                     </div>
                   </div>
-
-                  <div className="calendar-balloon__detail-line">
-                    <div className="calendar-balloon__icon staff-icon"></div>
-                    <div className="calendar-balloon__staff-time">{service.staff}</div>
-                    <div className="calendar-balloon__icon time-icon"></div>
-                    {/* <div className="calendar-balloon__time">{appointmentStart}</div> */}
-                  </div>
                 </div>
-              ))}
+              </div>
+            ))}
+
+            {/* Footer strating */}
+            <div className="calendar-balloon__action-buttons">
+              <Button
+                id="edit"
+                color="primary"
+                // disabled={loader && true}
+                className="btn btn-success w-100"
+                // className="btn btn-primary-light btn-small bln-close"
+                type="submit"
+                onClick={(e) => handleEditAction(e)}
+              >
+                Edit
+              </Button>
+              <Button
+                id="edit"
+                color="secondary"
+                // disabled={loader && true}
+                className="btn w-100"
+                // className="btn btn-primary-light btn-small bln-close"
+                type="submit"
+                onClick={(e) => handleEditAction(e)}
+              >
+                Edit
+              </Button>
+
+              <Button
+                id="edit"
+                color="warning"
+                // disabled={loader && true}
+                className="btn w-100"
+                // className="btn btn-primary-light btn-small bln-close"
+
+                type="submit"
+                onClick={(e) => handleEditAction(e)}
+              >
+                Edit
+              </Button>
             </div>
           </PopoverBody>
-          <div className="quick-info-footer">
-            <div className="event-footer">
-              <p>status: {appointmentStatus}</p>
-              <div className="calendar-balloon__action-buttons">
-                <Button
-                  id="edit"
-                  color="success"
-                  // disabled={loader && true}
-                  className="btn btn-success w-100"
-                  // className="btn btn-primary-light btn-small bln-close"
-
-                  type="submit"
-                  onClick={(e) => handleEditAction(e)}
-                >
-                  Edit
-                </Button>
-              </div>
-            </div>
-          </div>
         </Popover>
       </React.Fragment>,
       document.body // Render directly into the body

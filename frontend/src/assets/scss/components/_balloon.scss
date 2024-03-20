@@ -1,0 +1,288 @@
+$color_1: #39464e;
+$color_2: #da4f49;
+
+.calendar-balloon {
+	width: 355px;
+
+	form {
+		margin-bottom: 0;
+	}
+
+	.form-horizontal {
+		.control-label {
+			float: left;
+			width: 75px;
+			padding-top: 5px;
+			text-align: left;
+		}
+
+		.controls {
+			margin-left: 75px;
+		}
+	}
+
+	.calendar-balloon__event-details {
+		color: $color_1;
+
+		a {
+			color: $color_1;
+			text-decoration: underline;
+		}
+	}
+
+	.popover-header {
+		a {
+			color: $color_1;
+		}
+	}
+
+	.calendar-balloon__buttons-row {
+		display: flex;
+		align-items: center;
+
+		a {
+			margin-top: 12px;
+			flex: 2;
+		}
+
+		a.cancel-link {
+			flex-grow: 0;
+		}
+
+		a.status-buttons {
+			color: $color_1;
+		}
+	}
+
+	.calendar-balloon__detail-line {
+		display: flex;
+		font-size: 14px;
+
+		.assignment-change {
+			font-weight: 700;
+			color: $color_2;
+		}
+
+		a.calendar-balloon__video-link {
+			display: block;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+		}
+	}
+
+	.calendar-balloon__staff-ad-hoc-row {
+		text-align: center;
+		padding-top: 12px;
+		padding-bottom: 4px;
+
+		a {
+			color: $color_1;
+			text-decoration: underline;
+			font-style: italic;
+		}
+	}
+
+	.calendar-balloon__action-buttons {
+		display: flex;
+		margin: 12px -4px 0;
+
+		a {
+			flex: 1;
+			width: auto;
+			margin: 0 4px;
+		}
+	}
+
+	.calendar-balloon__icon {
+		width: 16px;
+		height: 24px;
+		margin-right: 8px;
+		background-position: 50% 50%;
+		background-repeat: no-repeat;
+		flex-shrink: 0;
+	}
+
+	.calendar-balloon__icon.service-icon {
+		background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg width='32' height='32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11.75 9.75h8.5a2 2 0 012 2v8.5a2 2 0 01-2 2h-8.5a2 2 0 01-2-2v-8.5a2 2 0 012-2zm1 .75v11' stroke='%2339464E' stroke-width='1.5' fill='none' stroke-linecap='square'/%3E%3C/svg%3E");
+	}
+
+	.calendar-balloon__icon.resource-icon {
+		background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16'%3E%3Cg fill='none' fill-rule='evenodd' stroke='%2339464E' stroke-width='1.5'%3E%3Cpath d='M2.5 15.25h11a1.75 1.75 0 001.75-1.75v-8a1.75 1.75 0 00-1.75-1.75h-11A1.75 1.75 0 00.75 5.5v8c0 .966.784 1.75 1.75 1.75z'/%3E%3Cpath d='M1.5 8.5h5m3 0h5M7 9V8a1 1 0 112 0v1a1 1 0 11-2 0z' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M5.75 3.729h4.5V3a2.25 2.25 0 00-4.5 0v.729z'/%3E%3C/g%3E%3C/svg%3E");
+	}
+
+	.calendar-balloon__icon.staff-icon {
+		background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg width='32' height='32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M9.5 23.5h0a6.5 6.5 0 1113 0s0 0 0 0m-9-6v.5h0a2.5 2.5 0 005 0v-.5m-2.5-9h0a3.5 3.5 0 00-2.888 1.523C13.5 12 17.343 13.825 20.5 13c-.5-2-1-4.5-4.5-4.5zm3.292 4.69c-2.855.176-5.84-1.437-6.18-3.167h0a3.5 3.5 0 004.83 4.889' stroke='%2339464E' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+	}
+
+	.calendar-balloon__icon.deposit-icon {
+		background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg width='16' height='16' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M3.5 4a2 2 0 01-2 2m2 6a2 2 0 00-2-2m11-6a2 2 0 002 2m0 4a2 2 0 00-2 2m-10-8.5h11A1.5 1.5 0 0115 5v6a1.5 1.5 0 01-1.5 1.5h-11A1.5 1.5 0 011 11V5a1.5 1.5 0 011.5-1.5zM8 10a2 2 0 100-4 2 2 0 000 4z' stroke='%2339464E' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+	}
+
+	.calendar-balloon__icon.promo-icon {
+		background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg width='16' height='16' viewBox='0 -1 16 12' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'%3E%3Cdefs%3E%3Cpath d='M14.322 0C15.249 0 16 .751 16 1.678v1.946c0 .39-.316.705-.706.705a1.24 1.24 0 000 2.479l.096.006c.344.047.61.342.61.7v1.945c0 .927-.751 1.678-1.678 1.678H1.678A1.678 1.678 0 010 9.46V7.514c0-.39.316-.706.706-.706L.833 6.8a1.24 1.24 0 00-.127-2.47L.61 4.323a.706.706 0 01-.61-.7V1.679C0 .751.751 0 1.678 0zm0 1.412H1.678a.267.267 0 00-.266.266v1.336l.073.02a2.653 2.653 0 011.867 2.373l.005.162a2.652 2.652 0 01-1.872 2.534l-.073.02v1.336c0 .126.087.232.205.26l.061.006h12.644a.266.266 0 00.266-.266V8.123l-.073-.02a2.653 2.653 0 01-1.867-2.373l-.005-.161c0-1.193.788-2.202 1.872-2.535l.073-.021V1.678a.267.267 0 00-.205-.26l-.061-.006zm-3.89 4.423a1.678 1.678 0 110 3.357 1.678 1.678 0 010-3.357zm.499-3.197c.25.25.273.643.068.92l-.068.078L6.068 8.5A.706.706 0 015 7.58l.068-.08 4.863-4.862a.706.706 0 01.999 0zm-.5 4.61a.267.267 0 100 .532.267.267 0 000-.533zM5.57 1.944a1.678 1.678 0 110 3.357 1.678 1.678 0 010-3.357zm0 1.412a.267.267 0 100 .533.267.267 0 000-.533z' id='a'/%3E%3C/defs%3E%3Cuse fill='%23243342' xlink:href='%23a'/%3E%3C/svg%3E");
+	}
+
+	.calendar-balloon__icon.time-icon {
+		background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg width='16' height='16' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12.95 3.05a7 7 0 11-9.9 9.9 7 7 0 019.9-9.9M8 8V5.5M8 8l3.127 3.127' stroke='%2339464E' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+	}
+
+	.calendar-balloon__icon.video-link-icon {
+		background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg width='16' height='16' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M8.006 2.078a.234.234 0 100 .467.234.234 0 000-.467h0m2.927.267h3.35c.534 0 .967.448.967 1v8c0 .552-.433 1-.967 1H1.717c-.534 0-.967-.448-.967-1v-8c0-.552.433-1 .967-1h3.348M4.27 14.75h7.474M8 12.55v1.9m.031-5.412a1.969 1.969 0 100-3.938 1.969 1.969 0 000 3.938zm3.281 2.624a3.719 3.719 0 00-6.562 0' stroke='%2339464E' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+	}
+
+	.calendar-balloon__icon.concession-icon {
+		background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18'%3E%3Cg fill='none' fill-rule='evenodd' stroke='%2339464E' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5'%3E%3Cpath d='M2.649 9.189a1 1 0 00-.649.936v3.75a1 1 0 00.649.934l3 1.124a1 1 0 00.702 0l3-1.124a1 1 0 00.649-.934v-3.75a1 1 0 00-.649-.936l-3-1.125a1 1 0 00-.702 0l-3 1.125z'/%3E%3Cpath d='M2.172 9.565L6 11l3.828-1.435M6 11v5m9.8-11.933L10 6 4.2 4.067M10 6v.5'/%3E%3Cpath d='M4 6V4.667a1 1 0 01.684-.949l5-1.667a.995.995 0 01.632 0l5 1.667a1 1 0 01.684.949v5.666a1 1 0 01-.684.949l-2.299.766'/%3E%3C/g%3E%3C/svg%3E");
+	}
+
+	.calendar-balloon__icon.expires-icon {
+		background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg width='16' height='16' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M8 15A7 7 0 108 1a7 7 0 000 14zm-4.949-2.051l9.898-9.898' stroke='%2339464E' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+	}
+}
+
+.concession-items-balloon {
+	width: 355px;
+
+	form {
+		margin-bottom: 0;
+	}
+
+	.form-horizontal {
+		.control-label {
+			float: left;
+			width: 75px;
+			padding-top: 5px;
+			text-align: left;
+		}
+
+		.controls {
+			margin-left: 75px;
+		}
+	}
+}
+
+.customer-concession-item-limit-balloon {
+	width: 355px;
+
+	form {
+		margin-bottom: 0;
+	}
+
+	.form-horizontal {
+		.control-label {
+			float: left;
+			width: 75px;
+			padding-top: 5px;
+			text-align: left;
+		}
+
+		.controls {
+			margin-left: 75px;
+		}
+	}
+}
+
+.customer-concession-items-balloon {
+	width: 355px;
+
+	form {
+		margin-bottom: 0;
+	}
+
+	.form-horizontal {
+		.control-label {
+			float: left;
+			width: 75px;
+			padding-top: 5px;
+			text-align: left;
+		}
+
+		.controls {
+			margin-left: 75px;
+		}
+	}
+}
+
+.stock-quantity-balloon {
+	width: 355px;
+
+	form {
+		margin-bottom: 0;
+	}
+
+	.form-horizontal {
+		.control-label {
+			float: left;
+			width: 75px;
+			padding-top: 5px;
+			text-align: left;
+		}
+
+		.controls {
+			margin-left: 75px;
+		}
+	}
+}
+
+.concession-items-balloon .popover-inner,
+.customer-concession-items-balloon .popover-inner,
+.stock-quantity-summary-balloon .popover-inner {
+	width: 400px
+}
+
+.concession-items-balloon table,
+.customer-concession-items-balloon table,
+.stock-quantity-summary-balloon table {
+	width: 95%;
+	margin: auto
+}
+
+.concession-items-balloon td,
+.customer-concession-items-balloon td,
+.stock-quantity-summary-balloon td {
+	vertical-align: top
+}
+
+.pinswitch-confirm-balloon,
+.stock-quantity-balloon {
+	width: 260px
+}
+
+.view-pincode-balloon {
+	width: 200px
+}
+
+.stock-quantity-summary-balloon.popover-inner {
+	width: 400px
+}
+
+.stock-quantity-summary-balloon.popover-inner td {
+	font-size: 14px
+}
+
+@media (max-width: 1369px) {
+	.staff-cost-balloon.popover-inner {
+		position: relative;
+		right: 50px;
+		z-index: -1
+	}
+}
+
+.customer-concession-item-limit-balloon {
+	width: 360px
+}
+
+.calendar-balloon--add {
+	width: 220px
+}
+
+@media (max-width: 420px) {
+	.balloon-backing {
+		background-color: rgba(0, 0, 0, .6);
+		width: 100% !important
+	}
+}
+
+.balloon-backing {
+	-webkit-tap-highlight-color: rgba(0, 255, 0, 0)
+}
