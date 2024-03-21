@@ -10,12 +10,12 @@ const EventPopoverStatus = ({ event, toggle }) => {
 
   return (
     <React.Fragment>
-      <p className="btn-group status-buttons" data-toggle="buttons-relaxed-radio">
+      <div className="btn-group calendar-balloon__status-buttons" data-toggle="buttons-relaxed-radio">
         <ButtonGroup className="w-100 material-shadow">
           <Button color="btn-soft-secondary material-shadow-none">Arrived</Button>
           <Button color="btn-soft-secondary material-shadow-none">Completed</Button>
         </ButtonGroup>
-      </p>
+      </div>
     </React.Fragment>
   );
 };

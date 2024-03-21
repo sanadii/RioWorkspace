@@ -7,20 +7,24 @@ const EventPopoverContent = ({ event }) => {
 
   return (
     <React.Fragment>
-      <Alert color="success" className={`alert-label-icon label-arrow material-shadow `}>
-        <i className="ri-file-text-line label-icon"></i>
-        roots only{" "}
+      {/* Note */}
+      <div className="alert border-0 border-start border-success bg-success-subtle material-shadow d-flex justify-content-between align-items-center">
+        <div>
+          <i className="ri-file-text-line text-success label-icon pe-2"></i>
+          roots only
+        </div>
         <a
-          className="modal-open bln-close"
+          className="modal-open text-success"
           data-modal-className="booking-modal"
           href="/calendar/bookingedit/390779857?tab=notes"
         >
-          edit
+          Edit
         </a>
-      </Alert>
+      </div>
 
-      {services.map((service) => (
-        <div className="calendar-balloon__event-details">
+      {/* Service Details */}
+      <div className="calendar-balloon__event-details">
+        {services.map((service) => (
           <div key={service.id} className="calendar-balloon__service-entry">
             <div className="fc-event-body calendar-balloon__detail-line">
               <div className="calendar-balloon__icon service-icon"></div>
@@ -40,8 +44,8 @@ const EventPopoverContent = ({ event }) => {
               </div>
             </div>
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
     </React.Fragment>
   );
 };

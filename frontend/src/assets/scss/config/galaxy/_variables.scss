@@ -497,8 +497,10 @@ $body-bg: transparent;
 $body-color: $gray-900;
 $body-text-align: null;
 
-$body-secondary-color: $gray-600;
-$body-secondary-bg: $white;
+
+// changed from gray-600 to 300 and switched white with gray - 21 March 2024
+$body-secondary-color: $white;
+$body-secondary-bg: $gray-300;
 
 $body-tertiary-color: rgba($body-color, .5);
 $body-tertiary-bg: $gray-200;

@@ -94,6 +94,17 @@ $color_2: #da4f49;
 		}
 	}
 
+	.calendar-balloon__status-buttons {
+		display: flex;
+		margin: 12px -4px 0;
+
+		a {
+			flex: 1;
+			width: auto;
+			margin: 0 4px;
+		}
+	}
+
 	.calendar-balloon__icon {
 		width: 16px;
 		height: 24px;

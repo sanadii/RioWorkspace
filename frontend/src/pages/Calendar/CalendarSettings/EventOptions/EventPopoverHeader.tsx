@@ -13,46 +13,48 @@ const EventPopOverHeader = ({ event, closePopOver }) => {
 
   return (
     <React.Fragment>
-      <a
-        className="fc-customer-name goto-customer"
-        data-customer-id={clientId}
-        title="View details"
-        href={`/customer/customers/${clientId}?tab=details`}
-      >
-        {clientName}{" "}
-      </a>
-      &nbsp;
-      <a
-        className="customer-edit bln-close"
-        title="Edit customer"
-        href={`/customer/customeredit/${clientId}?tab=details&fromCalendar=true`}
-      >
-        <i className="ri-edit-line"></i>
-      </a>
-      <a
-        className="customer-edit bln-close"
-        title="Send an SMS or email"
-        href={`/message/adhoccontactcustomer/${clientId}?bookingId=${publicId}`}
-      >
-        <i className="ri-message-2-line"></i>
-      </a>
-      <a
-        className="customer-edit bln-close print-booking"
-        href="#"
-        title="Print appointment details"
-        data-booking-group-id={groupId}
-        data-booking-id={publicId}
-      >
-        <i className="ri-printer-fill"></i>
-      </a>
-      <a
-        className="close bln-close"
-        onClick={() => {
-          closePopOver();
-        }}
-      >
-        ×
-      </a>
+      <div className="popover-title">
+        <a
+          className="fc-customer-name goto-customer"
+          data-customer-id={clientId}
+          title="View details"
+          href={`/customer/customers/${clientId}?tab=details`}
+        >
+          {clientName}{" "}
+        </a>
+        &nbsp;
+        <a
+          className="customer-edit bln-close"
+          title="Edit customer"
+          href={`/customer/customeredit/${clientId}?tab=details&fromCalendar=true`}
+        >
+          <i className="ri-edit-line"></i>
+        </a>
+        <a
+          className="customer-edit bln-close"
+          title="Send an SMS or email"
+          href={`/message/adhoccontactcustomer/${clientId}?bookingId=${publicId}`}
+        >
+          <i className="ri-message-2-line"></i>
+        </a>
+        <a
+          className="customer-edit bln-close print-booking"
+          href="#"
+          title="Print appointment details"
+          data-booking-group-id={groupId}
+          data-booking-id={publicId}
+        >
+          <i className="ri-printer-fill"></i>
+        </a>
+        <a
+          className="close bln-close"
+          onClick={() => {
+            closePopOver();
+          }}
+        >
+          ×
+        </a>
+      </div>
       <p>
         <a href={`tel:+${clientMobile}}`}>
           <i className="ri-smartphone-line">&nbsp;</i>+{clientMobile}
