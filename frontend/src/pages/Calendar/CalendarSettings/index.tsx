@@ -2,7 +2,6 @@
 import { useDispatch } from "react-redux";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
-import BootstrapTheme from "@fullcalendar/bootstrap";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import listPlugin from "@fullcalendar/list";
 // import { onActions } from "./useCalendarActions";

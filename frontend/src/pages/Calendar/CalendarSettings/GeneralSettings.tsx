@@ -1,10 +1,9 @@
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
-import BootstrapTheme from "@fullcalendar/bootstrap";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import listPlugin from "@fullcalendar/list";
 
-const plugins = [BootstrapTheme, dayGridPlugin, timeGridPlugin, interactionPlugin, listPlugin];
+const plugins = [dayGridPlugin, timeGridPlugin, interactionPlugin, listPlugin];
 const currentDate = new Date();
 const startDate = new Date(2019, 9, 1); // September is 8 because months are zero-based
 const endDate = new Date(currentDate.getFullYear() + 1, currentDate.getMonth() + 1, currentDate.getDate() + 1);
@@ -110,7 +109,7 @@ const ThemeSettings = {
 
   // Theme and styling
   handleWindowResize: true, // Allows the calendar to automatically resize when the window resizes
-  themeSystem: "bootstrap",
+  // themeSystem: "bootstrap",
   viewClassNames: "high-contrast", // Need to change this to higher than view
 
   expandRows: true, // Expands row heights to fill available height

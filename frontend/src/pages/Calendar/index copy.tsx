@@ -20,18 +20,18 @@ import {
   Col,
 } from "reactstrap";
 
+// Form
 import * as Yup from "yup";
 import { useFormik } from "formik";
 
+// Calendar
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin, { Draggable } from "@fullcalendar/interaction";
-import BootstrapTheme from "@fullcalendar/bootstrap";
 import Flatpickr from "react-flatpickr";
 
-//redux
+// Redux
 import { useSelector, useDispatch } from "react-redux";
-
 import { DeleteModal, BreadCrumb } from "Components/Common";
 
 //Simple bar
@@ -368,7 +368,7 @@ const Calender = () => {
                   <Card className="card-h-100">
                     <CardBody>
                       <FullCalendar
-                        plugins={[BootstrapTheme, dayGridPlugin, interactionPlugin, listPlugin]}
+                        plugins={[dayGridPlugin, interactionPlugin, listPlugin]}
                         initialView="dayGridMonth"
                         slotDuration={"00:15:00"}
                         handleWindowResize={true}

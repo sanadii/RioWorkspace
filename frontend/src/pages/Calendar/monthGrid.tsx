@@ -26,7 +26,6 @@ import { useFormik } from "formik";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin, { Draggable } from "@fullcalendar/interaction";
-import BootstrapTheme from "@fullcalendar/bootstrap";
 import multiMonthPlugin from "@fullcalendar/multimonth";
 import Flatpickr from "react-flatpickr";
 
@@ -369,11 +368,11 @@ const MonthGridCalender = () => {
                   <Card className="card-h-100">
                     <CardBody>
                       <FullCalendar
-                        plugins={[BootstrapTheme, dayGridPlugin, interactionPlugin, listPlugin, multiMonthPlugin]}
+                        plugins={[dayGridPlugin, interactionPlugin, listPlugin, multiMonthPlugin]}
                         initialView="multiMonthYear"
                         slotDuration={"00:15:00"}
                         handleWindowResize={true}
-                        themeSystem="bootstrap"
+                        // themeSystem="bootstrap"
                         headerToolbar={{
                           left: "prev,next today",
                           center: "title",
