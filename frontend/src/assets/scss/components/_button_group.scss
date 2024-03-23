@@ -1,4 +1,194 @@
-// btn group
+// 
+// _buttons.scss
+// 
+
+button,
+a {
+    outline: none !important;
+}
+
+.btn {
+    box-shadow: $element-shadow;
+}
+
+:is(.btn.show, .btn:first-child:active, :not(.btn-check)+.btn:active) {
+    border-color: transparent;
+}
+
+.btn-icon {
+    position: relative;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    height: calc(#{$btn-padding-y * 2} + #{$btn-line-height}em + #{$border-width * 2});
+    width: calc(#{$btn-padding-y * 2} + #{$btn-line-height}em + #{$border-width * 2});
+    padding: 0;
+
+    :is(i, svg, img) {
+        vertical-align: middle;
+    }
+
+    &.btn-sm {
+        height: calc(#{$btn-padding-y-sm * 2} + #{$btn-line-height}em + #{$border-width * 2});
+        width: calc(#{$btn-padding-y-sm * 2} + #{$btn-line-height}em + #{$border-width * 2});
+    }
+
+    &.btn-lg {
+        height: calc(#{$btn-padding-y-lg * 2} + #{$btn-line-height}em + #{$border-width * 2});
+        width: calc(#{$btn-padding-y-lg * 2} + #{$btn-line-height}em + #{$border-width * 2});
+    }
+}
+
+//
+// Soft Buttons
+// 
+
+@each $state in map-keys($theme-colors) {
+
+    .btn-#{$state} {
+        --#{$prefix}btn-bg: var(--#{$prefix}#{$state});
+        --#{$prefix}btn-border-color: var(--#{$prefix}#{$state});
+        --#{$prefix}btn-hover-bg: var(--#{$prefix}#{$state}-text-emphasis);
+        --#{$prefix}btn-hover-border-color: var(--#{$prefix}#{$state}-text-emphasis);
+        --#{$prefix}btn-focus-shadow-rgb: var(--#{$prefix}#{$state}-rgb);
+        --#{$prefix}btn-active-bg: var(--#{$prefix}#{$state}-text-emphasis);
+        --#{$prefix}btn-active-border-color: var(--#{$prefix}#{$state}-text-emphasis);
+    }
+
+    .btn-outline-#{$state} {
+        --#{$prefix}btn-color: var(--#{$prefix}#{$state});
+        --#{$prefix}btn-bg: transparent;
+        --#{$prefix}btn-border-color: var(--#{$prefix}#{$state});
+        --#{$prefix}btn-hover-bg: var(--#{$prefix}#{$state});
+        --#{$prefix}btn-hover-border-color: var(--#{$prefix}#{$state});
+        --#{$prefix}btn-focus-shadow-rgb: var(--#{$prefix}#{$state}-rgb);
+        --#{$prefix}btn-active-bg: var(--#{$prefix}#{$state});
+        --#{$prefix}btn-active-border-color: var(--#{$prefix}#{$state});
+    }
+
+    // soft Buttons
+    .btn-soft-#{$state} {
+        --#{$prefix}btn-color: var(--#{$prefix}#{$state});
+        --#{$prefix}btn-bg: var(--#{$prefix}#{$state}-bg-subtle);
+        --#{$prefix}btn-border-color: transparent;
+        --#{$prefix}btn-hover-bg: var(--#{$prefix}#{$state});
+        --#{$prefix}btn-hover-border-color: transparent;
+        --#{$prefix}btn-focus-shadow-rgb: var(--#{$prefix}#{$state}-rgb);
+        --#{$prefix}btn-active-bg: var(--#{$prefix}#{$state});
+        --#{$prefix}btn-active-border-color: transparent;
+    }
+
+    // Ghost Buttons
+    .btn-ghost-#{$state} {
+        --#{$prefix}btn-color: var(--#{$prefix}#{$state});
+        --#{$prefix}btn-bg: transparent;
+        --#{$prefix}btn-border-color: transparent;
+        --#{$prefix}btn-hover-color: var(--#{$prefix}#{$state});
+        --#{$prefix}btn-hover-bg: var(--#{$prefix}#{$state}-bg-subtle);
+        --#{$prefix}btn-hover-border-color: transparent;
+        --#{$prefix}btn-focus-shadow-rgb: var(--#{$prefix}#{$state}-rgb);
+        --#{$prefix}btn-active-color: var(--#{$prefix}#{$state});
+        --#{$prefix}btn-active-bg: var(--#{$prefix}#{$state}-bg-subtle);
+        --#{$prefix}btn-active-border-color: transparent;
+    }
+}
+
+//button with icon
+.btn-label {
+    position: relative;
+    padding-left: 44px;
+
+    .label-icon {
+        position: absolute;
+        width: 35.5px;
+        left: calc(#{$btn-border-width} * -1);
+        top: calc(#{$btn-border-width} * -1);
+        bottom: calc(#{$btn-border-width} * -1);
+        background-color: rgba($white, 0.1);
+        font-size: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    &.btn-light {
+        .label-icon {
+            background-color: rgba($dark, 0.05);
+        }
+    }
+
+    &.right {
+        padding-left: $btn-padding-x;
+        padding-right: 44px;
+
+        .label-icon {
+            right: calc(#{$btn-border-width} * -1);
+            left: auto;
+        }
+    }
+}
+
+// Animation Button
+
+.btn-animation {
+    overflow: hidden;
+    transition: border-color 0.3s, background-color 0.3s;
+    transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
+
+    &::after {
+        content: attr(data-text);
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        opacity: 0;
+        transform: translate3d(0, 25%, 0);
+        padding: $btn-padding-y $btn-padding-x;
+        transition: transform 0.3s, opacity 0.3s;
+        transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
+    }
+
+    >span {
+        display: block;
+        transition: transform 0.3s, opacity 0.3s;
+        transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
+    }
+
+    &:hover {
+        &::after {
+            opacity: 1;
+            transform: translate3d(0, 0, 0);
+        }
+
+        >span {
+            opacity: 0;
+            transform: translate3d(0, -25%, 0);
+        }
+    }
+}
+
+
+@mixin button-variant($bg) {
+    &.btn-animation {
+        background-color: $bg;
+        border-color: $bg !important;
+
+        &:is(:hover, :focus, :active, :focus-visible) {
+            color: $bg;
+            background-color: rgba($bg, 0.1);
+        }
+    }
+}
+
+@each $color,
+$value in $theme-colors {
+    .btn-#{$color} {
+        @include button-variant($value);
+    }
+}
+
+//btn group
 .btn-group-vertical {
     label {
         margin-bottom: 0;
@@ -21,249 +211,44 @@
     }
 }
 
+.btn-load {
 
-.btn-check:active+.btn-light,
-.btn-check:checked+.btn-light,
-.btn-light.active,
-.btn-light.dropdown-toggle.show,
-.btn-light:active {
-    background-color: rgba($info, 0.2);
-    color: $info;
-}
-
-.btn-group-lg>.btn,
-.btn-large,
-.btn-lg {
-    padding: 10px 16px;
-    font-size: 20px;
-    line-height: 1.33;
-    border-radius: 4px;
-}
-
-.btn-group-sm>.btn,
-.btn-sm,
-.btn-small {
-    padding: 5px 10px;
-    font-size: 13px;
-    line-height: 1.5;
-    border-radius: 2px;
-}
-
-.btn-group-xs>.btn,
-.btn-xs {
-    padding: 1px 5px;
-    font-size: 13px;
-    line-height: 1.5;
-    border-radius: 2px;
-}
-
-.btn+.btn,
-.btn+.btn-group {
-    margin-left: 5px;
-}
-
-.btn-group,
-.btn-group-vertical {
-    position: relative;
-    display: inline-flex;
-    vertical-align: middle;
-}
-
-.btn-group-vertical>.btn,
-.btn-group>.btn {
-    position: relative;
-    float: left;
-}
-
-.btn-group-vertical>.btn.active,
-.btn-group-vertical>.btn:active,
-.btn-group-vertical>.btn:focus,
-.btn-group-vertical>.btn:hover,
-.btn-group>.btn.active,
-.btn-group>.btn:active,
-.btn-group>.btn:focus,
-.btn-group>.btn:hover {
-    z-index: 2;
-}
-
-.btn-group-vertical>.btn:focus,
-.btn-group>.btn:focus {
-    outline: 0;
-}
-
-.btn-group-vertical.btn-group-kebab,
-.btn-group.btn-group-kebab {
-    background: none;
-}
-
-.btn-group {
-    border-radius: 4px;
-    background-color: #e3e6e8;
-
-    &>.btn {
-        border-radius: 4px;
-
-        &.active {
-            font-weight: 700;
-            box-shadow: none;
-            background-color: #fff;
-            border-color: var(--tui-charcoal-100);
-            position: relative;
-
-            &:hover {
-                background-color: #fff;
-            }
-        }
-
-        &:not(.btn-primary):hover {
-            position: relative;
-            background-color: var(--tui-charcoal-200);
-        }
-
-        &+.dropdown-toggle {
-            padding-left: 8px;
-            padding-right: 8px;
-        }
-    }
-
-    &>.btn-group {
-        float: left;
-    }
-
-    &>.btn-lg {
-        &+.dropdown-toggle {
-            padding-left: 12px;
-            padding-right: 12px;
-        }
-    }
-
-    &.open {
-        .dropdown-toggle {
-            -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);
-            -moz-box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);
-            box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);
-
-            &.btn-link {
-                -webkit-box-shadow: none;
-                -moz-box-shadow: none;
-                box-shadow: none;
-            }
-        }
+    .spinner-border,
+    .spinner-grow {
+        height: 19px;
+        width: 19px;
     }
 }
 
-.btn-group .btn+.btn,
-.btn-group .btn+.btn-group,
-.btn-group .btn-group+.btn,
-.btn-group .btn-group+.btn-group {
-    margin-left: -1px;
-}
+//Border Bottom Buttons Style
+@each $color,
+$value in $theme-colors {
 
-.btn-group>.btn:not(.active)+.btn:not(.active, :hover):after {
-    content: "";
-    position: absolute;
-    top: 4px;
-    left: -1px;
-    bottom: 4px;
-    width: 1px;
-    border-left: 1px solid black;
-}
-
-.btn-group .btn:not(.btn-primary, .drop-container).active:before,
-.btn-group .btn:not(.btn-primary, .drop-container):hover:before {
-    content: "";
-    position: absolute;
-    top: -1px;
-    right: -1px;
-    bottom: -1px;
-    left: -1px;
-    border: 2px solid var(--tui-charcoal-100);
-    border-radius: 4px;
-    pointer-events: none;
-    z-index: 0;
-}
-
-.btn-group--no-bg {
-    background: none;
-}
-
-.btn-toolbar {
-    margin-left: -5px;
-}
-
-.btn-toolbar .btn-group,
-.btn-toolbar .input-group {
-    float: left;
-}
-
-.btn-toolbar>.btn,
-.btn-toolbar>.btn-group,
-.btn-toolbar>.input-group {
-    margin-left: 5px;
-}
-
-.btn-group .dropdown-toggle:active,
-.btn-group.open .dropdown-toggle {
-    outline: 0;
-}
-
-.btn {
-    &.dropdown-toggle {
-        &.dropdown-toggle--kebab {
-            background-position: 50% 50%;
-            background-repeat: no-repeat;
-            background-size: 90%;
-            background-image: url("data:image/svg+xml; charset=utf-8, %3Csvg xmlns='http: //www.w3.org/2000/svg' width='32' height='32' %3E%3Cg fill='%2339464E' fill-rule='evenodd' %3E%3Ccircle cx='16' cy='24' r='2' /%3E%3Ccircle cx='16' cy='16' r='2' /%3E%3Ccircle cx='16' cy='8' r='2' /%3E%3C/g%3E%3C/svg%3E");
-
+    :is(.btn-#{$color}, .btn-outline-#{$color}, .btn-soft-#{$color}) {
+        &.btn-border {
+            border-bottom: 2px solid darken($value, 8%);
         }
+    }
+
+    :is(.btn-soft-#{$color}, .btn-outline-#{$color}) {
+        --#{$prefix}btn-active-color: #{color-contrast($value)};
+        --#{$prefix}btn-hover-color: #{color-contrast($value)};
     }
 }
 
-.btn-group-vertical>.btn,
-.btn-group-vertical>.btn-group,
-.btn-group-vertical>.btn-group>.btn {
-    display: block;
-    float: none;
-    width: 100%;
-    max-width: 100%;
-}
+//custom toggle
+.custom-toggle {
+    .icon-off {
+        display: none;
+    }
 
-.btn-group-vertical {
-    &>.btn-group {
-        &>.btn {
-            float: none;
+    &.active {
+        .icon-on {
+            display: none;
+        }
+
+        .icon-off {
+            display: block;
         }
     }
-}
-
-.btn-group-vertical>.btn+.btn,
-.btn-group-vertical>.btn+.btn-group,
-.btn-group-vertical>.btn-group+.btn,
-.btn-group-vertical>.btn-group+.btn-group {
-    margin-top: -1px;
-    margin-left: 0;
-}
-
-.btn-group-justified {
-    display: table;
-    width: 100%;
-    table-layout: fixed;
-    border-collapse: separate;
-
-    &>.btn-group {
-        .btn {
-            width: 100%;
-        }
-
-        .dropdown-menu {
-            left: auto;
-        }
-    }
-}
-
-.btn-group-justified>.btn,
-.btn-group-justified>.btn-group {
-    float: none;
-    display: table-cell;
-    width: 1%;
 }

@@ -82,7 +82,7 @@ const EditorClientComponent = ({ data, clients, setClientDetails, clientDetails 
             </div>
           </Row>
         ) : (
-          <Table className="table-cell-background-grey">
+          <Table className="table-cell-background-gray">
             <thead>
               {/* <th>Client</th>
           <th>Mobile</th>

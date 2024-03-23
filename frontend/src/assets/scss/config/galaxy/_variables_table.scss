@@ -8,13 +8,13 @@ $table-cell-padding-y: .75rem;
 $table-cell-padding-x: .6rem;
 $table-cell-padding-y-sm: .3rem;
 $table-cell-padding-x-sm: .25rem;
-$table-cell-background-grey: $grey; // White background color for table cells
+$table-cell-background-gray: $gray; // White background color for table cells
 $table-cell-background-info: $info; // White background color for table cells
 
 
 // Define a class to set the background color for all td elements within a table
-.table-cell-background-grey tbody td {
-  background-color: $table-cell-background-grey;
+.table-cell-background-gray tbody td {
+  background-color: $table-cell-background-gray;
 }
 
 .table-cell-background-info tbody td {
@@ -64,7 +64,7 @@ $table-variants: (
   "warning": shift-color($warning, $table-bg-scale),
   "danger": shift-color($danger, $table-bg-scale),
   "light": $light,
-  "grey": $grey,
+  "gray": $gray,
   "dark": $dark,
 );
 // scss-docs-end table-loop

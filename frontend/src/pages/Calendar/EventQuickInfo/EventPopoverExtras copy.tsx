@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import { Button, ButtonGroup } from "reactstrap";
-import { formatTime } from "../../../../Components/Hooks/calendarHooks";
+import { formatTime } from "Components/Hooks";
 import { createPortal } from "react-dom";
 
 const EventPopoverStatus = ({ event, toggle }) => {

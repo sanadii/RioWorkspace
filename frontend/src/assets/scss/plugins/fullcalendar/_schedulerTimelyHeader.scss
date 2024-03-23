@@ -4651,7 +4651,7 @@ a.quickbooks-connect-button:hover div {
   border-top: none
 }
 
-.t-settings-head hr.grey {
+.t-settings-head hr.gray {
   border-bottom-color: #d3d3d3
 }
 
@@ -5362,555 +5362,6 @@ a.quickbooks-connect-button:hover div {
   display: none
 }
 
-.add-appt__row {
-  display: flex;
-  margin-bottom: 8px
-}
-
-.add-appt__extras {
-  margin-top: 8px;
-  padding-top: 8px;
-  border-top: 1px solid #e3e6e8
-}
-
-.add-appt__video-link {
-  flex: 1;
-  padding-right: 32px
-}
-
-.add-appt__video-link input {
-  width: 100%
-}
-
-.add-appt__grey-box {
-  width: 100%;
-  padding: 4px 8px;
-  background-color: #e3e6e8;
-  border-radius: 4px
-}
-
-.add-appt__grey-box textarea {
-  width: 100%
-}
-
-.add-appt__grey-box-row {
-  position: relative;
-  padding: 4px 0
-}
-
-.add-appt__grey-box-row .add-appt__icon {
-  position: absolute;
-  top: 0;
-  left: -48px
-}
-
-.add-appt__edit-button {
-  display: inline-block;
-  width: 30px;
-  height: 24px;
-  background-position: 50% 50%;
-  background-repeat: no-repeat;
-  background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg width='32' height='32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M21.381 13.622L13.75 21.25 10 22l.75-3.75 7.631-7.63h0a2.115 2.115 0 012.991 0l.009.01h0a2.115 2.115 0 010 2.993h0z' stroke='%2339464E' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-  cursor: pointer
-}
-
-.add-appt__edit-button:hover {
-  text-decoration: none
-}
-
-.add-appt__icon {
-  width: 32px;
-  height: 32px;
-  flex-shrink: 0;
-  margin-right: 8px;
-  background-position: 50% 50%;
-  background-repeat: no-repeat
-}
-
-.add-appt__icon.add-appt__icon-customer {
-  margin-top: 8px;
-  background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg width='32' height='32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M9.5 23.5h0a6.5 6.5 0 1113 0s0 0 0 0m-9-6v.5h0a2.5 2.5 0 005 0v-.5m-2.5-9h0a3.5 3.5 0 00-2.888 1.523C13.5 12 17.343 13.825 20.5 13c-.5-2-1-4.5-4.5-4.5zm3.292 4.69c-2.855.176-5.84-1.437-6.18-3.167h0a3.5 3.5 0 004.83 4.889' stroke='%2339464E' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")
-}
-
-.add-appt__icon.add-appt__icon-date {
-  background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg width='32' height='32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M9.501 23.5a1 1 0 01-1-1v-11a1 1 0 011-1h13a1 1 0 011 1v11a1 1 0 01-1 1h-13zm-1.001-9h15m-11-2.5V8.5m7 3.5V8.5' stroke='%2339464E' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")
-}
-
-.add-appt__icon.add-appt__icon-duration {
-  background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg width='32' height='32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M15.933 23c3.83 0 6.934-2.99 6.934-6.678 0-3.689-3.104-6.679-6.934-6.679-3.829 0-6.933 2.99-6.933 6.679C9 20.01 12.104 23 15.933 23zm4.623-11.687L22 9.922m-.289-.279l.578.557m-6.356 6.678l-2.889-3.08m4.623-6.427H14.2m1.733 2.272V7.371' stroke='%2339464E' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")
-}
-
-.add-appt__icon.add-appt__icon-description {
-  margin-top: 5px;
-  background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg width='32' height='32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10 11.55h12M10 16.5h12m-12 4.95h6' stroke='%2339464E' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")
-}
-
-.add-appt__icon.add-appt__icon-location {
-  background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg width='32' height='32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M17.768 11.732a2.5 2.5 0 11-3.536 3.536 2.5 2.5 0 013.536-3.536M16 8.5h0a5 5 0 015 5c0 2.271-3.383 7.967-4.583 9.777h0a.5.5 0 01-.834 0C14.383 21.467 11 15.77 11 13.5h0a5 5 0 015-5h0z' stroke='%2339464E' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")
-}
-
-.add-appt__icon.add-appt__icon-service {
-  margin-top: 8px;
-  background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg width='32' height='32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11.75 9.75h8.5a2 2 0 012 2v8.5a2 2 0 01-2 2h-8.5a2 2 0 01-2-2v-8.5a2 2 0 012-2zm1 .75v11' stroke='%2339464E' stroke-width='1.5' fill='none' stroke-linecap='square'/%3E%3C/svg%3E")
-}
-
-.add-appt__icon.add-appt__icon-cancel {
-  background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg width='32' height='32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20.25 23.15h-8.4a1.2 1.2 0 01-1.2-1.2v-10.8h10.8v10.8a1.2 1.2 0 01-1.2 1.2zm-6-3.6v-4.8m3.6 4.8v-4.8m-9.6-3.6h15.6m-6-2.4h-3.6a1.2 1.2 0 00-1.2 1.2v1.2h6v-1.2a1.2 1.2 0 00-1.2-1.2z' stroke='%23BD362F' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")
-}
-
-.add-appt__icon.add-appt__icon-status {
-  background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg width='32' height='32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12.847 15.636l3.273 3.272 6.546-7.636m1.018 5.443a7.63 7.63 0 11-4.64-8.137' stroke='%2339464E' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")
-}
-
-.add-appt__icon.add-appt__icon-link {
-  background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg width='16' height='16' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M8.006 2.078a.234.234 0 100 .467.234.234 0 000-.467h0m2.927.267h3.35c.534 0 .967.448.967 1v8c0 .552-.433 1-.967 1H1.717c-.534 0-.967-.448-.967-1v-8c0-.552.433-1 .967-1h3.348M4.27 14.75h7.474M8 12.55v1.9m.031-5.412a1.969 1.969 0 100-3.938 1.969 1.969 0 000 3.938zm3.281 2.624a3.719 3.719 0 00-6.562 0' stroke='%2339464E' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")
-}
-
-.add-appt__icon.add-appt__icon-package {
-  background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18'%3E%3Cg fill='none' fill-rule='evenodd' stroke='%2339464E' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5'%3E%3Cpath d='M2.649 9.189a1 1 0 00-.649.936v3.75a1 1 0 00.649.934l3 1.124a1 1 0 00.702 0l3-1.124a1 1 0 00.649-.934v-3.75a1 1 0 00-.649-.936l-3-1.125a1 1 0 00-.702 0l-3 1.125z'/%3E%3Cpath d='M2.172 9.565L6 11l3.828-1.435M6 11v5m9.8-11.933L10 6 4.2 4.067M10 6v.5'/%3E%3Cpath d='M4 6V4.667a1 1 0 01.684-.949l5-1.667a.995.995 0 01.632 0l5 1.667a1 1 0 01.684.949v5.666a1 1 0 01-.684.949l-2.299.766'/%3E%3C/g%3E%3C/svg%3E")
-}
-
-.add-appt__icon.add-appt__icon-promo {
-  background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg width='16' height='16' viewBox='0 -1 16 12' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'%3E%3Cdefs%3E%3Cpath d='M14.322 0C15.249 0 16 .751 16 1.678v1.946c0 .39-.316.705-.706.705a1.24 1.24 0 000 2.479l.096.006c.344.047.61.342.61.7v1.945c0 .927-.751 1.678-1.678 1.678H1.678A1.678 1.678 0 010 9.46V7.514c0-.39.316-.706.706-.706L.833 6.8a1.24 1.24 0 00-.127-2.47L.61 4.323a.706.706 0 01-.61-.7V1.679C0 .751.751 0 1.678 0zm0 1.412H1.678a.267.267 0 00-.266.266v1.336l.073.02a2.653 2.653 0 011.867 2.373l.005.162a2.652 2.652 0 01-1.872 2.534l-.073.02v1.336c0 .126.087.232.205.26l.061.006h12.644a.266.266 0 00.266-.266V8.123l-.073-.02a2.653 2.653 0 01-1.867-2.373l-.005-.161c0-1.193.788-2.202 1.872-2.535l.073-.021V1.678a.267.267 0 00-.205-.26l-.061-.006zm-3.89 4.423a1.678 1.678 0 110 3.357 1.678 1.678 0 010-3.357zm.499-3.197c.25.25.273.643.068.92l-.068.078L6.068 8.5A.706.706 0 015 7.58l.068-.08 4.863-4.862a.706.706 0 01.999 0zm-.5 4.61a.267.267 0 100 .532.267.267 0 000-.533zM5.57 1.944a1.678 1.678 0 110 3.357 1.678 1.678 0 010-3.357zm0 1.412a.267.267 0 100 .533.267.267 0 000-.533z' id='a'/%3E%3C/defs%3E%3Cuse fill='%23243342' xlink:href='%23a'/%3E%3C/svg%3E")
-}
-
-.busy-time-form .add-appt__icon.add-appt__icon-customer,
-.customer-section--selected .add-appt__icon-customer.add-appt__icon-customer {
-  margin-top: 4px
-}
-
-.busy-time-form .add-appt__icon.add-appt__icon-duration {
-  margin-top: 9px
-}
-
-.busy-time-form .add-appt__icon.add-appt__icon-date {
-  margin-top: -4px
-}
-
-.add-appt__time-row .add-appt__time-row-from {
-  padding: 0 8px
-}
-
-.add-appt__promo-row {
-  display: flex
-}
-
-.add-appt__promo-row .btn {
-  margin-left: 8px
-}
-
-.vaccination-expiry-field {
-  text-transform: uppercase
-}
-
-
-.add-appt__row .booking-status__options {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: end;
-  flex-direction: column
-}
-
-.add-appt__row .booking-status__options .checkbox {
-  padding-top: 8px;
-  align-self: center
-}
-
-.add-appt__row .booking-status__options .custom-auto-expire-times {
-  display: flex
-}
-
-.add-appt__row .booking-status__options .custome-auto-expire-times.hide {
-  display: none
-}
-
-.add-appt__row .booking-status__options .auto-expire-times-in-hours-container label {
-  display: flex;
-  align-items: center
-}
-
-.booking-status__right-break {
-  display: none;
-  flex-basis: 100%;
-  height: 0
-}
-
-.booking-status__right {
-  flex: 2;
-  width: 100%;
-  margin: 0 -5px
-}
-
-.booking-status__right--unflexed {
-  flex: none;
-  width: 100%
-}
-
-.booking-status__deposits {
-  margin: 0 5px;
-  float: right
-}
-
-.add-deposit-container {
-  display: flex
-}
-
-.booking-status__promos {
-  margin: 0 5px;
-  float: right
-}
-
-.add-appt__promo-error,
-.add-appt__promo-validation {
-  flex: 1;
-  padding-right: 32px
-}
-
-.promo-code__applied-promo {
-  line-height: 34px;
-  text-align: right;
-  position: relative;
-  padding-right: 20px
-}
-
-.promo-code__applied-promo--invoiced {
-  padding-right: 0
-}
-
-.promo-code__remove {
-  color: #4f606b;
-  font-size: 20px;
-  text-decoration: none;
-  position: absolute;
-  top: 0;
-  right: -8px;
-  width: 32px;
-  height: 32px;
-  line-height: 32px;
-  text-align: center
-}
-
-.promo-code__applied-promo--invoiced .promo-code__remove {
-  display: none
-}
-
-.promo-code__remove:hover {
-  text-decoration: none;
-  color: #4f606b
-}
-
-.promo-code__add-container {
-  display: flex;
-  margin: 0 -5px
-}
-
-.promo-code__add-container .btn,
-.promo-code__add-container .btn-link,
-.promo-code__add-container select {
-  margin: 0 5px
-}
-
-.add-appt__row-booking-status .deposit-conversion-message {
-  display: none;
-  text-align: center;
-  padding: 8px 0
-}
-
-.add-appt__row-booking-status .deposit-conversion-message a {
-  display: block
-}
-
-.add-appt__row-booking-status .deposit-forfeit-message {
-  display: none;
-  position: relative;
-  border-top: 1px solid #ccc;
-  margin-top: 8px;
-  padding-top: 8px;
-  padding-right: 20px;
-  align-items: center
-}
-
-.add-appt__row-booking-status .deposit-forfeit-message .deposit-forfeit-message__top {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center
-}
-
-.add-appt__row-booking-status .deposit-forfeit-message .input-group {
-  margin: 0 4px
-}
-
-.add-appt__row-booking-status {
-  padding: 8px 0
-}
-
-.add-appt__row-booking-status.did-not-show .add-appt__icon-status {
-  background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16'%3E%3Cpath fill='none' stroke='%23CC4A44' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M12.2 1.932a3.705 3.705 0 01-.97-.142l-2.26-.646A3.73 3.73 0 007.944 1h-3.04A3.733 3.733 0 001.19 4.36l-.186 3.173a2.8 2.8 0 002.115 2.859l.906.198a.933.933 0 01.708.905V13.6a1.4 1.4 0 002.8 0v-.967A4.667 4.667 0 0112.2 7.966V1.932zm0-.932H15v8.4h-2.8V1z'/%3E%3C/svg%3E")
-}
-
-.add-appt__row-booking-status.did-not-show .deposit-conversion-message {
-  display: block
-}
-
-.add-appt__row-booking-status.deposit-forfeit {
-  background-color: #e3e6e8;
-  border-radius: 4px;
-  padding: 8px;
-  margin-left: -8px;
-  margin-right: -8px
-}
-
-.add-appt__row-booking-status.deposit-forfeit .deposit-forfeit-message {
-  display: block
-}
-
-.add-appt__row-booking-status.deposit-forfeit .deposit-conversion-message {
-  display: none
-}
-
-.add-appt__row-booking-status.deposit-forfeit .booking-status__deposits-break {
-  display: block
-}
-
-.add-appt__row-booking-status.did-not-show .booking-status__invoice {
-  display: none !important
-}
-
-.add-appt__booking-status .clear-deduction {
-  display: none
-}
-
-.add-appt__row-booking-status.deposit-forfeit .price-input {
-  width: 75px
-}
-
-.deposit-forfeit .clear-deduction {
-  position: absolute;
-  display: block;
-  top: 7px;
-  right: -7px;
-  width: 32px;
-  height: 32px;
-  color: #4f606b;
-  font-size: 20px;
-  line-height: 32px;
-  text-align: center;
-  cursor: pointer
-}
-
-.deposit-forfeit .clear-deduction:hover {
-  text-decoration: none
-}
-
-@media (min-width: 770px) {
-  .recurrence-label__right {
-    text-align: right
-  }
-
-  .add-appt__row .booking-status__options .booking-confirmation-status {
-    width: auto
-  }
-
-  .add-appt__row-booking-status .deposit-conversion-message {
-    text-align: right;
-    padding: 0
-  }
-
-  .add-appt__row-booking-status .deposit-conversion-message a {
-    display: inline
-  }
-
-  .add-appt__row .booking-status__options {
-    flex-direction: row
-  }
-
-  .add-appt__row .booking-status__options .checkbox {
-    padding-top: 0
-  }
-}
-
-.service-row__service-picker {
-  display: block
-}
-
-
-.service-picker__sub-text {
-  color: #999
-}
-
-
-.service-row input.form-control,
-.service-row select.form-control {
-  position: static
-}
-
-.service-staff-requested-toggle {
-  cursor: pointer
-}
-
-svg.staff-dropdown-requested {
-  position: relative;
-  top: 2px;
-  right: 1px
-}
-
-input.service-staff-requested-checkbox:checked+input+.service-staff-requested-toggle {
-  background-color: #39464e
-}
-
-input.service-staff-requested-checkbox:checked+input+.service-staff-requested-toggle svg path {
-  stroke: #fff
-}
-
-.multi-book-add-cell {
-  position: relative;
-  padding: 0;
-  width: 32px
-}
-
-.video-link__input-wrap {
-  margin-bottom: 8px
-}
-
-.booking-deposit {
-  display: inline-block;
-  margin-left: 10px
-}
-
-.booking-status .alert {
-  position: relative;
-  top: 5px;
-  padding: 3px 8px
-}
-
-.booking-status .auto-expire-toggle {
-  position: relative;
-  margin: 0 8px
-}
-
-.booking-status #pencil-booking-auto-expire {
-  float: left
-}
-
-.booking-status .btn-group {
-  margin-right: 8px !important
-}
-
-.booking-status .time-input {
-  width: 73px !important
-}
-
-.booking-status .date-picker {
-  width: 100px !important;
-  margin-right: 8px
-}
-
-.booking-status label {
-  font-weight: 400 !important
-}
-
-
-
-@media (max-width: 768px) {
-
-  // .booking-modal input,
-  // .booking-modal select,
-  // .booking-modal textarea {
-  //   font-size: 16px !important
-  // }
-
-  // .booking-modal .tab-content {
-  //   width: 100%
-  // }
-
-  // .booking-modal #address,
-  // .booking-modal #notes {
-  //   padding: 0 10px
-  // }
-
-  .booking-status {
-    display: block !important;
-    margin-right: 32px
-  }
-
-  .booking-status .inline-group {
-    display: block
-  }
-
-  .booking-status .btn-group {
-    display: flex !important;
-    float: none;
-    width: 100%
-  }
-
-  .booking-status .btn-group a {
-    flex: 1
-  }
-
-  .booking-status select.booking-confirmation-status {
-    margin: 8px 0 0;
-    width: 100%
-  }
-
-  // tr.booking-modal__add-service-mobile-row td {
-  //   padding: 0 0 16px !important
-  // }
-
-  // tr.booking-modal__add-service-mobile-row .btn {
-  //   width: 100%
-  // }
-
-  .note-edit textarea {
-    width: 100%
-  }
-}
-
-.charge-cancellation-fee #chargeAnywayLink+i {
-  cursor: pointer
-}
-
-.charge-cancellation-fee hr {
-  border-bottom-color: #ddd;
-  margin: 16px 0
-}
-
-.charge-cancellation-fee .alert {
-  margin: 16px 0
-}
-
-.cancellation-component {
-  display: flex;
-  align-items: flex-start
-}
-
-.cancellation-component__description {
-  flex-grow: 1;
-  margin-left: 8px
-}
-
-.cancellation-component__title {
-  font-weight: 700;
-  display: inline-block
-}
-
-.cancellation-component__fee {
-  text-decoration: underline;
-  color: unset
-}
-
-.cancellation-component-fee-popover input {
-  width: 70px !important
-}
-
-.cancellation-component-fee-popover .popover-action-buttons {
-  display: flex;
-  justify-content: flex-end;
-  margin-top: .75rem
-}
-
-.cancellation-component-fee-popover .popover-action-buttons .btn+.btn {
-  margin-left: 10px
-}
 
 
 @media (max-width: 720px) {
@@ -6861,7 +6312,7 @@ a.thumbnail:hover {
 }
 
 :not(.no-hover):hover.badge-subtle {
-  background-color: grey
+  background-color: gray
 }
 
 @-webkit-keyframes progress-bar-stripes {
@@ -17051,7 +16502,7 @@ h2 {
 .access-user-options-table .btn .fa-times,
 .roster-days-table .btn .fa-times,
 .staff-calendar-sync-table .btn .fa-times {
-  color: grey
+  color: gray
 }
 
 .access-user-options-table .btn-warning .fa-times,
@@ -18239,7 +17690,7 @@ li.ui-timepicker-selected .ui-timepicker-duration {
   border: 1px solid #fff
 }
 
-.well.grey {
+.well.gray {
   border: 1px solid #ddd;
   -webkit-box-shadow: none;
   -moz-box-shadow: none;
@@ -18247,7 +17698,7 @@ li.ui-timepicker-selected .ui-timepicker-duration {
   background-color: transparent
 }
 
-.well-grey {
+.well-gray {
   background-color: #eee;
   border-color: #eee;
   -webkit-border-radius: 0;
@@ -18999,7 +18450,7 @@ body .dropdown--no-point {
 }
 
 .typeahead-container .selected a {
-  color: grey;
+  color: gray;
   font-size: 16px;
   left: 302px;
   position: absolute;
@@ -20436,7 +19887,7 @@ body .dropdown--no-point {
 }
 
 #PaymentServicePage .inactive-text {
-  color: grey
+  color: gray
 }
 
 #PaymentServicePage .payment-section a,
@@ -25005,14 +24456,14 @@ input.sale__input--xl {
   }
 }
 
-.sale__grey-banner {
+.sale__gray-banner {
   padding: 16px 0;
   background-color: #f5f4f3;
   border-radius: 8px;
   margin-bottom: 16px
 }
 
-.sale__grey-banner .sale__complete-container {
+.sale__gray-banner .sale__complete-container {
   text-align: left
 }
 

@@ -2,7 +2,7 @@ import React, { useEffect, useState, useCallback } from "react";
 import { createPortal } from "react-dom";
 import { Popover } from "reactstrap";
 
-import CalendarModal from "../../CalendarModal";
+import CalendarModal from "../../EventEditModal";
 const EventPopover2 = ({ eventEl, event }) => {
   const [popoverOpen, setPopoverOpen] = useState(false);
   const popoverContainer = document.createElement("div");

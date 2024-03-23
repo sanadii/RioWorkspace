@@ -1,6 +1,6 @@
 import React from "react";
 import { SvgIcon } from "Components/Common"; // Adjust the import path as needed
-import { formatTime } from "../../../../Components/Hooks/calendarHooks";
+import { formatTime } from "Components/Hooks";
 import { AppointmentStatusOptions } from "Components/constants";
 
 const EventContent = ({ arg }) => {

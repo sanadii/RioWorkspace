@@ -183,10 +183,10 @@ const ServiceComponent = ({ serviceRef, appointment, services, staff }) => {
 
   return (
     <React.Fragment>
-      <div className="d-flex mb-8">
+      <div className="add-appt__row add-app__service-section">
         <div className="add-appt__icon add-appt__icon-service" title="Date"></div>
         <div className="services-group">
-          <Table className="table-responsive table-cell-background-grey" id="services_table">
+          <Table className="table-responsive table-cell-background-gray" id="services_table">
             <tbody>
               {serviceDetails.map((serviceItem, serviceIndex) => (
                 <tr key={serviceIndex} className={`service-row service-${serviceIndex}`}>

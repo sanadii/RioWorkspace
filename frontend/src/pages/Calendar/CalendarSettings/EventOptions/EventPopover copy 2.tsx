@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { createRoot } from "react-dom/client";
 import { Button, Popover, PopoverHeader, PopoverBody } from "reactstrap";
-import { formatTime } from "../CalendarHooks";
+import { formatTime } from "../../../../Components/Hooks/calendarHooks";
 import { C } from "@fullcalendar/core/internal-common";
 
 const EventPopover = ({ eventEl, event }) => {

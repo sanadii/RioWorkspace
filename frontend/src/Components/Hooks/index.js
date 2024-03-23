@@ -14,3 +14,5 @@ export { useGroupedServices } from "./useGroupedServices";
 export { useDurationOptions } from "./useDurationOptions";
 export { useTotalPrice } from "./useTotalPrice";
 export { useTotalTime } from "./useTotalTime";
+
+export * from "./calendarHooks";

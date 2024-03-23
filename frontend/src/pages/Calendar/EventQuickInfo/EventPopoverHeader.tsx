@@ -1,15 +1,15 @@
 import React, { useEffect, useState, useRef } from "react";
 import { Button, Popover, PopoverHeader, PopoverBody } from "reactstrap";
-import { formatTime } from "../../../../Components/Hooks/calendarHooks";
+import { formatTime } from "Components/Hooks";
 import { createPortal } from "react-dom";
 
-const EventPopOverHeader = ({ event, closePopOver }) => {
+const EventPopOverHeader = ({ event, closePopover }) => {
   const defId = event?.defId;
   const publicId = event?.publicId;
   const groupId = event?.groupId;
   const clientName = event.title;
   const clientId = event?.client?.id;
-  const clientMobile = event?.extendedProps?.client?.mobile;
+  const clientMobile = event?.client?.mobile;
 
   return (
     <React.Fragment>
@@ -48,11 +48,13 @@ const EventPopOverHeader = ({ event, closePopOver }) => {
         </a>
         <a
           className="close bln-close"
-          onClick={() => {
-            closePopOver();
+          href="#"
+          onClick={(e) => {
+            e.preventDefault(); // Prevent default anchor action
+            closePopover(); // Call the closePopover function
           }}
         >
-          ×
+          <i className="ri-close-fill"></i>
         </a>
       </div>
       <p>

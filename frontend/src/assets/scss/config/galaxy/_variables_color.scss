@@ -42,7 +42,7 @@ $teal: #02a8b5;
 $cyan: #3fa7d6;
 $purpul: #696cd1;
 $white: #ffffff;
-$grey: #b8b8b8;
+$gray: #b8b8b8;
 
 // scss-docs-end color-variables
 
@@ -72,7 +72,7 @@ $info: $cyan;
 $warning: $yellow;
 $danger: $red;
 $light: $gray-100;
-$grey: $gray-200;
+$gray: $gray-200;
 $dark: $gray-900;
 
 // The contrast ratio to reach against white, to determine if color changes from "light" to "dark". Acceptable values for WCAG 2.0 are 3, 4.5 and 7.
@@ -327,7 +327,8 @@ $theme-colors: (
   "warning": $warning,
   "danger": $danger,
   "light": $light,
-  "grey": $grey,
+  "gray": $gray,
+  "dark-gray": $gray-600,
   "dark": $dark
 );
 // scss-docs-end theme-colors-map
@@ -340,7 +341,7 @@ $info-text-emphasis: shade-color($info, 15%);
 $warning-text-emphasis: shade-color($warning, 15%);
 $danger-text-emphasis: shade-color($danger, 15%);
 $light-text-emphasis: $gray-400;
-$grey-text-emphasis: $gray-600;
+$gray-text-emphasis: $gray-600;
 $dark-text-emphasis: $gray-800;
 // scss-docs-end theme-text-variables
 
@@ -352,7 +353,8 @@ $info-bg-subtle: tint-color($info, 85%);
 $warning-bg-subtle: tint-color($warning, 85%);
 $danger-bg-subtle: tint-color($danger, 85%);
 $light-bg-subtle: mix($gray-100, $white);
-$grey-bg-subtle: mix($gray-200, $white);
+$dark-gray-bg-subtle: mix($gray-600, $white);
+$gray-bg-subtle: mix($gray-200, $white);
 $dark-bg-subtle: $gray-300;
 // scss-docs-end theme-bg-subtle-variables
 
@@ -364,7 +366,7 @@ $info-border-subtle: tint-color($info, 60%);
 $warning-border-subtle: tint-color($warning, 60%);
 $danger-border-subtle: tint-color($danger, 60%);
 $light-border-subtle: $gray-200;
-$grey-border-subtle: $gray-300;
+$gray-border-subtle: $gray-300;
 $dark-border-subtle: $gray-500;
 
 
@@ -375,36 +377,6 @@ $info-border-light: tint-color($info, 80%);
 $warning-border-light: tint-color($warning, 80%);
 $danger-border-light: tint-color($danger, 80%);
 $light-border-light: $gray-200;
-$grey-border-light: $gray-300;
+$gray-border-light: $gray-300;
 $dark-border-light: $gray-500;
 // scss-docs-end theme-border-subtle-variables
-
-
-// font-size: 16px;
-// line-height: 24px;
-// font-family: Lato,-apple-system,system-ui,BlinkMacSystemFont,segoe ui,Roboto,helvetica neue,Arial,sans-serif;
-// font-weight: 400;
-// --tui-midnight-800: #212379;
-// --tui-midnight-700: #343796;
-// --tui-midnight-600: #4c4fb3;
-// --tui-midnight-500: #696cd1;
-// --tui-midnight-400: #9c9ef0;
-// --tui-midnight-300: #c4c6ff;
-// --tui-midnight-200: #dbdcff;
-// --tui-midnight-100: #ebebff;
-// --tui-midnight-50: #f5f5ff;
-// --tui-charcoal-800: #0a1425;
-// --tui-charcoal-700: #232b30;
-// --tui-charcoal-600: #2f3940;
-// --tui-charcoal-500: #39464e;
-// --tui-charcoal-400: #85939c;
-// --tui-charcoal-300: #b1b9be;
-// --tui-charcoal-200: #cdd2d5;
-// --tui-charcoal-100: #e3e6e8;
-// --tui-charcoal-50: #f4f4f4;
-// --tui-box-shadow-xl: 0px 30px 60px -30px #39464e33, 0px 50px 90px -20px #39464e1a;
-// --tui-box-shadow-lg: 0px 18px 36px -18px #39464e33, 0px 30px 60px -12px #39464e1a;
-// --tui-box-shadow-md: 0px 8px 16px -8px #39464e33, 0px 13px 27px -5px #39464e1a;
-// --tui-box-shadow-sm: 0px 3px 7px -3px #39464e33, 0px 6px 12px -2px #39464e1a;
-// --tui-focus-box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25)
-// }

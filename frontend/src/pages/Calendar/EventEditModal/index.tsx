@@ -16,18 +16,15 @@ import { ClientComponent } from "./ClientComponent";
 import { ServiceComponent } from "./ServiceComponent";
 import { ProductComponent } from "./ProductComponent";
 import { PackageComponent } from "./PackageComponent";
-import { StatusComponent } from "./StatusComponent";
+import ExtraStatusComponent from "./ExtraStatusComponent";
 
 import { AppointmentItem, ServiceItem, ClientItem } from "types";
 
-const CalendarModal = ({ modal, isEdit, toggle, appointment }) => {
+const EventEditModal = ({ modal, isEdit, toggle, appointment }) => {
   const dispatch: any = useDispatch();
 
   const { appointments, services, staff } = useSelector(appointmentsSelector);
   const { clients } = useSelector(clientsSelector);
-
-  // console.log("appointments:", appointments, "staff: ", staff, "services:", services);
-
   const [selectedNewDate, setSelectedNewDate] = useState<any>();
   // console.log("appointment: ", appointment);
   // Refs
@@ -161,10 +158,10 @@ const CalendarModal = ({ modal, isEdit, toggle, appointment }) => {
             return false;
           }}
         >
-          <ModalHeader toggle={toggle} tag="h5" className="p-3 bg-info-subtle modal-title">
-            {!!isEdit ? appointment.title : "Add Event"}
+          <ModalHeader toggle={toggle} tag="h5" className="booking-modal__header">
+            {!!isEdit ? `Edit Appointment of ${appointment.title}` : "Add Event"}
           </ModalHeader>
-          <ModalBody>
+          <ModalBody className="booking-modal__body">
             <NavigationComponent />
 
             <div className="tab-content tight-grid">
@@ -173,12 +170,13 @@ const CalendarModal = ({ modal, isEdit, toggle, appointment }) => {
                 setSelectedNewDate={setSelectedNewDate}
                 validation={validation}
               />
-
               <ClientComponent clientRef={clientRef} appointment={appointment} clients={clients} isEdit={isEdit} />
-
               <ServiceComponent serviceRef={serviceRef} appointment={appointment} services={services} staff={staff} />
-
-              <StatusComponent statusRef={statusRef} appointment={appointment} validation={validation} />
+              <div id="appointment-modal-extras" className="add-appt__extras">
+                {/* <ExtraVideoComponent /> */}
+                {/* <ExtraPromoComponent /> */}
+                <ExtraStatusComponent appointment={appointment} statusRef={statusRef} validation={validation} />
+              </div>
             </div>
           </ModalBody>
           <ModalFooter>
@@ -232,4 +230,4 @@ const CalendarModal = ({ modal, isEdit, toggle, appointment }) => {
   );
 };
 
-export default CalendarModal;
+export default EventEditModal;

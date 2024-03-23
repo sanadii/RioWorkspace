@@ -54,7 +54,7 @@ const DateComponent = ({
 
   return (
     <React.Fragment>
-      <div className="add-appt__row">
+      <div className="add-appt__row add-app__date-section">
         <div className="add-appt__icon add-appt__icon-date" title="Date"></div>
         <div className="add-appt__date-time">
           {!isEditDate ? (
@@ -62,7 +62,7 @@ const DateComponent = ({
               <strong>{appointmentDate}</strong> {appointmentStartTime}
               <li className="list-inline-item edit">
                 <Link to="#" className="text-primary d-inline-block edit-item-btn" onClick={handleEditDate}>
-                  <i className="ri-pencil-fill fs-16"></i>
+                  <i className="ri-pencil-line fs-16"></i>
                 </Link>
               </li>
             </p>

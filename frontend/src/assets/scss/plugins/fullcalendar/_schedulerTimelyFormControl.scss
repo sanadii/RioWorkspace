@@ -345,18 +345,6 @@ input[type=radio][disabled] {
   cursor: not-allowed
 }
 
-.form-control-static {
-  padding-top: 5px;
-  padding-bottom: 7px;
-  margin-bottom: 0
-}
-
-.form-control-static.input-lg,
-.form-control-static.input-sm {
-  padding-left: 0;
-  padding-right: 0
-}
-
 .form-group-sm .form-control,
 .input-sm {
   height: 31px;
@@ -1070,25 +1058,25 @@ textarea.input-group-sm>.input-group-btn>.btn {
   margin-right: auto
 }
 
-.form__grey-section {
+.form__gray-section {
   display: flex;
   border-radius: 2px;
   background-color: var(--tui-charcoal-50)
 }
 
-.form__grey-section-icon {
+.form__gray-section-icon {
   width: 32px;
   background-color: var(--tui-charcoal-100);
   border-radius: 2px 0 0 2px
 }
 
-.form__grey-section-icon--vaccination {
+.form__gray-section-icon--vaccination {
   background-position: 50% 50%;
   background-repeat: no-repeat;
   background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg width='17' height='17' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4.889 7.41L3.142 9.155a1 1 0 000 1.415l2.121 2.121a1 1 0 001.413-.002l1.991-2.024m-1.333-5.7l1.818-1.819 3.534 3.533L11 8.333m-7.505 2.592l-1.767 1.767 1.414 1.415 1.768-1.768-1.415-1.414zM.667 15.166l1.768-1.768M8.092 2.085l5.656 5.657' stroke='%2339464E' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M12.688 1.732l-2.475 2.475 1.414 1.414 2.475-2.475-1.414-1.414zM11.627.67l3.536 3.537m.504 11.459l-15-15' stroke='%2339464E' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")
 }
 
-.form__grey-section-fields {
+.form__gray-section-fields {
   padding: 8px;
   width: 90%
 }

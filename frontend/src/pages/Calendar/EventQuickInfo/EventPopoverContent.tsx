@@ -1,13 +1,12 @@
 import React, { useEffect, useState, useRef } from "react";
 import { Button, Popover, PopoverHeader, PopoverBody, Alert } from "reactstrap";
-import { formatTime } from "../../../../Components/Hooks/calendarHooks";
+import { formatTime } from "Components/Hooks";
 import { createPortal } from "react-dom";
 const EventPopoverContent = ({ event }) => {
-  const services = event?.extendedProps?.services || [];
+  const services = event?.services || [];
 
   return (
     <React.Fragment>
-      {/* Note */}
       <div className="alert border-0 border-start border-success bg-success-subtle material-shadow d-flex justify-content-between align-items-center">
         <div>
           <i className="ri-file-text-line text-success label-icon pe-2"></i>

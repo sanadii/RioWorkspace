@@ -599,10 +599,6 @@ body.full-page-flexpane {
   animation: calloading 4s 2s infinite
 }
 
-.fc {
-  direction: ltr;
-  text-align: left
-}
 
 .fc table {
   border-collapse: collapse;
@@ -1242,10 +1238,6 @@ table.fc-border-separate {
 }
 
 
-// Edited for days header
-// th.fc-col-header-cell.fc-day.fc-day-thu.fc-day-past
-// th.fc-col-header-cell.fc-day.fc-day-sun.fc-day-today
-// th.fc-col-header-cell.fc-day.fc-day-fri.fc-day-future
 
 // #calendar removed
 th.fc-col-header-cell.fc-day {
@@ -1255,28 +1247,6 @@ th.fc-col-header-cell.fc-day {
 }
 
 // #calendar  removed
-th.fc-col-header-cell.fc-day.fc-day-today {
-  background-color: #696cd1;
-  color: #fff
-}
-
-// #calendar  removed
-.fc-col-header th.fc-col-header.fc-day a {
-  color: #fff
-}
-
-.fc-col-header a,
-.fc-col-header span {
-  line-height: 16px !important;
-  display: inline-block;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  // max-width: 70px;
-  font-weight: 400;
-  font-size: 14px
-}
-
 // End Edited for days header...
 
 .fc-calendar-message {

@@ -77,7 +77,7 @@ const useQuickInfoTemplates = (scheduleObj) => {
       </h3>
     );
     // return (
-    //   <div className="quick-info-header-content h5 p-3 bg-grey">
+    //   <div className="quick-info-header-content h5 p-3 bg-gray">
     //     <div className="quick-info-title">{getHeaderTitle(props)}</div>
     //     <div className="duration-text">{getHeaderDetails(props)}</div>
 

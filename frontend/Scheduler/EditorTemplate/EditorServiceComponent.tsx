@@ -184,7 +184,7 @@ const EditorServiceComponent = ({ data, services, staff, serviceDetails, setServ
       <div className="d-flex mb-8">
         <div className="add-appt__icon add-appt__icon-service" title="Date"></div>
         <div className="add-appt__date-time">
-          <Table className="table-responsive table-cell-background-grey">
+          <Table className="table-responsive table-cell-background-gray">
             <thead>
               <th>Service</th>
               <th>Staff</th>

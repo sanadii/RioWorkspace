@@ -35,7 +35,7 @@ import {
 } from "store/actions";
 import { createSelector } from "reselect";
 
-import CalendarModal from "./CalendarModal";
+import CalendarModal from "./EventEditModal";
 
 const Calender = () => {
   const dispatch: any = useDispatch();

@@ -1,12 +1,20 @@
 import React, { useEffect, useState, useRef } from "react";
 import { Button, ButtonGroup } from "reactstrap";
-import { formatTime } from "../../../../Components/Hooks/calendarHooks";
+import { formatTime } from "Components/Hooks";
 import { createPortal } from "react-dom";
 
+
 // import CalendarModal from "CalendarModal"
-const EventPopoverActions = ({ event, toggle }) => {
+const EventPopoverActions = ({ event, toggle, setModal }) => {
+  // const [event, setEvent] = useState<any>({});
+  const [isEdit, setIsEdit] = useState<boolean>(false);
+  const [deleteModal, setDeleteModal] = useState<boolean>(false);
+
   const handleEditAction = (e) => {
     console.log("Handling Edit Action");
+    toggle()
+    setModal(true);
+    setIsEdit(true);
   };
 
   return (
@@ -41,6 +49,7 @@ const EventPopoverActions = ({ event, toggle }) => {
           Book Next
         </button>
       </div>
+
     </React.Fragment>
   );
 };

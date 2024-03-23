@@ -67,7 +67,7 @@ const DiscountModal: React.FC<DiscountModalProps> = ({
   return (
     <Modal id="showModal" size="md" className="sale__modal" isOpen={modal} toggle={toggle} centered>
       <div className="sale__modal-head">{discountValue?.name}</div>
-      <div className="sale__modal-body sale__modal-body--grey sale__edit-line-item">
+      <div className="sale__modal-body sale__modal-body--gray sale__edit-line-item">
         <Form
           className="tablelist-form"
           onSubmit={(e) => {
