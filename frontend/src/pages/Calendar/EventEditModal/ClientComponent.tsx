@@ -12,7 +12,7 @@ import { useFormik } from "formik";
 import { FieldComponent } from "Components/Common";
 
 // Styling
-import { Form, Table, Row, Badge, UncontrolledAlert } from "reactstrap";
+import { Form, Table, UncontrolledAlert } from "reactstrap";
 import "react-toastify/dist/ReactToastify.css";
 
 type ClientItem = {
@@ -105,6 +105,7 @@ const ClientComponent = ({ clientRef, appointment, clients, isEdit }) => {
       placeholder: "First and Last Name OR Mobile",
       type: "searchDropdown",
       onChange: (e) => {
+
         validation.handleChange(e);
         const inputValue = e.target.value;
         if (inputValue.length > 1) {

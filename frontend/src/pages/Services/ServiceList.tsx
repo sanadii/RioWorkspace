@@ -5,33 +5,22 @@ import { CardBody, Row, Col, Card, Container, CardHeader } from "reactstrap";
 
 import { Link } from "react-router-dom";
 
+import { Notes, Date, Amount, Name } from "Components/Common/Table/TableColumns";
 
-import {
-  Notes,
-  Date,
-  Amount,
-  Name,
-} from "Components/Common/Table/TableColumns";
 
+// Redux
 import { getServices, deleteService } from "store/actions";
-
+import { useSelector, useDispatch } from "react-redux";
+import { servicesSelector } from "Selectors";
 
 //Import Components, Constants, Hooks.
-import {
-  Loader,
-  DeleteModal,
-  BreadCrumb,
-  TableContainer,
-  TableContainerHeader,
-} from "Components/Common";
+import { Loader, DeleteModal, BreadCrumb, TableContainer, TableContainerHeader } from "Components/Common";
 
 import ServiceModal from "./ServiceModal";
 
 //Import actions
 
 //redux
-import { useSelector, useDispatch } from "react-redux";
-import { servicesSelector } from "Selectors";
 import { useDelete } from "Components/Hooks";
 
 import { ToastContainer } from "react-toastify";
@@ -110,14 +99,7 @@ const ServiceList = () => {
   const columns = useMemo(
     () => [
       {
-        header: (
-          <input
-            type="checkbox"
-            id="checkBoxAll"
-            className="form-check-input"
-            onClick={() => checkedAll()}
-          />
-        ),
+        header: <input type="checkbox" id="checkBoxAll" className="form-check-input" onClick={() => checkedAll()} />,
         cell: (cell: any) => {
           return (
             <input
@@ -164,7 +146,7 @@ const ServiceList = () => {
         cell: (cell: any) => {
           return <Name {...cell} />;
         },
-      }, 
+      },
       {
         header: "Category",
         accessorKey: "category",
@@ -172,8 +154,8 @@ const ServiceList = () => {
         cell: (cell: any) => {
           return <Name {...cell} />;
         },
-      }, 
-     
+      },
+
       {
         header: "Action",
         cell: (cellProps: any) => {
@@ -212,11 +194,7 @@ const ServiceList = () => {
   return (
     <React.Fragment>
       <div className="page-content">
-        <DeleteModal
-          show={deleteModal}
-          onDeleteClick={handleDeleteItem}
-          onCloseClick={() => setDeleteModal(false)}
-        />
+        <DeleteModal show={deleteModal} onDeleteClick={handleDeleteItem} onCloseClick={() => setDeleteModal(false)} />
         <DeleteModal
           show={deleteModalMulti}
           onDeleteClick={() => {
@@ -225,13 +203,7 @@ const ServiceList = () => {
           }}
           onCloseClick={() => setDeleteModalMulti(false)}
         />
-        <ServiceModal
-          modal={modal}
-          toggle={toggle}
-          service={service}
-          isEdit={isEdit}
-          setModal={setModal}
-        />
+        <ServiceModal modal={modal} toggle={toggle} service={service} isEdit={isEdit} setModal={setModal} />
 
         <Container fluid>
           <BreadCrumb title="Daily Revenue" pageTitle="Daily Revenue" />
@@ -244,19 +216,12 @@ const ServiceList = () => {
                     <div className="flex-shrink-0">
                       <div className="d-flex gap-2 flex-wrap">
                         {isMultiDeleteButton && (
-                          <button
-                            className="btn btn-primary me-1"
-                            onClick={() => setDeleteModalMulti(true)}
-                          >
+                          <button className="btn btn-primary me-1" onClick={() => setDeleteModalMulti(true)}>
                             <i className="ri-delete-bin-2-line"></i>
                           </button>
                         )}
-                        <Link
-                          to="/apps-Services-create"
-                          className="btn btn-primary"
-                        >
-                          <i className="ri-add-line align-bottom me-1"></i>{" "}
-                          Create service
+                        <Link to="/apps-Services-create" className="btn btn-primary">
+                          <i className="ri-add-line align-bottom me-1"></i> Create service
                         </Link>
                       </div>
                     </div>

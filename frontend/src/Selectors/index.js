@@ -5,8 +5,7 @@ export { userSelector } from './userSelector';
 
 // Theme
 export { layoutSelector } from './layoutSelector';
-export { settingOptionsSelector } from './settingOptionsSelector';
-
+export { settingOptionsSelector, settingChoicesSelector } from './settingSelector';
 
 // Apps
 export { revenuesSelector } from './revenuesSelector ';

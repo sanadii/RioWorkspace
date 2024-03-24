@@ -7,7 +7,7 @@ import { appointmentsSelector, clientsSelector } from "Selectors";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 
-import { Form, Modal, ModalBody, ModalHeader, ModalFooter } from "reactstrap";
+import { Button, Form, Modal, ModalBody, ModalHeader, ModalFooter } from "reactstrap";
 import { updateAppointment, addAppointment } from "store/actions";
 
 import { NavigationComponent } from "./Navigation";
@@ -179,14 +179,50 @@ const EventEditModal = ({ modal, isEdit, toggle, appointment }) => {
               </div>
             </div>
           </ModalBody>
-          <ModalFooter>
-            <div className="d-flex justify-content-between w-100">
+          <ModalFooter className="modal-footer booking-modal__footer">
+            <Button
+              size="sm"
+              color="danger"
+              className="btn-decline "
+              data-refresh-cal="yes"
+              data-href="/Dashboard/DeclineBooking/387979370"
+            >
+              Decline appointment
+            </Button>
+            <Button size="sm" className="btn-light waves-effect waves-light btn-cancel">
+              Cancel
+            </Button>
+
+            <Button
+              size="sm"
+              className="btn-checkout btn-soft-secondary waves-effect waves-light"
+              data-modal-className="invoice-modal"
+              href="/Billing/InvoiceAdd?bookingId=387979370&amp;updateCalendar=True"
+            >
+              Checkout
+            </Button>
+            {clients.length === 2 ? (
+              <Button
+                size="sm"
+                className="btn-secondary waves-effect waves-light btn-save"
+                data-original-title="Edit recurring booking<a class='close bln-close'>×</a>"
+                data-content='<p>Would you like to change only this event, or this and all following events in the series?</p><a class="btn btn-block just-this">This only</a><a class="btn btn-block this-and-future">This and future</a>'
+                // style="display: none;"
+              >
+                Save
+              </Button>
+            ) : (
+              <Button size="sm" className="btn-secondary waves-effect waves-light btn-save" name="commit" type="submit">
+                Save
+              </Button>
+            )}
+            {/* <div className="d-flex justify-content-between w-100">
               {isEdit && (
                 <div className="add-appt__row add-appt__row-cancel">
-                  <button
+                  <a
                     className="add-appt__icon add-appt__icon-cancel manual-modal"
                     // href="/Calendar/BookingCancel/388386003"
-                  ></button>
+                  ></a>
                   <div className="add-appt__cancel">
                     <a className="manual-modal" href="/Calendar/BookingCancel/388386003">
                       Cancel <span className="hidden-xs">appointment</span>
@@ -196,14 +232,18 @@ const EventEditModal = ({ modal, isEdit, toggle, appointment }) => {
               )}
 
               <div className="hstack gap-2">
-                <button type="button" className="btn btn-secondary-light modal-close update-calendar" onClick={toggle}>
+                <button
+                  type="button"
+                  className="btn btn-secondary-dark modal-close update-calendar  pe-12 ps-12"
+                  onClick={toggle}
+                >
                   Close
                 </button>
 
                 {isEdit ? (
                   <button
                     type="submit"
-                    className="btn btn-primary save-recurring"
+                    className="btn btn-primary save-recurring pe-12 ps-12"
                     // onClick={saveEvent}
                     data-toggle="popover"
                     title="Edit recurring booking"
@@ -214,7 +254,7 @@ const EventEditModal = ({ modal, isEdit, toggle, appointment }) => {
                 ) : (
                   <button
                     type="submit"
-                    className="btn btn-primary save-normal"
+                    className="btn btn-primary save-normal  pe-12 ps-12"
                     id="btn-save-event"
                     // onClick={saveEvent}
                   >
@@ -222,7 +262,7 @@ const EventEditModal = ({ modal, isEdit, toggle, appointment }) => {
                   </button>
                 )}
               </div>
-            </div>
+            </div> */}
           </ModalFooter>
         </Form>
       </Modal>

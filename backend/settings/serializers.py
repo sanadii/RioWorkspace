@@ -1,5 +1,11 @@
 from rest_framework import serializers
-from settings.models import OptionCategory, OptionChoices
+from settings.models import SettingOption, OptionCategory, OptionChoices
+
+class SettingOptionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = SettingOption
+        fields = ['id', 'name', 'value']
+
 
 class OptionCategorySerializer(serializers.ModelSerializer):
     class Meta:

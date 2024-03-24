@@ -152,7 +152,7 @@ const FieldComponent: React.FC<FieldComponentProps> = ({ field, validation, form
   const customStyles = {
     control: (provided) => ({
       ...provided,
-      minHeight: '20px',
+      minHeight: "20px",
       // minHeight: "32px",
       // height: "32px",
       padding: "0px",
@@ -167,13 +167,13 @@ const FieldComponent: React.FC<FieldComponentProps> = ({ field, validation, form
     }),
     input: (provided) => ({
       ...provided,
-      minHeight: '20px',
-      margin: '0',
+      minHeight: "20px",
+      margin: "0",
       // Add other styles as needed
     }),
     indicatorContainer: (provided) => ({
       // ...provided,
-      padding: '0px',
+      padding: "0px",
       // Add other styles as needed
     }),
     // Add other style overrides if needed
@@ -286,7 +286,7 @@ const FieldComponent: React.FC<FieldComponentProps> = ({ field, validation, form
             name={name}
             isSearchable={true}
             // className="form-control form-control-sm"
-            styles={customStyles}
+            styles="input-group input-group-sm"
             // ... other props
             // classNamePrefix="sanad-select sanad2-select"
             isClearable={true}

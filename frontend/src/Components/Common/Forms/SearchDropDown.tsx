@@ -3,8 +3,9 @@ import { Link } from "react-router-dom";
 import SimpleBar from "simplebar-react";
 
 const SearchDropDown = ({ field, validation, onChangeHandler }) => {
-  const { id, label, name, options, onChange, onSelect } = field;
+  const { id, label, name, options, value, OptionCategories, onChange, onSelect } = field;
 
+  console.log("OptionCategories: ", OptionCategories);
   const dropdownRef = useRef(null);
   const inputRef = useRef(null);
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
@@ -16,7 +17,7 @@ const SearchDropDown = ({ field, validation, onChangeHandler }) => {
 
   const handleInputChange = (e) => {
     onChangeHandler(e);
-    setIsDropdownVisible(e.target.value.length > 1);
+    setIsDropdownVisible(e.target.value.length > 0);
   };
 
   const handleDocumentClick = (e) => {
@@ -36,6 +37,16 @@ const SearchDropDown = ({ field, validation, onChangeHandler }) => {
     }
   };
 
+  const handleFocus = (event) => {
+    event.target.focus();
+    event.target.select();
+    setIsDropdownVisible(true);
+  };
+
+  const toggleDropDown = () => {
+    setIsDropdownVisible((prev) => !prev); // Toggle the visibility state
+  };
+
   useEffect(() => {
     document.addEventListener("mousedown", handleDocumentClick);
     return () => {
@@ -45,31 +56,69 @@ const SearchDropDown = ({ field, validation, onChangeHandler }) => {
 
   return (
     <React.Fragment>
-      <input
-        type="text"
-        id={id}
-        name={name}
-        className="form-control form-control-sm"
-        placeholder={`Enter ${label}`}
-        ref={inputRef}
-        value={validation.values[name] || ""}
-        onChange={handleInputChange}
-        onKeyDown={handleKeyDown}
-        onBlur={validation.handleBlur}
-      />
+      <div className="iconTextfieldModule">
+        <a className="iconTextfieldIcon" onClick={() => toggleDropDown()}>
+          <i className={isDropdownVisible ? "ri-arrow-up-s-line fs-24" : "ri-arrow-down-s-line fs-24"}></i>
+        </a>
+
+        <input
+          type="text"
+          id={id}
+          name={name}
+          className="form-control form-control-sm pe-4"
+          placeholder={`Enter ${label}`}
+          ref={inputRef}
+          value={value}
+          onChange={handleInputChange}
+          onKeyDown={handleKeyDown}
+          onFocus={handleFocus}
+          onBlur={validation.handleBlur}
+        />
+        {/* <div className={`arrow ${isDropdownVisible ? "up" : "down"}`}></div> */}
+      </div>
+
       {validation.touched[name] && validation.errors[name] && (
         <div className="invalid-feedback">{validation.errors[name]}</div>
       )}
 
-      <div className={`dropdown-menu dropdown-menu-lg ${isDropdownVisible ? "show" : ""}`} ref={dropdownRef}>
+      <div
+        className={`autocomplete-module_dropdownWrapper dropdown-menu dropdown-menu-lg ${
+          isDropdownVisible ? "show" : ""
+        }`}
+        ref={dropdownRef}
+      >
         <SimpleBar style={{ height: "320px" }}>
-          {options.map((client) => (
-            <div key={client.id} onClick={() => handleClientSelect(client)}>
-              <Link to="#">
-                <strong>{client.name}</strong> {client.mobile}
-              </Link>
-            </div>
-          ))}
+          {OptionCategories &&
+            OptionCategories.length > 0 &&
+            OptionCategories.map((category) => (
+              <ul className="autocomplete-module_list">
+                <li className="autocomplete-module_itemCategory" style={{ paddingLeft: "8px" }}>
+                  {category.label}
+                </li>
+                {category?.options &&
+                  category?.options.map((option) => (
+                    <li
+                      key={option.id}
+                      onClick={() => handleClientSelect(option)}
+                      role="option"
+                      aria-selected="false"
+                      className="autocomplete-module_item"
+                      style={{ paddingLeft: "22px" }}
+                    >
+                      <span>{option.label}</span>
+                    </li>
+                  ))}
+              </ul>
+            ))}
+
+          {options &&
+            options.map((option) => (
+              <div key={option.id} onClick={() => handleClientSelect(option)}>
+                <Link to="#">
+                  <strong>{option.name}</strong> {option.mobile}
+                </Link>
+              </div>
+            ))}
         </SimpleBar>
       </div>
     </React.Fragment>

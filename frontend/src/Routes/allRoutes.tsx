@@ -67,6 +67,8 @@ import ForgetPasswordPage from "../pages/Authentication/ForgetPassword";
 import Logout from "../pages/Authentication/Logout";
 import Register from "../pages/Authentication/Register";
 
+import Settings from "../pages/Settings";
+
 const authProtectedRoutes = [
   // { path: "/schedule", component: <Scheduler /> },
   { path: "/invoice", component: <Invoice /> },
@@ -103,6 +105,9 @@ const authProtectedRoutes = [
   // { path: "/resources", component: <ResourceList /> },
   // { path: "/resource-details", component: <ResourceDetails /> },
   // { path: "/resource-create", component: <ResourceCreate /> },
+
+  // Settings
+  { path: "/settings", component: <Settings /> },
 
   // this route should be at the end of all other routes
   // eslint-disable-next-line react/display-name

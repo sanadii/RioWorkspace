@@ -10,6 +10,7 @@ import UsersSaga from "./auth/users/saga";
 
 // Settings
 import LayoutSaga from "./layouts/saga";
+import SettingChoicesSaga from "./settingChoices/saga";
 import SettingOptionSaga from "./settingOptions/saga";
 
 
@@ -41,6 +42,7 @@ export default function* rootSaga() {
     // System / Settings
     fork(LayoutSaga),
     fork(SettingOptionSaga),
+    fork(SettingChoicesSaga),
 
     // Calendar
     fork(CalendarSaga),

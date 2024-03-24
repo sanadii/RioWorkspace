@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button } from "reactstrap";
+import { Button, ButtonGroup } from "reactstrap";
 import { AppointmentStatusOptions } from "Components/constants";
 
 const ExtraStatusComponent = ({ appointment, statusRef, validation }) => {
@@ -13,25 +13,29 @@ const ExtraStatusComponent = ({ appointment, statusRef, validation }) => {
     setAppointmentStatus(newStatus);
   };
 
+
+  console.log("appointmentStatus: ", appointmentStatus);
   return (
     <React.Fragment>
       <div className="add-appt__row add-appt__row-booking-status">
         <div className="add-appt__icon add-appt__icon-status" title="Booking status"></div>
         <div className="add-appt__booking-status booking-status">
           <div className="booking-status__options">
-            <Button
-              className={`booking-type ${appointmentStatus === 1 ? "btn-secondary" : "btn-soft-secondary"}`}
-              onClick={() => handleStatusChange(1)}
-            >
-              Pencilled-in
-            </Button>
-            <Button
-              className={`booking-type ${appointmentStatus === 2 ? "btn-secondary" : "btn-soft-secondary"}`}
-              onClick={() => handleStatusChange(2)}
-            >
-              Confirmed
-            </Button>
-            {appointmentStatus === 2 && (
+            <ButtonGroup size="sm" className="w-100 material-shadow">
+              <Button
+                className={`btn-soft-dark material-shadow-none ${appointmentStatus === 1 ? "active" : ""}`}
+                onClick={() => handleStatusChange(1)}
+              >
+                Pencilled-in
+              </Button>
+              <Button
+                className={`btn-soft-dark material-shadow-none ${appointmentStatus !== 1 ? "active" : ""}`}
+                onClick={() => handleStatusChange(2)}
+              >
+                Confirmed
+              </Button>
+            </ButtonGroup>
+            {appointmentStatus !== 1 && (
               <select
                 id="appointment-confirmed-status"
                 name="appointmentConfirmationStatus"

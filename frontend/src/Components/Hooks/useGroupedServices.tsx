@@ -14,6 +14,7 @@ const useGroupedServices = (services) => {
         value: service.id,
         duration: service.duration,
         price: service.price,
+        category: category,
       };
 
       if (category) {

@@ -101,8 +101,13 @@ export const DELETE_STAFF = "/staff/deleteStaff";
 
 
 
-// Setting
+// Setting Options
 export const GET_SETTING_OPTIONS = "/settings/getSettingOptions";
+export const UPDATE_SETTING_OPTION = "/settings/updateOptionCategory";
+
+
+// Setting Choices
+export const GET_SETTING_CHOICES = "/settings/getSettingChoices";
 
 // Option Categories
 export const GET_OPTION_CATEGORIES = "/settings/getOptionCategories";

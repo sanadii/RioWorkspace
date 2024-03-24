@@ -58,7 +58,7 @@ const DateComponent = ({
         <div className="add-appt__icon add-appt__icon-date" title="Date"></div>
         <div className="add-appt__date-time">
           {!isEditDate ? (
-            <p>
+            <p className="form-control-static">
               <strong>{appointmentDate}</strong> {appointmentStartTime}
               <li className="list-inline-item edit">
                 <Link to="#" className="text-primary d-inline-block edit-item-btn" onClick={handleEditDate}>

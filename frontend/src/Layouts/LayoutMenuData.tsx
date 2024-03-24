@@ -6,10 +6,10 @@ const Navdata = () => {
   //state data
   const [isDashboard, setIsDashboard] = useState(false);
   const [isApps, setIsApps] = useState(false);
-  const [iscurrentState, setIscurrentState] = useState("Scheduler");
+  const [iscurrentState, setIscurrentState] = useState("Calendar");
 
-  // Scheduler Invoice
-  const [isScheduler, setIsScheduler] = useState(false);
+  // Setting Invoice
+  const [isSettings, setIsSettings] = useState(false);
   const [isCalendar, setIsCalendar] = useState(false);
   const [isCalendarTest, setIsCalendarTest] = useState(false);
   const [isInvoice, setIsInvoice] = useState(false);
@@ -48,9 +48,9 @@ const Navdata = () => {
       setIsDashboard(false);
     }
 
-    // Scheduler
-    if (iscurrentState !== "Scheduler") {
-      setIsScheduler(false);
+    // Setting
+    if (iscurrentState !== "Settings") {
+      setIsSettings(false);
     }
     if (iscurrentState !== "Calendar") {
       setIsCalendar(false);
@@ -89,10 +89,10 @@ const Navdata = () => {
     if (iscurrentState !== "Apps") {
       setIsApps(false);
     }
-  }, [history, iscurrentState, isDashboard, isScheduler, isInvoice, isRevenues, isExpenses, isApps]);
+  }, [history, iscurrentState, isDashboard, isSettings, isInvoice, isRevenues, isExpenses, isApps]);
 
   const menuItems: any = [
-    // Scheduler Invoice
+    // Setting Invoice
     {
       label: "Calendar",
       isHeader: true,
@@ -102,7 +102,7 @@ const Navdata = () => {
       label: "Calendar",
       icon: "ri-dashboard-2-line",
       link: "/calendar",
-      stateVariables: isScheduler,
+      stateVariables: isCalendar,
       click: function (e: any) {
         e.preventDefault();
         setIsCalendar(!isCalendar);
@@ -115,7 +115,7 @@ const Navdata = () => {
       label: "CalendarTest",
       icon: "ri-dashboard-2-line",
       link: "/calendar-test",
-      stateVariables: isScheduler,
+      stateVariables: isCalendarTest,
       click: function (e: any) {
         e.preventDefault();
         setIsCalendarTest(!isCalendarTest);
@@ -124,20 +124,20 @@ const Navdata = () => {
       },
     },
     {
-      label: "Scheduler",
+      label: "Setting",
       isHeader: true,
     },
 
     {
-      id: "scheduler",
-      label: "Scheduler",
+      id: "settings",
+      label: "Settings",
       icon: "ri-dashboard-2-line",
-      link: "/scheduler",
-      stateVariables: isScheduler,
+      link: "/settings",
+      stateVariables: isSettings,
       click: function (e: any) {
         e.preventDefault();
-        setIsScheduler(!isScheduler);
-        setIscurrentState("Scheduler");
+        setIsSettings(!isSettings);
+        setIscurrentState("Settings");
         updateIconSidebar(e);
       },
     },

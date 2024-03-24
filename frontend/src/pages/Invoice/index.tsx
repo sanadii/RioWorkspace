@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import { getAppointment, getSchedule } from "store/actions";
 import { TabContent, TabPane } from "reactstrap";
-import { settingOptionsSelector, appointmentsSelector } from "Selectors";
+import { settingChoicesSelector, appointmentsSelector } from "Selectors";
 import InvoiceNav from "./InvoiceNav";
 import Summary from "./Summary";
 import Payment from "./Payment";
@@ -18,7 +18,7 @@ const Invoice = () => {
   const queryParams = new URLSearchParams(location.search);
   const appointmentId = queryParams.get("appointmentId");
   const { appointment, services, products, packages, vouchers, staff } = useSelector(appointmentsSelector);
-  const { discountOptions } = useSelector(settingOptionsSelector);
+  const { discountOptions } = useSelector(settingChoicesSelector);
   const [isPayment, setIspayment] = useState(false);
   const [activeTab, setActiveTab] = useState("1");
 

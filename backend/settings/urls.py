@@ -7,6 +7,11 @@ app_name = "settings"
 urlpatterns = [
     # Setting Options URLs
     path("getSettingOptions", GetSettingOptions.as_view(), name="GetSettingOptions"),
+    path('updateSettingOption/<int:id>/', UpdateSettingOption.as_view(), name='UpdateSettingOption'),
+
+
+    # Setting Options URLs
+    path("getSettingChoices", GetSettingChoices.as_view(), name="GetSettingChoices"),
     
     # Option Categories URLs
     path("getOptionCategories", GetOptionCategories.as_view(), name="GetOptionCategories"),

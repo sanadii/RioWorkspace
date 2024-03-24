@@ -17,21 +17,46 @@ type ServiceItem = {
 };
 
 const ServiceComponent = ({ serviceRef, appointment, services, staff }) => {
-  // Initialize with an empty service if no services are available in the appointment
-
   const [serviceDetails, setServiceDetails] = useState<ServiceItem[]>([]);
+  const [serviceList, setServiceList] = useState(services);
 
-  const serviceList = useGroupedServices(services);
+  useEffect(() => {
+    const serviceList = services.map((service) => ({
+      id: service.id,
+      name: service.name,
+      duration: service.duration,
+      price: service.price,
+      label: service.label,
+      value: service.id,
+      category: service.category,
+    }));
+
+    setServiceList(serviceList);
+  }, [services]);
+
+  const [filteredServices, setFilteredServices] = useState([...services]);
+  const groupedServices = useGroupedServices(filteredServices);
+
   const defaultStaffId = staff && staff.length > 0 ? staff[0].id : null;
   const durationOptions = useDurationOptions();
   const totalPrice = useTotalPrice(serviceDetails);
   const totalTime = useTotalTime(serviceDetails);
 
+  const handleServiceSearch = (serviceSearchValue) => {
+    if (serviceSearchValue.length > 0) {
+      setFilteredServices(
+        services.filter((service) => service.name.toLowerCase().includes(serviceSearchValue.toLowerCase()))
+      );
+    } else {
+      setFilteredServices(serviceList);
+    }
+  };
+
   useEffect(() => {
     if (appointment && Array.isArray(appointment.services) && appointment.services.length > 0) {
       const initialServices = appointment.services.map((service) => ({
         id: service.id,
-        service: service.service,
+        service: service.name,
         staff: service.staff,
         start: new Date(service.start),
         end: new Date(service.end),
@@ -69,35 +94,21 @@ const ServiceComponent = ({ serviceRef, appointment, services, staff }) => {
     onSubmit: () => {},
   });
 
-  // Add and Remove Services
-  const handleAddService = () => {
-    setServiceDetails([
-      ...serviceDetails,
-      {
-        id: null,
-        service: null,
-        staff: defaultStaffId,
-        start: new Date(),
-        end: new Date(),
-        duration: "",
-        price: null,
-      },
-    ]);
-  };
-
-  const handleServiceChange = (event, serviceIndex) => {
+  const handleServiceSelect = (event, serviceIndex) => {
     const selectedService = event;
-    // console.log("selectedService: ", selectedService);
+    console.log("Selected Service: ", selectedService);
 
     const updatedServiceDetails = [...serviceDetails];
     updatedServiceDetails[serviceIndex] = {
       ...updatedServiceDetails[serviceIndex],
-      service: selectedService.value, // Update with the service ID
+      service: selectedService.label, // Update with the selected service ID
+      // serviceId: selectedService.value, // Update with the selected service ID
       staff: defaultStaffId,
       duration: selectedService.duration || null,
       price: selectedService.price || null,
     };
     setServiceDetails(updatedServiceDetails);
+    setFilteredServices(services);
   };
 
   const handleFieldChange = (event, serviceIndex, fieldName) => {
@@ -117,20 +128,43 @@ const ServiceComponent = ({ serviceRef, appointment, services, staff }) => {
     setServiceDetails(updatedServiceList);
   };
 
+  // Add and Remove Services
+  const handleAddService = (e) => {
+    e.stopPropagation(); // Prevent the event from bubbling up
+
+    setServiceDetails([
+      ...serviceDetails,
+      {
+        id: null,
+        service: null,
+        staff: defaultStaffId,
+        start: new Date(),
+        end: new Date(),
+        duration: "",
+        price: null,
+      },
+    ]);
+  };
+
   const fields = (serviceIndex) => [
     {
       id: `service-field-${serviceIndex}`,
       name: "service",
       label: "Service",
-      type: "reactSelect",
-      // value: serviceList.find(option => option.value === servicesInitialValues[serviceIndex].service),
-      value: serviceList
-        .flatMap((group) => group.options)
-        .find((option) => option.value === serviceDetails[serviceIndex].service),
+      type: "searchDropdown",
+      value: serviceDetails[serviceIndex].service, // This should be the service ID
+      OptionCategories: groupedServices,
 
-      options: serviceList,
-      width: "30%", // Set width for the first column
-      onChange: (event) => handleServiceChange(event, serviceIndex),
+      onChange: (event) => {
+        handleFieldChange(event, serviceIndex, "service");
+        const inputValue = event.target.value;
+        if (inputValue.length > 0) {
+          handleServiceSearch(inputValue);
+        }
+      },
+      onSelect: (event) => {
+        handleServiceSelect(event, serviceIndex);
+      },
     },
     {
       id: `service-staff-field-${serviceIndex}`,
@@ -186,7 +220,7 @@ const ServiceComponent = ({ serviceRef, appointment, services, staff }) => {
       <div className="add-appt__row add-app__service-section">
         <div className="add-appt__icon add-appt__icon-service" title="Date"></div>
         <div className="services-group">
-          <Table className="table-responsive table-cell-background-gray" id="services_table">
+          <Table className="table caption table-responsive table-cell-background-gray" id="services_table">
             <tbody>
               {serviceDetails.map((serviceItem, serviceIndex) => (
                 <tr key={serviceIndex} className={`service-row service-${serviceIndex}`}>
@@ -197,33 +231,28 @@ const ServiceComponent = ({ serviceRef, appointment, services, staff }) => {
                   ))}
                   <td className="multi-book-add-cell">
                     {serviceDetails && serviceDetails.length > 1 && (
-                      <Link
-                        className="btn-secondary btn-link pop delete-service inline"
-                        to="#"
-                        data-original-class="delete-service"
-                        title="Delete service"
-                        data-original-title="Delete this service?"
-                        data-content='<a class="btn  bln-close"><i class="fa fa-times"></i> Cancel</a> <div class="btn btn-danger deleter bln-close multi-book-remove" data-delete-service="service-0"><i class="fa fa-trash-o"></i> Delete</div>'
+                      <a
+                        href="#"
+                        title="Remove customer from appointment"
+                        className="clear-customer"
                         onClick={() => handleDeleteService(serviceIndex)}
                       >
-                        ×
-                      </Link>
+                        <i className="ri-close-line fs-16"></i>
+                      </a>
                     )}
                   </td>
                 </tr>
               ))}
             </tbody>
-            <tr className="mt-3">
+            <tr className="service-totals-row">
               <td>
-                <button type="button" className="btn btn-block btn-secondary" onClick={handleAddService}>
+                <button type="button" className="multi-book-add-button" onClick={handleAddService}>
                   Add another service
                 </button>
               </td>
               <td></td>
               <td></td>
-              <td>
-                <b>{totalTime} Hrs</b>
-              </td>
+              <td>{totalTime} Hrs</td>
               <td>
                 <b>{totalPrice} KD</b>
               </td>
