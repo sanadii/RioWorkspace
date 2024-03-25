@@ -18,7 +18,7 @@ const CalendarSettings = {
   selectable: true,
 
   // Time and Local
-  timeZone: "Asia/Kuwait", // Set the timezone to Kuwait
+  timeZone: 'Europe/London',
   timeZoneParam: "timeZone", // The name of the parameter used to pass the timezone information to the server
     locales: [], // Array of locale objects to be used in the calendar
   locale: "default", // Default locale to be used, e.g., 'en', 'fr'

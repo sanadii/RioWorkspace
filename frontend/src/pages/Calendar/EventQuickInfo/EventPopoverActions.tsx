@@ -4,7 +4,7 @@ import { formatTime } from "Components/Hooks";
 import { createPortal } from "react-dom";
 
 // import CalendarModal from "CalendarModal"
-const EventPopoverActions = ({ event, setAppointment, toggle, setModal, setIsBookNext }) => {
+const EventPopoverActions = ({ event, setAppointment, toggle, setModal, setBookingMood }) => {
   // const [event, setEvent] = useState<any>({});
   const [isEdit, setIsEdit] = useState<boolean>(false);
   const [deleteModal, setDeleteModal] = useState<boolean>(false);
@@ -16,14 +16,14 @@ const EventPopoverActions = ({ event, setAppointment, toggle, setModal, setIsBoo
   };
 
   const handleBookNexttAction = (event) => {
-    setIsBookNext(true);
-    setAppointment(event.client.id);
+    setBookingMood("bookNextEvent");
+    setAppointment(event);
     // setAppointment
     toggle();
   };
 
-  const handleRescheduleAction = (e) => {
-    setIsBookNext(true);
+  const handleRescheduleAction = (event) => {
+    setBookingMood("rescheduleEvent");
     setAppointment(event);
     toggle();
   };
@@ -46,7 +46,7 @@ const EventPopoverActions = ({ event, setAppointment, toggle, setModal, setIsBoo
           // disabled={loader && true}
           className="btn btn-soft-secondary w-100 p-2 waves-effect waves-light material-shadow-none"
           // className="btn btn-primary-light btn-small bln-close"
-          onClick={(e) => handleRescheduleAction(e)}
+          onClick={(e) => handleRescheduleAction(event)}
         >
           Reschedule
         </button>
@@ -55,7 +55,7 @@ const EventPopoverActions = ({ event, setAppointment, toggle, setModal, setIsBoo
           // disabled={loader && true}
           className="btn btn-soft-secondary w-100 waves-effect waves-light material-shadow-none"
           // className="btn btn-primary-light btn-small bln-close"
-          onClick={(e) => handleBookNexttAction(e)}
+          onClick={(e) => handleBookNexttAction(event)}
         >
           Book Next
         </button>

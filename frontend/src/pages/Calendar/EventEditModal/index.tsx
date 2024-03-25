@@ -126,7 +126,7 @@ const EventEditModal = ({ modal, isEdit, toggle, appointment }) => {
           //
         };
         // save new event
-        console.log("newEvent: ", newEvent);
+        // console.log("newEvent: ", newEvent);
         dispatch(addAppointment(newEvent));
         validation.resetForm();
       }

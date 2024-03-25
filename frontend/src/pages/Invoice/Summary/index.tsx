@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { Appointment, Service, Package, Product, Voucher, Discount, SummaryProps } from "@/types"; // Adjust the path as necessary
+import { Appointment, Service, Package, Product, Voucher, Discount, SummaryProps } from "types"; // Adjust the path as necessary
 import SummaryItemModal from "./SummaryItemModal";
 import { Button, Label } from "reactstrap";
 import SummaryItemList from "../SummaryItemList";

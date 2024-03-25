@@ -5,7 +5,7 @@ import SimpleBar from "simplebar-react";
 const SearchDropDown = ({ field, validation, onChangeHandler }) => {
   const { id, label, name, options, value, OptionCategories, onChange, onSelect } = field;
 
-  console.log("OptionCategories: ", OptionCategories);
+  // console.log("OptionCategories: ", OptionCategories);
   const dropdownRef = useRef(null);
   const inputRef = useRef(null);
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);

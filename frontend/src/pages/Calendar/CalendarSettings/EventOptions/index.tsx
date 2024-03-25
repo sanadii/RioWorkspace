@@ -1,10 +1,5 @@
 // EventRenderHooks: https://fullcalendar.io/docs/event-render-hooks
-import { createRoot } from "react-dom/client";
-import EventPopover from "./EventPopover";
 import EventContent from "./EventContent";
-import { Provider } from 'react-redux';
-import { BrowserRouter } from 'react-router-dom';
-import { configureStore } from "store";
 
 const EventDisplaySettings = {
   eventOrder: "title", // Defines the order in which events are displayed, can be a string, array, or function

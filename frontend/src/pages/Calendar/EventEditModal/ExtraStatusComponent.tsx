@@ -14,7 +14,7 @@ const ExtraStatusComponent = ({ appointment, statusRef, validation }) => {
   };
 
 
-  console.log("appointmentStatus: ", appointmentStatus);
+  // console.log("appointmentStatus: ", appointmentStatus);
   return (
     <React.Fragment>
       <div className="add-appt__row add-appt__row-booking-status">

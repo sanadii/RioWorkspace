@@ -1,12 +1,33 @@
 import React from "react";
 import { SvgIcon } from "Components/Common"; // Adjust the import path as needed
-import { formatTime } from "../../../../Components/Hooks/calendarHooks";
-import { AppointmentStatusOptions } from "Components/constants";
+import moment from "moment-timezone";
+import { convertUTCToTimeZone } from "Components/Hooks/calendarHooks";
+
 
 const EventContent = ({ arg }) => {
+  const formatTime = (momentDate) => {
+    // Ensure momentDate is a moment object
+    const momentObj = moment.isMoment(momentDate) ? momentDate : moment(momentDate);
+    return momentObj.format("h:mm A"); // Formats time in 12-hour format with AM/PM
+  };
+
   const event = arg.event;
+  const calendarTimeZone = arg.view.dateEnv.timeZone;
+  const appointmentTime = event.start; // Assuming this is a Date object
+
+  // Convert the time to a moment object in UTC (if it's not already in UTC)
+  const appointmentMomentUTC = moment.utc(appointmentTime);
+
+  // Convert the UTC time to the calendar's timezone
+  const appointmentInCalendarTimeZone = convertUTCToTimeZone(appointmentMomentUTC, calendarTimeZone);
+
+  // Format the time
+  const appointmentStartTime = formatTime(appointmentInCalendarTimeZone);
+
+  console.log("appointmentStartTime in Calendar Timezone: ", appointmentStartTime);
+
   const classNames = event.classNames;
-  console.log("classNames: ", classNames);
+  // console.log("classNames: ", classNames);
 
   const hasNote = classNames.includes("fc-note");
   const isCompleted = classNames.includes("fc-completed");
@@ -62,7 +83,7 @@ const EventContent = ({ arg }) => {
           </b>
           <b className="fc-customer-name tip-init">{event.title}&nbsp;&nbsp;&nbsp;</b>
           <span>
-            <i className="fc-new-customer">(new) &nbsp;</i> {formatTime(arg.event.start)}
+            <i className="fc-new-customer">(new) &nbsp;</i> {appointmentStartTime}
           </span>
         </div>
         <div className="fc-event-body">

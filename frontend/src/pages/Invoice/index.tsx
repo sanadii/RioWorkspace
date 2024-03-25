@@ -11,7 +11,7 @@ import ItemTab from "./ItemTab";
 import CreditTab from "./CreditTab";
 import AppointmentTab from "./AppointmentTab";
 
-import { InvoiceItemList } from "@/types";
+import { InvoiceItemList } from "types";
 const Invoice = () => {
   const dispatch = useDispatch();
   const location = useLocation();

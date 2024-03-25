@@ -1,7 +1,9 @@
 import React, { useEffect, useState, useRef, useCallback } from "react";
 import { CalenderProps } from "types";
 import EventQuickInfo from "./EventQuickInfo";
-// import moment from " ";
+import { convertUTCToTimeZone } from "Components/Hooks/calendarHooks";
+
+// import moment from 'moment-timezone';
 
 // Redux
 import { useDispatch, useSelector } from "react-redux";
@@ -16,14 +18,36 @@ import { DeleteModal } from "Components/Common";
 import EventEditModal from "./EventEditModal";
 import { UncontrolledAlert } from "reactstrap";
 
+type BookingMood = "" | "addNewEvent" | "editEvent" | "rescheduleEvent" | "bookNextEvent";
+
 const Calender = () => {
   const dispatch: any = useDispatch();
 
   // Data
-  const { appointments, services, staff } = useSelector(appointmentsSelector);
+  const { appointments } = useSelector(appointmentsSelector);
+  const [events, setEvents] = useState([]);
+
+  const timeZone = "Europe/London"; // Set your desired timezone
+  useEffect(() => {
+    dispatch(getSchedule());
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (appointments.length > 0) {
+      const convertedAppointments = appointments.map((appointment) => {
+        return {
+          ...appointment,
+          start: convertUTCToTimeZone(appointment.start, timeZone),
+          end: convertUTCToTimeZone(appointment.end, timeZone),
+        };
+      });
+      setEvents(convertedAppointments);
+    }
+  }, [appointments, timeZone]);
 
   // States: appointment(Event), Event Modal, Popover, and Edit mode
   const [appointment, setAppointment] = useState<any>({});
+  const [bookingMood, setBookingMood] = useState<BookingMood>("");
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
   const [popoverTarget, setPopoverTarget] = useState(null); // Initialize as null
   const [modal, setModal] = useState<boolean>(false);
@@ -33,9 +57,6 @@ const Calender = () => {
   const [isBookNext, setIsBookNext] = useState<boolean>(false);
   const [selectedNewDay, setSelectedNewDay] = useState<any>();
 
-  useEffect(() => {
-    dispatch(getSchedule());
-  }, [dispatch]);
 
   /**
    * Handling the modal state
@@ -83,25 +104,6 @@ const Calender = () => {
   /**
    * Handling click on date on calendar
    */
-  // const handleDateClick = (arg) => {
-  //   console.log("handleDateClick: ", arg);
-  //   const now = moment(); // Current time using moment
-  //   const startDate = moment(arg.date).tz("Asia/Kuwait"); // Start date in Kuwait timezone
-  //   const endDate = moment(startDate).add(2, "hours"); // End date 2 hours later
-
-  //   setAppointment({
-  //     start: startDate.toISOString(),
-  //     end: endDate.toISOString(),
-  //   });
-  //   setSelectedNewDay(startDate.toISOString());
-
-  //   // Create a unique ID for the popover target
-  //   const popoverTargetId = `popover-${arg.dateStr.replace(/:/g, "_").replace(/\+/g, "plus")}`;
-  //   arg.dayEl.id = popoverTargetId; // Assign the ID to the clicked date element
-
-  //   setModal(true);
-  //   setPopoverTarget(popoverTargetId);
-  // };
 
   const handleDateClick = (arg) => {
     document.title = "Calendar | options.name";
@@ -111,20 +113,19 @@ const Calender = () => {
     const endDate = new Date(startDate);
     endDate.setHours(startDate.getHours() + 2);
 
-    // Adjust for timezone offset before converting to ISO string
-    const timezoneOffset = startDate.getTimezoneOffset() * 60000; // offset in milliseconds
-    const adjustedStart = new Date(startDate.getTime() - timezoneOffset);
-    const adjustedEnd = new Date(endDate.getTime() - timezoneOffset);
+    // Convert to UTC if necessary
+    const adjustedStart = new Date(startDate.getTime() + startDate.getTimezoneOffset() * 60000);
+    const adjustedEnd = new Date(endDate.getTime() + endDate.getTimezoneOffset() * 60000);
 
-    // console.log(`CHECKING TIME --- NOW: ${now}\nstartTime: ${startDate}\nendTime: ${endDate}`);
-
-    if (isRebook) {
+    if (bookingMood === "bookNextEvent") {
+      setBookingMood("");
       setAppointment({
         start: adjustedStart.toISOString(),
         end: adjustedEnd.toISOString(),
         client: appointment.client,
       });
-    } else if (isReschedule) {
+    } else if (bookingMood === "rescheduleEvent") {
+      setBookingMood("");
       setAppointment({
         start: adjustedStart.toISOString(),
         id: appointment.id,
@@ -141,6 +142,8 @@ const Calender = () => {
     setSelectedNewDay(startDate.toISOString());
     toggle();
   };
+
+  const calendarRef = useRef(null);
 
   /**
    * Handling click on event on calendar
@@ -179,16 +182,13 @@ const Calender = () => {
   }, []);
 
   const fullCalendarOptions = createCalendarSettings();
+  console.log(fullCalendarOptions.timeZone); // Logs "Asia/Kuwait"
 
+  console.log("BookingMood: ", bookingMood);
   return (
     <React.Fragment>
-      {(isBookNext || isReschedule) && (
-        <BookAnotherAppointment
-          isBookNext={isBookNext}
-          isReschedule={isReschedule}
-          appointment={appointment}
-          setIsBookNext={setIsBookNext}
-        />
+      {bookingMood === ("bookNextEvent" || "rescheduleEvent") && (
+        <BookAnotherAppointment bookingMood={bookingMood} setBookingMood={setBookingMood} appointment={appointment} />
       )}
       {isRebook && (
         <UncontrolledAlert
@@ -203,7 +203,8 @@ const Calender = () => {
       )}
 
       <FullCalendar
-        events={appointments}
+        ref={calendarRef}
+        events={events}
         dateClick={handleDateClick}
         eventClick={handleEventClick}
         {...fullCalendarOptions}
@@ -215,7 +216,7 @@ const Calender = () => {
         isOpen={isPopoverOpen}
         toggle={() => setIsPopoverOpen(false)}
         setModal={setModal}
-        setIsBookNext={setIsBookNext}
+        setBookingMood={setBookingMood}
       />
       <EventEditModal
         modal={modal}
@@ -231,17 +232,16 @@ const Calender = () => {
   );
 };
 
-const BookAnotherAppointment = ({ appointment, isBookNext, isReschedule, setIsBookNext }) => {
+const BookAnotherAppointment = ({ appointment, setBookingMood, bookingMood }) => {
   const handleCloseButton = () => {
-    setIsBookNext(false);
+    setBookingMood("");
   };
   return (
     <div
       className="bg-primary fc-messages"
       // style="display: block;"
     >
-      {isBookNext ? "Book Next" : "Reschedule"}
-      Choose a new time for this appointment.{" "}
+      {bookingMood === "bookNextEvent" ? "Book Next Appointment " : "Reschedule Appointment "}- Choose a new time.
       <a className="rebook-cancel" onClick={handleCloseButton}>
         ×
       </a>

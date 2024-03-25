@@ -6,7 +6,6 @@ import { AppointmentStatusOptions } from "Components/constants";
 const EventContent = ({ arg }) => {
   const event = arg.event;
   const classNames = event.classNames;
-  console.log("classNames: ", classNames);
 
   const hasNote = classNames.includes("fc-note");
   const isCompleted = classNames.includes("fc-completed");

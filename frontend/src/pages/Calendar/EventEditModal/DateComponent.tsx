@@ -39,7 +39,7 @@ const DateComponent = ({
     setIsEditDate(true);
   };
 
-  console.log("isEditDate: ", isEditDate);
+  // console.log("isEditDate: ", isEditDate);
   const fields = [
     {
       id: "start-field",
