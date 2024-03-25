@@ -10,7 +10,7 @@ import EventPopoverActions from "./EventPopoverActions";
 import EventPopoverStatus from "./EventPopoverStatus";
 import EventPopoverFooter from "./EventPopoverFooter";
 
-const EventQuickInfo = ({ eventEl, event, isOpen, toggle, setModal }) => {
+const EventQuickInfo = ({ eventEl, event, setAppointment, isOpen, toggle, setModal, setIsBookNext }) => {
   const popoverContentRef = useRef(null);
   const backdropRef = useRef(null);
 
@@ -58,7 +58,13 @@ const EventQuickInfo = ({ eventEl, event, isOpen, toggle, setModal }) => {
           </PopoverHeader>
           <PopoverBody>
             <EventPopoverContent event={event} />
-            <EventPopoverActions event={event} toggle={toggle} setModal={setModal} />
+            <EventPopoverActions
+              event={event}
+              setAppointment={setAppointment}
+              toggle={toggle}
+              setModal={setModal}
+              setIsBookNext={setIsBookNext}
+            />
             <EventPopoverStatus event={event} toggle={toggle} />
             <EventPopoverFooter />
           </PopoverBody>

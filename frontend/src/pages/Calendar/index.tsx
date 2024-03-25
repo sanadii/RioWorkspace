@@ -1,12 +1,12 @@
 import React, { useEffect, useState, useRef, useCallback } from "react";
 import { CalenderProps } from "types";
 import EventQuickInfo from "./EventQuickInfo";
+// import moment from " ";
 
 // Redux
 import { useDispatch, useSelector } from "react-redux";
 import { getSchedule, getClients } from "store/actions";
-import { appointmentsSelector, clientsSelector } from "Selectors";
-import { createSelector } from "reselect";
+import { appointmentsSelector } from "Selectors";
 
 // Calendar
 import FullCalendar from "@fullcalendar/react";
@@ -14,30 +14,27 @@ import createCalendarSettings from "./CalendarSettings"; // Adjust the path as n
 import { DeleteModal } from "Components/Common";
 
 import EventEditModal from "./EventEditModal";
-
 import { UncontrolledAlert } from "reactstrap";
+
 const Calender = () => {
   const dispatch: any = useDispatch();
 
   // Data
   const { appointments, services, staff } = useSelector(appointmentsSelector);
-  const { clients } = useSelector(clientsSelector);
-  const fullCalendarOptions = createCalendarSettings();
 
+  // States: appointment(Event), Event Modal, Popover, and Edit mode
   const [appointment, setAppointment] = useState<any>({});
-
-  // Event Modal and Popover
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
   const [popoverTarget, setPopoverTarget] = useState(null); // Initialize as null
   const [modal, setModal] = useState<boolean>(false);
   const [isEdit, setIsEdit] = useState<boolean>(false);
-
   const [isRebook, setIsRebook] = useState<boolean>(false);
+  const [isReschedule, setIsReschedule] = useState<boolean>(false);
+  const [isBookNext, setIsBookNext] = useState<boolean>(false);
   const [selectedNewDay, setSelectedNewDay] = useState<any>();
 
   useEffect(() => {
     dispatch(getSchedule());
-    dispatch(getClients());
   }, [dispatch]);
 
   /**
@@ -57,19 +54,6 @@ const Calender = () => {
   // Handle Reebook
   const handleRebookCancel = () => {
     setIsRebook(false);
-  };
-
-  /**
-   * Handling date click on calendar
-   */
-  const displayLocalTime = (isoString) => {
-    return new Date(isoString).toLocaleString("en-US", {
-      hour: "numeric",
-      minute: "numeric",
-      second: "numeric",
-      hour12: false,
-      timeZoneName: "short",
-    });
   };
 
   const str_dt = function formatDate(date: any) {
@@ -99,8 +83,29 @@ const Calender = () => {
   /**
    * Handling click on date on calendar
    */
+  // const handleDateClick = (arg) => {
+  //   console.log("handleDateClick: ", arg);
+  //   const now = moment(); // Current time using moment
+  //   const startDate = moment(arg.date).tz("Asia/Kuwait"); // Start date in Kuwait timezone
+  //   const endDate = moment(startDate).add(2, "hours"); // End date 2 hours later
+
+  //   setAppointment({
+  //     start: startDate.toISOString(),
+  //     end: endDate.toISOString(),
+  //   });
+  //   setSelectedNewDay(startDate.toISOString());
+
+  //   // Create a unique ID for the popover target
+  //   const popoverTargetId = `popover-${arg.dateStr.replace(/:/g, "_").replace(/\+/g, "plus")}`;
+  //   arg.dayEl.id = popoverTargetId; // Assign the ID to the clicked date element
+
+  //   setModal(true);
+  //   setPopoverTarget(popoverTargetId);
+  // };
+
   const handleDateClick = (arg) => {
-    console.log("handleDateClick: ", arg);
+    document.title = "Calendar | options.name";
+
     const now = new Date();
     const startDate = new Date(arg.date);
     const endDate = new Date(startDate);
@@ -111,19 +116,30 @@ const Calender = () => {
     const adjustedStart = new Date(startDate.getTime() - timezoneOffset);
     const adjustedEnd = new Date(endDate.getTime() - timezoneOffset);
 
-    setAppointment({
-      start: adjustedStart.toISOString(),
-      end: adjustedEnd.toISOString(),
-    });
+    // console.log(`CHECKING TIME --- NOW: ${now}\nstartTime: ${startDate}\nendTime: ${endDate}`);
+
+    if (isRebook) {
+      setAppointment({
+        start: adjustedStart.toISOString(),
+        end: adjustedEnd.toISOString(),
+        client: appointment.client,
+      });
+    } else if (isReschedule) {
+      setAppointment({
+        start: adjustedStart.toISOString(),
+        id: appointment.id,
+        client: appointment.client,
+        services: appointment.services,
+      });
+    } else {
+      setAppointment({
+        start: adjustedStart.toISOString(),
+        end: adjustedEnd.toISOString(),
+      });
+    }
+
     setSelectedNewDay(startDate.toISOString());
-
-    // Create a unique ID for the popover target
-    // Replace ':' with '_' and '+' with 'plus' to create a valid ID
-    const popoverTargetId = `popover-${arg.dateStr.replace(/:/g, "_").replace(/\+/g, "plus")}`;
-    arg.dayEl.id = popoverTargetId; // Assign the ID to the clicked date element
-
-    setIsPopoverOpen(true);
-    setPopoverTarget(popoverTargetId);
+    toggle();
   };
 
   /**
@@ -131,8 +147,6 @@ const Calender = () => {
    */
   const handleEventClick = useCallback((arg: any) => {
     const appointment = arg.event;
-    console.log("check arg: appointment: ", appointment);
-    console.log("check arg: arg", arg);
     const st_date = appointment.start;
     const ed_date = appointment.end;
     const r_date = ed_date == null ? str_dt(st_date) : str_dt(st_date) + " to " + str_dt(ed_date);
@@ -164,9 +178,18 @@ const Calender = () => {
     setIsEdit(true);
   }, []);
 
-  document.title = "Calendar | Velzon - React Admin & Dashboard Template";
+  const fullCalendarOptions = createCalendarSettings();
+
   return (
     <React.Fragment>
+      {(isBookNext || isReschedule) && (
+        <BookAnotherAppointment
+          isBookNext={isBookNext}
+          isReschedule={isReschedule}
+          appointment={appointment}
+          setIsBookNext={setIsBookNext}
+        />
+      )}
       {isRebook && (
         <UncontrolledAlert
           color="warning"
@@ -188,9 +211,11 @@ const Calender = () => {
       <EventQuickInfo
         eventEl={popoverTarget}
         event={appointment}
+        setAppointment={setAppointment}
         isOpen={isPopoverOpen}
         toggle={() => setIsPopoverOpen(false)}
         setModal={setModal}
+        setIsBookNext={setIsBookNext}
       />
       <EventEditModal
         modal={modal}
@@ -203,6 +228,24 @@ const Calender = () => {
         // setDeleteModal={setDeleteModal}
       />
     </React.Fragment>
+  );
+};
+
+const BookAnotherAppointment = ({ appointment, isBookNext, isReschedule, setIsBookNext }) => {
+  const handleCloseButton = () => {
+    setIsBookNext(false);
+  };
+  return (
+    <div
+      className="bg-primary fc-messages"
+      // style="display: block;"
+    >
+      {isBookNext ? "Book Next" : "Reschedule"}
+      Choose a new time for this appointment.{" "}
+      <a className="rebook-cancel" onClick={handleCloseButton}>
+        ×
+      </a>
+    </div>
   );
 };
 

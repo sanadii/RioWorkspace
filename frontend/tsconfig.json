@@ -1,16 +1,17 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-
-    // was true
     "strict": false,
-    "strictNullChecks": false, // Turn off strict null checks only
-
+    "strictNullChecks": false,
     "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": true,
     "module": "esnext",
@@ -19,24 +20,15 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx",
-    "paths": {
-      "helpers/*": ["helpers/*"],
-      "assets/*": ["assets/*"],
-      "shared/components/*": ["shared/components*"],
-      "shared/hooks/*": ["shared/hooks/*"],
-      "shared/constants/*": ["shared/constants/*"],
-      "Components/*": ["Components/*"],
-      "types/*": ["types/*"],
-      "@/*": ["./*"]
-    }
+    "jsx": "react-jsx"
   },
   "include": [
     "src/**/*",
     "**/*.ts",
     "**/*.tsx",
-    "src/pages/Invoice/remove",
-
+    "src/pages/Invoice/remove"
   ],
-  "exclude": ["node_modules"]
+  "exclude": [
+    "node_modules"
+  ]
 }

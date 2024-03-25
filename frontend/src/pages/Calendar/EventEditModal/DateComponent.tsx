@@ -39,15 +39,15 @@ const DateComponent = ({
     setIsEditDate(true);
   };
 
+  console.log("isEditDate: ", isEditDate);
   const fields = [
     {
       id: "start-field",
       name: "start",
       label: "Start",
-      type: "dateTime",
+      type: "date",
       onChange: (e) => {
-        validation.handleChange(e);
-        setSelectedNewDate(e);
+        setIsEditDate(false);
       },
     },
   ];
@@ -65,6 +65,8 @@ const DateComponent = ({
                   <i className="ri-pencil-line fs-16"></i>
                 </Link>
               </li>
+              {/* If opening the Modal from Pages other than Calendar */}
+              {/* <a className="" href="/Calendar?bookingId=315758705">View on calendar</a> */}
             </p>
           ) : (
             fields.map((field) => (

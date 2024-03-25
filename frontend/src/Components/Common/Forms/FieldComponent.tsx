@@ -92,6 +92,7 @@ const FieldComponent: React.FC<FieldComponentProps> = ({ field, validation, form
   const onBlurHandler = (onBlur && onBlur) || validation.handleBlur;
   const invalidHandler = !!(validation.touched[name] && validation.errors[name]);
 
+
   const dot = (color = "transparent") => ({
     alignItems: "center",
     display: "flex",
@@ -222,6 +223,8 @@ const FieldComponent: React.FC<FieldComponentProps> = ({ field, validation, form
       // Format as datetime
       validation.setFieldValue(name, updatedDate.toISOString());
     }
+
+    onChangeHandler();
   };
 
   const renderInputFields = () => {
