@@ -17,14 +17,14 @@ class Command(BaseCommand):
         thirty_days_from_now = timezone.now() + timedelta(days=30)
 
         # Create sample appointment services
-        for i in range(50):  # Adjust the range as needed
+        for i in range(100):  # Double the range
             service = Service.objects.order_by('?').first()
             staff_member = Staff.objects.order_by('?').first()
 
             service_start = timezone.now() + timedelta(days=random.randint(-7, 30))
             service_end = service_start + timedelta(minutes=service.duration)
 
-            services = AppointmentService.objects.create(
+            AppointmentService.objects.create(
                 service=service,
                 price=service.price,
                 start=service_start,
@@ -34,13 +34,13 @@ class Command(BaseCommand):
             )
 
         # Create sample appointments
-        for i in range(30):
+        for i in range(60):  # Double the number of appointments
             # Generate a random date
             random_date = timezone.now() + timedelta(days=random.randint(-7, 7))
 
-            # Set specific time range (10 AM to 8 PM)
-            random_hour = random.randint(10, 19)  # 19 is used because range is exclusive at the end
-            random_minute = random.randint(0, 59)
+            # Set specific time range (7 AM to 5 PM)
+            random_hour = random.randint(7, 16)  # 16 is used because range is exclusive at the end
+            random_minute = random.choice([0, 15, 30, 45])  # Specific minute marks
             random_start = random_date.replace(hour=random_hour, minute=random_minute, second=0, microsecond=0)
 
             # Calculate random end time based on duration
@@ -48,7 +48,7 @@ class Command(BaseCommand):
             random_end = random_start + duration
 
             # Ensure the appointment is within the specified time range
-            if one_week_ago <= random_start <= thirty_days_from_now and random_end.hour < 20:
+            if one_week_ago <= random_start <= thirty_days_from_now and random_end.hour < 17:
                 appointment = Appointment.objects.create(
                     client=Client.objects.order_by('?').first(),
                     start=random_start,

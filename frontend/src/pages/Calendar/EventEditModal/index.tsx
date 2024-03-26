@@ -23,36 +23,15 @@ import { AppointmentItem, ServiceItem, ClientItem } from "types";
 const EventEditModal = ({ modal, isEdit, toggle, appointment }) => {
   const dispatch: any = useDispatch();
 
-  const { appointments, services, staff } = useSelector(appointmentsSelector);
+  const { services, staff } = useSelector(appointmentsSelector);
   const { clients } = useSelector(clientsSelector);
-  const [selectedNewDate, setSelectedNewDate] = useState<any>();
-  // console.log("appointment: ", appointment);
+
   // Refs
   const clientRef = useRef([]);
   const serviceRef = useRef([]);
   const statusRef = useRef([]);
   const productRef = useRef([]);
   const packageRef = useRef([]);
-
-  // console.log("clientRef:", clientRef.current);
-  const initialValues = {
-    title: (appointment && appointment.title) || "",
-    start: (appointment && appointment.start) || "",
-    end: (appointment && appointment.end) || "",
-
-    // ExtendedProps
-    client: (appointment && appointment.client) || clientRef.current,
-    services: (appointment && appointment.services) || serviceRef.current,
-    packages: (appointment && appointment.packages) || [],
-    products: (appointment && appointment.products) || [],
-
-    // Not used yes
-    category: (appointment && appointment.category) || "",
-    location: (appointment && appointment.location) || "",
-    description: (appointment && appointment.description) || "",
-    defaultDate: (appointment && appointment.defaultDate) || [],
-    datetag: (appointment && appointment.datetag) || "",
-  };
 
   // console.log("initialValues: ", initialValues);
   const validation: any = useFormik({
@@ -62,9 +41,9 @@ const EventEditModal = ({ modal, isEdit, toggle, appointment }) => {
       title: (appointment && appointment.title) || "",
       start: (appointment && appointment.start) || "",
       end: (appointment && appointment.end) || "",
-      status: (appointment && appointment.status) || statusRef.current,
 
       // ExtendedProps
+      status: (appointment && appointment.status) || statusRef.current,
       client: (appointment && appointment.client) || clientRef.current,
       services: (appointment && appointment.services) || serviceRef.current,
       packages: (appointment && appointment.packages) || [],
@@ -101,7 +80,7 @@ const EventEditModal = ({ modal, isEdit, toggle, appointment }) => {
           description: values.description,
 
           client: (appointment && appointment.client && appointment.client.id) || null,
-          services: (appointment && appointment.services) || [],
+          services: serviceRef.current || [],
           packages: (appointment && appointment.packages) || [],
           products: (appointment && appointment.products) || [],
         };
@@ -112,27 +91,21 @@ const EventEditModal = ({ modal, isEdit, toggle, appointment }) => {
       } else {
         const newEvent = {
           id: Math.floor(Math.random() * 100),
-          client: values["clientName"] || clientRef.current,
-
           title: values["title"],
           start: values["start"],
           end: values["start"],
-          // start: selectedNewDate ? selectedNewDate[0] : appointment.start,
-          services: values["services"],
+
+          client: values["clientName"] || clientRef.current,
+          services: serviceRef.current,
           status: values["status"],
           location: values["location"],
           description: values["description"],
 
           //
         };
-        // save new event
-        // console.log("newEvent: ", newEvent);
         dispatch(addAppointment(newEvent));
         validation.resetForm();
       }
-
-      // setSelectedDay(null);
-      setSelectedNewDate(null);
       toggle();
     },
   });
@@ -165,13 +138,9 @@ const EventEditModal = ({ modal, isEdit, toggle, appointment }) => {
             <NavigationComponent />
 
             <div className="tab-content tight-grid">
-              <DateComponent
-                appointment={appointment}
-                setSelectedNewDate={setSelectedNewDate}
-                validation={validation}
-              />
-              <ClientComponent clientRef={clientRef} appointment={appointment} clients={clients} isEdit={isEdit} />
-              <ServiceComponent serviceRef={serviceRef} appointment={appointment} services={services} staff={staff} />
+              <DateComponent appointment={appointment} validation={validation} />
+              <ClientComponent appointment={appointment} clientRef={clientRef} clients={clients} isEdit={isEdit} />
+              <ServiceComponent appointment={appointment} serviceRef={serviceRef} services={services} staff={staff} />
               <div id="appointment-modal-extras" className="add-appt__extras">
                 {/* <ExtraVideoComponent /> */}
                 {/* <ExtraPromoComponent /> */}

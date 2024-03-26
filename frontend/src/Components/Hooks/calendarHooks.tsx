@@ -1,18 +1,19 @@
-import moment from 'moment-timezone';
+import moment from "moment-timezone";
 
 // Convert a UTC time to a specific timezone
-const convertUTCToTimeZone = (utcDate, timeZone) => {
+function convertUTCToTimeZone(utcDate, timeZone) {
   return moment(utcDate).tz(timeZone).format();
-};
+}
 
 // Convert a specific timezone time to UTC
-const convertTimeZoneToUTC = (date, timeZone) => {
+function convertTimeZoneToUTC(date, timeZone) {
   return moment.tz(date, timeZone).utc().format();
-};
+}
 
-
-const formatTime = (date) => {
-  return date.toLocaleTimeString([], { hour: "numeric", minute: "2-digit", hour12: true });
+const formatTime = (momentDate) => {
+  // Ensure momentDate is a moment object
+  const momentObj = moment.isMoment(momentDate) ? momentDate : moment(momentDate);
+  return momentObj.format("h:mma"); // Formats time in 12-hour format with AM/PM
 };
 
 const displayLocalTime = (isoString) => {
@@ -26,18 +27,21 @@ const displayLocalTime = (isoString) => {
 };
 
 const convertAppointmentTimes = (appointments, timeZone) => {
-  return appointments.map(appointment => {
+  return appointments.map((appointment) => {
     const convertedStart = convertUTCToTimeZone(appointment.start, timeZone);
     const convertedEnd = convertUTCToTimeZone(appointment.end, timeZone);
     return {
       ...appointment,
       start: convertedStart,
-      end: convertedEnd
+      end: convertedEnd,
     };
   });
 };
 
-
-
-
-export { convertAppointmentTimes, convertUTCToTimeZone, convertTimeZoneToUTC, formatTime, displayLocalTime };
+// Staff
+// Function to find staff name by ID
+const findStaffNameById = (staffId, staff) => {
+  const staffMember = staff.find((member) => member.id === staffId);
+  return staffMember ? staffMember.name : "Unknown";
+};
+export { convertAppointmentTimes, convertUTCToTimeZone, convertTimeZoneToUTC, formatTime, displayLocalTime, findStaffNameById };

@@ -224,7 +224,7 @@ const FieldComponent: React.FC<FieldComponentProps> = ({ field, validation, form
       validation.setFieldValue(name, updatedDate.toISOString());
     }
 
-    onChangeHandler();
+    onChangeHandler(e);
   };
 
   const renderInputFields = () => {

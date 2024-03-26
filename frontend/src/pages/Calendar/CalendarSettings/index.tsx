@@ -18,19 +18,21 @@ import {
 } from "./GeneralSettings";
 import { CalendarToolbar } from "./CalendarToolbar";
 
-
 import { viewOptions } from "./ViewSettings";
-import TimeAxisSettings from "./TimeAxisSettings";
 import SlotRenderHooks from "./SlotRenderHooks";
 import { EventRenderHooks, EventDisplaySettings } from "./EventOptions";
 import { InteractionSettings, SelectAndClickSettings } from "./OtherSettings";
 import { DaySettings } from "./DaySettings";
-import { WeekNumberSettings, WeekTextSettings } from "./AllOptions/WeekSettings";
+import { WeekNumberSettings, WeekTextSettings } from "./WeekSettings";
 import { DragAndDrop } from "./DragAndDrop";
+
+// Hooks
+import useCalendarEventHandlers from "./EventOptions/useCalendarEventHandlers";
 
 const useFullCalendarSettings = () => {
   const dragAndDropSettings = DragAndDrop();
   const toolbarSettings = CalendarToolbar();
+  // const { handleEventResize, handleEventDrag } = useCalendarEventHandlers();
 
   // Define other settings and configurations for FullCalendar
   const fullCalendarOptions = {
@@ -43,17 +45,14 @@ const useFullCalendarSettings = () => {
     // Event Settings
     ...EventDisplaySettings,
     ...EventRenderHooks,
-
     //
     ...ThemeSettings,
-    ...TimeAxisSettings,
     ...ToolbarSettings,
     ...BusinessHours,
 
     ...SelectAndClickSettings,
     // ...onActions,
     ...dragAndDropSettings, // Spread the DragAndDrop settings
-
 
     // ...EventDurationAndHeaders,
     // ...WholeDaySettings,
@@ -75,6 +74,10 @@ const useFullCalendarSettings = () => {
     // ...AllDaySettings,
 
     // ...DateRangeSeparatorOptions,
+
+    // Hooks
+    // eventResize: { handleEventResize },
+    // eventDrop: { handleEventDrag },
   };
 
   return fullCalendarOptions;

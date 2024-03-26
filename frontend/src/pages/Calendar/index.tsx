@@ -1,63 +1,43 @@
 import React, { useEffect, useState, useRef, useCallback } from "react";
-import { CalenderProps } from "types";
+import { CalenderProps, BookingMoodProps } from "types";
 import EventQuickInfo from "./EventQuickInfo";
-import { convertUTCToTimeZone } from "Components/Hooks/calendarHooks";
 
 // import moment from 'moment-timezone';
 
 // Redux
 import { useDispatch, useSelector } from "react-redux";
-import { getSchedule, getClients } from "store/actions";
 import { appointmentsSelector } from "Selectors";
 
 // Calendar
 import FullCalendar from "@fullcalendar/react";
 import createCalendarSettings from "./CalendarSettings"; // Adjust the path as needed
-import { DeleteModal } from "Components/Common";
+import { getSchedule, updateAppointment } from "store/actions";
 
 import EventEditModal from "./EventEditModal";
 import { UncontrolledAlert } from "reactstrap";
-
-type BookingMood = "" | "addNewEvent" | "editEvent" | "rescheduleEvent" | "bookNextEvent";
 
 const Calender = () => {
   const dispatch: any = useDispatch();
 
   // Data
   const { appointments } = useSelector(appointmentsSelector);
-  const [events, setEvents] = useState([]);
-
-  const timeZone = "Europe/London"; // Set your desired timezone
-  useEffect(() => {
-    dispatch(getSchedule());
-  }, [dispatch]);
-
-  useEffect(() => {
-    if (appointments.length > 0) {
-      const convertedAppointments = appointments.map((appointment) => {
-        return {
-          ...appointment,
-          start: convertUTCToTimeZone(appointment.start, timeZone),
-          end: convertUTCToTimeZone(appointment.end, timeZone),
-        };
-      });
-      setEvents(convertedAppointments);
-    }
-  }, [appointments, timeZone]);
-
-  // States: appointment(Event), Event Modal, Popover, and Edit mode
   const [appointment, setAppointment] = useState<any>({});
-  const [bookingMood, setBookingMood] = useState<BookingMood>("");
+  const [bookingMood, setBookingMood] = useState<BookingMoodProps>("");
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
   const [popoverTarget, setPopoverTarget] = useState(null); // Initialize as null
   const [modal, setModal] = useState<boolean>(false);
   const [isEdit, setIsEdit] = useState<boolean>(false);
   const [isRebook, setIsRebook] = useState<boolean>(false);
-  const [isReschedule, setIsReschedule] = useState<boolean>(false);
-  const [isBookNext, setIsBookNext] = useState<boolean>(false);
   const [selectedNewDay, setSelectedNewDay] = useState<any>();
 
+  //
+  // getDate
+  //
+  useEffect(() => {
+    dispatch(getSchedule());
+  }, [dispatch]);
 
+  console.log("show me the appointment: ", appointment);
   /**
    * Handling the modal state
    */
@@ -114,8 +94,8 @@ const Calender = () => {
     endDate.setHours(startDate.getHours() + 2);
 
     // Convert to UTC if necessary
-    const adjustedStart = new Date(startDate.getTime() + startDate.getTimezoneOffset() * 60000);
-    const adjustedEnd = new Date(endDate.getTime() + endDate.getTimezoneOffset() * 60000);
+    const adjustedStart = new Date(startDate.getTime());
+    const adjustedEnd = new Date(endDate.getTime());
 
     if (bookingMood === "bookNextEvent") {
       setBookingMood("");
@@ -138,8 +118,6 @@ const Calender = () => {
         end: adjustedEnd.toISOString(),
       });
     }
-
-    setSelectedNewDay(startDate.toISOString());
     toggle();
   };
 
@@ -166,6 +144,7 @@ const Calender = () => {
       services: appointment.extendedProps.services,
       packages: appointment.extendedProps.packages,
       products: appointment.extendedProps.products,
+      status: appointment.extendedProps.status,
 
       duration: appointment.duration,
       price: appointment.price,
@@ -181,10 +160,27 @@ const Calender = () => {
     setIsEdit(true);
   }, []);
 
-  const fullCalendarOptions = createCalendarSettings();
-  console.log(fullCalendarOptions.timeZone); // Logs "Asia/Kuwait"
+  const handleEventResize = (arg) => {
+    const { id, start, end } = arg.event;
+    const updatedAppointment = {
+      id,
+      start: start.toISOString(),
+      end: end.toISOString(),
+    };
+    dispatch(updateAppointment(updatedAppointment));
+  };
 
-  console.log("BookingMood: ", bookingMood);
+  const handleEventDrop = (arg) => {
+    const { id, start, end } = arg.event;
+    const updatedAppointment = {
+      id,
+      start: start.toISOString(),
+      end: end.toISOString(),
+    };
+    dispatch(updateAppointment(updatedAppointment));
+  };
+
+  const fullCalendarOptions = createCalendarSettings();
   return (
     <React.Fragment>
       {bookingMood === ("bookNextEvent" || "rescheduleEvent") && (
@@ -204,9 +200,11 @@ const Calender = () => {
 
       <FullCalendar
         ref={calendarRef}
-        events={events}
+        events={appointments}
         dateClick={handleDateClick}
         eventClick={handleEventClick}
+        eventResize={handleEventResize}
+        eventDrop={handleEventDrop}
         {...fullCalendarOptions}
       />
       <EventQuickInfo
@@ -218,16 +216,7 @@ const Calender = () => {
         setModal={setModal}
         setBookingMood={setBookingMood}
       />
-      <EventEditModal
-        modal={modal}
-        // id="event-modal"
-        toggle={toggle}
-        appointment={appointment}
-        // setEvent={setEvent}
-        isEdit={isEdit}
-        // setModal={setModal}
-        // setDeleteModal={setDeleteModal}
-      />
+      <EventEditModal modal={modal} toggle={toggle} appointment={appointment} isEdit={isEdit} />
     </React.Fragment>
   );
 };

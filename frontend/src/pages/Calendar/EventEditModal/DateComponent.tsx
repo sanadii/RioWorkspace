@@ -5,7 +5,6 @@ import { FieldComponent } from "Components/Common";
 
 const DateComponent = ({
   appointment,
-  setSelectedNewDate,
   validation,
   // appointment, setAppointmentDetails
 }) => {

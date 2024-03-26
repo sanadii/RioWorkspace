@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 // Redux
 import { useDispatch, useSelector } from "react-redux";
-import { getSchedule, getClientSearch } from "store/actions";
+import { getClientSearch } from "store/actions";
 import { clientsSelector } from "Selectors";
 
 // Form and Validation
@@ -105,7 +105,6 @@ const ClientComponent = ({ clientRef, appointment, clients, isEdit }) => {
       placeholder: "First and Last Name OR Mobile",
       type: "searchDropdown",
       onChange: (e) => {
-
         validation.handleChange(e);
         const inputValue = e.target.value;
         if (inputValue.length > 1) {

@@ -2,8 +2,9 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import listPlugin from "@fullcalendar/list";
+import momentTimezonePlugin from '@fullcalendar/moment-timezone'
 
-const plugins = [dayGridPlugin, timeGridPlugin, interactionPlugin, listPlugin];
+const plugins = [momentTimezonePlugin, dayGridPlugin, timeGridPlugin, interactionPlugin, listPlugin];
 const currentDate = new Date();
 const startDate = new Date(2019, 9, 1); // September is 8 because months are zero-based
 const endDate = new Date(currentDate.getFullYear() + 1, currentDate.getMonth() + 1, currentDate.getDate() + 1);
@@ -12,22 +13,43 @@ const CalendarSettings = {
   // Liscense
   schedulerLicenseKey: "CC-Attribution-NonCommercial-NoDerivatives",
 
-  // Others
+  // Calendar Main Functions
   droppable: true, // DragingAndResizingSettings
   editable: true,
   selectable: true,
 
-  // Time and Local
-  timeZone: 'Europe/London',
+  // TimeZone and Locales
+  timeZone: "Asia/Kuwait",
   timeZoneParam: "timeZone", // The name of the parameter used to pass the timezone information to the server
-    locales: [], // Array of locale objects to be used in the calendar
+  locales: [], // Array of locale objects to be used in the calendar
   locale: "default", // Default locale to be used, e.g., 'en', 'fr'
 
   //
-  // Date Settings
+  // Calendar Start and End Date Settings
   //
   validRange: { start: startDate, end: endDate }, // Range of dates allowed to be displayed
   nowIndicator: true,
+
+  //
+  // Slot Axis Formate
+  //
+  slotDuration: "00:15:00", // Duration of each time slot in the calendar view
+  slotLabelInterval: "01:00:00", // Interval at which the slot labels are displayed
+  slotMinTime: "08:00:00",
+  slotMaxTime: "24:00:00",
+  scrollTime: "10:00:00",
+
+  // Format for the slot labels, // not working
+  slotLabelFormat: function (date) {
+    const hour = date.date.hour % 12 || 12; // Ensure hour is in 12-hour format
+    const minute = date.date.minute.toString().padStart(2, "0"); // Ensure minute is 2 digits
+    const meridiem = date.date.hour < 12 ? "am" : "pm"; // Determine meridiem based on the hour
+    return `${hour}:${minute}${meridiem}`;
+  },
+
+
+  // Reset the scroll time to the initial value when the date changes
+  //   scrollTimeReset: true,
 
   // eventInteractive: true, // Determines if events are interactive
   // noEventsText: "No events to display", // Text to display when there are no events

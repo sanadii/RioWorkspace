@@ -20,15 +20,16 @@ const ServiceComponent = ({ serviceRef, appointment, services, staff }) => {
   const [serviceDetails, setServiceDetails] = useState<ServiceItem[]>([]);
   const [serviceList, setServiceList] = useState(services);
 
+  console.log("services:", services);
   useEffect(() => {
     const serviceList = services.map((service) => ({
       id: service.id,
       name: service.name,
       duration: service.duration,
       price: service.price,
-      label: service.label,
+      label: service.name,
       value: service.id,
-      category: service.category,
+      category: service.categoryName,
     }));
 
     setServiceList(serviceList);
@@ -56,7 +57,7 @@ const ServiceComponent = ({ serviceRef, appointment, services, staff }) => {
     if (appointment && Array.isArray(appointment.services) && appointment.services.length > 0) {
       const initialServices = appointment.services.map((service) => ({
         id: service.id,
-        service: service.name,
+        service: service.service,
         staff: service.staff,
         start: new Date(service.start),
         end: new Date(service.end),
@@ -96,17 +97,26 @@ const ServiceComponent = ({ serviceRef, appointment, services, staff }) => {
 
   const handleServiceSelect = (event, serviceIndex) => {
     const selectedService = event;
-    console.log("Selected Service: ", selectedService);
-
     const updatedServiceDetails = [...serviceDetails];
+
+    // Ensure start time is a Date object
+    const startTime = new Date(updatedServiceDetails[serviceIndex].start);
+
+    // Calculate end time by adding duration to start time
+    // Assuming duration is in minutes and needs to be converted to milliseconds
+    const durationInMilliseconds = (selectedService.duration || 0) * 60000;
+    const endTime = new Date(startTime.getTime() + durationInMilliseconds);
+
     updatedServiceDetails[serviceIndex] = {
       ...updatedServiceDetails[serviceIndex],
-      service: selectedService.label, // Update with the selected service ID
-      // serviceId: selectedService.value, // Update with the selected service ID
+      service: selectedService.value, // Update with the selected service ID
       staff: defaultStaffId,
+      start: startTime, // Ensure start is a Date object
+      end: endTime, // Set the calculated end time
       duration: selectedService.duration || null,
       price: selectedService.price || null,
     };
+
     setServiceDetails(updatedServiceDetails);
     setFilteredServices(services);
   };
@@ -117,6 +127,47 @@ const ServiceComponent = ({ serviceRef, appointment, services, staff }) => {
       ...updatedServiceDetails[serviceIndex],
       [fieldName]: event.target.value,
     };
+    setServiceDetails(updatedServiceDetails);
+  };
+
+  const handleServiceDurationChange = (event, serviceIndex) => {
+    // Ensure start time is a Date object
+    const startTime = new Date(serviceDetails[serviceIndex].start);
+    const updatedServiceDuration = event.target.value;
+    // Calculate end time by adding duration to start time
+    // Assuming duration is in minutes and needs to be converted to milliseconds
+    const durationInMilliseconds = (updatedServiceDuration || 0) * 60000;
+    const endTime = new Date(startTime.getTime() + durationInMilliseconds);
+
+    const updatedServiceDetails = [...serviceDetails];
+    updatedServiceDetails[serviceIndex] = {
+      ...updatedServiceDetails[serviceIndex],
+      duration: event.target.value,
+      end: endTime,
+    };
+    setServiceDetails(updatedServiceDetails);
+  };
+
+  const handleServiceStartChange = (event, serviceIndex) => {
+    console.log("EVENTT: ", event);
+    // Ensure serviceDuration is treated as a number
+    const serviceDuration = Number(serviceDetails[serviceIndex].duration);
+
+    // Parse the updated start time from the event
+    const updatedServiceStart = new Date(event);
+
+    // Calculate end time by adding duration to start time
+    // Assuming duration is in minutes and needs to be converted to milliseconds
+    const durationInMilliseconds = serviceDuration * 60000;
+    const endTime = new Date(updatedServiceStart.getTime() + durationInMilliseconds);
+
+    const updatedServiceDetails = [...serviceDetails];
+    updatedServiceDetails[serviceIndex] = {
+      ...updatedServiceDetails[serviceIndex],
+      start: updatedServiceStart, // Set the new start time
+      end: endTime, // Set the calculated end time
+    };
+
     setServiceDetails(updatedServiceDetails);
   };
 
@@ -132,29 +183,42 @@ const ServiceComponent = ({ serviceRef, appointment, services, staff }) => {
   const handleAddService = (e) => {
     e.stopPropagation(); // Prevent the event from bubbling up
 
-    setServiceDetails([
-      ...serviceDetails,
-      {
-        id: null,
-        service: null,
-        staff: defaultStaffId,
-        start: new Date(),
-        end: new Date(),
-        duration: "",
-        price: null,
-      },
-    ]);
+    // Determine the start date for the new service
+    let newStartDate;
+    if (serviceDetails.length > 0) {
+      const lastService = serviceDetails[serviceDetails.length - 1];
+      console.log("lastService: ", lastService);
+
+      newStartDate = new Date(lastService.end); // Set to the end date of the last service
+    } else {
+      newStartDate = new Date(); // Default to current date if no services are present
+    }
+
+    // Create a new service detail object
+    const newServiceDetail = {
+      id: null,
+      service: null,
+      staff: defaultStaffId,
+      start: newStartDate,
+      end: new Date(newStartDate.getTime() + 60 * 60 * 1000), // Example: set end date 1 hour after start
+      duration: "",
+      price: null,
+    };
+
+    // Add the new service detail to the existing list
+    setServiceDetails([...serviceDetails, newServiceDetail]);
   };
 
+  console.log("serviceList: ", serviceList);
   const fields = (serviceIndex) => [
     {
       id: `service-field-${serviceIndex}`,
       name: "service",
       label: "Service",
       type: "searchDropdown",
-      value: serviceDetails[serviceIndex].service, // This should be the service ID
+      value: serviceList.find((service) => service.id === serviceDetails[serviceIndex].service)?.label || "",
       OptionCategories: groupedServices,
-
+      width: "30%",
       onChange: (event) => {
         handleFieldChange(event, serviceIndex, "service");
         const inputValue = event.target.value;
@@ -171,7 +235,7 @@ const ServiceComponent = ({ serviceRef, appointment, services, staff }) => {
       name: "serviceStaff",
       label: "Staff",
       type: "select",
-      width: "25%", // Set width for the first column
+      width: "20%", // Set width for the first column
       value: serviceDetails[serviceIndex].staff,
       onChange: (event) => handleFieldChange(event, serviceIndex, "staff"),
       options: staff.map((items) => ({
@@ -187,7 +251,7 @@ const ServiceComponent = ({ serviceRef, appointment, services, staff }) => {
       type: "time",
       width: "15%", // Set width for the first column
       value: serviceDetails[serviceIndex].start,
-      onChange: (event) => handleFieldChange(event, serviceIndex, "start"),
+      onChange: (event) => handleServiceStartChange(event, serviceIndex),
     },
     {
       id: `service-duration-field-${serviceIndex}`,
@@ -196,7 +260,7 @@ const ServiceComponent = ({ serviceRef, appointment, services, staff }) => {
       type: "select",
       width: "15%", // Set width for the first column
       value: serviceDetails[serviceIndex].duration,
-      onChange: (event) => handleFieldChange(event, serviceIndex, "duration"),
+      onChange: (event) => handleServiceDurationChange(event, serviceIndex),
       options: durationOptions.map((items) => ({
         id: items.id,
         label: items.name,
@@ -231,14 +295,13 @@ const ServiceComponent = ({ serviceRef, appointment, services, staff }) => {
                   ))}
                   <td className="multi-book-add-cell">
                     {serviceDetails && serviceDetails.length > 1 && (
-                      <a
-                        href="#"
+                      <span
                         title="Remove customer from appointment"
                         className="clear-customer"
                         onClick={() => handleDeleteService(serviceIndex)}
                       >
                         <i className="ri-close-line fs-16"></i>
-                      </a>
+                      </span>
                     )}
                   </td>
                 </tr>

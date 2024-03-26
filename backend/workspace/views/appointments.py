@@ -159,8 +159,6 @@ class AddAppointment(APIView):
         appointment_data = request.data.copy()
         appointment_data['client_id'] = client.id
         
-        print("i want to see the client: ", client.id)
-
         # appointment_data = {
         #     'client': client,
         #     'start': request.data.get('start'),
@@ -197,9 +195,8 @@ class UpdateAppointment(UpdateAPIView):
 
     def update(self, request, *args, **kwargs):
         """Handle Appointment update."""
-        partial = kwargs.pop('partial', False)
-        serializer = self.get_serializer(
-            instance=self.get_object(), data=request.data, partial=partial)
+        partial = kwargs.pop('partial', True)
+        serializer = self.get_serializer(instance=self.get_object(), data=request.data, partial=partial)
         serializer.is_valid(raise_exception=True)
         self.perform_update(serializer)
         return Response({"data": serializer.data, "count": 1, "code": 200}, status=status.HTTP_200_OK)

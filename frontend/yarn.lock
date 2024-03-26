@@ -2114,6 +2114,11 @@
   resolved "https://registry.yarnpkg.com/@fullcalendar/list/-/list-6.1.11.tgz#4cd23700ea48b382b37387e29a706f2da692e174"
   integrity sha512-9Qx8uvik9pXD12u50FiHwNzlHv4wkhfsr+r03ycahW7vEeIAKCsIZGTkUfFP+96I5wHihrfLazu1cFQG4MPiuw==
 
+"@fullcalendar/moment-timezone@^6.1.11":
+  version "6.1.11"
+  resolved "https://registry.yarnpkg.com/@fullcalendar/moment-timezone/-/moment-timezone-6.1.11.tgz#38ce880e02d202a7df1881c770b52b482b3e7f2d"
+  integrity sha512-wZ3km9hcB3PVVFqp+wMGJr4uUuVPYsweN+oxMuojOkq/G4tm22Lk8ZJ0dimLMUnMyR2xf7NQ+NaF1HTGjqoooA==
+
 "@fullcalendar/multimonth@^6.1.10":
   version "6.1.11"
   resolved "https://registry.yarnpkg.com/@fullcalendar/multimonth/-/multimonth-6.1.11.tgz#8cca48378c52c1209ed7a45c5e5b37f95497f13b"

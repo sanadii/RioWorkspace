@@ -109,6 +109,7 @@ function* onAddAppointment({ payload: appointment }) {
 }
 
 function* onUpdateAppointment({ payload: appointment }) {
+  console.log("we are in saga")
   try {
     const response = yield call(updateAppointment, appointment);
     yield put(updateAppointmentSuccess(response));

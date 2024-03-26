@@ -57,6 +57,7 @@ $color_2: #da4f49;
 	.calendar-balloon__detail-line {
 		display: flex;
 		font-size: 14px;
+		padding-bottom: 8px;
 
 		.assignment-change {
 			font-weight: 700;
@@ -297,4 +298,15 @@ $color_2: #da4f49;
 
 .balloon-backing {
 	-webkit-tap-highlight-color: rgba(0, 255, 0, 0)
+}
+
+
+.service-container {
+	width: 100%
+}
+
+.calendar-balloon__event-details {
+	.alert {
+		padding: 4px;
+	}
 }

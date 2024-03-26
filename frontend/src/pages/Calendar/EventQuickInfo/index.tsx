@@ -1,16 +1,19 @@
 import React, { useEffect, useState, useRef } from "react";
-import { Button, Popover, PopoverHeader, PopoverBody } from "reactstrap";
-import { formatTime } from "Components/Hooks";
+import { Popover, PopoverHeader, PopoverBody } from "reactstrap";
 import { createPortal } from "react-dom";
+
+// Redux
+import { useSelector } from "react-redux";
+import { appointmentsSelector } from "Selectors";
+
 
 // Popover Components
 import EventPopoverHeader from "./EventPopoverHeader";
 import EventPopoverContent from "./EventPopoverContent";
-import EventPopoverActions from "./EventPopoverActions";
-import EventPopoverStatus from "./EventPopoverStatus";
 import EventPopoverFooter from "./EventPopoverFooter";
 
 const EventQuickInfo = ({ eventEl, event, setAppointment, isOpen, toggle, setModal, setBookingMood }) => {
+  const { staff } = useSelector(appointmentsSelector);
   const popoverContentRef = useRef(null);
   const backdropRef = useRef(null);
 
@@ -21,14 +24,9 @@ const EventQuickInfo = ({ eventEl, event, setAppointment, isOpen, toggle, setMod
   // Close popover and backdrop when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
-      console.log("Click detected: ", event.target);
-
       // Check if the click is outside both the popover and the backdrop
       const isOutsidePopover = popoverContentRef.current && !popoverContentRef.current.contains(event.target);
       const isOnBackdrop = backdropRef.current && backdropRef.current.contains(event.target);
-
-      // console.log("Is outside popover: ", isOutsidePopover);
-      // console.log("Is on backdrop: ", isOnBackdrop);
 
       if (isOpen && (isOutsidePopover || isOnBackdrop)) {
         closePopover();
@@ -57,16 +55,14 @@ const EventQuickInfo = ({ eventEl, event, setAppointment, isOpen, toggle, setMod
             <EventPopoverHeader event={event} closePopover={closePopover} />
           </PopoverHeader>
           <PopoverBody>
-            <EventPopoverContent event={event} />
-            <EventPopoverActions
+            <EventPopoverContent event={event} staff={staff} />
+            <EventPopoverFooter
               event={event}
               setAppointment={setAppointment}
               toggle={toggle}
               setModal={setModal}
               setBookingMood={setBookingMood}
             />
-            <EventPopoverStatus event={event} toggle={toggle} />
-            <EventPopoverFooter />
           </PopoverBody>
         </Popover>
         <div ref={backdropRef} className="modal-backdrop fade show"></div>

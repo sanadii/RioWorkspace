@@ -99,7 +99,7 @@ class AppointmentSerializer(serializers.ModelSerializer):
     services = AppointmentServiceSerializer(many=True, required=False)
     packages = AppointmentPackageSerializer(many=True, required=False)
     products = AppointmentProductSerializer(many=True, required=False)
-    note = serializers.CharField(required=False, allow_blank=True)
+    note = serializers.CharField(required=False, allow_blank=True, allow_null=True)
     class_name = serializers.SerializerMethodField()
 
     class Meta:
@@ -123,24 +123,6 @@ class AppointmentSerializer(serializers.ModelSerializer):
         if status_class:
             class_names.append(status_class)
         return class_names
-
-
-        # class_names
-        # get Status classes
-        
-        
-        # get Note Class
-        # fc-note
-
-        # get id Class
-        # get group class
-        # get hidden class
-        # get Invoice Class
-        # get Paid Class
-        
-        
-        return f"{obj.first_name} {obj.last_name}".strip()
-
 
     def to_representation(self, instance):
         representation = super().to_representation(instance)
@@ -186,39 +168,43 @@ class AppointmentSerializer(serializers.ModelSerializer):
             AppointmentNote.objects.create(appointment=appointment, note=note_text)
         return appointment
 
-        return appointment
-
     def update(self, instance, validated_data):
         # Updating basic appointment fields
-        instance.start = validated_data.get(
-            'start', instance.start)
-        instance.end = validated_data.get('end', instance.end)
-        instance.status = validated_data.get('status', instance.status)
+        for attr, value in validated_data.items():
+            if attr not in ['services', 'packages', 'products', 'note']:
+                setattr(instance, attr, value)
+
+        # Handle nested relationships only if they are provided in the payload
+        if 'services' in validated_data:
+            services_data = validated_data.get('services')
+            self.update_services(instance, services_data)
+
+        # Similar checks can be added for packages and products
+        # if 'packages' in validated_data:
+        #     self.update_packages(instance, validated_data.get('packages'))
+        # if 'products' in validated_data:
+        #     self.update_products(instance, validated_data.get('products'))
+
+        # Handle the note update or creation
+        note_text = validated_data.get('note')
+        if note_text is not None:
+            AppointmentNote.objects.update_or_create(
+                appointment=instance,
+                defaults={'note': note_text}
+            )
+
         instance.save()
+        return instance
+    
+    def update_services(self, instance, services_data):
+        existing_service_ids = set(instance.services.values_list('id', flat=True))
+        updated_service_ids = set()
 
-        services_data = validated_data.pop('services', [])
-        packages_data = validated_data.pop('packages', [])
-        products_data = validated_data.pop('products', [])
-        note_text = validated_data.pop('note', None)
-
-        existing_service_ids = [
-            service.id for service in instance.services.all()]
-        existing_package_ids = [
-            package.id for package in instance.packages.all()]
-        existing_product_ids = [
-            product.id for product in instance.products.all()]
-
-        updated_service_ids = []
-        updated_package_ids = []
-        updated_product_ids = []
-
-        # Update or create services
         for service_data in services_data:
             service_id = service_data.get('id')
             if service_id:
-                updated_service_ids.append(service_id)
-                service_instance = AppointmentService.objects.get(
-                    id=service_id)
+                updated_service_ids.add(service_id)
+                service_instance = AppointmentService.objects.get(id=service_id)
                 for attr, value in service_data.items():
                     setattr(service_instance, attr, value)
                 service_instance.save()
@@ -226,89 +212,13 @@ class AppointmentSerializer(serializers.ModelSerializer):
                 new_service = AppointmentService.objects.create(**service_data)
                 instance.services.add(new_service)
 
-        # Update or create packages
-        for package_data in packages_data:
-            package_id = package_data.get('id')
-            if package_id:
-                updated_package_ids.append(package_id)
-                package_instance = AppointmentPackage.objects.get(
-                    id=package_id)
-                for attr, value in package_data.items():
-                    setattr(package_instance, attr, value)
-                package_instance.save()
-            else:
-                new_package = AppointmentPackage.objects.create(**package_data)
-                instance.packages.add(new_package)
-
-        # Update or create products
-        for product_data in products_data:
-            product_id = product_data.get('id')
-            if product_id:
-                updated_product_ids.append(product_id)
-                product_instance = AppointmentProduct.objects.get(
-                    id=product_id)
-                for attr, value in product_data.items():
-                    setattr(product_instance, attr, value)
-                product_instance.save()
-            else:
-                new_product = AppointmentProduct.objects.create(**product_data)
-                instance.products.add(new_product)
-
-        # Remove old services, packages, and products
-        for service_id in existing_service_ids:
-            if service_id not in updated_service_ids:
-                instance.services.remove(service_id)
-
-        for package_id in existing_package_ids:
-            if package_id not in updated_package_ids:
-                instance.packages.remove(package_id)
-
-        for product_id in existing_product_ids:
-            if product_id not in updated_product_ids:
-                instance.products.remove(product_id)
-
-        # Handle the note update or creation
-        if note_text is not None:
-            note_instance, created = AppointmentNote.objects.update_or_create(
-                appointment=instance,
-                defaults={'note': note_text}
-            )
-
-        instance.save()
-        return instance
+        # Remove services that are no longer associated with the appointment
+        for service_id in existing_service_ids - updated_service_ids:
+            instance.services.remove(service_id)
 
 
-    # def update(self, instance, validated_data):
-    #     services_data = validated_data.pop('services', [])
-    #     existing_service_ids = [service.id for service in instance.services.all()]
-    #     updated_service_ids = []
 
-    #     instance.start = validated_data.get('start', instance.start)
-    #     instance.end = validated_data.get('end', instance.end)
-    #     instance.status = validated_data.get('status', instance.status)
-    #     instance.save()
 
-    #     for service_data in services_data:
-    #         service_id = service_data.get('id')
-    #         if service_id:
-    #             updated_service_ids.append(service_id)
-    #             service_instance = AppointmentService.objects.get(id=service_id)
-    #             # Update the existing service instance
-    #             for attr, value in service_data.items():
-    #                 setattr(service_instance, attr, value)
-    #             service_instance.save()
-    #         else:
-    #             # Create a new service instance and add it to the appointment
-    #             new_service = AppointmentService.objects.create(**service_data)
-    #             instance.services.add(new_service)
-
-    #     # Remove services that are no longer associated with the appointment
-    #     for service_id in existing_service_ids:
-    #         if service_id not in updated_service_ids:
-    #             instance.services.remove(service_id)
-
-    #     instance.save()
-    #     return instance
 
 
 class ServiceProviderSerializer(serializers.ModelSerializer):

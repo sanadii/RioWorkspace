@@ -36,6 +36,13 @@ const EventDisplaySettings = {
   eventColor: "rgb(27, 188, 157)", // General color for events (can be used as a shorthand for background, border, and text colors)
 };
 
+const EventDragAndResize = {
+  eventResize: (arg) => {
+    console.log("handleEventResize", arg);
+    alert(arg.event.title + " end is now " + arg.event.end.toISOString());
+  },
+};
+
 const EventRenderHooks = {
   // Class names for events
   // eventClassNames: function (arg) {
@@ -91,4 +98,4 @@ const EventRenderHooks = {
   eventWillUnmount: (arg) => {},
 };
 
-export { EventDisplaySettings, EventRenderHooks };
+export { EventDisplaySettings, EventRenderHooks, };

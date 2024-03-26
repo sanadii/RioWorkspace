@@ -8,6 +8,8 @@ export type CalenderProps = {
   onGetCategories: () => void;
 };
 
+export type BookingMoodProps = "" | "addNewEvent" | "editEvent" | "rescheduleEvent" | "bookNextEvent";
+
 export type AppointmentItem = {
   id: number;
   start: Date;

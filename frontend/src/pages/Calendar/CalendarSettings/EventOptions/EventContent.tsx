@@ -1,30 +1,14 @@
 import React from "react";
 import { SvgIcon } from "Components/Common"; // Adjust the import path as needed
 import moment from "moment-timezone";
-import { convertUTCToTimeZone } from "Components/Hooks/calendarHooks";
+import { formatTime, convertUTCToTimeZone } from "Components/Hooks/calendarHooks";
 
 
 const EventContent = ({ arg }) => {
-  const formatTime = (momentDate) => {
-    // Ensure momentDate is a moment object
-    const momentObj = moment.isMoment(momentDate) ? momentDate : moment(momentDate);
-    return momentObj.format("h:mm A"); // Formats time in 12-hour format with AM/PM
-  };
-
   const event = arg.event;
-  const calendarTimeZone = arg.view.dateEnv.timeZone;
   const appointmentTime = event.start; // Assuming this is a Date object
+  const appointmentStartTime = formatTime(appointmentTime);
 
-  // Convert the time to a moment object in UTC (if it's not already in UTC)
-  const appointmentMomentUTC = moment.utc(appointmentTime);
-
-  // Convert the UTC time to the calendar's timezone
-  const appointmentInCalendarTimeZone = convertUTCToTimeZone(appointmentMomentUTC, calendarTimeZone);
-
-  // Format the time
-  const appointmentStartTime = formatTime(appointmentInCalendarTimeZone);
-
-  console.log("appointmentStartTime in Calendar Timezone: ", appointmentStartTime);
 
   const classNames = event.classNames;
   // console.log("classNames: ", classNames);
@@ -89,7 +73,7 @@ const EventContent = ({ arg }) => {
         <div className="fc-event-body">
           {event.extendedProps.services.map((service, index) => (
             <div className="fc-event-items" key={service.id}>
-              - {service.name} - <span>{service.price} KD</span>
+              - {service.name} - <span>{service.price}KD</span>
             </div>
           ))}
         </div>
