@@ -5,18 +5,16 @@ import { Button, ButtonGroup } from "reactstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { updateAppointment } from "store/actions";
 
-const EventPopoverFooter = ({ event, setAppointment, toggle, setModal, setBookingMood }) => {
+const EventPopoverFooter = ({ event, setAppointment, toggle, setBookingModal, setBookingMood }) => {
   const dispatch: any = useDispatch();
-
   const [localEvent, setLocalEvent] = useState(event);
-
-  console.log("localEvent: ", localEvent);
-  const appointmentStatus = event.status;
+  const appointmentStatus = localEvent.status;
+  const isInvoiced = false;
 
   const [isEdit, setIsEdit] = useState<boolean>(false);
   const handleEditAction = (e) => {
     toggle();
-    setModal(true);
+    setBookingModal("editEvent");
     setIsEdit(true);
   };
 
@@ -40,7 +38,7 @@ const EventPopoverFooter = ({ event, setAppointment, toggle, setModal, setBookin
     };
 
     console.log("updatedAppointment: ", updatedAppointment);
-    setAppointment({...updatedAppointment});
+    setLocalEvent({ ...updatedAppointment });
     dispatch(updateAppointment(updatedAppointment));
   };
 
@@ -54,7 +52,6 @@ const EventPopoverFooter = ({ event, setAppointment, toggle, setModal, setBookin
   //   setAppointment({ ...updatedAppointment });
   //   dispatch(updateAppointment(updatedAppointment));
   // };
-
 
   return (
     <React.Fragment>
@@ -91,46 +88,84 @@ const EventPopoverFooter = ({ event, setAppointment, toggle, setModal, setBookin
       </div>
 
       {/* Status Actions */}
-      <div className="btn-group calendar-balloon__status-buttons" data-toggle="buttons-relaxed-radio">
-        <ButtonGroup size="sm" className="w-100 material-shadow">
+      {appointmentStatus === 1 ? (
+        <div className="calendar-balloon__buttons-row">
           <Button
-            className={`btn-light material-shadow-none ${localEvent.status === 3 ? "active" : ""}`}
-            onClick={() => handleStatusClick(3)}
+            className="btn-secondary material-shadow-none w-100 "
+            data-refresh-cal="yes"
+            onClick={() => handleStatusClick(2)}
           >
-            Arrived
+            <i className="mdi mdi-check-bold"></i> Confirm
           </Button>
           <Button
-            className={`btn-light material-shadow-none ${localEvent.status === 5 ? "active" : ""}`}
-            onClick={(e) => handleStatusClick(5)}
+            data-href="/dashboard/declinebooking/387979370"
+            className="btn-light material-shadow-none w-100"
+            data-refresh-cal="yes"
           >
-            Completed
+            <i className="mdi mdi-close-thick"></i> Decline
           </Button>
-        </ButtonGroup>
-      </div>
+          <Button
+            href="/calendar/bookingcancel/387979370"
+            className="btn btn-small btn-outline-danger cancel-link modal-open bln-close"
+          >
+            Cancel
+          </Button>
+        </div>
+      ) : (
+        <>
+          <div className="btn-group calendar-balloon__status-buttons" data-toggle="buttons-relaxed-radio">
+            <ButtonGroup size="sm" className="w-100 material-shadow">
+              <Button
+                className={`btn-light material-shadow-none ${appointmentStatus === 3 ? "active" : ""}`}
+                onClick={() => handleStatusClick(3)}
+              >
+                Arrived
+              </Button>
+              <Button
+                className={`btn-light material-shadow-none ${appointmentStatus === 5 ? "active" : ""}`}
+                onClick={(e) => handleStatusClick(5)}
+              >
+                Completed
+              </Button>
+            </ButtonGroup>
+          </div>
 
-      {/* Inform Staff */}
-      <div className="calendar-balloon__staff-ad-hoc-row hide">
-        <a
-          className="staff-contact modal-open bln-close"
-          title="Send an SMS or email"
-          href="/message/adhoccontactstaff/280034?messagetypeid=Sms&amp;bookingId=390779857&amp;contactreason=2"
-        >
-          Let Laura . know
-        </a>
-      </div>
+          {/* Inform Staff */}
+          <div className="calendar-balloon__staff-ad-hoc-row hide">
+            <a
+              className="staff-contact modal-open bln-close"
+              title="Send an SMS or email"
+              href="/message/adhoccontactstaff/280034?messagetypeid=Sms&amp;bookingId=390779857&amp;contactreason=2"
+            >
+              Let Laura . know
+            </a>
+          </div>
 
-      {/* Confirm, Decline, Checkout */}
-      <div className="calendar-balloon__buttons-row">
-        <a href="/billing/viewinvoice/?bookingId=390779857&amp;fromcalendar=true" className="status-buttons">
-          <i className="fa fa-file"></i> View invoice
-        </a>
-        <a
-          href="/calendar/bookingcancel/390779857"
-          className="btn btn-small btn-outline-danger cancel-link modal-open bln-close"
-        >
-          Cancel
-        </a>
-      </div>
+          {/* Confirm, Decline, Checkout */}
+          <div className="calendar-balloon__buttons-row">
+            {isInvoiced ? (
+              <Button href="/billing/viewinvoice/?bookingId=390779857&amp;fromcalendar=true" className="status-buttons">
+                <i className="fa fa-file"></i> View invoice
+              </Button>
+            ) : (
+              <Button
+                className="btn-primary material-shadow-none w-100"
+                data-booking-id="387979370"
+                data-group-id="308932365"
+              >
+                Checkout
+              </Button>
+            )}
+
+            <Button
+              href="/calendar/bookingcancel/390779857"
+              className="btn btn-small btn-outline-danger cancel-link modal-open bln-close"
+            >
+              Cancel
+            </Button>
+          </div>
+        </>
+      )}
     </React.Fragment>
   );
 };

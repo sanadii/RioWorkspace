@@ -12,7 +12,7 @@ import EventPopoverHeader from "./EventPopoverHeader";
 import EventPopoverContent from "./EventPopoverContent";
 import EventPopoverFooter from "./EventPopoverFooter";
 
-const EventQuickInfo = ({ eventEl, event, setAppointment, isOpen, toggle, setModal, setBookingMood }) => {
+const EventQuickInfo = ({ eventEl, event, setAppointment, isOpen, toggle, setBookingModal, setBookingMood }) => {
   const { staff } = useSelector(appointmentsSelector);
   const popoverContentRef = useRef(null);
   const backdropRef = useRef(null);
@@ -28,7 +28,7 @@ const EventQuickInfo = ({ eventEl, event, setAppointment, isOpen, toggle, setMod
       const isOutsidePopover = popoverContentRef.current && !popoverContentRef.current.contains(event.target);
       const isOnBackdrop = backdropRef.current && backdropRef.current.contains(event.target);
 
-      if (isOpen && (isOutsidePopover || isOnBackdrop)) {
+      if (isOpen === "quickInfo" && (isOutsidePopover || isOnBackdrop)) {
         closePopover();
       }
     };
@@ -60,7 +60,7 @@ const EventQuickInfo = ({ eventEl, event, setAppointment, isOpen, toggle, setMod
               event={event}
               setAppointment={setAppointment}
               toggle={toggle}
-              setModal={setModal}
+              setBookingModal={setBookingModal}
               setBookingMood={setBookingMood}
             />
           </PopoverBody>

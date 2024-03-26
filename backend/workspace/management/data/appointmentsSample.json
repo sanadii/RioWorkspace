@@ -1,0 +1,790 @@
+[
+  {
+    "dayFormatted": "Tuesday, 26 March 2024",
+    "day": "2024-03-26T00:00:00.0000000",
+    "appointments": [
+      {
+        "isRecurring": false,
+        "isOnlineBooking": false,
+        "appointmentType": "booking",
+        "customerId": 72709169,
+        "customerName": "Noura Jamaan",
+        "items": [
+          {
+            "bookingId": 392493810,
+            "staffName": "Laura .",
+            "staffId": 280034,
+            "startDate": "2024-03-26T15:00:00.0000000",
+            "startTime": "3:00pm",
+            "serviceName": "Consult - Extension",
+            "serviceUIColor": "#1BBC9D"
+          }
+        ],
+        "classId": 0,
+        "className": null,
+        "capacity": 0,
+        "positionsBookedCount": 0,
+        "positionsFreeCount": 0,
+        "startTime": null,
+        "startDate": null,
+        "serviceUIColor": null,
+        "meetsVaccinationRequirements": true
+      },
+      {
+        "isRecurring": false,
+        "isOnlineBooking": false,
+        "appointmentType": "booking",
+        "customerId": 73747731,
+        "customerName": "Sherifa 9yrs old J",
+        "items": [
+          {
+            "bookingId": 392224609,
+            "staffName": "Laura .",
+            "staffId": 280034,
+            "startDate": "2024-03-26T20:00:00.0000000",
+            "startTime": "8:00pm",
+            "serviceName": "Aftercare - Straightening",
+            "serviceUIColor": "#1BBC9D"
+          }
+        ],
+        "classId": 0,
+        "className": null,
+        "capacity": 0,
+        "positionsBookedCount": 0,
+        "positionsFreeCount": 0,
+        "startTime": null,
+        "startDate": null,
+        "serviceUIColor": null,
+        "meetsVaccinationRequirements": true
+      }
+    ]
+  },
+  {
+    "dayFormatted": "Wednesday, 27 March 2024",
+    "day": "2024-03-27T00:00:00.0000000",
+    "appointments": [
+      {
+        "isRecurring": false,
+        "isOnlineBooking": false,
+        "appointmentType": "booking",
+        "customerId": 73804839,
+        "customerName": "Narcissus ",
+        "items": [
+          {
+            "bookingId": 392219201,
+            "staffName": "Laura .",
+            "staffId": 280034,
+            "startDate": "2024-03-27T20:00:00.0000000",
+            "startTime": "8:00pm",
+            "serviceName": "Consult - Straightening",
+            "serviceUIColor": "#1BBC9D"
+          }
+        ],
+        "classId": 0,
+        "className": null,
+        "capacity": 0,
+        "positionsBookedCount": 0,
+        "positionsFreeCount": 0,
+        "startTime": null,
+        "startDate": null,
+        "serviceUIColor": null,
+        "meetsVaccinationRequirements": true
+      },
+      {
+        "isRecurring": false,
+        "isOnlineBooking": false,
+        "appointmentType": "booking",
+        "customerId": 73804848,
+        "customerName": "Maryam ",
+        "items": [
+          {
+            "bookingId": 392219252,
+            "staffName": "Laura .",
+            "staffId": 280034,
+            "startDate": "2024-03-27T20:00:00.0000000",
+            "startTime": "8:00pm",
+            "serviceName": "Brazilian Hair Straightening - Long",
+            "serviceUIColor": "#1BBC9D"
+          }
+        ],
+        "classId": 0,
+        "className": null,
+        "capacity": 0,
+        "positionsBookedCount": 0,
+        "positionsFreeCount": 0,
+        "startTime": null,
+        "startDate": null,
+        "serviceUIColor": null,
+        "meetsVaccinationRequirements": true
+      }
+    ]
+  },
+  {
+    "dayFormatted": "Thursday, 28 March 2024",
+    "day": "2024-03-28T00:00:00.0000000",
+    "appointments": [
+      {
+        "isRecurring": false,
+        "isOnlineBooking": false,
+        "appointmentType": "booking",
+        "customerId": 73117423,
+        "customerName": "Bashayer ",
+        "items": [
+          {
+            "bookingId": 387979370,
+            "staffName": "Laura .",
+            "staffId": 280034,
+            "startDate": "2024-03-28T14:00:00.0000000",
+            "startTime": "2:00pm",
+            "serviceName": "Brazilian Hair Straightening - Long",
+            "serviceUIColor": "#1BBC9D"
+          }
+        ],
+        "classId": 0,
+        "className": null,
+        "capacity": 0,
+        "positionsBookedCount": 0,
+        "positionsFreeCount": 0,
+        "startTime": null,
+        "startDate": null,
+        "serviceUIColor": null,
+        "meetsVaccinationRequirements": true
+      }
+    ]
+  },
+  {
+    "dayFormatted": "Friday, 29 March 2024",
+    "day": "2024-03-29T00:00:00.0000000",
+    "appointments": [
+      {
+        "isRecurring": false,
+        "isOnlineBooking": false,
+        "appointmentType": "booking",
+        "customerId": 67413629,
+        "customerName": "Katherine Taglivia",
+        "items": [
+          {
+            "bookingId": 392504149,
+            "staffName": "Laura .",
+            "staffId": 280034,
+            "startDate": "2024-03-29T15:00:00.0000000",
+            "startTime": "3:00pm",
+            "serviceName": "Brazilian Hair Straightening - Long",
+            "serviceUIColor": "#1BBC9D"
+          }
+        ],
+        "classId": 0,
+        "className": null,
+        "capacity": 0,
+        "positionsBookedCount": 0,
+        "positionsFreeCount": 0,
+        "startTime": null,
+        "startDate": null,
+        "serviceUIColor": null,
+        "meetsVaccinationRequirements": true
+      }
+    ]
+  },
+  {
+    "dayFormatted": "Monday, 1 April 2024",
+    "day": "2024-04-01T00:00:00.0000000",
+    "appointments": [
+      {
+        "isRecurring": false,
+        "isOnlineBooking": false,
+        "appointmentType": "booking",
+        "customerId": 66689847,
+        "customerName": "Rita ",
+        "items": [
+          {
+            "bookingId": 389825932,
+            "staffName": "Laura .",
+            "staffId": 280034,
+            "startDate": "2024-04-01T16:00:00.0000000",
+            "startTime": "4:00pm",
+            "serviceName": "Consult - Color",
+            "serviceUIColor": "#1BBC9D"
+          }
+        ],
+        "classId": 0,
+        "className": null,
+        "capacity": 0,
+        "positionsBookedCount": 0,
+        "positionsFreeCount": 0,
+        "startTime": null,
+        "startDate": null,
+        "serviceUIColor": null,
+        "meetsVaccinationRequirements": true
+      }
+    ]
+  },
+  {
+    "dayFormatted": "Tuesday, 2 April 2024",
+    "day": "2024-04-02T00:00:00.0000000",
+    "appointments": [
+      {
+        "isRecurring": false,
+        "isOnlineBooking": false,
+        "appointmentType": "booking",
+        "customerId": 72797644,
+        "customerName": "maali ",
+        "items": [
+          {
+            "bookingId": 390136995,
+            "staffName": "Laura .",
+            "staffId": 280034,
+            "startDate": "2024-04-02T16:00:00.0000000",
+            "startTime": "4:00pm",
+            "serviceName": "Aftercare - Straightening",
+            "serviceUIColor": "#1BBC9D"
+          }
+        ],
+        "classId": 0,
+        "className": null,
+        "capacity": 0,
+        "positionsBookedCount": 0,
+        "positionsFreeCount": 0,
+        "startTime": null,
+        "startDate": null,
+        "serviceUIColor": null,
+        "meetsVaccinationRequirements": true
+      }
+    ]
+  },
+  {
+    "dayFormatted": "Wednesday, 3 April 2024",
+    "day": "2024-04-03T00:00:00.0000000",
+    "appointments": [
+      {
+        "isRecurring": false,
+        "isOnlineBooking": false,
+        "appointmentType": "booking",
+        "customerId": 57205128,
+        "customerName": "ZAYAAN SONI ",
+        "items": [
+          {
+            "bookingId": 391856596,
+            "staffName": "Laura .",
+            "staffId": 280034,
+            "startDate": "2024-04-03T15:00:00.0000000",
+            "startTime": "3:00pm",
+            "serviceName": "Brazilian bikini Wax - Front & Back",
+            "serviceUIColor": "#1BBC9D"
+          }
+        ],
+        "classId": 0,
+        "className": null,
+        "capacity": 0,
+        "positionsBookedCount": 0,
+        "positionsFreeCount": 0,
+        "startTime": null,
+        "startDate": null,
+        "serviceUIColor": null,
+        "meetsVaccinationRequirements": true
+      }
+    ]
+  },
+  {
+    "dayFormatted": "Saturday, 13 April 2024",
+    "day": "2024-04-13T00:00:00.0000000",
+    "appointments": [
+      {
+        "isRecurring": false,
+        "isOnlineBooking": false,
+        "appointmentType": "booking",
+        "customerId": 71947612,
+        "customerName": "Nouf Alajmi",
+        "items": [
+          {
+            "bookingId": 380078855,
+            "staffName": "Laura .",
+            "staffId": 280034,
+            "startDate": "2024-04-13T13:00:00.0000000",
+            "startTime": "1:00pm",
+            "serviceName": "Brazilian Hair Straightening - Long",
+            "serviceUIColor": "#1BBC9D"
+          }
+        ],
+        "classId": 0,
+        "className": null,
+        "capacity": 0,
+        "positionsBookedCount": 0,
+        "positionsFreeCount": 0,
+        "startTime": null,
+        "startDate": null,
+        "serviceUIColor": null,
+        "meetsVaccinationRequirements": true
+      }
+    ]
+  }
+]
+
+{
+    "id": 61813461,
+    "isDeleted": false,
+    "isNew": false,
+    "isInVend": false,
+    "outstanding": "K.D.0.00",
+    "creditBalance": "K.D.0.00",
+    "creditBalanceValue": 0.0,
+    "rewardsVoucherBalance": "K.D.0.00",
+    "totalRewardPoints": 0,
+    "inDebt": false,
+    "notifications": "Email",
+    "reminders": "SMS and email",
+    "firstName": "sanad",
+    "lastName": "almutairi",
+    "companyName": "",
+    "fullName": "sanad almutairi",
+    "hasAlert": false,
+    "alert": "",
+    "isVip": false,
+    "badCount": 1,
+    "hasTimeZone": false,
+    "timeZone": null,
+    "telephone": "n/a",
+    "sms": "+96560001215",
+    "smsCode": "965",
+    "smsWithOutCode": "60001215",
+    "email": "esanad@gmail.com",
+    "occupation": "",
+    "dateCreated": "25 Feb 2023",
+    "gender": "",
+    "dob": "",
+    "age": "",
+    "referredBy": "",
+    "physicalAddress1": "n/a",
+    "physicalAddress2": "",
+    "physicalSuburb": "",
+    "physicalCity": "",
+    "physicalState": "",
+    "physicalPostcode": "",
+    "postalAddress1": "n/a",
+    "postalAddress2": "",
+    "postalSuburb": "",
+    "postalCity": "",
+    "postalState": "",
+    "postalPostcode": "",
+    "lastAppointment": {
+        "startDate": "2023-03-04T13:45:00",
+        "locationName": "Rio Brazil Salon",
+        "locationAddress": null,
+        "includedServices": [
+            {
+                "id": 315758705,
+                "serviceId": 2754813,
+                "serviceName": "Consultation",
+                "staffName": "Laura",
+                "staffId": 280034,
+                "resourceName": "",
+                "startDate": "2023-03-04T11:00:00",
+                "endDate": "2023-03-04T11:30:00",
+                "color": "#1BBC9D",
+                "price": 0.0000,
+                "startTimeLocalised": "11:00AM",
+                "isClass": false,
+                "requestedStaffId": null
+            },
+            {
+                "id": 315758706,
+                "serviceId": 1273128,
+                "serviceName": "Hair Test",
+                "staffName": "Laura",
+                "staffId": 280034,
+                "resourceName": "",
+                "startDate": "2023-03-04T11:30:00",
+                "endDate": "2023-03-04T12:00:00",
+                "color": "#40D8FF",
+                "price": 5.0000,
+                "startTimeLocalised": "11:30AM",
+                "isClass": false,
+                "requestedStaffId": null
+            },
+            {
+                "id": 315758707,
+                "serviceId": 1273105,
+                "serviceName": "Blow Dry - Long",
+                "staffName": "Laura",
+                "staffId": 280034,
+                "resourceName": "",
+                "startDate": "2023-03-04T12:00:00",
+                "endDate": "2023-03-04T12:45:00",
+                "color": "#1BBC9D",
+                "price": 12.0000,
+                "startTimeLocalised": "12:00PM",
+                "isClass": false,
+                "requestedStaffId": null
+            },
+            {
+                "id": 315758708,
+                "serviceId": 1273086,
+                "serviceName": "Basic Manicure",
+                "staffName": "Laura",
+                "staffId": 280034,
+                "resourceName": "",
+                "startDate": "2023-03-04T12:45:00",
+                "endDate": "2023-03-04T13:15:00",
+                "color": "#1BBC9D",
+                "price": 5.5000,
+                "startTimeLocalised": "12:45PM",
+                "isClass": false,
+                "requestedStaffId": null
+            },
+            {
+                "id": 315758709,
+                "serviceId": 1273087,
+                "serviceName": "Basic Pedicure",
+                "staffName": "Laura",
+                "staffId": 280034,
+                "resourceName": "",
+                "startDate": "2023-03-04T13:15:00",
+                "endDate": "2023-03-04T13:45:00",
+                "color": "#1BBC9D",
+                "price": 5.5000,
+                "startTimeLocalised": "1:15PM",
+                "isClass": false,
+                "requestedStaffId": null
+            },
+            {
+                "id": 315758710,
+                "serviceId": 1294537,
+                "serviceName": "Haircut",
+                "staffName": "Laura",
+                "staffId": 280034,
+                "resourceName": "",
+                "startDate": "2023-03-04T13:45:00",
+                "endDate": "2023-03-04T14:15:00",
+                "color": "#1BBC9D",
+                "price": 25.0000,
+                "startTimeLocalised": "1:45PM",
+                "isClass": false,
+                "requestedStaffId": null
+            }
+        ],
+        "startDateLocalised": "Sat, 4 Mar 2023",
+        "bookingGroupId": 254487466,
+        "bookingId": 315758705,
+        "classId": null,
+        "invoiceId": null,
+        "isRecurring": false,
+        "hasConcessionOrPackage": false,
+        "isStatusPending": false,
+        "isStatusCancelled": false,
+        "isStatusDeclined": false,
+        "isStatusProcessing": false,
+        "isConfirmationCompleted": false,
+        "isConfirmationAttended": false,
+        "isConfirmationDidNotShow": true,
+        "hasSingleLocation": true,
+        "isInvoiced": false,
+        "isPaid": false,
+        "isOnlineBooking": false,
+        "confirmationStatusId": 5,
+        "isRestrictedLocation": false
+    },
+    "nextAppointment": null,
+    "lastAppointmentExcludingToday": {
+        "startDate": "2023-03-04T13:45:00",
+        "locationName": "Rio Brazil Salon",
+        "locationAddress": null,
+        "includedServices": [
+            {
+                "id": 315758705,
+                "serviceId": 2754813,
+                "serviceName": "Consultation",
+                "staffName": "Laura",
+                "staffId": 280034,
+                "resourceName": "",
+                "startDate": "2023-03-04T11:00:00",
+                "endDate": "2023-03-04T11:30:00",
+                "color": "#1BBC9D",
+                "price": 0.0000,
+                "startTimeLocalised": "11:00AM",
+                "isClass": false,
+                "requestedStaffId": null
+            },
+            {
+                "id": 315758706,
+                "serviceId": 1273128,
+                "serviceName": "Hair Test",
+                "staffName": "Laura",
+                "staffId": 280034,
+                "resourceName": "",
+                "startDate": "2023-03-04T11:30:00",
+                "endDate": "2023-03-04T12:00:00",
+                "color": "#40D8FF",
+                "price": 5.0000,
+                "startTimeLocalised": "11:30AM",
+                "isClass": false,
+                "requestedStaffId": null
+            },
+            {
+                "id": 315758707,
+                "serviceId": 1273105,
+                "serviceName": "Blow Dry - Long",
+                "staffName": "Laura",
+                "staffId": 280034,
+                "resourceName": "",
+                "startDate": "2023-03-04T12:00:00",
+                "endDate": "2023-03-04T12:45:00",
+                "color": "#1BBC9D",
+                "price": 12.0000,
+                "startTimeLocalised": "12:00PM",
+                "isClass": false,
+                "requestedStaffId": null
+            },
+            {
+                "id": 315758708,
+                "serviceId": 1273086,
+                "serviceName": "Basic Manicure",
+                "staffName": "Laura",
+                "staffId": 280034,
+                "resourceName": "",
+                "startDate": "2023-03-04T12:45:00",
+                "endDate": "2023-03-04T13:15:00",
+                "color": "#1BBC9D",
+                "price": 5.5000,
+                "startTimeLocalised": "12:45PM",
+                "isClass": false,
+                "requestedStaffId": null
+            },
+            {
+                "id": 315758709,
+                "serviceId": 1273087,
+                "serviceName": "Basic Pedicure",
+                "staffName": "Laura",
+                "staffId": 280034,
+                "resourceName": "",
+                "startDate": "2023-03-04T13:15:00",
+                "endDate": "2023-03-04T13:45:00",
+                "color": "#1BBC9D",
+                "price": 5.5000,
+                "startTimeLocalised": "1:15PM",
+                "isClass": false,
+                "requestedStaffId": null
+            },
+            {
+                "id": 315758710,
+                "serviceId": 1294537,
+                "serviceName": "Haircut",
+                "staffName": "Laura",
+                "staffId": 280034,
+                "resourceName": "",
+                "startDate": "2023-03-04T13:45:00",
+                "endDate": "2023-03-04T14:15:00",
+                "color": "#1BBC9D",
+                "price": 25.0000,
+                "startTimeLocalised": "1:45PM",
+                "isClass": false,
+                "requestedStaffId": null
+            }
+        ],
+        "startDateLocalised": "Sat, 4 Mar 2023",
+        "bookingGroupId": 254487466,
+        "bookingId": 315758705,
+        "classId": null,
+        "invoiceId": null,
+        "isRecurring": false,
+        "hasConcessionOrPackage": false,
+        "isStatusPending": false,
+        "isStatusCancelled": false,
+        "isStatusDeclined": false,
+        "isStatusProcessing": false,
+        "isConfirmationCompleted": false,
+        "isConfirmationAttended": false,
+        "isConfirmationDidNotShow": true,
+        "hasSingleLocation": true,
+        "isInvoiced": false,
+        "isPaid": false,
+        "isOnlineBooking": false,
+        "confirmationStatusId": 5,
+        "isRestrictedLocation": false
+    },
+    "hasFutureActiveAppointments": false,
+    "totalPastAppointments": 0,
+    "totalFutureAppointments": 0,
+    "notes": [],
+    "invoices": [],
+    "products": [],
+    "concessions": [
+        {
+            "customerConcessionId": 1156462,
+            "dateCreated": "Fri, 3 Mar 2023",
+            "price": null,
+            "priceFormatted": null,
+            "paid": false,
+            "invoiceId": null,
+            "invoiceIdDisplay": "",
+            "status": "Expired",
+            "startDate": null,
+            "endDate": null,
+            "endDateValue": null,
+            "expiryDate": "Sat, 4 Mar 2023",
+            "customer": {
+                "id": 61813461,
+                "fullName": "sanad almutairi",
+                "firstName": "sanad",
+                "lastName": "almutairi",
+                "companyName": "",
+                "emailAddress": null
+            },
+            "concession": {
+                "concessionId": 69945,
+                "packageTemplateId": null,
+                "name": "Happy Hour Hair + Eyebrow",
+                "handle": "",
+                "price": "12.000",
+                "unitPrice": 12.0000,
+                "priceFormatted": "K.D.12.00",
+                "startDate": "",
+                "endDate": "",
+                "concessionItems": [
+                    {
+                        "concessionItemId": 103258,
+                        "name": "Brazilian Treatment with Olaplex\t",
+                        "durationUnitName": "Visit",
+                        "durationUnitId": 7,
+                        "durationValue": 1,
+                        "serviceId": 1322819,
+                        "concessionName": "Happy Hour Hair + Eyebrow"
+                    },
+                    {
+                        "concessionItemId": 103261,
+                        "name": "Eye Brows Threading/waxing",
+                        "durationUnitName": "Visit",
+                        "durationUnitId": 7,
+                        "durationValue": 1,
+                        "serviceId": 1284374,
+                        "concessionName": "Happy Hour Hair + Eyebrow"
+                    },
+                    {
+                        "concessionItemId": 179259,
+                        "name": "Blow Dry (Package)",
+                        "durationUnitName": "Visit",
+                        "durationUnitId": 7,
+                        "durationValue": 1,
+                        "serviceId": 1274007,
+                        "concessionName": "Happy Hour Hair + Eyebrow"
+                    }
+                ],
+                "durationUnitName": "Day",
+                "durationUnitId": 3,
+                "durationValue": 1,
+                "customerExpirationEmailEnabled": false,
+                "taxId": null,
+                "taxRate": 0.0,
+                "taxName": "N/A",
+                "taxAmount": 0.000
+            },
+            "customerConcessionItems": [
+                {
+                    "customerConcessionItemId": 1399967,
+                    "durationValue": 1,
+                    "durationUnitId": 7,
+                    "durationUnitName": "Visit",
+                    "durationUnitNamePlural": "Visits",
+                    "durationComment": null,
+                    "durationValueRedeemed": 0,
+                    "durationRedeemedUnitName": "Visits",
+                    "concessionItemId": 103258,
+                    "concessionItem": {
+                        "concessionItemId": 103258,
+                        "name": "Brazilian Treatment with Olaplex\t",
+                        "durationUnitName": "Visit",
+                        "durationUnitId": 7,
+                        "durationValue": 1,
+                        "serviceId": 1322819,
+                        "concessionName": "Happy Hour Hair + Eyebrow"
+                    },
+                    "concessionItemTransactionTypeId": null,
+                    "transactionChangeTypeId": null,
+                    "name": "Brazilian Treatment with Olaplex\t",
+                    "serviceId": "1322819",
+                    "serviceIdWithoutSuffix": 1322819,
+                    "serviceFirstStaffId": 280034
+                },
+                {
+                    "customerConcessionItemId": 1399968,
+                    "durationValue": 1,
+                    "durationUnitId": 7,
+                    "durationUnitName": "Visit",
+                    "durationUnitNamePlural": "Visits",
+                    "durationComment": null,
+                    "durationValueRedeemed": 0,
+                    "durationRedeemedUnitName": "Visits",
+                    "concessionItemId": 103261,
+                    "concessionItem": {
+                        "concessionItemId": 103261,
+                        "name": "Eye Brows Threading/waxing",
+                        "durationUnitName": "Visit",
+                        "durationUnitId": 7,
+                        "durationValue": 1,
+                        "serviceId": 1284374,
+                        "concessionName": "Happy Hour Hair + Eyebrow"
+                    },
+                    "concessionItemTransactionTypeId": null,
+                    "transactionChangeTypeId": null,
+                    "name": "Eye Brows Threading/waxing",
+                    "serviceId": "1284374",
+                    "serviceIdWithoutSuffix": 1284374,
+                    "serviceFirstStaffId": 280034
+                },
+                {
+                    "customerConcessionItemId": 1399969,
+                    "durationValue": 1,
+                    "durationUnitId": 7,
+                    "durationUnitName": "Visit",
+                    "durationUnitNamePlural": "Visits",
+                    "durationComment": null,
+                    "durationValueRedeemed": 0,
+                    "durationRedeemedUnitName": "Visits",
+                    "concessionItemId": 179259,
+                    "concessionItem": {
+                        "concessionItemId": 179259,
+                        "name": "Blow Dry (Package)",
+                        "durationUnitName": "Visit",
+                        "durationUnitId": 7,
+                        "durationValue": 1,
+                        "serviceId": 1274007,
+                        "concessionName": "Happy Hour Hair + Eyebrow"
+                    },
+                    "concessionItemTransactionTypeId": null,
+                    "transactionChangeTypeId": null,
+                    "name": "Blow Dry (Package)",
+                    "serviceId": "1274007",
+                    "serviceIdWithoutSuffix": 1274007,
+                    "serviceFirstStaffId": 280034
+                }
+            ],
+            "durationUnitName": "Day",
+            "durationUnitId": 3,
+            "durationValue": 1,
+            "customerExpirationEmailEnabled": false,
+            "includesClasses": false,
+            "isTemplatePackage": false
+        }
+    ],
+    "templatePackagesEnabled": false,
+    "giftVouchers": [],
+    "credits": [],
+    "customerImageCount": 0,
+    "customerDocumentCount": 0,
+    "imageUrl": "/images/placeholder_109x145.gif",
+    "concessionsAvailable": true,
+    "packagesAvailable": true,
+    "giftVouchersAvailable": true,
+    "totalLogEntries": 0,
+    "hasMailChimp": false,
+    "mailChimp": "Opted in",
+    "numberOfCards": 0,
+    "isBlocked": false,
+    "vaccinationStatus": {
+        "isVaccinated": false,
+        "proofSighted": false,
+        "dateProofSighted": null,
+        "dateExpires": null,
+        "message": "",
+        "meetsRequirements": true
+    },
+    "pronouns": null
+}

@@ -150,8 +150,24 @@ from workspace.utils.choices import STATUS_CHOICES
 # }
 
 
+# STATUS
+# "startDateLocalised": "Sat, 4 Mar 2023",
+# "bookingGroupId": 254487466,
+# "bookingId": 315758705,
+# "classId": null,
+# "isRecurring": false,
+# "hasConcessionOrPackage": false,
+# "hasSingleLocation": true,
+# "isOnlineBooking": false,
+# "confirmationStatusId": 5,
+# "isRestrictedLocation": false
 
 
+
+# PAYMENT
+# "invoiceId": null,
+# "isInvoiced": false,
+# "isPaid": false,
 
 
 class AppointmentService(models.Model):
@@ -196,21 +212,22 @@ class AppointmentProduct(models.Model):
         db_table = "appointment_product"
 
 
-
-
 # Appointment Model
 class Appointment(models.Model):
     client = models.ForeignKey(Client, on_delete=models.CASCADE)
     start = models.DateTimeField()
     end = models.DateTimeField()
-    status = models.IntegerField(choices=STATUS_CHOICES, default=1, blank=True, null=True)
-    services = models.ManyToManyField(AppointmentService, related_name='appointments_service')
-    packages = models.ManyToManyField(AppointmentPackage, related_name='appointments_package')
-    products = models.ManyToManyField(AppointmentProduct, related_name='appointments_product')
-    
+    status = models.IntegerField(
+        choices=STATUS_CHOICES, default=1, blank=True, null=True)
+    services = models.ManyToManyField(
+        AppointmentService, related_name='appointments_service')
+    packages = models.ManyToManyField(
+        AppointmentPackage, related_name='appointments_package')
+    products = models.ManyToManyField(
+        AppointmentProduct, related_name='appointments_product')
+
     # className: " fc-booking fc-pending fc-booking-id-390770017 fc-group-311035140  fc-hidden-event"
     # className = models.ManyToManyField(AppointmentProduct, related_name='appointments_product')
-    
 
     def __str__(self):
         return f"Appointment with {self.client} on {self.start}"
@@ -224,7 +241,8 @@ class Appointment(models.Model):
 
 
 class AppointmentNote(models.Model):
-    appointment = models.OneToOneField(Appointment, related_name='note', on_delete=models.CASCADE)
+    appointment = models.OneToOneField(
+        Appointment, related_name='note', on_delete=models.CASCADE)
     note = models.TextField()
 
     def __str__(self):

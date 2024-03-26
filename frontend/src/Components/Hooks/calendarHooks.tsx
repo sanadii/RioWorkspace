@@ -44,4 +44,18 @@ const findStaffNameById = (staffId, staff) => {
   const staffMember = staff.find((member) => member.id === staffId);
   return staffMember ? staffMember.name : "Unknown";
 };
-export { convertAppointmentTimes, convertUTCToTimeZone, convertTimeZoneToUTC, formatTime, displayLocalTime, findStaffNameById };
+
+const formatServiceDate = (service) => {
+  // Convert the date to the desired timezone, e.g., 'Asia/Kuwait'
+  const localDate = moment(service.date).tz('Asia/Kuwait');
+
+  // Format the date. Example: '4 Mar at 12:45pm'
+  const formattedDate = localDate.format('D MMM [at] h:mma');
+
+  // Assuming the price is part of the service object
+  const price = service.price;
+
+  return `on ${formattedDate} for K.D.${price}`;
+};
+
+export { formatServiceDate, convertAppointmentTimes, convertUTCToTimeZone, convertTimeZoneToUTC, formatTime, displayLocalTime, findStaffNameById };

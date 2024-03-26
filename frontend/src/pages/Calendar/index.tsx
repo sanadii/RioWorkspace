@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useRef, useCallback } from "react";
-import { CalenderProps, BookingMoodProps } from "types";
-import EventQuickInfo from "./EventQuickInfo";
+import { CalenderProps, BookingModalProps, BookingMoodProps } from "types";
 
 // import moment from 'moment-timezone';
 
@@ -14,6 +13,9 @@ import createCalendarSettings from "./CalendarSettings"; // Adjust the path as n
 import { getSchedule, updateAppointment } from "store/actions";
 
 import EventEditModal from "./EventEditModal";
+import EventCancelModal from "./EventCancelModal";
+import EventQuickInfo from "./EventQuickInfo";
+
 import { UncontrolledAlert } from "reactstrap";
 
 const Calender = () => {
@@ -23,6 +25,7 @@ const Calender = () => {
   const { appointments } = useSelector(appointmentsSelector);
   const [appointment, setAppointment] = useState<any>({});
   const [bookingMood, setBookingMood] = useState<BookingMoodProps>("");
+  const [bookingModal, setBookingModal] = useState<BookingModalProps>("");
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
   const [popoverTarget, setPopoverTarget] = useState(null); // Initialize as null
   const [modal, setModal] = useState<boolean>(false);
@@ -156,7 +159,8 @@ const Calender = () => {
     });
 
     setPopoverTarget(arg.el); // Use the event's element as the popover target
-    setIsPopoverOpen(true); // Open the popover
+    // setIsPopoverOpen(true); // Open the popover
+    setBookingModal("quickInfo");
     setIsEdit(true);
   }, []);
 
@@ -211,12 +215,13 @@ const Calender = () => {
         eventEl={popoverTarget}
         event={appointment}
         setAppointment={setAppointment}
-        isOpen={isPopoverOpen}
-        toggle={() => setIsPopoverOpen(false)}
-        setModal={setModal}
+        isOpen={bookingModal}
+        toggle={() => setBookingModal("quickInfo")}
+        setBookingModal={setBookingModal}
         setBookingMood={setBookingMood}
       />
-      <EventEditModal modal={modal} toggle={toggle} appointment={appointment} isEdit={isEdit} />
+      <EventEditModal isOpen={bookingModal === "quickInfo"} toggle={toggle} appointment={appointment} isEdit={isEdit} />
+      <EventCancelModal modal={modal} toggle={toggle} appointment={appointment} isEdit={isEdit} />
     </React.Fragment>
   );
 };

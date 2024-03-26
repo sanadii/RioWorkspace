@@ -1,8 +1,11 @@
-id,name,description,config
-1,TransactionStatus,Status for financial transactions,
-2,ExpensesStatus,Status for expenses,
-3,RevenueStatus,Status for daily revenue,
-4,ExpensesCategory,Categories for expenses,
-5,PaidBy,Methods of payment,
+id,name,description,value
+1,Transaction Status,Status for financial transactions,transactionStatus
+2,Expenses Status,Status for expenses,
+3,Revenue Status,Status for daily revenue,
+4,Expenses Category,Categories for expenses,
+5,Paid By,Methods of payment,
 6,Discount,Discount Options,
 6,Term,This will appear on the gift voucher PDF. The default terms can be edited on the main settings page.,
+,,,
+,,,
+59,Cancellation Reasons,,cancellationReasons

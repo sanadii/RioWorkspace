@@ -20,7 +20,7 @@ import ExtraStatusComponent from "./ExtraStatusComponent";
 
 import { AppointmentItem, ServiceItem, ClientItem } from "types";
 
-const EventEditModal = ({ modal, isEdit, toggle, appointment }) => {
+const EventEditModal = ({ isOpen, isEdit, toggle, appointment }) => {
   const dispatch: any = useDispatch();
 
   const { services, staff } = useSelector(appointmentsSelector);
@@ -115,7 +115,7 @@ const EventEditModal = ({ modal, isEdit, toggle, appointment }) => {
   return (
     <React.Fragment>
       <Modal
-        isOpen={modal}
+        isOpen={isOpen}
         // toggle={toggle}
         centered
         size="lg"
