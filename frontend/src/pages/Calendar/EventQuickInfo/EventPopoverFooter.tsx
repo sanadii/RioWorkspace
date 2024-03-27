@@ -12,8 +12,8 @@ const EventPopoverFooter = ({ event, setAppointment, toggle, setBookingModal, se
   const isInvoiced = false;
 
   const [isEdit, setIsEdit] = useState<boolean>(false);
+
   const handleEditAction = (e) => {
-    toggle();
     setBookingModal("editEvent");
     setIsEdit(true);
   };
@@ -27,8 +27,15 @@ const EventPopoverFooter = ({ event, setAppointment, toggle, setBookingModal, se
 
   const handleRescheduleAction = (event) => {
     setBookingMood("rescheduleEvent");
+    setBookingModal("");
+
     setAppointment(event);
-    toggle();
+    toggle("");
+  };
+
+  const handleCancelEventAction = (event) => {
+    setBookingModal("cancelEvent");
+    setIsEdit(true);
   };
 
   const handleStatusClick = (updatedStatus) => {
@@ -41,17 +48,6 @@ const EventPopoverFooter = ({ event, setAppointment, toggle, setBookingModal, se
     setLocalEvent({ ...updatedAppointment });
     dispatch(updateAppointment(updatedAppointment));
   };
-
-  // const handleStatusClick = (updatedStatus) => {
-  //   console.log("handleArrivedClick");
-  //   const updatedAppointment = {
-  //     ...event,
-  //     status: updatedStatus,
-  //   };
-  //   // Create a new object for the state update
-  //   setAppointment({ ...updatedAppointment });
-  //   dispatch(updateAppointment(updatedAppointment));
-  // };
 
   return (
     <React.Fragment>
@@ -81,7 +77,7 @@ const EventPopoverFooter = ({ event, setAppointment, toggle, setBookingModal, se
           // disabled={loader && true}
           className="btn btn-soft-secondary w-100 waves-effect waves-light material-shadow-none"
           // className="btn btn-primary-light btn-small bln-close"
-          onClick={(e) => handleBookNexttAction(event)}
+          onClick={(event) => handleBookNexttAction(event)}
         >
           Book Next
         </button>
@@ -105,8 +101,8 @@ const EventPopoverFooter = ({ event, setAppointment, toggle, setBookingModal, se
             <i className="mdi mdi-close-thick"></i> Decline
           </Button>
           <Button
-            href="/calendar/bookingcancel/387979370"
             className="btn btn-small btn-outline-danger cancel-link modal-open bln-close"
+            onClick={(e) => handleCancelEventAction(e)}
           >
             Cancel
           </Button>
@@ -158,8 +154,8 @@ const EventPopoverFooter = ({ event, setAppointment, toggle, setBookingModal, se
             )}
 
             <Button
-              href="/calendar/bookingcancel/390779857"
               className="btn btn-small btn-outline-danger cancel-link modal-open bln-close"
+              onClick={(e) => handleCancelEventAction(e)}
             >
               Cancel
             </Button>

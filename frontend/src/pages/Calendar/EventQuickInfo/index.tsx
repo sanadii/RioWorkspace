@@ -18,7 +18,7 @@ const EventQuickInfo = ({ eventEl, event, setAppointment, isOpen, toggle, setBoo
   const backdropRef = useRef(null);
 
   const closePopover = () => {
-    toggle(false);
+    toggle("");
   };
 
   // Close popover and backdrop when clicking outside

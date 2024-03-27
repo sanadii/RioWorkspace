@@ -1,28 +1,32 @@
 import React, { useEffect, useState, useRef, useCallback } from "react";
 import { CalenderProps, BookingModalProps, BookingMoodProps } from "types";
 
-// import moment from 'moment-timezone';
-
 // Redux
 import { useDispatch, useSelector } from "react-redux";
 import { appointmentsSelector } from "Selectors";
 
 // Calendar
 import FullCalendar from "@fullcalendar/react";
-import createCalendarSettings from "./CalendarSettings"; // Adjust the path as needed
+import useFullCalendarSettings from "./CalendarSettings"; // Adjust the path as needed
 import { getSchedule, updateAppointment } from "store/actions";
 
+import { LeftToolbarChunk, CenterToolbarChunk } from "./CalendarToolbar";
 import EventEditModal from "./EventEditModal";
 import EventCancelModal from "./EventCancelModal";
 import EventQuickInfo from "./EventQuickInfo";
 
 import { UncontrolledAlert } from "reactstrap";
+import ReactDOM from "react-dom";
+import { Provider } from "react-redux";
+import { BrowserRouter } from "react-router-dom";
+import { configureStore } from "store";
 
 const Calender = () => {
   const dispatch: any = useDispatch();
 
   // Data
-  const { appointments } = useSelector(appointmentsSelector);
+  const calendarRef = useRef(null);
+  const { appointments, staff } = useSelector(appointmentsSelector);
   const [appointment, setAppointment] = useState<any>({});
   const [bookingMood, setBookingMood] = useState<BookingMoodProps>("");
   const [bookingModal, setBookingModal] = useState<BookingModalProps>("");
@@ -40,26 +44,92 @@ const Calender = () => {
     dispatch(getSchedule());
   }, [dispatch]);
 
-  console.log("show me the appointment: ", appointment);
   /**
    * Handling the modal state
    */
 
+  const renderCustomButtons = () => {
+    const leftToolbarChunk = document.querySelector(".fc-toolbar .fc-toolbar-chunk:first-child");
+    const centerToolbarChunk = document.querySelector(".fc-toolbar .fc-toolbar-chunk:nth-child(2)");
+    // const centerToolbarChunk = document.querySelector(".fc-toolbar .fc-toolbar-chunk:nth-child(2) .fc-today-button");
+    const rightToolbarChunk = document.querySelector(".fc-toolbar .fc-toolbar-chunk:last-child");
+
+    const refreshButton = document.querySelector(".fc-refresh-button");
+    const prevButton = document.querySelector(".fc-prev-button");
+    const jumpLeftButton = document.querySelector(".fc-jump-left-button");
+    const jumpRightButton = document.querySelector(".fc-jump-right-button");
+    const todayButton = document.querySelector(".fc-today-button");
+    const headerTitle = document.querySelector(".fc-header-title-button");
+
+    // Ensure the left toolbar chunk exists
+    if (leftToolbarChunk) {
+      let leftToolbarContainer = leftToolbarChunk.querySelector(".fc-header-toolbar-left");
+
+      if (!leftToolbarContainer) {
+        leftToolbarContainer = document.createElement("span");
+        leftToolbarContainer.className = "fc-header-toolbar-left";
+        leftToolbarChunk.appendChild(leftToolbarContainer);
+
+        // Wrap the component in a Provider with the store
+        ReactDOM.render(
+          <Provider store={configureStore({})}>
+            <React.Fragment>
+              <BrowserRouter basename={process.env.PUBLIC_URL}>
+                <LeftToolbarChunk calendarRef={calendarRef} staff={staff} />
+              </BrowserRouter>
+            </React.Fragment>
+          </Provider>,
+          leftToolbarContainer
+        );
+      }
+    }
+
+    if (centerToolbarChunk) {
+      let centerToolbarContainer = centerToolbarChunk.querySelector(".fc-header-toolbar-left");
+
+      if (!centerToolbarContainer) {
+        centerToolbarContainer = document.createElement("span");
+        centerToolbarContainer.className = "fc-header-toolbar-left";
+        centerToolbarChunk.appendChild(centerToolbarContainer);
+
+        // Wrap the component in a Provider with the store
+        ReactDOM.render(
+          <Provider store={configureStore({})}>
+            <React.Fragment>
+              <BrowserRouter basename={process.env.PUBLIC_URL}>
+                <CenterToolbarChunk calendarRef={calendarRef} />
+              </BrowserRouter>
+            </React.Fragment>
+          </Provider>,
+          centerToolbarContainer
+        );
+      }
+    }
+  };
+
+  useEffect(() => {
+    renderCustomButtons();
+    const interval = setInterval(renderCustomButtons, 100);
+    return () => clearInterval(interval);
+  }, [renderCustomButtons]);
+
   const toggle = useCallback(() => {
-    if (modal) {
-      setModal(false);
+    console.log("you are toggling me");
+    if (bookingModal) {
+      setBookingModal("");
       setAppointment(null);
       setIsEdit(false);
     } else {
-      setModal(true);
+      setBookingModal("");
     }
-  }, [modal]);
+  }, [bookingModal]);
 
   // Handle Reebook
   const handleRebookCancel = () => {
     setIsRebook(false);
   };
 
+  console.log("bookingModal: ", bookingModal);
   const str_dt = function formatDate(date: any) {
     var monthNames = [
       "January",
@@ -124,8 +194,6 @@ const Calender = () => {
     toggle();
   };
 
-  const calendarRef = useRef(null);
-
   /**
    * Handling click on event on calendar
    */
@@ -160,7 +228,7 @@ const Calender = () => {
 
     setPopoverTarget(arg.el); // Use the event's element as the popover target
     // setIsPopoverOpen(true); // Open the popover
-    setBookingModal("quickInfo");
+    setBookingModal("quickInfoEvent");
     setIsEdit(true);
   }, []);
 
@@ -184,7 +252,7 @@ const Calender = () => {
     dispatch(updateAppointment(updatedAppointment));
   };
 
-  const fullCalendarOptions = createCalendarSettings();
+  const fullCalendarOptions = useFullCalendarSettings();
   return (
     <React.Fragment>
       {bookingMood === ("bookNextEvent" || "rescheduleEvent") && (
@@ -215,13 +283,13 @@ const Calender = () => {
         eventEl={popoverTarget}
         event={appointment}
         setAppointment={setAppointment}
-        isOpen={bookingModal}
-        toggle={() => setBookingModal("quickInfo")}
+        isOpen={bookingModal === "quickInfoEvent"}
+        toggle={toggle}
         setBookingModal={setBookingModal}
         setBookingMood={setBookingMood}
       />
-      <EventEditModal isOpen={bookingModal === "quickInfo"} toggle={toggle} appointment={appointment} isEdit={isEdit} />
-      <EventCancelModal modal={modal} toggle={toggle} appointment={appointment} isEdit={isEdit} />
+      <EventEditModal isOpen={bookingModal === "editEvent"} toggle={toggle} appointment={appointment} isEdit={isEdit} />
+      <EventCancelModal isOpen={bookingModal === "cancelEvent"} toggle={toggle} appointment={appointment} />
     </React.Fragment>
   );
 };

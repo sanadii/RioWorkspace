@@ -2,7 +2,7 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import listPlugin from "@fullcalendar/list";
-import momentTimezonePlugin from '@fullcalendar/moment-timezone'
+import momentTimezonePlugin from "@fullcalendar/moment-timezone";
 
 const plugins = [momentTimezonePlugin, dayGridPlugin, timeGridPlugin, interactionPlugin, listPlugin];
 const currentDate = new Date();
@@ -46,7 +46,6 @@ const CalendarSettings = {
     const meridiem = date.date.hour < 12 ? "am" : "pm"; // Determine meridiem based on the hour
     return `${hour}:${minute}${meridiem}`;
   },
-
 
   // Reset the scroll time to the initial value when the date changes
   //   scrollTimeReset: true,
@@ -92,46 +91,20 @@ const CalendarSettings = {
   //   },
   //   aspectRatio: 1, // Not Working yet
 };
-const ToolbarSettings = {
-  headerToolbar: {
-    left: "refresh print hide",
-    center: "prev,today,next",
-    right: "timeGridDay,timeGridWeek,dayGridMonth",
-  },
-  buttonText: {
-    timeGridDay: "Day",
-    timeGridWeek: "Week",
-    dayGridMonth: "Month",
-  },
-  buttonIcons: {
-    prev: "fa fa-angle-left",
-    next: "fa fa-angle-right",
-  },
-
-  footerToolbar: {
-    // Define the structure similar to headerToolbar
-    // Example: left: "customButton", right: "prev,next"
-  },
-};
 
 const ThemeSettings = {
   // View
   initialView: "timeGridWeek",
-
-  // Display or Hide
   allDaySlot: false, // Display All Day Slot
 
   // Header
-  // Determines whether to use sticky header dates
-  stickyHeaderDates: true,
-  // Determines whether to use sticky footer scrollbar
-  stickyFooterScrollbar: false,
-  // Height of the calendar view
-  viewHeight: "auto",
+  // stickyHeaderDates: true, // Determines whether to use sticky header dates
+  stickyFooterScrollbar: false, // Determines whether to use sticky footer scrollbar
+  viewHeight: "auto", // Height of the calendar view
 
   // Theme and styling
   handleWindowResize: true, // Allows the calendar to automatically resize when the window resizes
-  // themeSystem: "bootstrap",
+  // themeSystem: "standard",
   viewClassNames: "high-contrast", // Need to change this to higher than view
 
   expandRows: true, // Expands row heights to fill available height
@@ -199,4 +172,4 @@ const BusinessHours = {
   // ],
 };
 
-export { plugins, CalendarSettings, ToolbarSettings, ThemeSettings, EventDurationAndHeaders, BusinessHours };
+export { plugins, CalendarSettings, ThemeSettings, EventDurationAndHeaders, BusinessHours };

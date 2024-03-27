@@ -116,7 +116,7 @@ const EventEditModal = ({ isOpen, isEdit, toggle, appointment }) => {
     <React.Fragment>
       <Modal
         isOpen={isOpen}
-        // toggle={toggle}
+        toggle={toggle}
         centered
         size="lg"
         id="event-modal"

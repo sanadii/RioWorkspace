@@ -9,7 +9,7 @@ export type CalenderProps = {
 };
 
 export type BookingMoodProps = "" | "addNewEvent" | "editEvent" | "rescheduleEvent" | "bookNextEvent";
-export type BookingModalProps = "" | "quickInfo" | "editEvent" | "cancelEvent";
+export type BookingModalProps = "" | "quickInfoEvent" | "editEvent" | "cancelEvent";
 
 export type AppointmentItem = {
   id: number;

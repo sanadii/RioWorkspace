@@ -11,11 +11,13 @@ import listPlugin from "@fullcalendar/list";
 import {
   plugins,
   CalendarSettings,
-  ToolbarSettings,
   ThemeSettings,
   BusinessHours,
   EventDurationAndHeaders,
 } from "./GeneralSettings";
+
+import { ToolbarSettings } from "./CalendarToolbar/ToolbarSettings";
+import { useCalendarToolbar } from "./CalendarToolbar";
 import { CalendarToolbar } from "./CalendarToolbar";
 
 import { viewOptions } from "./ViewSettings";
@@ -33,13 +35,14 @@ const useFullCalendarSettings = () => {
   const dragAndDropSettings = DragAndDrop();
   const toolbarSettings = CalendarToolbar();
   // const { handleEventResize, handleEventDrag } = useCalendarEventHandlers();
+  const { customButtons } = useCalendarToolbar();
 
   // Define other settings and configurations for FullCalendar
   const fullCalendarOptions = {
     plugins,
-    // customButtons,
+    customButtons,
     ...CalendarSettings,
-    ...toolbarSettings,
+    // ...toolbarSettings,
     // View Settings
     ...viewOptions,
     // Event Settings
@@ -53,7 +56,6 @@ const useFullCalendarSettings = () => {
     ...SelectAndClickSettings,
     // ...onActions,
     ...dragAndDropSettings, // Spread the DragAndDrop settings
-
     // ...EventDurationAndHeaders,
     // ...WholeDaySettings,
 

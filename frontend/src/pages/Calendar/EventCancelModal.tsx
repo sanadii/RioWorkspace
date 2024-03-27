@@ -1,105 +1,106 @@
 import React from "react";
-import { Button, Form, Modal, ModalBody, ModalHeader, ModalFooter } from "reactstrap";
+import { Button, Modal, ModalBody, ModalHeader, ModalFooter, Alert, Input, Label } from "reactstrap";
+import Select from "react-select";
 import { formatServiceDate, findStaffNameById } from "Components/Hooks";
+import { useSelector } from "react-redux";
+import { appointmentsSelector } from "Selectors";
 
-// Redux
-import { useSelector, useDispatch } from "react-redux";
-import { appointmentsSelector, clientsSelector } from "Selectors";
+const cancelationReasonOptions = [
+  { value: 1, label: "Did not specify" },
+  { value: 2, label: "Other commitments" },
+  { value: 3, label: "Not necessary now" },
+  { value: 4, label: "Did not show" },
+  { value: 4, label: "Appointment made in error" },
+  { value: 4, label: "Other" },
+];
 
-const EventCancelModal = ({ modal, isEdit, toggle, appointment }) => {
-  const { services, staff } = useSelector(appointmentsSelector);
+const EventCancelModal = ({ isOpen, toggle, appointment }) => {
+  const { staff } = useSelector(appointmentsSelector);
   const appointmentServices = appointment?.services;
-  console.log("appointmentServices: ", appointmentServices);
 
   return (
+    <Modal
+      isOpen={isOpen}
+      toggle={toggle}
+      centered
+      size="md"
+      id="event-modal"
+      className="border-0 modal fadeInLeft zoomIn"
+    >
+      <ModalHeader toggle={toggle} tag="h5" className="booking-modal__header">
+        Cancel Appointment
+      </ModalHeader>
+      <ModalBody className="booking-modal__body">
+        <Label className="form-label bold">The following services will be cancelled:</Label>
+        {appointmentServices && appointmentServices.length > 1 && (
+          <ServiceList services={appointmentServices} staff={staff} />
+        )}
+        <CancellationReasonSelect />
+        <DeleteAlert />
+      </ModalBody>
+      <ModalFooter>
+        <Button className="btn btn-padded btn-light" onClick={toggle}>
+          Close
+        </Button>
+        <Button className="btn btn-padded btn-danger" name="commit" type="submit" onClick={toggle}>
+          Cancel appointment
+        </Button>
+      </ModalFooter>
+    </Modal>
+  );
+};
+
+const ServiceList = ({ services, staff }) => {
+  return (
     <React.Fragment>
-      <Modal
-        isOpen={modal}
-        // toggle={toggle}
-        centered
-        size="md"
-        id="event-modal"
-        className="border-0"
-        modalClassName="modal fadeInLeft zoomIn"
-      >
-        <ModalHeader toggle={toggle} tag="h5" className="booking-modal__header">
-          Cancel Appointment
-        </ModalHeader>
+      {services.map((service) => {
+        const serviceStaffName = findStaffNameById(service.staff, staff);
+        const formattedServiceDate = formatServiceDate(service);
 
-        <ModalBody className="booking-modal__body">
-          <div>
-            <h3>The following services will be cancelled:</h3>
-
-            {appointmentServices && appointmentServices.length > 1 && appointmentServices.map((service) => (
-              <ServiceEntry key={service.id} service={service} staff={staff} />
-            ))}
-          </div>
-          <div className="form-group ">
-            <label>Reason for cancellation</label>
-            <select
-              className="form-control booking-confirmation-status"
-              id="BookingCancellationReasonId"
-              name="BookingCancellationReasonId"
-            >
-              <option value="1">Did not specify</option>
-              <option value="2">Other commitments</option>
-              <option value="3">Not necessary now</option>
-              <option value="4">Did not show</option>
-              <option value="5">Appointment made in error</option>
-              <option value="6">Other</option>
-            </select>
-          </div>
-          {/* <div className="form-group">
-            <p className="form-control-static">
-              <a href="/Settings/BusinessCalendar#cancel">
-                Add cancellation reasons&nbsp;
-                <i className="fa ri-arrow-right-s-line"></i>
-              </a>
-            </p>
-          </div> */}
-
-          <div className="alert alert-info">
-            <div>
-              <strong>Do you want to permanently delete this appointment?</strong>
-              <br />
-              No email notifications will be sent to customers.
-            </div>
-            <div className="checkbox">
-              <label htmlFor="DeleteBooking">
-                <input id="DeleteBooking" name="DeleteBooking" type="checkbox" value="true" />
-                <input type="hidden" name="DeleteBooking" value="false" />
-                Permanently delete
-                <a
-                  href="#"
-                  rel="popover"
-                  data-content="Ticking this box will remove the record of this appointment from the customer's appointment history and will not show the booking in reports. No email notifications will be sent to customers."
-                  data-original-title="Delete appointment record"
-                  className="tip-init"
-                >
-                  <i className="fa fa-question-circle"></i>
-                </a>
-              </label>
-            </div>
-          </div>
-        </ModalBody>
-      </Modal>
+        return (
+          <ul className="ps-4" key={service.id}>
+            <li>
+              <b>{service.name}</b> <br />
+              with {serviceStaffName} {formattedServiceDate}
+            </li>
+          </ul>
+        );
+      })}
     </React.Fragment>
   );
 };
 
-const ServiceEntry = ({ service, staff }) => {
-  const serviceStaffName = findStaffNameById(service.staff, staff);
-  const formattedServiceDate = formatServiceDate(service);
+const CancellationReasonSelect = () => (
+  <div className="form-group pb-3">
+    <Label className="form-label bold">Reason for cancellation</Label>
+    <Select aria-label="Default select example" options={cancelationReasonOptions} />
+  </div>
+);
 
-  return (
-    <React.Fragment>
-      <ul>
-        <li>
-          {service.name} with <b>{serviceStaffName}</b> {formattedServiceDate}
-        </li>
-      </ul>
-    </React.Fragment>
-  );
-};
+const DeleteAlert = () => (
+  <Alert color="info" className="alert-additional material-shadow">
+    <div className="alert-body">
+      <div className="d-flex">
+        <div className="flex-shrink-0 me-3">
+          <i className="ri-error-warning-line fs-24 align-middle"></i>
+        </div>
+        <div className="flex-grow-1">
+          <b className="alert-heading">Do you want to permanently delete this appointment?</b>
+          <p className="mb-0"> No email notifications will be sent to customers. . </p>
+        </div>
+      </div>
+    </div>
+
+    <div className="alert-content">
+      <div className="form-check">
+        <Input className="form-check-input" type="checkbox" id="formCheck1" />
+        <Label className="form-check-label" for="formCheck1">
+          Permanently delete
+        </Label>
+        <i className="fa fa-question-circle"></i>
+      </div>
+    </div>
+  </Alert>
+);
 
 export default EventCancelModal;
