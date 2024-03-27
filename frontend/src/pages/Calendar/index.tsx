@@ -26,6 +26,9 @@ const Calender = () => {
 
   // Data
   const calendarRef = useRef(null);
+  const calendarApi = calendarRef?.current?.getApi();
+  console.log("calendarApi: index:", calendarApi);
+
   const { appointments, staff } = useSelector(appointmentsSelector);
   const [appointment, setAppointment] = useState<any>({});
   const [bookingMood, setBookingMood] = useState<BookingMoodProps>("");
@@ -251,7 +254,7 @@ const Calender = () => {
     };
     dispatch(updateAppointment(updatedAppointment));
   };
-
+  console.log("calendarRef:: ", calendarRef);
   const fullCalendarOptions = useFullCalendarSettings();
   return (
     <React.Fragment>
