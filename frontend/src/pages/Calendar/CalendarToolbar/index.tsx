@@ -9,8 +9,6 @@ import Select from "react-select";
 import {
   Button,
   ButtonGroup,
-  Popover,
-  PopoverBody,
   Dropdown,
   DropdownItem,
   DropdownMenu,
@@ -51,14 +49,15 @@ const TimePeriodDropdown = ({ calendarApi, direction }) => {
   );
 };
 
-const LeftToolbarChunk = ({ calendarRef, staff, showLeftSidebar, setShowLeftSidebar }) => {
+const LeftToolbarChunk = ({ calendarRef, staff, showLeftSidebar, setShowLeftSidebar, toggLeLeftSidebar }) => {
+  const [localShowLeftSidebar, setLocalShowLeftSidebar] = useState(true); // or false, based on initial visibility
+
   console.log("showLeftSidebar: ", showLeftSidebar);
   const [selectedSingle, setSelectedSingle] = useState<any>(null);
   const [selectedStaff, setSelectedStaff] = useState("all-rostered");
 
-  const toggleLeftSidebar = () => {
-    console.log("we are toggling", showLeftSidebar);
-    setShowLeftSidebar(true);
+  const toggLocalLeLeftSidebar = () => {
+    setLocalShowLeftSidebar(!localShowLeftSidebar);
   };
 
   function handleSelectSingle(selectedSingle: any) {
@@ -77,7 +76,7 @@ const LeftToolbarChunk = ({ calendarRef, staff, showLeftSidebar, setShowLeftSide
   return (
     <React.Fragment>
       <div className="hstack gap-1">
-        <Button className="btn-sm tip-init" title="Print calendar to report" onClick={(e) => toggleLeftSidebar()}>
+        <Button className="btn-sm tip-init" title="Print calendar to report" onClick={toggLeLeftSidebar}>
           <i className={`mdi mdi-arrow-collapse-${showLeftSidebar ? "right" : "left"}`}></i>
         </Button>
         <Select

@@ -1,4 +1,10 @@
 import React, { useEffect, useState, useRef, useCallback } from "react";
+import { createRoot } from "react-dom/client"; // Import createRoot
+import { Provider } from "react-redux";
+import { BrowserRouter } from "react-router-dom";
+import { configureStore } from "store";
+import { createPortal } from "react-dom";
+
 import { CalenderProps, BookingModalProps, BookingMoodProps } from "types";
 
 // Redux
@@ -17,10 +23,6 @@ import EventCancelModal from "./EventCancelModal";
 import EventQuickInfo from "./EventQuickInfo";
 
 import { Row, Col, UncontrolledAlert } from "reactstrap";
-import ReactDOM from "react-dom";
-import { Provider } from "react-redux";
-import { BrowserRouter } from "react-router-dom";
-import { configureStore } from "store";
 
 const Calender = () => {
   const dispatch: any = useDispatch();
@@ -41,7 +43,13 @@ const Calender = () => {
   const [isRebook, setIsRebook] = useState<boolean>(false);
   const [selectedNewDay, setSelectedNewDay] = useState<any>();
 
-  const [showLeftSidebar, setShowLeftSidebar] = useState<boolean>(null);
+  const [showLeftSidebar, setShowLeftSidebar] = useState(true); // or false, based on initial visibility
+  console.log("we are toggling", showLeftSidebar);
+
+  const toggLeLeftSidebar = () => {
+    setShowLeftSidebar(!showLeftSidebar);
+  };
+
   //
   // getDate
   //
@@ -53,60 +61,90 @@ const Calender = () => {
    * Handling the modal state
    */
 
+  const calendarWrapperRef = useRef(null);
+
+  // useEffect(() => {
+  //   if (calendarWrapperRef.current) {
+  //     const headerToolbar = calendarWrapperRef.current.querySelector(".fc-header-toolbar");
+  //     const headerToolbarChild = headerToolbar?.querySelector(".fc-toolbar-chunk");
+  //     console.log("headerToolbar: ", headerToolbar);
+  //     console.log("headerToolbarChild: ", headerToolbarChild);
+
+  //     if (headerToolbarChild) {
+  //       headerToolbar.removeChild(headerToolbarChild);
+  //     }
+  //   }
+  // }, []);
+
+  const [leftToolbarContainer, setLeftToolbarContainer] = useState(null);
+  const [centerToolbarContainer, setCenterToolbarContainer] = useState(null);
+
   useEffect(() => {
     const leftToolbarChunk = document.querySelector(".fc-toolbar .fc-toolbar-chunk:first-child");
     const centerToolbarChunk = document.querySelector(".fc-toolbar .fc-toolbar-chunk:nth-child(2)");
+    const RightToolbarChunk = document.querySelector(".fc-toolbar .fc-toolbar-chunk:nth-child(3)");
 
-    // Ensure the left toolbar chunk exists
-    if (leftToolbarChunk) {
-      let leftToolbarContainer = leftToolbarChunk.querySelector(".fc-header-toolbar-left");
-
-      if (!leftToolbarContainer) {
-        leftToolbarContainer = document.createElement("span");
-        leftToolbarContainer.className = "fc-header-toolbar-left";
-        leftToolbarChunk.appendChild(leftToolbarContainer);
-
-        // Wrap the component in a Provider with the store
-        ReactDOM.render(
-          <Provider store={configureStore({})}>
-            <React.Fragment>
-              <BrowserRouter basename={process.env.PUBLIC_URL}>
-                <LeftToolbarChunk
-                  calendarRef={calendarRef}
-                  staff={staff}
-                  showLeftSidebar={showLeftSidebar}
-                  setShowLeftSidebar={setShowLeftSidebar}
-                />
-              </BrowserRouter>
-            </React.Fragment>
-          </Provider>,
-          leftToolbarContainer
-        );
-      }
+    if (leftToolbarChunk && !leftToolbarChunk.querySelector(".fc-header-toolbar-left")) {
+      const container = document.createElement("span");
+      container.className = "fc-header-toolbar-left";
+      leftToolbarChunk.appendChild(container);
+      setLeftToolbarContainer(container);
     }
 
-    if (centerToolbarChunk) {
-      let centerToolbarContainer = centerToolbarChunk.querySelector(".fc-header-toolbar-left");
-
-      if (!centerToolbarContainer) {
-        centerToolbarContainer = document.createElement("span");
-        centerToolbarContainer.className = "fc-header-toolbar-left";
-        centerToolbarChunk.appendChild(centerToolbarContainer);
-
-        // Wrap the component in a Provider with the store
-        ReactDOM.render(
-          <Provider store={configureStore({})}>
-            <React.Fragment>
-              <BrowserRouter basename={process.env.PUBLIC_URL}>
-                <CenterToolbarChunk calendarRef={calendarRef} />
-              </BrowserRouter>
-            </React.Fragment>
-          </Provider>,
-          centerToolbarContainer
-        );
-      }
+    if (centerToolbarChunk && !centerToolbarChunk.querySelector(".fc-header-toolbar-center")) {
+      const container = document.createElement("span");
+      container.className = "fc-header-toolbar-center";
+      centerToolbarChunk.appendChild(container);
+      setCenterToolbarContainer(container);
     }
   }, []);
+
+  // useEffect(() => {
+  //   const leftToolbarChunk = document.querySelector(".fc-toolbar .fc-toolbar-chunk:first-child");
+  //   const centerToolbarChunk = document.querySelector(".fc-toolbar .fc-toolbar-chunk:nth-child(2)");
+
+  //   if (leftToolbarChunk) {
+  //     let leftToolbarContainer = leftToolbarChunk.querySelector(".fc-header-toolbar-left");
+  //     if (!leftToolbarContainer) {
+  //       leftToolbarContainer = document.createElement("span");
+  //       leftToolbarContainer.className = "fc-header-toolbar-left";
+  //       leftToolbarChunk.appendChild(leftToolbarContainer);
+
+  //       const root = createRoot(leftToolbarContainer); // Create a root
+  //       root.render(
+  //         <Provider store={configureStore({})}>
+  //           <BrowserRouter basename={process.env.PUBLIC_URL}>
+  //             <LeftToolbarChunk
+  //               calendarRef={calendarRef}
+  //               staff={staff}
+  //               showLeftSidebar={showLeftSidebar}
+  //               setShowLeftSidebar={setShowLeftSidebar}
+  //               toggLeLeftSidebar={toggLeLeftSidebar}
+  //             />
+  //           </BrowserRouter>
+  //         </Provider>
+  //       );
+  //     }
+  //   }
+
+  //   if (centerToolbarChunk) {
+  //     let centerToolbarContainer = centerToolbarChunk.querySelector(".fc-header-toolbar-left");
+  //     if (!centerToolbarContainer) {
+  //       centerToolbarContainer = document.createElement("span");
+  //       centerToolbarContainer.className = "fc-header-toolbar-left";
+  //       centerToolbarChunk.appendChild(centerToolbarContainer);
+
+  //       const root = createRoot(centerToolbarContainer); // Create a root
+  //       root.render(
+  //         <Provider store={configureStore({})}>
+  //           <BrowserRouter basename={process.env.PUBLIC_URL}>
+  //             <CenterToolbarChunk calendarRef={calendarRef} />
+  //           </BrowserRouter>
+  //         </Provider>
+  //       );
+  //     }
+  //   }
+  // }, [calendarRef, staff]);
 
   const toggle = useCallback(() => {
     console.log("you are toggling me");
@@ -257,15 +295,30 @@ const Calender = () => {
           </Col>
         )}
         <Col lg={showLeftSidebar ? 10 : 12}>
-          <FullCalendar
-            ref={calendarRef}
-            events={appointments}
-            dateClick={handleDateClick}
-            eventClick={handleEventClick}
-            eventResize={handleEventResize}
-            eventDrop={handleEventDrop}
-            {...fullCalendarOptions}
-          />
+          <div ref={calendarWrapperRef}>
+            <FullCalendar
+              ref={calendarRef}
+              events={appointments}
+              dateClick={handleDateClick}
+              eventClick={handleEventClick}
+              eventResize={handleEventResize}
+              eventDrop={handleEventDrop}
+              {...fullCalendarOptions}
+            />
+          </div>
+          {leftToolbarContainer &&
+            createPortal(
+              <LeftToolbarChunk
+                calendarRef={calendarRef}
+                staff={staff}
+                showLeftSidebar={showLeftSidebar}
+                setShowLeftSidebar={setShowLeftSidebar}
+                toggLeLeftSidebar={toggLeLeftSidebar}
+              />,
+              leftToolbarContainer
+            )}
+          {centerToolbarContainer &&
+            createPortal(<CenterToolbarChunk calendarRef={calendarRef} />, centerToolbarContainer)}
         </Col>
       </Row>
 
