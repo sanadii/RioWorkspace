@@ -51,9 +51,15 @@ const TimePeriodDropdown = ({ calendarApi, direction }) => {
   );
 };
 
-const LeftToolbarChunk = (calendarRef, staff) => {
+const LeftToolbarChunk = ({ calendarRef, staff, showLeftSidebar, setShowLeftSidebar }) => {
+  console.log("showLeftSidebar: ", showLeftSidebar);
   const [selectedSingle, setSelectedSingle] = useState<any>(null);
   const [selectedStaff, setSelectedStaff] = useState("all-rostered");
+
+  const toggleLeftSidebar = () => {
+    console.log("we are toggling", showLeftSidebar);
+    setShowLeftSidebar(true);
+  };
 
   function handleSelectSingle(selectedSingle: any) {
     setSelectedSingle(selectedSingle);
@@ -71,8 +77,8 @@ const LeftToolbarChunk = (calendarRef, staff) => {
   return (
     <React.Fragment>
       <div className="hstack gap-1">
-        <Button className="btn-sm tip-init" title="Print calendar to report">
-          <i className="mdi mdi-arrow-collapse-left"></i>
+        <Button className="btn-sm tip-init" title="Print calendar to report" onClick={(e) => toggleLeftSidebar()}>
+          <i className={`mdi mdi-arrow-collapse-${showLeftSidebar ? "right" : "left"}`}></i>
         </Button>
         <Select
           value={selectedSingle}

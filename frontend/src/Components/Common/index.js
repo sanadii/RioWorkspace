@@ -23,6 +23,7 @@ export { default as MyCartDropdown } from "./Components/MyCartDropdown";
 export { default as NotificationDropdown } from "./Components/NotificationDropdown";
 export { default as LightDark } from "./Components/LightDark";
 export { default as FullScreenDropdown } from "./Components/FullScreenDropdown";
+export { default as Spinners } from "./Components/Spinner";
 
 
 // Images and SVGs

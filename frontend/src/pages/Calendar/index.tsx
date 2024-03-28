@@ -4,18 +4,19 @@ import { CalenderProps, BookingModalProps, BookingMoodProps } from "types";
 // Redux
 import { useDispatch, useSelector } from "react-redux";
 import { appointmentsSelector } from "Selectors";
+import { getSchedule, updateAppointment } from "store/actions";
 
 // Calendar
 import FullCalendar from "@fullcalendar/react";
 import useFullCalendarSettings from "./CalendarSettings"; // Adjust the path as needed
-import { getSchedule, updateAppointment } from "store/actions";
 
 import { LeftToolbarChunk, CenterToolbarChunk } from "./CalendarToolbar";
+import CalendarLeftSidebar from "./CalendarLeftSidebar";
 import EventEditModal from "./EventEditModal";
 import EventCancelModal from "./EventCancelModal";
 import EventQuickInfo from "./EventQuickInfo";
 
-import { UncontrolledAlert } from "reactstrap";
+import { Row, Col, UncontrolledAlert } from "reactstrap";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
@@ -40,6 +41,7 @@ const Calender = () => {
   const [isRebook, setIsRebook] = useState<boolean>(false);
   const [selectedNewDay, setSelectedNewDay] = useState<any>();
 
+  const [showLeftSidebar, setShowLeftSidebar] = useState<boolean>(null);
   //
   // getDate
   //
@@ -51,18 +53,9 @@ const Calender = () => {
    * Handling the modal state
    */
 
-  const renderCustomButtons = () => {
+  useEffect(() => {
     const leftToolbarChunk = document.querySelector(".fc-toolbar .fc-toolbar-chunk:first-child");
     const centerToolbarChunk = document.querySelector(".fc-toolbar .fc-toolbar-chunk:nth-child(2)");
-    // const centerToolbarChunk = document.querySelector(".fc-toolbar .fc-toolbar-chunk:nth-child(2) .fc-today-button");
-    const rightToolbarChunk = document.querySelector(".fc-toolbar .fc-toolbar-chunk:last-child");
-
-    const refreshButton = document.querySelector(".fc-refresh-button");
-    const prevButton = document.querySelector(".fc-prev-button");
-    const jumpLeftButton = document.querySelector(".fc-jump-left-button");
-    const jumpRightButton = document.querySelector(".fc-jump-right-button");
-    const todayButton = document.querySelector(".fc-today-button");
-    const headerTitle = document.querySelector(".fc-header-title-button");
 
     // Ensure the left toolbar chunk exists
     if (leftToolbarChunk) {
@@ -78,7 +71,12 @@ const Calender = () => {
           <Provider store={configureStore({})}>
             <React.Fragment>
               <BrowserRouter basename={process.env.PUBLIC_URL}>
-                <LeftToolbarChunk calendarRef={calendarRef} staff={staff} />
+                <LeftToolbarChunk
+                  calendarRef={calendarRef}
+                  staff={staff}
+                  showLeftSidebar={showLeftSidebar}
+                  setShowLeftSidebar={setShowLeftSidebar}
+                />
               </BrowserRouter>
             </React.Fragment>
           </Provider>,
@@ -108,13 +106,7 @@ const Calender = () => {
         );
       }
     }
-  };
-
-  useEffect(() => {
-    renderCustomButtons();
-    const interval = setInterval(renderCustomButtons, 100);
-    return () => clearInterval(interval);
-  }, [renderCustomButtons]);
+  }, []);
 
   const toggle = useCallback(() => {
     console.log("you are toggling me");
@@ -258,6 +250,25 @@ const Calender = () => {
   const fullCalendarOptions = useFullCalendarSettings();
   return (
     <React.Fragment>
+      <Row>
+        {showLeftSidebar && (
+          <Col lg={2}>
+            <CalendarLeftSidebar />
+          </Col>
+        )}
+        <Col lg={showLeftSidebar ? 10 : 12}>
+          <FullCalendar
+            ref={calendarRef}
+            events={appointments}
+            dateClick={handleDateClick}
+            eventClick={handleEventClick}
+            eventResize={handleEventResize}
+            eventDrop={handleEventDrop}
+            {...fullCalendarOptions}
+          />
+        </Col>
+      </Row>
+
       {bookingMood === ("bookNextEvent" || "rescheduleEvent") && (
         <BookAnotherAppointment bookingMood={bookingMood} setBookingMood={setBookingMood} appointment={appointment} />
       )}
@@ -273,15 +284,6 @@ const Calender = () => {
         </UncontrolledAlert>
       )}
 
-      <FullCalendar
-        ref={calendarRef}
-        events={appointments}
-        dateClick={handleDateClick}
-        eventClick={handleEventClick}
-        eventResize={handleEventResize}
-        eventDrop={handleEventDrop}
-        {...fullCalendarOptions}
-      />
       <EventQuickInfo
         eventEl={popoverTarget}
         event={appointment}

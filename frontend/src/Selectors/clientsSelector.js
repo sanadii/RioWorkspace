@@ -13,6 +13,7 @@ export const clientsSelector = createSelector(
     clientInfo: clientsSelector.clients,
     isClientSuccess: clientsSelector.isClientSuccess,
     error: clientsSelector.error,
+    loading: clientsSelector.loading,
 
   })
 );

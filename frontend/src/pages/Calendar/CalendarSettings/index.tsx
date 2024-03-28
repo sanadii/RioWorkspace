@@ -17,8 +17,8 @@ import {
 } from "./GeneralSettings";
 
 import { ToolbarSettings } from "./CalendarToolbar/ToolbarSettings";
-import { useCalendarToolbar } from "./CalendarToolbar";
-import { CalendarToolbar } from "./CalendarToolbar";
+// import { useCalendarToolbar } from "./CalendarToolbar";
+// import { CalendarToolbar } from "./CalendarToolbar";
 
 import { viewOptions } from "./ViewSettings";
 import SlotRenderHooks from "./SlotRenderHooks";
@@ -33,14 +33,14 @@ import useCalendarEventHandlers from "./EventOptions/useCalendarEventHandlers";
 
 const useFullCalendarSettings = () => {
   const dragAndDropSettings = DragAndDrop();
-  const toolbarSettings = CalendarToolbar();
+  // const toolbarSettings = CalendarToolbar();
   // const { handleEventResize, handleEventDrag } = useCalendarEventHandlers();
-  const { customButtons } = useCalendarToolbar();
+  // const { customButtons } = useCalendarToolbar();
 
   // Define other settings and configurations for FullCalendar
   const fullCalendarOptions = {
     plugins,
-    customButtons,
+    // customButtons,
     ...CalendarSettings,
     // ...toolbarSettings,
     // View Settings
