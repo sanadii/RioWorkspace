@@ -7,8 +7,7 @@ export * from "./auth/users/action";
 
 // Layout
 export * from "./layouts/action";
-export * from "./settingChoices/action";
-export * from "./settingOptions/action";
+export * from "./settings/action";
 
 // Calendar
 export * from "./calendar/actions";

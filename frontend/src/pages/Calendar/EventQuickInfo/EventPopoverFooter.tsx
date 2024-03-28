@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import { Button, ButtonGroup } from "reactstrap";
+import { useNavigate } from 'react-router-dom';
 
 // Redux
 import { useDispatch, useSelector } from "react-redux";
@@ -7,6 +8,8 @@ import { updateAppointment } from "store/actions";
 
 const EventPopoverFooter = ({ event, setAppointment, toggle, setBookingModal, setBookingMood }) => {
   const dispatch: any = useDispatch();
+  const navigate = useNavigate();
+
   const [localEvent, setLocalEvent] = useState(event);
   const appointmentStatus = localEvent.status;
   const isInvoiced = false;
@@ -48,6 +51,17 @@ const EventPopoverFooter = ({ event, setAppointment, toggle, setBookingModal, se
     setLocalEvent({ ...updatedAppointment });
     dispatch(updateAppointment(updatedAppointment));
   };
+
+  // Handles the Checkout (closing the dialogue)
+  const handleCheckOutClick = () => {
+    const appointmentId = event?.id;
+    // const clientId = scheduleObj.current.activeEventData?.event.client.id;
+
+    navigate(`/invoice?appointmentId=${appointmentId}`);
+    toggle("");
+  };
+
+  // Handle different button actions
 
   return (
     <React.Fragment>
@@ -148,6 +162,7 @@ const EventPopoverFooter = ({ event, setAppointment, toggle, setBookingModal, se
                 className="btn-primary material-shadow-none w-100"
                 data-booking-id="387979370"
                 data-group-id="308932365"
+                onClick={(e) => handleCheckOutClick()}
               >
                 Checkout
               </Button>

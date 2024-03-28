@@ -18,7 +18,7 @@ const Summary: React.FC<SummaryProps> = ({
 }) => {
   const dispatch = useDispatch();
 
-  console.log("invoiceItemList:???  ", invoiceItemList)
+  console.log("invoiceItemList:???  ", invoiceItemList);
   const appointmentStartTime = appointment.startTime;
   const clientName = appointment.client?.name;
   const clientMobile = appointment.client?.mobile;
@@ -53,13 +53,13 @@ const Summary: React.FC<SummaryProps> = ({
     }
     return items.reduce((total, item) => total + parseFloat(item.price || 0), 0);
   };
-  
+
   // Calculate total prices for services, packages, and products
   const totalServicePrice = calculateTotalPrice(invoiceItemList.serviceList);
   const totalPackagePrice = calculateTotalPrice(invoiceItemList.packageList);
   const totalProductPrice = calculateTotalPrice(invoiceItemList.productList);
   const totalVoucherPrice = calculateTotalPrice(invoiceItemList.voucherList);
-  
+
   // Calculate overall total
   const overallTotal = totalServicePrice + totalPackagePrice + totalProductPrice;
 
@@ -126,11 +126,7 @@ const Summary: React.FC<SummaryProps> = ({
         </div>
 
         <div className="sale__summary-items">
-          <SummaryItemList
-            invoiceItemList={invoiceItemList}
-            onItemClick={handleItemSelectionClick}
-          />
-
+          <SummaryItemList invoiceItemList={invoiceItemList} onItemClick={handleItemSelectionClick} />
         </div>
         <div className="sale__summary-actions">
           <div className="sale__summary-actions-more">

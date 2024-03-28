@@ -110,21 +110,7 @@ const CalendarLeftSidebar = () => {
   return (
     <React.Fragment>
       <div className="chat-leftsidebar">
-        <div className="px-4 pt-4 mb-3">
-          <div className="d-flex align-items-start">
-            <div className="flex-grow-1">
-              <h5 className="mb-4">Clients</h5>
-            </div>
-            <div className="flex-shrink-0">
-              <UncontrolledTooltip placement="bottom" target="addcontact">
-                Add Contact
-              </UncontrolledTooltip>
-
-              <Button color="" id="addcontact" className="btn btn-soft-success btn-sm shadow-none">
-                <i className="ri-add-line align-bottom"></i>
-              </Button>
-            </div>
-          </div>
+        <div className="px-4 pt-2 mb-2">
           <div className="search-box">
             <input
               // onKeyUp={searchUsers}
@@ -187,50 +173,273 @@ const CalendarLeftSidebar = () => {
                   </div>
                 </div>
 
-                <div className="chat-message-list">
-                  <ul className="list-unstyled chat-list chat-user-list users-list" id="userList">
-                    <div className="appointment">
-                      <span className="header">
-                        <a href="#" className="title" data-bind="text : customerName, click : $root.selectCustomer">
-                          Katherine Taglivia
-                        </a>
+                <div className="chat-message-list p-4">
+                  <div
+                    id="future-appointments"
+                    data-bind="visible: futureAppointments().any"
+                    // style=""
+                  >
+                    <h4>Coming up:</h4>
+                    <div data-bind="foreach: futureAppointments().groupings">
+                      <div className="day">
+                        <h6 data-bind="text: dayFormatted, visible : $parent.futureAppointments().showDayHeadings">
+                          Thursday, 28 March 2024
+                        </h6>
+                        <div data-bind="template: { name : $root.resolveAppointmentTemplate, foreach: appointments }">
+                          <div className="appointment">
+                            <span className="header">
+                              <a
+                                href="#"
+                                className="title"
+                                data-bind="text : customerName, click : $root.selectCustomer"
+                              >
+                                Khadeja Mukthar
+                              </a>
 
-                        <i
-                          className="fa fa-refresh tip-init"
-                          data-bind="visible : isRecurring, tooltip: {'title': 'Recurring'}"
-                          // style="display: none;"
-                          data-original-title=""
-                        ></i>
-                        <i
-                          className="fa fa-cloud tip-init"
-                          data-bind="visible : isOnlineBooking, tooltip: {'title': 'Booked online'}"
-                          // style="display: none;"
-                          data-original-title=""
-                        ></i>
-                      </span>
-                      <div data-bind="foreach: items">
-                        <div
-                          className="item"
-                          data-bind="style: { 'border-color': serviceUIColor }"
-                          // style="border-color: rgb(27, 188, 157);"
-                        >
-                          <a
-                            href="/calendar?bookingid=392504149"
-                            className="show-booking"
-                            data-close-flexpane-on-click=""
-                            data-bind="visible: $index() == 0, attr: { 'data-date': startDate, 'data-booking-id': bookingId, href : '/calendar?bookingid=' + bookingId }"
-                            data-date="2024-03-29T15:00:00.0000000"
-                            data-booking-id="392504149"
-                          >
-                            <i className="fa fa-calendar fa-2x"></i>
-                          </a>
-                          <span data-bind="text : serviceName">Brazilian Hair Straightening - Long</span> with{" "}
-                          <span data-bind="text : staffName">Laura .</span> at{" "}
-                          <span data-bind="text : startTime">3:00pm</span>
+                              <i
+                                className="fa fa-refresh tip-init"
+                                data-bind="visible : isRecurring, tooltip: {'title': 'Recurring'}"
+                                // style="display: none;"
+                                data-original-title=""
+                              ></i>
+                              <i
+                                className="fa fa-cloud tip-init"
+                                data-bind="visible : isOnlineBooking, tooltip: {'title': 'Booked online'}"
+                                // style="display: none;"
+                                data-original-title=""
+                              ></i>
+                            </span>
+                            <div data-bind="foreach: items">
+                              <div
+                                className="item"
+                                data-bind="style: { 'border-color': serviceUIColor }"
+                                // style="border-color: rgb(27, 188, 157);"
+                              >
+                                <a
+                                  href="/calendar?bookingid=393237147"
+                                  className="show-booking"
+                                  data-close-flexpane-on-click=""
+                                  data-bind="visible: $index() == 0, attr: { 'data-date': startDate, 'data-booking-id': bookingId, href : '/calendar?bookingid=' + bookingId }"
+                                  data-date="2024-03-28T20:00:00.0000000"
+                                  data-booking-id="393237147"
+                                >
+                                  <i className="mdi mdi-calendar-month"></i>
+                                </a>
+                                <span data-bind="text : serviceName">Consult - Straightening</span> with{" "}
+                                <span data-bind="text : staffName">Laura .</span> at{" "}
+                                <span data-bind="text : startTime">8:00pm</span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="day">
+                        <h6 data-bind="text: dayFormatted, visible : $parent.futureAppointments().showDayHeadings">
+                          Friday, 29 March 2024
+                        </h6>
+                        <div data-bind="template: { name : $root.resolveAppointmentTemplate, foreach: appointments }">
+                          <div className="appointment">
+                            <span className="header">
+                              <a
+                                href="#"
+                                className="title"
+                                data-bind="text : customerName, click : $root.selectCustomer"
+                              >
+                                Katherine Taglivia
+                              </a>
+
+                              <i
+                                className="fa fa-refresh tip-init"
+                                data-bind="visible : isRecurring, tooltip: {'title': 'Recurring'}"
+                                // style="display: none;"
+                                data-original-title=""
+                              ></i>
+                              <i
+                                className="fa fa-cloud tip-init"
+                                data-bind="visible : isOnlineBooking, tooltip: {'title': 'Booked online'}"
+                                // style="display: none;"
+                                data-original-title=""
+                              ></i>
+                            </span>
+                            <div data-bind="foreach: items">
+                              <div
+                                className="item"
+                                data-bind="style: { 'border-color': serviceUIColor }"
+                                // style="border-color: rgb(27, 188, 157);"
+                              >
+                                <a
+                                  href="/calendar?bookingid=392504149"
+                                  className="show-booking"
+                                  data-close-flexpane-on-click=""
+                                  data-bind="visible: $index() == 0, attr: { 'data-date': startDate, 'data-booking-id': bookingId, href : '/calendar?bookingid=' + bookingId }"
+                                  data-date="2024-03-29T15:00:00.0000000"
+                                  data-booking-id="392504149"
+                                >
+                                  <i className="mdi mdi-calendar-month"></i>
+                                </a>
+                                <span data-bind="text : serviceName">Brazilian Hair Straightening - Long</span> with{" "}
+                                <span data-bind="text : staffName">Laura .</span> at{" "}
+                                <span data-bind="text : startTime">3:00pm</span>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div className="appointment">
+                            <span className="header">
+                              <a
+                                href="#"
+                                className="title"
+                                data-bind="text : customerName, click : $root.selectCustomer"
+                              >
+                                Nada{" "}
+                              </a>
+
+                              <i
+                                className="fa fa-refresh tip-init"
+                                data-bind="visible : isRecurring, tooltip: {'title': 'Recurring'}"
+                                // style="display: none;"
+                                data-original-title=""
+                              ></i>
+                              <i
+                                className="fa fa-cloud tip-init"
+                                data-bind="visible : isOnlineBooking, tooltip: {'title': 'Booked online'}"
+                                // style="display: none;"
+                                data-original-title=""
+                              ></i>
+                            </span>
+                            <div data-bind="foreach: items">
+                              <div
+                                className="item"
+                                data-bind="style: { 'border-color': serviceUIColor }"
+                                // style="border-color: rgb(27, 188, 157);"
+                              >
+                                <a
+                                  href="/calendar?bookingid=393007268"
+                                  className="show-booking"
+                                  data-close-flexpane-on-click=""
+                                  data-bind="visible: $index() == 0, attr: { 'data-date': startDate, 'data-booking-id': bookingId, href : '/calendar?bookingid=' + bookingId }"
+                                  data-date="2024-03-29T15:00:00.0000000"
+                                  data-booking-id="393007268"
+                                >
+                                  <i className="mdi mdi-calendar-month"></i>
+                                </a>
+                                <span data-bind="text : serviceName">Brazilian Hair Straightening - Long</span> with{" "}
+                                <span data-bind="text : staffName">Laura .</span> at{" "}
+                                <span data-bind="text : startTime">3:00pm</span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="day">
+                        <h6 data-bind="text: dayFormatted, visible : $parent.futureAppointments().showDayHeadings">
+                          Saturday, 30 March 2024
+                        </h6>
+                        <div data-bind="template: { name : $root.resolveAppointmentTemplate, foreach: appointments }">
+                          <div className="appointment">
+                            <span className="header">
+                              <a
+                                href="#"
+                                className="title"
+                                data-bind="text : customerName, click : $root.selectCustomer"
+                              >
+                                Noura Alajami
+                              </a>
+
+                              <i
+                                className="fa fa-refresh tip-init"
+                                data-bind="visible : isRecurring, tooltip: {'title': 'Recurring'}"
+                                // style="display: none;"
+                                data-original-title=""
+                              ></i>
+                              <i
+                                className="fa fa-cloud tip-init"
+                                data-bind="visible : isOnlineBooking, tooltip: {'title': 'Booked online'}"
+                                // style="display: none;"
+                                data-original-title=""
+                              ></i>
+                            </span>
+                            <div data-bind="foreach: items">
+                              <div
+                                className="item"
+                                data-bind="style: { 'border-color': serviceUIColor }"
+                                // style="border-color: rgb(27, 188, 157);"
+                              >
+                                <a
+                                  href="/calendar?bookingid=392732034"
+                                  className="show-booking"
+                                  data-close-flexpane-on-click=""
+                                  data-bind="visible: $index() == 0, attr: { 'data-date': startDate, 'data-booking-id': bookingId, href : '/calendar?bookingid=' + bookingId }"
+                                  data-date="2024-03-30T19:00:00.0000000"
+                                  data-booking-id="392732034"
+                                >
+                                  <i className="mdi mdi-calendar-month"></i>
+                                </a>
+                                <span data-bind="text : serviceName">Brazilian Hair Straightening - Long</span> with{" "}
+                                <span data-bind="text : staffName">Laura .</span> at{" "}
+                                <span data-bind="text : startTime">7:00pm</span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="day">
+                        <h6 data-bind="text: dayFormatted, visible : $parent.futureAppointments().showDayHeadings">
+                          Monday, 1 April 2024
+                        </h6>
+                        <div data-bind="template: { name : $root.resolveAppointmentTemplate, foreach: appointments }">
+                          <div className="appointment">
+                            <span className="header">
+                              <a
+                                href="#"
+                                className="title"
+                                data-bind="text : customerName, click : $root.selectCustomer"
+                              >
+                                Rita{" "}
+                              </a>
+
+                              <i
+                                className="fa fa-refresh tip-init"
+                                data-bind="visible : isRecurring, tooltip: {'title': 'Recurring'}"
+                                // style="display: none;"
+                                data-original-title=""
+                              ></i>
+                              <i
+                                className="fa fa-cloud tip-init"
+                                data-bind="visible : isOnlineBooking, tooltip: {'title': 'Booked online'}"
+                                // style="display: none;"
+                                data-original-title=""
+                              ></i>
+                            </span>
+                            <div data-bind="foreach: items">
+                              <div
+                                className="item"
+                                data-bind="style: { 'border-color': serviceUIColor }"
+                                // style="border-color: rgb(27, 188, 157);"
+                              >
+                                <a
+                                  href="/calendar?bookingid=389825932"
+                                  className="show-booking"
+                                  data-close-flexpane-on-click=""
+                                  data-bind="visible: $index() == 0, attr: { 'data-date': startDate, 'data-booking-id': bookingId, href : '/calendar?bookingid=' + bookingId }"
+                                  data-date="2024-04-01T16:00:00.0000000"
+                                  data-booking-id="389825932"
+                                >
+                                  <i className="mdi mdi-calendar-month"></i>
+                                </a>
+                                <span data-bind="text : serviceName">Consult - Color</span> with{" "}
+                                <span data-bind="text : staffName">Laura .</span> at{" "}
+                                <span data-bind="text : startTime">4:00pm</span>
+                              </div>
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </ul>
+                  </div>
                 </div>
 
                 <div className="chat-message-list">

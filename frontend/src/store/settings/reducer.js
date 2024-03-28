@@ -28,7 +28,7 @@ const INIT_STATE = {
   error: {},
 };
 
-const SettingChoices = (state = INIT_STATE, action) => {
+const SettingsChoices = (state = INIT_STATE, action) => {
   switch (action.type) {
     case API_RESPONSE_SUCCESS:
       switch (action.payload.actionType) {
@@ -203,4 +203,4 @@ const SettingChoices = (state = INIT_STATE, action) => {
   }
 };
 
-export default SettingChoices;
+export default SettingsChoices;
