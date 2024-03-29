@@ -40,9 +40,9 @@ const SummaryItemList = ({ invoiceItemList, onItemClick }) => {
                 key={itemIndex}
                 onClick={() => onItemClick(item, itemIndex)}
               >
-                <div className="sale__item-row">
+                <div key={itemIndex} className="sale__item-row" onClick={() => onItemClick(item, itemIndex)}>
                   <div className="sale__item-left">
-                    <h5 className="sale__item-name">{item.name}</h5>
+                    <div className="sale__item-name">{item.name}</div>
                   </div>
                   <div className="sale__item-right">
                     <div className="sale__item-price">{item.price} KD</div>

@@ -117,6 +117,7 @@ export type SummaryProps = {
   setInvoiceItemList: (updatedList: any) => void; // Add this line
   setIspayment: Dispatch<any>;
   isPayment: boolean;
+  setOverAllTotal: Dispatch<any>;
 };
 
 export interface SummaryItemModalProps {

@@ -12,7 +12,7 @@ import { FormFields } from "Components/Common";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useSelector, useDispatch } from "react-redux";
-import { settingChoicesSelector } from "Selectors";
+import { settingsSelector } from "Selectors";
 
 import { addExpense, updateExpense } from "store/actions";
 
@@ -52,7 +52,7 @@ const ExpenseModal = ({
     ExpensesCategoryOptions,
     PaidByOptions,
     error,
-  } = useSelector(settingChoicesSelector);
+  } = useSelector(settingsSelector);
 
   document.title = "Create Expense | Rio Brazil Salon - React Workspace";
 

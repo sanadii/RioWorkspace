@@ -1,9 +1,24 @@
-// Actions
+// 
+// Setting Options
+// 
+
 export const API_RESPONSE_SUCCESS = "API_RESPONSE_SUCCESS";
 export const API_RESPONSE_ERROR = "API_RESPONSE_ERROR";
-export const GET_SETTING_CHOICES = "GET_SETTING_CHOICES";
+export const GET_SETTINGS = "GET_SETTINGS";
+
+// Edit SettingOption
+export const GET_SETTING_OPTIONS = "GET_SETTING_OPTIONS";
+export const UPDATE_SETTING_OPTION = "UPDATE_SETTING_OPTION";
+export const UPDATE_SETTING_OPTION_SUCCESS = "UPDATE_SETTING_OPTION_SUCCESS";
+export const UPDATE_SETTING_OPTION_FAIL = "UPDATE_SETTING_OPTION_FAIL";
 
 
+
+// 
+// Setting Option Categories
+// 
+
+// Get OptionCategories
 export const GET_OPTION_CATEGORIES = "GET_OPTION_CATEGORIES";
 
 // Add OptionCategory
@@ -22,7 +37,11 @@ export const DELETE_OPTION_CATEGORY_SUCCESS = "DELETE_OPTION_CATEGORY_SUCCESS";
 export const DELETE_OPTION_CATEGORY_FAIL = "DELETE_OPTION_CATEGORY_FAIL";
 
 
-// OPTION CATEGORIES
+// 
+// Setting Option Choices
+// 
+
+// Get OptionChoices
 export const GET_OPTION_CHOICES = "GET_OPTION_CHOICES";
 
 // Add OptionChoice

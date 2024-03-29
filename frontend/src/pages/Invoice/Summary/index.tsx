@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import { Appointment, Service, Package, Product, Voucher, Discount, SummaryProps } from "types"; // Adjust the path as necessary
 import SummaryItemModal from "./SummaryItemModal";
 import { Button, Label } from "reactstrap";
-import SummaryItemList from "../SummaryItemList";
+import SummaryItemList from "./SummaryItemList";
 import DiscountModal from "./DiscountModal";
 import { useDispatch, useSelector } from "react-redux";
 import { updateAppointment } from "store/actions";
@@ -15,6 +15,7 @@ const Summary: React.FC<SummaryProps> = ({
   discountOptions,
   setIspayment,
   isPayment,
+  setOverAllTotal,
 }) => {
   const dispatch = useDispatch();
 
@@ -62,6 +63,10 @@ const Summary: React.FC<SummaryProps> = ({
 
   // Calculate overall total
   const overallTotal = totalServicePrice + totalPackagePrice + totalProductPrice;
+
+  useEffect(() => {
+    setOverAllTotal(overallTotal);
+  }, [setOverAllTotal, overallTotal]);
 
   useEffect(() => {
     // Check if the appointment is defined before trying to update it
@@ -177,7 +182,7 @@ const Summary: React.FC<SummaryProps> = ({
               className="sale__summary-checkout-button tui-button tui-button--lg tui-button--primary primary hydrated"
               onClick={handleEditInvoiceClick}
             >
-              Edit Invoice
+              Edit Invoice K.D.{overallTotal}
             </button>
           ) : (
             <button

@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { getCurrentUser, getSettingOptions, logoutUser } from "../store/actions";
+import { getCurrentUser, getSettings, logoutUser } from "../store/actions";
 import { useProfile } from "../Components/Hooks/UserHooks";
 import { setAuthorization } from "../helpers/api_helper";
 import { Navigate } from "react-router-dom";
@@ -12,7 +12,7 @@ const AuthProtected = (props: any) => {
   useEffect(() => {
     // Dispatch actions after the component mounts
     dispatch(getCurrentUser());
-    dispatch(getSettingOptions());
+    dispatch(getSettings());
 
     if (userProfile && !loading && token) {
       setAuthorization(token);

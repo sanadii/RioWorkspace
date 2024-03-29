@@ -55,3 +55,85 @@ body {
 .bold {
   font-weight: 700;
 }
+
+
+
+// from Timely
+#flex-pane {
+  height: 100%;
+  background-color: #fff;
+  // margin-left: -20px;
+  font-size: 13px;
+  z-index: 1;
+  width: 350px;
+
+  .fc-flex-toggle__wrapper > .btn {
+    margin: unset !important;
+  }
+
+  .expand-toggle {
+    display: block;
+    margin: -10px 0 10px;
+  }
+
+  .expand-toggle.expand-toggle--after-row {
+    margin-top: -30px;
+    margin-bottom: 20px;
+  }
+
+  .appointment-list {
+    list-style: none;
+    margin-left: 0;
+    padding-left: 0;
+    margin-bottom: 0;
+
+    h3 {
+      font-size: 16px;
+      line-height: 28px;
+      font-weight: 400;
+
+      i {
+        color: #aaa;
+        font-size: 16px;
+        top: -1px;
+        position: relative;
+      }
+    }
+
+    li {
+      overflow: auto;
+      padding-top: 16px;
+      padding-bottom: 6px;
+      border-top: 1px solid #eee;
+
+      &:first-child {
+        padding-top: 0;
+        border-top: none;
+      }
+    }
+  }
+}
+
+
+@media (max-width: 599px) {
+  #flex-pane {
+    position: fixed;
+    top: 81px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100% !important;
+    margin: unset;
+    z-index: 9;
+
+    .fc-flex-toggle__wrapper {
+      display: table-cell
+    }
+  }
+}
+
+@media (min-width: 992px) {
+  #flex-pane {
+    width: 350px
+  }
+}

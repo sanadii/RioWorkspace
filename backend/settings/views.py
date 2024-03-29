@@ -15,6 +15,33 @@ class GetSettingOptions(APIView):
         return Response({'data': serializer.data})
 
 
+
+class GetSettings(APIView):
+    def get(self, request, format=None):
+        # Get all setting options and serialize them
+        options = SettingOption.objects.all()
+        options_serializer = SettingOptionSerializer(options, many=True)
+
+        # Get all option categories
+        option_categories = OptionCategory.objects.all()
+        
+        # Initialize the data dictionary
+        data = {'setting_options': options_serializer.data}
+
+        # Loop through each category and serialize the choices
+        for category in option_categories:
+            category_serializer = OptionCategorySerializer(category)
+            option_choices = OptionChoices.objects.filter(category=category)
+            choice_serializer = OptionChoicesSerializer(option_choices, many=True)
+            
+            # Add the choices to the data dictionary
+            data.setdefault('setting_choices', {}).update({category_serializer.data['name']: choice_serializer.data})
+
+        # Return the response
+        return Response({'data': data})
+
+
+
 class UpdateSettingOption(APIView):
     def post(self, request, id, format=None):
         try:
@@ -29,19 +56,19 @@ class UpdateSettingOption(APIView):
         return Response(serializer.errors, status=400)
 
 
-class GetSettingChoices(APIView):
-    def get(self, request, format=None):
-        option_categories = OptionCategory.objects.all()
+# class GetSettingChoices(APIView):
+#     def get(self, request, format=None):
+#         option_categories = OptionCategory.objects.all()
 
-        data = {}
+#         data = {}
 
-        for category in option_categories:
-            category_serializer = OptionCategorySerializer(category)
-            choices = OptionChoices.objects.filter(category=category)
-            choice_serializer = OptionChoicesSerializer(choices, many=True)
-            data[category_serializer.data['name']] = choice_serializer.data
+#         for category in option_categories:
+#             category_serializer = OptionCategorySerializer(category)
+#             choices = OptionChoices.objects.filter(category=category)
+#             choice_serializer = OptionChoicesSerializer(choices, many=True)
+#             data[category_serializer.data['name']] = choice_serializer.data
 
-        return Response({'data': data})
+#         return Response({'data': data})
 
 
 # Option Categories

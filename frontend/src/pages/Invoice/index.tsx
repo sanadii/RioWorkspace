@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import { getAppointment, getSchedule } from "store/actions";
 import { TabContent, TabPane } from "reactstrap";
-import { settingChoicesSelector, appointmentsSelector } from "Selectors";
+import { settingsSelector, appointmentsSelector } from "Selectors";
 import InvoiceNav from "./InvoiceNav";
 import Summary from "./Summary";
 import Payment from "./Payment";
@@ -18,10 +18,11 @@ const Invoice = () => {
   const queryParams = new URLSearchParams(location.search);
   const appointmentId = queryParams.get("appointmentId");
   const { appointment, services, products, packages, vouchers, staff } = useSelector(appointmentsSelector);
-  const { discountOptions } = useSelector(settingChoicesSelector);
+  const { discountOptions } = useSelector(settingsSelector);
   const [isPayment, setIspayment] = useState(false);
   const [activeTab, setActiveTab] = useState("1");
 
+  const [overAllTotal, setOverAllTotal] = useState(0);
   const [invoiceItemList, setInvoiceItemList] = useState<InvoiceItemList>();
 
   useEffect(() => {
@@ -97,11 +98,12 @@ const Invoice = () => {
               discountOptions={discountOptions}
               setIspayment={setIspayment}
               isPayment={isPayment}
+              setOverAllTotal={setOverAllTotal}
             />
           </div>
           {isPayment ? (
             <div className="sale__payment-col">
-              <Payment />
+              <Payment invoiceItemList={invoiceItemList} overAllTotal={overAllTotal} appointmentId={appointmentId} />
             </div>
           ) : (
             ""

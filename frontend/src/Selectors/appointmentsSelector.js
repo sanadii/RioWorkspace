@@ -10,6 +10,7 @@ export const appointmentsSelector = createSelector(
     // Daily Revenues Selectors
     appointments: appointmentsSelector.appointments,
     appointment: appointmentsSelector.appointment,
+    client: appointmentsSelector.client,
     staff: appointmentsSelector.staff,
     services: appointmentsSelector.services,
     products: appointmentsSelector.products,

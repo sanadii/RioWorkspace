@@ -1,32 +1,28 @@
 // Selectors/electorSelector.js
 import { createSelector } from 'reselect';
 
-const selectSettingOptionsState = state => state.SettingOptions;
-const selectSettingChoicesState = state => state.SettingChoices;
+const selectSettingsState = state => state.Settings;
 
-export const settingOptionsSelector = createSelector(
-  selectSettingOptionsState,
-  (settingOptionsSelector) => ({
+export const settingsSelector = createSelector(
+  selectSettingsState,
+  (settingsSelector) => ({
 
-    settingOptions: settingOptionsSelector.settingOptions,
-    // isSettingOptionsSuccess: settingOptionsSelector.isSettingOptionsSuccess,
-    error: settingOptionsSelector.error,
-  })
-);
+    // Setting Options
+    settingOptions: settingsSelector.settingOptions,
 
-export const settingChoicesSelector = createSelector(
-  selectSettingChoicesState,
-  (settingChoicesSelector) => ({
-
+    // Setting Choices
+    
     // Daily Revenues Selectors
-    // RevenueStatusOptions: settingOptionsSelector.settingOptions.RevenueStatus,
-    ExpensesCategoryOptions: settingChoicesSelector.settingOptions?.ExpensesCategory,
-    ExpensesStatusOptions: settingChoicesSelector.settingOptions?.ExpensesStatus,
-    PaidByOptions: settingChoicesSelector.settingOptions?.PaidBy,
-    TransactionStatusOptions: settingChoicesSelector.settingOptions?.TransactionStatus,
-    discountOptions: settingChoicesSelector.settingOptions?.Discount,
-    isSettingOptionsSuccess: settingChoicesSelector.isSettingOptionsSuccess,
-    error: settingChoicesSelector.error,
+    // RevenueStatusOptions: settingsSelector.settingOptions.RevenueStatus,
+    ExpensesCategoryOptions: settingsSelector.settingChoices?.ExpensesCategory,
+    ExpensesStatusOptions: settingsSelector.settingChoices?.ExpensesStatus,
+    PaidByOptions: settingsSelector.settingOpsettingChoicestions?.PaidBy,
+    TransactionStatus: settingsSelector.settingChoices?.TransactionStatus,
+    discountOptions: settingsSelector.settingChoices?.Discount,
+
+    // Success and Error
+    isSettingsSuccess: settingsSelector.isSettingOptionsSuccess,
+    error: settingsSelector.error,
   })
 );
 

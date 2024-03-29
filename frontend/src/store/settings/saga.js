@@ -3,10 +3,16 @@ import { call, put, takeEvery, all, fork } from "redux-saga/effects";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-// OptionCategory Redux States
+// SettingOption Redux States
 import {
+  // Setting
+  GET_SETTINGS,
 
-  GET_SETTING_CHOICES,
+  // Setting Options
+  GET_SETTING_OPTIONS,
+  UPDATE_SETTING_OPTION,
+
+  // Option Categories
   GET_OPTION_CATEGORIES,
   ADD_OPTION_CATEGORY,
   DELETE_OPTION_CATEGORY,
@@ -21,9 +27,16 @@ import {
 } from "./actionType";
 
 import {
-  getSettingChoicesApiResponseSuccess,
-  getSettingChoicesApiResponseError,
 
+  // Settings
+  getSettingApiResponseSuccess,
+  getSettingApiResponseError,
+
+  // Setting Options
+  updateSettingOptionFail,
+  updateSettingOptionsuccess,
+
+  // Setting Option Categories
   OptionCategoryApiResponseSuccess,
   OptionCategoryApiResponseError,
   addOptionCategorySuccess,
@@ -47,13 +60,19 @@ import {
 
 //Include Both Helper File with needed methods
 import {
-  getSettingChoices as getSettingChoicesApi,
+  getSettings as getSettingApi,
+
+  // Setting Options
+  getSettingOptions as getSettingOptionsApi,
+  updateSettingOption,
+
+  // Setting Option Categories
   getOptionCategories as getOptionCategoriesApi,
   addOptionCategory,
   updateOptionCategory,
   deleteOptionCategory,
 
-  // Option Choices
+  // Setting Option Choices
   getOptionChoices as getOptionChoicesApi,
   addOptionChoice,
   updateOptionChoice,
@@ -61,13 +80,37 @@ import {
 
 } from "helpers/backend_helper";
 
-function* getSettingChoices() {
+// Settings
+
+function* getSettings() {
 
   try {
-    const response = yield call(getSettingChoicesApi);
-    yield put(getSettingChoicesApiResponseSuccess(GET_SETTING_CHOICES, response.data));
+    const response = yield call(getSettingApi);
+    yield put(getSettingApiResponseSuccess(GET_SETTINGS, response.data));
   } catch (error) {
-    yield put(getSettingChoicesApiResponseError(GET_SETTING_CHOICES, error));
+    yield put(getSettingApiResponseError(GET_SETTINGS, error));
+  }
+}
+
+// Setting Options
+function* getSettingOptions() {
+
+  try {
+    const response = yield call(getSettingOptionsApi);
+    yield put(getSettingApiResponseSuccess(GET_SETTING_OPTIONS, response.data));
+  } catch (error) {
+    yield put(updateSettingOptionFail(GET_SETTING_OPTIONS, error));
+  }
+}
+
+function* onUpdateSettingOption({ payload: settingOption }) {
+  try {
+    const response = yield call(updateSettingOption, settingOption);
+    yield put(updateSettingOptionsuccess(response));
+    toast.success("SettingOption Updated Successfully", { autoClose: 3000 });
+  } catch (error) {
+    yield put(updateSettingOptionFail(error));
+    toast.error("SettingOption Updated Failed", { autoClose: 3000 });
   }
 }
 
@@ -166,10 +209,25 @@ function* onDeleteOptionChoice({ payload: optionChoice }) {
 }
 
 
+
+// 
+// Watchers
+// 
+
 // Setting Options
-export function* watchGetgetSettingChoices() {
-  yield takeEvery(GET_SETTING_CHOICES, getSettingChoices);
+export function* watchGetSettings() {
+  yield takeEvery(GET_SETTINGS, getSettings);
 }
+
+// setting Options
+export function* watchGetSettingOptions() {
+  yield takeEvery(GET_SETTING_OPTIONS, getSettingOptions);
+}
+
+export function* watchUpdateSettingOption() {
+  yield takeEvery(UPDATE_SETTING_OPTION, onUpdateSettingOption);
+}
+
 
 // Option Categories Watchers
 export function* watchGetOptionCategories() {
@@ -206,10 +264,16 @@ export function* watchAddOptionChoice() {
 }
 
 
-function* SettingOptionSaga() {
+function* SettingOptionsaga() {
   yield all([
+
+    // Settings
+    fork(watchGetSettings),
+
     // Setting Options
-    fork(watchGetgetSettingChoices),
+    fork(watchGetSettingOptions),
+    fork(watchUpdateSettingOption),
+
 
     // OptionCategories
     fork(watchGetOptionCategories),
@@ -226,4 +290,4 @@ function* SettingOptionSaga() {
   ]);
 }
 
-export default SettingOptionSaga;
+export default SettingOptionsaga;

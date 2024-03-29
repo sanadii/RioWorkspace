@@ -1,9 +1,15 @@
 import {
   API_RESPONSE_SUCCESS,
   API_RESPONSE_ERROR,
-  GET_SETTING_CHOICES,
+  GET_SETTINGS,
 
+  
+  GET_SETTING_OPTIONS,
+  UPDATE_SETTING_OPTION,
+  UPDATE_SETTING_OPTION_SUCCESS,
+  UPDATE_SETTING_OPTION_FAIL,
 
+  
   GET_OPTION_CATEGORIES,
   UPDATE_OPTION_CATEGORY,
   UPDATE_OPTION_CATEGORY_SUCCESS,
@@ -25,17 +31,48 @@ import {
   DELETE_OPTION_CHOICE,
   DELETE_OPTION_CHOICE_SUCCESS,
   DELETE_OPTION_CHOICE_FAIL,
-
-
 } from "./actionType";
 
 // common success
-export const getSettingChoicesApiResponseSuccess = (actionType, data) => ({
+export const SettingOptionApiResponseSuccess = (actionType, data) => ({
   type: API_RESPONSE_SUCCESS,
   payload: { actionType, data },
 });
 // common error
-export const getSettingChoicesApiResponseError = (actionType, error) => ({
+export const SettingOptionApiResponseError = (actionType, error) => ({
+  type: API_RESPONSE_ERROR,
+  payload: { actionType, error },
+});
+
+export const getSettingOptions = () => ({
+  type: GET_SETTING_OPTIONS,
+});
+
+export const updateSettingOption = settingOption => ({
+  type: UPDATE_SETTING_OPTION,
+  payload: settingOption,
+});
+
+export const updateSettingOptionsuccess = settingOption => ({
+  type: UPDATE_SETTING_OPTION_SUCCESS,
+  payload: settingOption,
+});
+
+export const updateSettingOptionFail = error => ({
+  type: UPDATE_SETTING_OPTION_FAIL,
+  payload: error,
+});
+
+
+
+// Setting Option Choices
+// common success
+export const getSettingApiResponseSuccess = (actionType, data) => ({
+  type: API_RESPONSE_SUCCESS,
+  payload: { actionType, data },
+});
+// common error
+export const getSettingApiResponseError = (actionType, error) => ({
   type: API_RESPONSE_ERROR,
   payload: { actionType, error },
 });
@@ -52,8 +89,8 @@ export const OptionCategoryApiResponseError = (actionType, error) => ({
   payload: { actionType, error },
 });
 
-export const getSettingChoices = () => ({
-  type: GET_SETTING_CHOICES,
+export const getSettings = () => ({
+  type: GET_SETTINGS,
 });
 
 

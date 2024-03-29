@@ -2,8 +2,12 @@ import {
   API_RESPONSE_SUCCESS,
   API_RESPONSE_ERROR,
 
-  GET_SETTING_CHOICES,
+  GET_SETTING_OPTIONS,
+  UPDATE_SETTING_OPTION_SUCCESS,
+  UPDATE_SETTING_OPTION_FAIL,
 
+
+  GET_SETTINGS,
   GET_OPTION_CATEGORIES,
   ADD_OPTION_CATEGORY_SUCCESS,
   ADD_OPTION_CATEGORY_FAIL,
@@ -23,16 +27,39 @@ import {
 } from "./actionType";
 
 const INIT_STATE = {
-  optionCategories: [],
-  optionChoices: [],
+  settingOptions: [],
+  settingOptionCategories: [],
+  settingChoices: [],
+
   error: {},
 };
 
-const SettingsChoices = (state = INIT_STATE, action) => {
+const SettingOptions = (state = INIT_STATE, action) => {
   switch (action.type) {
     case API_RESPONSE_SUCCESS:
       switch (action.payload.actionType) {
-        case GET_SETTING_CHOICES:
+        case GET_SETTINGS:
+          return {
+            ...state,
+            settingOptions: action.payload.data.settingOptions,
+            settingChoices: action.payload.data.settingChoices,
+            isSettingOptionCreated: false,
+            isSettingOptionsuccess: true
+          };
+        default:
+          return { ...state };
+      }
+    case API_RESPONSE_ERROR:
+      switch (action.payload.actionType) {
+        case GET_SETTING_OPTIONS:
+          return {
+            ...state,
+            error: action.payload.error,
+            isSettingOptionCreated: false,
+            isSettingOptionsuccess: false
+          };
+
+        case GET_SETTINGS:
           return {
             ...state,
             settingOptionChoices: action.payload.data,
@@ -57,34 +84,26 @@ const SettingsChoices = (state = INIT_STATE, action) => {
         default:
           return { ...state };
       }
-    case API_RESPONSE_ERROR:
-      switch (action.payload.actionType) {
-        case GET_SETTING_CHOICES:
-          return {
-            ...state,
-            error: action.payload.error,
-            isOptionCategoryCreated: false,
-            isOptionCategorySuccess: false,
-            isOptionChoiceCreated: false,
-            isOptionChoiceySuccess: false
-          };
-        case GET_OPTION_CATEGORIES:
-          return {
-            ...state,
-            error: action.payload.error,
-            isOptionCategoryCreated: false,
-            isOptionCategorySuccess: false
-          };
-        case GET_OPTION_CHOICES:
-          return {
-            ...state,
-            error: action.payload.error,
-            isOptionChoiceCreated: false,
-            isOptionChoiceySuccess: false
-          };
-        default:
-          return { ...state };
-      }
+
+    case UPDATE_SETTING_OPTION_SUCCESS:
+      return {
+        ...state,
+        settingOptions: state.settingOptions.map((settingOption) =>
+          settingOption.id.toString() === action.payload.data.id.toString()
+            ? { ...settingOption, ...action.payload.data }
+            : settingOption
+        ),
+      };
+
+    case UPDATE_SETTING_OPTION_FAIL:
+      return {
+        ...state,
+        error: action.payload,
+      };
+
+
+
+    // Setting Option Coices
 
 
     case ADD_OPTION_CATEGORY_SUCCESS:
@@ -197,10 +216,9 @@ const SettingsChoices = (state = INIT_STATE, action) => {
 
       };
 
-
     default:
       return { ...state };
   }
 };
 
-export default SettingsChoices;
+export default SettingOptions;

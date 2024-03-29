@@ -1,10 +1,4 @@
 import React, { useEffect, useState, useRef, useCallback } from "react";
-import { createRoot } from "react-dom/client"; // Import createRoot
-import { Provider } from "react-redux";
-import { BrowserRouter } from "react-router-dom";
-import { configureStore } from "store";
-import { createPortal } from "react-dom";
-
 import { CalenderProps, BookingModalProps, BookingMoodProps } from "types";
 
 // Redux
@@ -199,9 +193,9 @@ const Calender = () => {
   const fullCalendarOptions = useFullCalendarSettings();
   return (
     <React.Fragment>
-      <div className="chat-wrapper d-lg-flex gap-1">
-        {showLeftSidebar && <CalendarLeftSidebar />}
-        <div className="user-chat w-100 overflow-hidden">
+      <div className="d-lg-flex gap-1">
+        <div id="flex-pane">{showLeftSidebar && <CalendarLeftSidebar />}</div>
+        <div className="w-100">
           <CalenderHeaderToolbar
             calendarRef={calendarRef}
             staff={staff}

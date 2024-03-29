@@ -20,7 +20,7 @@ import { DeleteModal } from "Components/Common";
 import SimpleBar from "simplebar-react";
 
 //redux
-import { settingOptionsSelector } from "Selectors";
+import { settingsSelector } from "Selectors";
 
 import { useSelector, useDispatch } from "react-redux";
 
@@ -37,7 +37,7 @@ import { Link } from "react-router-dom";
 const Settings = () => {
   document.title = "File Manager | Velzon - React Admin & Dashboard Template";
 
-  const { settingOptions } = useSelector(settingOptionsSelector);
+  const { settingOptions } = useSelector(settingsSelector);
 
   // Map over settingOptions to create a new array with the desired structure
   const formattedOptions = settingOptions.map((option) => ({

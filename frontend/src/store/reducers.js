@@ -9,7 +9,7 @@ import Users from "./auth/users/reducer";
 
 // Front
 import Layout from "./layouts/reducer";
-import SettingChoices from "./settings/reducer";
+import Settings from "./settings/reducer";
 
 // Calendar
 import Calendar from "./calendar/reducer";

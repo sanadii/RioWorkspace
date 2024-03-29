@@ -138,13 +138,14 @@ export const updateUser = (user: any) => api.update(url.UPDATE_USER_PROFILE + "/
 export const changeUserPassword = (user: any) => api.update(url.CHANGE_USER_PASSWORD + "/" + user.id, user);
 export const deleteUser = (user: any) => api.delete(url.DELETE_USER + "/" + user);
 
-// SettingOptions
+// Setting
+export const getSettings = () => api.get(url.GET_SETTINGS);
+
+// SettingChoices
 export const getSettingOptions = () => api.get(url.GET_SETTING_OPTIONS);
 export const updateSettingOption = (settingOption: any) =>
   api.update(url.UPDATE_SETTING_OPTION + "/" + settingOption.id, settingOption);
 
-// SettingChoices
-export const getSettingChoices = () => api.get(url.GET_SETTING_CHOICES);
 
 // Option Categories
 export const getOptionCategories = () => api.get(url.GET_OPTION_CATEGORIES);
