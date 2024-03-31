@@ -1,8 +1,8 @@
 import React from "react";
 import { Card, CardHeader } from "reactstrap";
 
-const SummaryItemList = ({ appointment, invoiceItemList, onItemClick }) => {
-  const appointmentStartTime = appointment.startTime;
+const SummaryItemList = ({ activeInvoice, invoiceItemList, onItemClick }) => {
+  const appointmentStartTime = activeInvoice.startTime;
 
   const itemTypes = [
     {

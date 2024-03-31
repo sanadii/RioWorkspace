@@ -1,6 +1,6 @@
-const SummaryCustomer = ({ appointment }) => {
-  const clientName = appointment.client?.name;
-  const clientMobile = appointment.client?.mobile;
+const SummaryCustomer = ({ activeInvoice }) => {
+  const clientName = activeInvoice.client?.name;
+  const clientMobile = activeInvoice.client?.mobile;
 
   return (
     <div className="sale__summary-customer">

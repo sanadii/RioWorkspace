@@ -84,7 +84,7 @@
         }
     ],
     "accountingIntegration": null,
-    "paymentTypes": [
+    "paymentMethods": [
         {
             "paymentTypeId": 2,
             "name": "Credit card",

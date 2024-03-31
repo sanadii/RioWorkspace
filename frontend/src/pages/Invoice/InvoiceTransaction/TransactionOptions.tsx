@@ -8,7 +8,7 @@ import { addInvoice, addTransaction, updateInvoice } from "store/actions";
 const TransactionOptions = ({ setCheckoutStatus, invoiceItemList, overAllTotal, setInvoiceTransaction }) => {
   const dispatch = useDispatch();
 
-  const { PaymentTypes } = useSelector(settingsSelector);
+  const { paymentTypes } = useSelector(settingsSelector);
   const { appointment } = useSelector(appointmentsSelector);
   const [selectedPaymentType, setSelectedPaymentType] = useState("");
   const appointmentId = appointment.id;
@@ -19,6 +19,10 @@ const TransactionOptions = ({ setCheckoutStatus, invoiceItemList, overAllTotal, 
   const currentDateTime = new Date();
 
   const handleTransactionOptionClick = (e, paymentValue) => {
+
+    console.log("payment e: ", e)
+    console.log("payment paymentValue: ", paymentValue)
+    console.log("payment selectedPaymentType: ", selectedPaymentType)
     setSelectedPaymentType(paymentValue);
     const newTransaction = {
       date: currentDateTime,
@@ -27,7 +31,7 @@ const TransactionOptions = ({ setCheckoutStatus, invoiceItemList, overAllTotal, 
       paid: amountPaid,
       totalAmount: overAllTotal,
       status: "pending",
-      paymentType: selectedPaymentType,
+      paymentType: paymentValue,
       accountType: "revenue",
       invoiceType: "appointment",
       invoiceItems: invoiceItemList,
@@ -58,7 +62,7 @@ const TransactionOptions = ({ setCheckoutStatus, invoiceItemList, overAllTotal, 
       <div className="sale__payment-options">
         {/* Repeat for each payment option */}
 
-        {PaymentTypes.map((payment) => (
+        {paymentTypes.map((payment) => (
           <div
             key={payment.id}
             className="sale__payment-option sale__payment-option--dark"

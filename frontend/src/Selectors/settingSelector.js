@@ -14,11 +14,11 @@ export const settingsSelector = createSelector(
     
     // Daily Revenues Selectors
     // RevenueStatusOptions: settingsSelector.settingOptions.RevenueStatus,
-    ExpensesCategoryOptions: settingsSelector.settingChoices?.expensesCategory,
-    ExpensesStatusOptions: settingsSelector.settingChoices?.expensesStatus,
-    PaidByOptions: settingsSelector.settingOpsettingChoicestions?.paidBy,
-    PaymentTypes: settingsSelector.settingChoices?.paymentTypes,
-    discountOption: settingsSelector.settingChoices?.discountOption,
+    expensesCategoryOptions: settingsSelector.settingChoices?.expensesCategories,
+    expensesStatusOptions: settingsSelector.settingChoices?.expensesStatuses,
+    paidByOptions: settingsSelector.settingOpsettingChoicestions?.paidBy,
+    paymentTypes: settingsSelector.settingChoices?.paymentTypes,
+    discountOptions : settingsSelector.settingChoices?.discountOptions ,
 
     // Success and Error
     isSettingsSuccess: settingsSelector.isSettingOptionsSuccess,

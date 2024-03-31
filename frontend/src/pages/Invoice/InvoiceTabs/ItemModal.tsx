@@ -9,7 +9,6 @@ import { FormFields } from "Components/Common";
 import { Staff, ItemTabModalProps } from "../../../types/invoiceTypes"; // Adjust the path as necessary
 
 import { getClientSearch, getClients } from "store/actions";
-import Select from "react-select";
 
 const ItemTabModal: React.FC<ItemTabModalProps> = ({
   modal,
@@ -55,8 +54,18 @@ const ItemTabModal: React.FC<ItemTabModalProps> = ({
   };
 
   const updateInvoiceItemList = (newItem, itemType) => {
+    console.log("newItem: ", newItem);
+
     setInvoiceItemList((prevItemList) => {
       let updatedList;
+
+      let newInvoiceItem = {
+        itemId: newItem.id,
+        itemName: newItem.name,
+        quantity: newItem.name,
+        unit_price: newItem.price,
+        staff: newItem.staff,
+      };
 
       switch (itemType) {
         case "service":
@@ -104,20 +113,23 @@ const ItemTabModal: React.FC<ItemTabModalProps> = ({
       const newItem = {
         name: values.name,
         staff: parseInt(values.staff, 10),
-        price: parseFloat(values.price),
+        unit_price: parseFloat(values.price),
+        quantity: values.quantity || 0,
+
+        itemId: values.item,
         ...(itemType === "service" && {
-          service: values.item,
           duration: values.duration,
           startTime: lastItemEndTime,
           endTime: new Date(lastItemEndTime.getTime() + values.duration * 60000),
         }),
-        ...(itemType === "package" && {
-          package: values.item,
-        }),
-        ...(itemType === "product" && {
-          product: values.item,
-          quantity: values.quantity,
-        }),
+        ...(itemType === "package" &&
+          {
+            // Here we need to add new enty clientPackage in data base for client's package details to add and like it to both client and invoice
+          }),
+        ...(itemType === "product" &&
+          {
+            //
+          }),
       };
 
       updateInvoiceItemList(newItem, itemType);

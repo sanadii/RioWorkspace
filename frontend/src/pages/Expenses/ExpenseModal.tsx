@@ -48,9 +48,9 @@ const ExpenseModal = ({
   const history = useNavigate();
 
   const {
-    ExpensesStatusOptions,
-    ExpensesCategoryOptions,
-    PaidByOptions,
+    expensesStatusOptions,
+    expensesCategoryOptions,
+    paidByOptions,
     error,
   } = useSelector(settingsSelector);
 
@@ -112,7 +112,7 @@ const ExpenseModal = ({
       type: "select",
       colSize: 4,
 
-      options: PaidByOptions?.map((item: PaidByOption) => ({
+      options: paidByOptions?.map((item: PaidByOption) => ({
         id: item.id,
         label: item.name,
         value: item.id,
@@ -124,7 +124,7 @@ const ExpenseModal = ({
       label: "Category",
       type: "select",
       colSize: 4,
-      options: ExpensesCategoryOptions?.map((item: ExpensesCategoryOption) => ({
+      options: expensesCategoryOptions?.map((item: ExpensesCategoryOption) => ({
         id: item.id,
         label: item.name,
         value: item.id,

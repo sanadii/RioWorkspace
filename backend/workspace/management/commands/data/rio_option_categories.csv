@@ -1,63 +1,63 @@
 id,name,description,value
-31,Website Themes,Themes for website appearance,websiteTheme
-32,App Features,Features available in the app,appFeature
+31,Website Themes,Themes for website appearance,websiteThemes
+32,App Features,Features available in the app,appFeatures
 
 10,User Roles,Roles for users,userRoles
-11,Membership Levels,Levels of membership,membershipLevel
-12,Client Segments,Client segmentation for targeted services,clientSegment
-13,Support Ticket Status,Status for support tickets,ticketStatus
+11,Membership Levels,Levels of membership,membershipLevels
+12,Client Segments,Client segmentation for targeted services,clientSegments
+13,Support Ticket Status,Status for support tickets,ticketStatuses
 
 
-1,Payment Types,Types for Transaction Payment,paymentType
-2,Order Status,Status for orders,orderStatus
-3,Expenses Status,Status for expenses,expensesStatus
-4,Revenue Status,Status for daily revenue,revenueStatus
+1,Payment Types,Types for Transaction Payment,paymentTypes
+2,Order Status,Status for orders,orderStatuses
+3,Expenses Status,Status for expenses,expensesStatuses
+4,Revenue Status,Status for daily revenue,revenueStatuses
 5,Paid By,Methods of payment,paidBy
-6,Expense Categories,Categories for expenses,expenseCategory
-7,Revenue Categories,Categories for revenue,revenueCategory
-8,Discount Options,Types of discounts,discountOption
-9,Subscription Plans,Types of subscription plans,subscriptionPlan
+6,Expense Categories,Categories for expenses,expenseCategories
+7,Revenue Categories,Categories for revenue,revenueCategories
+8,Discount Options,Types of discounts,discountOptions
+9,Subscription Plans,Types of subscription plans,subscriptionPlans
 
 
-14,Service Categories,Categories for salon services,serviceCategory
-15,Service Types,Types of services offered,serviceType
-16,Appointment Status,Status for appointments,appointmentStatus
+14,Service Categories,Categories for salon services,serviceCategories
+15,Service Types,Types of services offered,serviceTypes
+16,Appointment Status,Status for appointments,appointmentStatuses
 
-17,Product Categories,Categories for products,productCategory
-18,Product Types,Types of beauty products,productType
-19,Return Reasons,Reasons for product returns,returnReason
+17,Product Categories,Categories for products,productCategories
+18,Product Types,Types of beauty products,productTypes
+19,Return Reasons,Reasons for product returns,returnReasons
 
-20,Marketing Channels,Channels for marketing,marketingChannel
-21,Feedback Types,Types of customer feedback,feedbackType
-22,Notification Types,Types of notifications,notificationType
-23,Content Categories,Categories for content like blogs or news,contentCategory
+20,Marketing Channels,Channels for marketing,marketingChannels
+21,Feedback Types,Types of customer feedback,feedbackTypes
+22,Notification Types,Types of notifications,notificationTypes
+23,Content Categories,Categories for content like blogs or news,contentCategories
 24,Event Types,Types of events,eventType
 
-25,Shipping Methods,Methods for shipping,shippingMethod
-26,Reservation Status,Status for reservations,reservationStatus
-27,Reservation Methods,Methods for client reservations,reservationMethod
-28,Notification Preferences,Client notification preferences,notificationPreference
-29,Booking Channels,Channels through which bookings are made,bookingChannel
-30,Salon Policies,Salon's operational policies,policyType
+25,Shipping Methods,Methods for shipping,shippingMethods
+26,Reservation Status,Status for reservations,reservationStatuses
+27,Reservation Methods,Methods for client reservations,reservationMethods
+28,Notification Preferences,Client notification preferences,notificationPreferences
+29,Booking Channels,Channels through which bookings are made,bookingChannels
+30,Salon Policies,Salon's operational policies,policyTypes
 
 
 33,Staff Roles,Roles for salon staff,staffRoles
-34,Client Feedback Types,Types of client feedback,feedbackType
-35,Membership Tiers,Levels of client membership,membershipTier
-36,Package Deals,Special package deals,packageDeal
-37,Expense Categories,Categories for salon expenses,expenseCategory
-38,Revenue Streams,Revenue sources for the salon,revenueStream
+34,Client Feedback Types,Types of client feedback,feedbackTypes
+35,Membership Tiers,Levels of client membership,membershipTiers
+36,Package Deals,Special package deals,packageDeals
+37,Expense Categories,Categories for salon expenses,expenseCategories
+38,Revenue Streams,Revenue sources for the salon,revenueStreams
 
 
-6,Client Feedback Types,Types of client feedback,feedbackType
-7,Membership Tiers,Levels of client membership,membershipTier
-4,Client Membership Levels,Levels of client membership,membershipLevel
-21,Client Loyalty Rewards,Types of loyalty rewards for clients,loyaltyReward
-23,Client Communication Methods,Preferred methods of communication with clients,communicationMethod
+6,Client Feedback Types,Types of client feedback,feedbackTypes
+7,Membership Tiers,Levels of client membership,membershipTiers
+4,Client Membership Levels,Levels of client membership,membershipLevels
+21,Client Loyalty Rewards,Types of loyalty rewards for clients,loyaltyRewards
+23,Client Communication Methods,Preferred methods of communication with clients,communicationMethods
 
-13,Discount Types,Types of discounts offered,discountType
-14,Package Deals,Special package deals,packageDeal
-16,Expense Categories,Categories for salon expenses,expenseCategory
-17,Revenue Streams,Revenue sources for the salon,revenueStream
+13,Discount Types,Types of discounts offered,discountTypes
+14,Package Deals,Special package deals,packageDeals
+16,Expense Categories,Categories for salon expenses,expenseCategories
+17,Revenue Streams,Revenue sources for the salon,revenueStreams
 
-39,Term,This will appear on the gift voucher PDF. The default terms can be edited on the main settings page.,term
+39,Term,This will appear on the gift voucher PDF. The default terms can be edited on the main settings page.,terms

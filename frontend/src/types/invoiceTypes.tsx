@@ -12,6 +12,55 @@ export type ItemTabModalProps = {
   itemType: "service" | "product" | "package" | "voucher";
 };
 
+export interface InvoiceService {
+  id: number;
+  service: number;
+  name: string;
+  duration: number;
+  categoryName?: string;
+  staff: string;
+  price: number;
+  startTime: Date;
+  endTime: Date;
+  discount?: number;
+}
+
+export interface InvoiceProduct {
+  id: number;
+  product: number;
+  name: string;
+  category?: string;
+  discount?: number;
+  quantity: number;
+  unit_price: number;
+  total_price: number;
+  staff: string;
+}
+
+export interface InvoicePackage {
+  id: number;
+  package: number;
+  name: string;
+  categoryName?: string;
+  discount?: number;
+  quantity: number;
+  unit_price: number;
+  total_price: number;
+  staff: string;
+}
+
+export type InvoiceVoucher = {
+  id: number;
+  voucher: number;
+  name: string;
+  categoryName?: string;
+  discount?: number;
+  quantity: number;
+  unit_price: number;
+  total_price: number;
+  staff: string;};
+
+
 export interface Appointment {
   id: number;
   client: string;
@@ -92,6 +141,18 @@ export interface Item {
   discount?: number;
 }
 
+export type InvoiceProps = {
+  id: number;
+  date: Date;
+  client: number;
+  appointment?: number;
+  staff?: string;
+  amount: number;
+  items: InvoiceItemList;
+  status: string;
+  note: string;
+};
+
 export type InvoiceItemList = {
   serviceList: Service[];
   packageList: Package[];
@@ -113,6 +174,7 @@ export type SummaryProps = {
   staff: Staff[];
   discountOptions: Discount[];
   invoiceItemList: InvoiceItemList;
+  activeInvoice: any;
   appointment: any;
   setInvoiceItemList: (updatedList: any) => void; // Add this line
   setIspayment: Dispatch<any>;

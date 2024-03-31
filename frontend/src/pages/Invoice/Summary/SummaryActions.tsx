@@ -9,7 +9,7 @@ import SummarySaleExtras from "./SummarySaleExtras";
 const SummaryActions = ({
   isAddingNote,
   setIsAddingNote,
-  appointment,
+  activeInvoice,
   setIspayment,
   appointmentNote,
   setAppointmentNote,

@@ -10,6 +10,7 @@ import SummaryItemModal from "./SummaryItemModal";
 import DiscountModal from "./DiscountModal";
 
 const Summary: React.FC<SummaryProps> = ({
+  activeInvoice,
   appointment,
   staff,
   invoiceItemList,
@@ -22,7 +23,7 @@ const Summary: React.FC<SummaryProps> = ({
   console.log("invoiceItemList:???  ", invoiceItemList);
   const [updatedAppointment, setUpdatedAppointment] = useState<Appointment | null>(null);
   const [isAddingNote, setIsAddingNote] = useState(false);
-  const [appointmentNote, setAppointmentNote] = useState(appointment.note || "");
+  const [appointmentNote, setAppointmentNote] = useState(activeInvoice.note || "");
 
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
   const [selectedItem, setSelectedIteme] = useState<Service | Package | Product | Voucher | null>(null);
@@ -66,15 +67,17 @@ const Summary: React.FC<SummaryProps> = ({
   }, [setOverAllTotal, overallTotal]);
 
   useEffect(() => {
-    // Check if the appointment is defined before trying to update it
-    if (appointment) {
+    // Check if the activeInvoice is defined before trying to update it
+    if (activeInvoice) {
       const newUpdatedAppointment = {
-        ...appointment,
-        appointment: appointment.id,
-        client: appointment.client.id,
-        services: invoiceItemList.serviceList,
-        packages: invoiceItemList.packageList,
-        products: invoiceItemList.productList,
+        ...activeInvoice,
+        appointment: activeInvoice.appointment,
+        client: activeInvoice.client,
+        items: {
+          services: invoiceItemList.serviceList,
+          packages: invoiceItemList.packageList,
+          products: invoiceItemList.productList,
+        },
         discount: discountValue,
         note: appointmentNote,
         amount: overallTotal,
@@ -82,22 +85,22 @@ const Summary: React.FC<SummaryProps> = ({
       };
       setUpdatedAppointment(newUpdatedAppointment);
     }
-  }, [appointment, invoiceItemList, appointmentNote, discountValue]);
+  }, [activeInvoice, invoiceItemList, appointmentNote, discountValue]);
 
   return (
     <React.Fragment>
       <div className="sale__summary">
-        <SummaryCustomer appointment={appointment} />
+        <SummaryCustomer activeInvoice={activeInvoice} />
 
         <SummaryItemList
-          appointment={appointment}
+          activeInvoice={activeInvoice}
           invoiceItemList={invoiceItemList}
           onItemClick={handleItemSelectionClick}
         />
-        
+
         <div className="sale__summary-actions">
           <SummaryActions
-            appointment={appointment}
+            activeInvoice={activeInvoice}
             isAddingNote={isAddingNote}
             setIsAddingNote={setIsAddingNote}
             setIspayment={setIspayment}

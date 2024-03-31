@@ -50,7 +50,7 @@ const ServiceModal = ({
   const {
     // ServicesStatusOptions,
     // ServicesCategoryOptions,
-    PaidByOptions,
+    paidByOptions,
     error,
   } = useSelector(settingsSelector);
 
@@ -112,7 +112,7 @@ const ServiceModal = ({
       type: "select",
       colSize: 4,
 
-      options: PaidByOptions?.map((item: PaidByOption) => ({
+      options: paidByOptions?.map((item: PaidByOption) => ({
         id: item.id,
         label: item.name,
         value: item.id,

@@ -1,8 +1,6 @@
 import React, { useState, useCallback } from "react";
-import { Link } from "react-router-dom";
 import ItemModal from "./ItemModal";
 import { Service, Package, Product, Voucher } from "../../../types/invoiceTypes";
-import { Row, Col, Card, CardBody } from "reactstrap";
 type Item = Service | Product | Package | Voucher;
 
 const ItemTab = ({ items, staff, itemTypeList, setInvoiceItemList, itemType }) => {
