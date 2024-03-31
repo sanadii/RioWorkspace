@@ -10,6 +10,7 @@ export { settingsSelector } from './settingSelector';
 // Apps
 export { revenuesSelector } from './revenuesSelector ';
 export { expenseSelector } from './expenseSelector';
+export { invoiceSelector } from './invoiceSelector';
 export { appointmentsSelector } from './appointmentsSelector';
 
 // Selectors

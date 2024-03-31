@@ -66,6 +66,10 @@ export const addNewEvent = (event) => api.create(url.ADD_NEW_EVENT, event);
 export const updateEvent = (event) => api.put(url.UPDATE_EVENT, event);
 export const deleteEvent = (event) => api.delete(url.DELETE_EVENT, { headers: { event } });
 
+
+// 
+// FINANCE
+// 
 // Revenues
 export const getRevenues = () => api.get(url.GET_REVENUES);
 export const addRevenue = (dailyRevenue: any) => api.create(url.ADD_REVENUE, dailyRevenue);
@@ -79,13 +83,31 @@ export const addExpense = (expense: any) => api.create(url.ADD_EXPENSE, expense)
 export const updateExpense = (expense: any) => api.update(url.UPDATE_EXPENSE + "/" + expense.id, expense); //+ '/' + Expense._id
 export const deleteExpense = (expense: any) => api.delete(url.DELETE_EXPENSE + "/" + expense); //+ '/' + Expense
 
+// Invoice
+export const getInvoices = () => api.get(url.GET_INVOICES);
+export const getInvoice = (invoice: any) => api.get(`${url.GET_INVOICE_BY_ID}/${invoice}`);
+export const addInvoice = (invoice: any) => api.create(url.ADD_INVOICE, invoice);
+export const updateInvoice = (invoice: any) => api.update(url.UPDATE_INVOICE + "/" + invoice.id, invoice); //+ '/' + Expense._id
+export const deleteInvoice = (invoice: any) => api.delete(url.DELETE_INVOICE + "/" + invoice); //+ '/' + Expense
+
+// Transaction
+export const getTransactions = () => api.get(url.GET_TRANSACTIONS);
+export const getTransactionById = (transaction: any) => api.get(`${url.GET_TRANSACTION_BY_ID}/${transaction}`);
+export const addTransaction = (transaction: any) => api.create(url.ADD_TRANSACTION, transaction);
+export const updateTransaction = (transaction: any) => api.update(url.UPDATE_TRANSACTION + "/" + transaction.id, transaction); //+ '/' + Expense._id
+export const deleteTransaction = (transaction: any) => api.delete(url.DELETE_TRANSACTION + "/" + transaction); //+ '/' + Expense
+
+
+// 
+// CALENDAR
+// 
 // Appointments
 export const getSchedule = () => api.get(url.GET_SCHEDULE);
 
 // Appointments
 // export const getAppointment = () => api.get(url.GET_APPOINTMENT);
 export const getAppointments = () => api.get(url.GET_APPOINTMENTS);
-export const getAppointment = (appointmentId) => api.get(`${url.GET_APPOINTMENT}/${appointmentId}`);
+export const getAppointment = (appointment: any) => api.get(`${url.GET_APPOINTMENT}/${appointment}`);
 export const addAppointment = (appointment: any) => api.create(url.ADD_APPOINTMENT, appointment);
 export const updateAppointment = (appointment: any) =>
   api.update(url.UPDATE_APPOINTMENT + "/" + appointment.id, appointment); //+ '/' + Appointment._id

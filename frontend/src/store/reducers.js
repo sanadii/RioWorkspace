@@ -14,9 +14,12 @@ import Settings from "./settings/reducer";
 // Calendar
 import Calendar from "./calendar/reducer";
 
-// Apps - Finance
+// 
+// FINANCE
+// 
 import Revenue from "./revenues/reducer";
 import Expense from "./expenses/reducer";
+import Invoice from "./invoices/reducer";
 
 // Apps - Appointments
 import Appointments from "./appointments/reducer";
@@ -48,9 +51,12 @@ const rootReducer = combineReducers({
     Profile,
     Users,
 
-    // Apps
+    // Finance
     Revenue,
     Expense,
+    Invoice,
+
+    // Calendar
     Appointments,
     Calendar,
 

@@ -52,7 +52,6 @@ INSTALLED_APPS = [
     'account',
     'settings',
     'utilities',
-
     'workspace',
 ]
 

@@ -3,22 +3,28 @@ import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import { getAppointment, getSchedule } from "store/actions";
 import { TabContent, TabPane } from "reactstrap";
-import { settingsSelector, appointmentsSelector } from "Selectors";
+import { settingsSelector, appointmentsSelector, invoiceSelector } from "Selectors";
+
+// Components
 import InvoiceNav from "./InvoiceNav";
-import Summary from "./Summary";
-import Payment from "./Payment";
 import ItemTab from "./ItemTab";
 import CreditTab from "./CreditTab";
 import AppointmentTab from "./AppointmentTab";
+import Summary from "./Summary";
+import InvoiceTransaction from "./InvoiceTransaction";
 
 import { InvoiceItemList } from "types";
 const Invoice = () => {
   const dispatch = useDispatch();
   const location = useLocation();
-  const queryParams = new URLSearchParams(location.search);
-  const appointmentId = queryParams.get("appointmentId");
+
   const { appointment, services, products, packages, vouchers, staff } = useSelector(appointmentsSelector);
   const { discountOptions } = useSelector(settingsSelector);
+  const { invoice } = useSelector(invoiceSelector);
+  console.log("invoice? ", invoice)
+
+  const queryParams = new URLSearchParams(location.search);
+  const appointmentId = queryParams.get("appointmentId");
   const [isPayment, setIspayment] = useState(false);
   const [activeTab, setActiveTab] = useState("1");
 
@@ -103,7 +109,12 @@ const Invoice = () => {
           </div>
           {isPayment ? (
             <div className="sale__payment-col">
-              <Payment invoiceItemList={invoiceItemList} overAllTotal={overAllTotal} appointmentId={appointmentId} />
+              <InvoiceTransaction
+                invoice={invoice}
+                invoiceItemList={invoiceItemList}
+                overAllTotal={overAllTotal}
+                appointmentId={appointmentId}
+              />
             </div>
           ) : (
             ""

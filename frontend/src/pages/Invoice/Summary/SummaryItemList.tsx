@@ -1,7 +1,9 @@
 import React from "react";
 import { Card, CardHeader } from "reactstrap";
 
-const SummaryItemList = ({ invoiceItemList, onItemClick }) => {
+const SummaryItemList = ({ appointment, invoiceItemList, onItemClick }) => {
+  const appointmentStartTime = appointment.startTime;
+
   const itemTypes = [
     {
       title: "Services",
@@ -27,6 +29,11 @@ const SummaryItemList = ({ invoiceItemList, onItemClick }) => {
 
   return (
     <div className="sale__summary-items">
+      <div className="sale__summary-appointment">
+        <h5>
+          Appointment -<span className="sale__items-group-start-date sale__label">{appointmentStartTime}</span>
+        </h5>
+      </div>
       {itemTypes
         .filter((type) => type.list && type.list.length > 0) // Filter out types with empty or undefined lists
         .map((type, typeIndex) => (

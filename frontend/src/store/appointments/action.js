@@ -51,7 +51,6 @@ export const getAppointments = () => ({
 export const getAppointment = (appointment) => ({
   type: GET_APPOINTMENT,
   payload: appointment,
-
 });
 
 export const updateAppointment = appointment => ({

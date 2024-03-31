@@ -12,7 +12,7 @@ import {
   RESET_CALENDAR,
   GET_UPCOMMINGEVENT_SUCCESS,
   GET_UPCOMMINGEVENT_FAIL,
-} from "./actionTypes";
+} from "./actionType";
 
 const INIT_STATE = {
   events: [],

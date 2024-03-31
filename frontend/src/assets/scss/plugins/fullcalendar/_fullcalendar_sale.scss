@@ -1830,3 +1830,129 @@ $color_3: #6a7982;
 	display: inline;
 	cursor: pointer
 }
+
+
+// Sale Summary
+
+.sale__summary-total-line.sale__summary-total {
+	border-top: 1px solid #ccc
+}
+
+.sale__summary-total-line {
+	position: relative;
+	border-top: 1px solid #ddd;
+	line-height: 40px;
+	font-size: 16px;
+	font-weight: 700;
+	padding: 4px 16px
+}
+
+.sale__summary-total-line .sale__summary-total-line-info {
+	display: flex
+}
+
+.sale__summary-total-line .sale__summary-total-line-errors {
+	font-size: 12px;
+	line-height: 18px;
+	color: #da4f49
+}
+
+.sale__summary-total-line .sale__summary-total-line-value {
+	flex: 1;
+	text-align: right
+}
+
+.sale__summary-total-line .sale__summary-total-line-remove {
+	cursor: pointer;
+	width: 40px;
+	font-size: 22px;
+	text-align: right
+}
+
+.sale__summary-total-line.sale__summary-total-line--deleted {
+	background-color: #fee7e5 !important;
+	pointer-events: none
+}
+
+.sale__summary-total-line.sale__summary-total-line--deleted * {
+	opacity: 0
+}
+
+.sale__summary-total-line.sale__summary-total-line--promo .sale__summary-total-line-label {
+	line-height: 32px
+}
+
+.sale__summary-total-line--clickable {
+	cursor: pointer
+}
+
+.sale__summary-total-line--dark {
+	border-top: 1px solid #ccc
+}
+
+.sale__summary-total-discounts .sale__summary-total-line,
+.sale__summary-total-payments .sale__summary-total-line {
+	font-weight: 400
+}
+
+
+.sale__summary-actions {
+	margin: 16px 0 0;
+	padding: 8px 16px 16px
+}
+
+.sale__summary-actions,
+.sale__summary-extras {
+	bottom: 0;
+	box-shadow: 0 0 8px rgba(0, 0, 0, .1);
+	background-color: #fff
+}
+
+.sale__summary-extras {
+	display: flex;
+	position: sticky;
+	margin: 0 -16px;
+	padding: 0 16px;
+	height: 56px;
+	line-height: 56px
+}
+
+.sale__summary-extras button {
+	flex: 1;
+	display: flex;
+	align-items: center;
+	overflow: hidden;
+	font-size: 16px;
+	color: #63727b
+}
+
+.sale__summary-extras button svg {
+	height: 40px;
+	width: 40px
+}
+
+.sale__summary-extras button>div {
+	margin-left: -11px;
+	height: 40px;
+	width: 40px
+}
+
+.sale__summary-actions-more {
+	display: flex;
+	font-size: 16px;
+	padding: 8px 0 16px
+}
+
+.sale__summary-options {
+	flex: 2;
+	text-align: left
+}
+
+.sale__summary-tax {
+	flex: 1;
+	text-align: right
+}
+
+.icon-module_streamline__13d-J.icon-module_xlarge__2Al4n {
+    width: 40px;
+}

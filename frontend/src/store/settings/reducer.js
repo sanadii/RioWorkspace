@@ -6,7 +6,6 @@ import {
   UPDATE_SETTING_OPTION_SUCCESS,
   UPDATE_SETTING_OPTION_FAIL,
 
-
   GET_SETTINGS,
   GET_OPTION_CATEGORIES,
   ADD_OPTION_CATEGORY_SUCCESS,
@@ -23,7 +22,6 @@ import {
   UPDATE_OPTION_CHOICE_FAIL,
   DELETE_OPTION_CHOICE_SUCCESS,
   DELETE_OPTION_CHOICE_FAIL,
-
 } from "./actionType";
 
 const INIT_STATE = {
@@ -44,7 +42,7 @@ const SettingOptions = (state = INIT_STATE, action) => {
             settingOptions: action.payload.data.settingOptions,
             settingChoices: action.payload.data.settingChoices,
             isSettingOptionCreated: false,
-            isSettingOptionsuccess: true
+            isSettingOptionsuccess: true,
           };
         default:
           return { ...state };
@@ -56,7 +54,7 @@ const SettingOptions = (state = INIT_STATE, action) => {
             ...state,
             error: action.payload.error,
             isSettingOptionCreated: false,
-            isSettingOptionsuccess: false
+            isSettingOptionsuccess: false,
           };
 
         case GET_SETTINGS:
@@ -64,14 +62,14 @@ const SettingOptions = (state = INIT_STATE, action) => {
             ...state,
             settingOptionChoices: action.payload.data,
             isOptionChoiceCreated: false,
-            isOptionChoiceSuccess: true
+            isOptionChoiceSuccess: true,
           };
         case GET_OPTION_CATEGORIES:
           return {
             ...state,
             optionCategories: action.payload.data,
             isOptionCategoryCreated: false,
-            isOptionCategorySuccess: true
+            isOptionCategorySuccess: true,
           };
 
         case GET_OPTION_CHOICES:
@@ -79,7 +77,7 @@ const SettingOptions = (state = INIT_STATE, action) => {
             ...state,
             optionChoices: action.payload.data,
             isOptionChoiceCreated: false,
-            isOptionChoiceSuccess: true
+            isOptionChoiceSuccess: true,
           };
         default:
           return { ...state };

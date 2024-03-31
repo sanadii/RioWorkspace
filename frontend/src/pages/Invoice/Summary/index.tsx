@@ -1,11 +1,13 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { Appointment, Service, Package, Product, Voucher, Discount, SummaryProps } from "types"; // Adjust the path as necessary
-import SummaryItemModal from "./SummaryItemModal";
-import { Button, Label } from "reactstrap";
+
+// Components
+import SummaryCustomer from "./SummaryCustomer";
 import SummaryItemList from "./SummaryItemList";
+import SummaryActions from "./SummaryActions";
+
+import SummaryItemModal from "./SummaryItemModal";
 import DiscountModal from "./DiscountModal";
-import { useDispatch, useSelector } from "react-redux";
-import { updateAppointment } from "store/actions";
 
 const Summary: React.FC<SummaryProps> = ({
   appointment,
@@ -17,19 +19,14 @@ const Summary: React.FC<SummaryProps> = ({
   isPayment,
   setOverAllTotal,
 }) => {
-  const dispatch = useDispatch();
-
   console.log("invoiceItemList:???  ", invoiceItemList);
-  const appointmentStartTime = appointment.startTime;
-  const clientName = appointment.client?.name;
-  const clientMobile = appointment.client?.mobile;
+  const [updatedAppointment, setUpdatedAppointment] = useState<Appointment | null>(null);
+  const [isAddingNote, setIsAddingNote] = useState(false);
+  const [appointmentNote, setAppointmentNote] = useState(appointment.note || "");
 
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
   const [selectedItem, setSelectedIteme] = useState<Service | Package | Product | Voucher | null>(null);
   const [discountValue, setDiscountValue] = useState<Discount | null>(null);
-  const [appointmentNote, setAppointmentNote] = useState(appointment.note || "");
-  const [updatedAppointment, setUpdatedAppointment] = useState<Appointment | null>(null);
-  const [isAddingNote, setIsAddingNote] = useState(false);
 
   const handleItemSelectionClick = (item: Service | Package | Product | Voucher, index: number) => {
     setSelectedIteme(item);
@@ -73,129 +70,43 @@ const Summary: React.FC<SummaryProps> = ({
     if (appointment) {
       const newUpdatedAppointment = {
         ...appointment,
+        appointment: appointment.id,
+        client: appointment.client.id,
         services: invoiceItemList.serviceList,
         packages: invoiceItemList.packageList,
         products: invoiceItemList.productList,
         discount: discountValue,
         note: appointmentNote,
-        // Add any other details you need to update
+        amount: overallTotal,
+        status: "pending",
       };
       setUpdatedAppointment(newUpdatedAppointment);
     }
   }, [appointment, invoiceItemList, appointmentNote, discountValue]);
 
-  const handleAddNoteClick = () => {
-    setIsAddingNote(true);
-  };
-  const handleCheckoutClick = () => {
-    setIspayment(true);
-    dispatch(updateAppointment(updatedAppointment));
-  };
-
-  const handleEditInvoiceClick = () => {
-    setIspayment(false);
-  };
-
   return (
     <React.Fragment>
       <div className="sale__summary">
-        <div className="sale__summary-customer">
-          <div className="sale__customer">
-            <div>
-              <div className="sale__customer-picker ">
-                <div className="sale__customer-picker-heading sale__heading--domaine">
-                  <div className="sale__customer-picker-heading-text">Select client</div>
-                </div>
-                <div className="sale__customer-picker-selected">
-                  <div className="sale__customer-picker-selected-details">
-                    <div className="sale__customer-picker-selected-name">
-                      <span className="sale__customer-picker-customer-name">{clientName} </span>
-                    </div>
-                    <div className="sale__customer-picker-selected-phone">+{clientMobile}</div>
-                  </div>
-                  <div className="sale__customer-picker-selected-remove" data-testid="sale__customer-remove-button">
-                    ×
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="sale__customer-selected">
-              <div className="sale__customer-balances"></div>
-            </div>
-          </div>
-        </div>
-        <div className="sale__summary-appointment">
-          <h5>
-            Appointment -<span className="sale__items-group-start-date sale__label">{appointmentStartTime}</span>
-          </h5>
-        </div>
+        <SummaryCustomer appointment={appointment} />
 
-        <div className="sale__summary-items">
-          <SummaryItemList invoiceItemList={invoiceItemList} onItemClick={handleItemSelectionClick} />
-        </div>
+        <SummaryItemList
+          appointment={appointment}
+          invoiceItemList={invoiceItemList}
+          onItemClick={handleItemSelectionClick}
+        />
+        
         <div className="sale__summary-actions">
-          <div className="sale__summary-actions-more">
-            <div className="sale__summary-options">
-              <button
-                className="sale__button-link sale__button-link--underlined"
-                id="sale__add-note-button"
-                onClick={handleAddNoteClick}
-              >
-                Add note
-              </button>
-              &nbsp;or&nbsp;
-              <button className="sale__button-link sale__button-link--underlined" data-testid="sale__add-discount">
-                discount
-              </button>
-            </div>
-            {/* <div className="sale__summary-tax">Tax K.D.0</div> */}
-          </div>
-          <div className="sale__summary-totals"></div>
-
-          {isAddingNote ? (
-            <div className="sale__summary-note">
-              <div className="sale__summary-note-label">
-                <Label id="sale-note-field">Note</Label>
-                <Button className="sale__button-link" onClick={() => setIsAddingNote(false)}>
-                  ×
-                </Button>
-              </div>
-              <textarea
-                data-testid="sale__note-field"
-                data-automationid="tui-textarea"
-                className="form-control textarea-module_formControl__1hsMA"
-                name="sale-note-field"
-                placeholder="Add Notes"
-                value={appointmentNote}
-                onChange={(e) => setAppointmentNote(e.target.value)} // Extract the value from the event object
-              ></textarea>
-            </div>
-          ) : (
-            ""
-          )}
-          {isPayment ? (
-            <button
-              // variant="primary"
-              // size="lg"
-              // loading="false"
-              data-testid="sale__checkout-button"
-              className="sale__summary-checkout-button tui-button tui-button--lg tui-button--primary primary hydrated"
-              onClick={handleEditInvoiceClick}
-            >
-              Edit Invoice K.D.{overallTotal}
-            </button>
-          ) : (
-            <button
-              // variant="primary"
-              // size="lg"
-              // loading="false"
-              data-testid="sale__checkout-button"
-              className="sale__summary-checkout-button tui-button tui-button--lg tui-button--primary primary hydrated"
-              onClick={handleCheckoutClick}
-            >
-              Checkout K.D.{overallTotal}
-            </button>
-          )}
+          <SummaryActions
+            appointment={appointment}
+            isAddingNote={isAddingNote}
+            setIsAddingNote={setIsAddingNote}
+            setIspayment={setIspayment}
+            appointmentNote={appointmentNote}
+            setAppointmentNote={appointmentNote}
+            updatedAppointment={updatedAppointment}
+            isPayment={isPayment}
+            overallTotal={overallTotal}
+          />
         </div>
       </div>
 

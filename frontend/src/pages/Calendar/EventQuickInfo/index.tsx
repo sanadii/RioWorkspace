@@ -6,19 +6,29 @@ import { createPortal } from "react-dom";
 import { useSelector } from "react-redux";
 import { appointmentsSelector } from "Selectors";
 
-
 // Popover Components
 import EventPopoverHeader from "./EventPopoverHeader";
 import EventPopoverContent from "./EventPopoverContent";
 import EventPopoverFooter from "./EventPopoverFooter";
 
-const EventQuickInfo = ({ eventEl, event, setAppointment, isOpen, toggle, setBookingModal, setBookingMood }) => {
+const EventQuickInfo = ({
+  isOpen,
+  setIsQuickInfoModal,
+  setIsEventBookingModal,
+  setIsRebookEvent,
+  eventEl,
+  event,
+  setAppointment,
+  toggleModal,
+  setBookingMood,
+  setIsCancelEventModal,
+}) => {
   const { staff } = useSelector(appointmentsSelector);
   const popoverContentRef = useRef(null);
   const backdropRef = useRef(null);
 
   const closePopover = () => {
-    toggle("");
+    setIsQuickInfoModal(false);
   };
 
   // Close popover and backdrop when clicking outside
@@ -28,7 +38,7 @@ const EventQuickInfo = ({ eventEl, event, setAppointment, isOpen, toggle, setBoo
       const isOutsidePopover = popoverContentRef.current && !popoverContentRef.current.contains(event.target);
       const isOnBackdrop = backdropRef.current && backdropRef.current.contains(event.target);
 
-      if (isOpen === "quickInfo" && (isOutsidePopover || isOnBackdrop)) {
+      if (isOpen && (isOutsidePopover || isOnBackdrop)) {
         closePopover();
       }
     };
@@ -49,19 +59,25 @@ const EventQuickInfo = ({ eventEl, event, setAppointment, isOpen, toggle, setBoo
           className="event-popover calendar-balloon"
           isOpen={isOpen}
           target={eventEl}
-          toggle={toggle}
+          toggleModal={toggleModal}
         >
+          {/* Event Popover Header */}
           <PopoverHeader>
             <EventPopoverHeader event={event} closePopover={closePopover} />
           </PopoverHeader>
+
+          {/* Event Popover Body */}
           <PopoverBody>
             <EventPopoverContent event={event} staff={staff} />
             <EventPopoverFooter
               event={event}
               setAppointment={setAppointment}
-              toggle={toggle}
-              setBookingModal={setBookingModal}
+              setIsRebookEvent={setIsRebookEvent}
+              toggleModal={toggleModal}
               setBookingMood={setBookingMood}
+              closePopover={closePopover}
+              setIsEventBookingModal={setIsEventBookingModal}
+              setIsCancelEventModal={setIsCancelEventModal}
             />
           </PopoverBody>
         </Popover>

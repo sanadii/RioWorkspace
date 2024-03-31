@@ -8,7 +8,7 @@ import {
   GET_EVENTS,
   UPDATE_EVENT,
   GET_UPCOMMINGEVENT
-} from "./actionTypes"
+} from "./actionType"
 
 import {
   getEventsSuccess,
@@ -23,7 +23,7 @@ import {
   getCategoriesFail,
   getUpCommingEventSuccess,
   getUpCommingEventFail
-} from "./actions"
+} from "./action"
 
 //Include Both Helper File with needed methods
 import {

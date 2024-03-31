@@ -12,10 +12,16 @@ import UsersSaga from "./auth/users/saga";
 import LayoutSaga from "./layouts/saga";
 import SettingsSaga from "./settings/saga";
 
-
-// Apps - Finance
+// 
+// FINANCE
+// 
 import RevenueSaga from "./revenues/saga";
 import ExpenseSaga from "./expenses/saga";
+import InvoiceSaga from "./invoices/saga";
+
+// 
+// CALENDAR
+// 
 import AppointmentSaga from "./appointments/saga";
 import CalendarSaga from "./calendar/saga";
 
@@ -42,12 +48,13 @@ export default function* rootSaga() {
     fork(LayoutSaga),
     fork(SettingsSaga),
 
-    // Calendar
-    fork(CalendarSaga),
-
-    // Apps - Finance
+    // Finance
     fork(RevenueSaga),
     fork(ExpenseSaga),
+    fork(InvoiceSaga),
+
+    // Calendar
+    fork(CalendarSaga),
     fork(AppointmentSaga),
 
     // Clients

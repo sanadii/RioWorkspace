@@ -20,7 +20,7 @@ import ExtraStatusComponent from "./ExtraStatusComponent";
 
 import { AppointmentItem, ServiceItem, ClientItem } from "types";
 
-const EventEditModal = ({ isOpen, isEdit, toggle, appointment }) => {
+const EventEditModal = ({ isOpen, isEdit, toggleModal, appointment }) => {
   const dispatch: any = useDispatch();
 
   const { services, staff } = useSelector(appointmentsSelector);
@@ -106,7 +106,7 @@ const EventEditModal = ({ isOpen, isEdit, toggle, appointment }) => {
         dispatch(addAppointment(newEvent));
         validation.resetForm();
       }
-      toggle();
+      toggleModal();
     },
   });
 
@@ -116,7 +116,7 @@ const EventEditModal = ({ isOpen, isEdit, toggle, appointment }) => {
     <React.Fragment>
       <Modal
         isOpen={isOpen}
-        toggle={toggle}
+        toggleModal={toggleModal}
         centered
         size="lg"
         id="event-modal"
@@ -131,7 +131,7 @@ const EventEditModal = ({ isOpen, isEdit, toggle, appointment }) => {
             return false;
           }}
         >
-          <ModalHeader toggle={toggle} tag="h5" className="booking-modal__header">
+          <ModalHeader toggleModal={toggleModal} tag="h5" className="booking-modal__header">
             {!!isEdit ? `Edit Appointment of ${appointment.title}` : "Add Event"}
           </ModalHeader>
           <ModalBody className="booking-modal__body">
@@ -158,7 +158,9 @@ const EventEditModal = ({ isOpen, isEdit, toggle, appointment }) => {
             >
               Decline appointment
             </Button>
-            <Button size="sm" className="btn-light waves-effect waves-light btn-cancel">
+            <Button size="sm" 
+            className="btn-light waves-effect waves-light btn-cancel"
+            >
               Cancel
             </Button>
 
@@ -204,7 +206,7 @@ const EventEditModal = ({ isOpen, isEdit, toggle, appointment }) => {
                 <button
                   type="button"
                   className="btn btn-secondary-dark modal-close update-calendar  pe-12 ps-12"
-                  onClick={toggle}
+                  onClick={toggleModal}
                 >
                   Close
                 </button>
@@ -214,7 +216,7 @@ const EventEditModal = ({ isOpen, isEdit, toggle, appointment }) => {
                     type="submit"
                     className="btn btn-primary save-recurring pe-12 ps-12"
                     // onClick={saveEvent}
-                    data-toggle="popover"
+                    data-toggleModal="popover"
                     title="Edit recurring booking"
                     data-content="Would you like to change only this event, or this and all following events in the series?"
                   >

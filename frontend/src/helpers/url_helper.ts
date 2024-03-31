@@ -41,6 +41,9 @@ export const ADD_NEW_EVENT = "/add/event";
 export const UPDATE_EVENT = "/update/event";
 export const DELETE_EVENT = "/delete/event";
 
+// 
+// FINANCE
+// 
 // Revenue
 export const GET_REVENUES = "/finance/getRevenues";
 export const ADD_REVENUE = "/finance/addRevenue";
@@ -52,6 +55,20 @@ export const GET_EXPENSES = "/finance/getExpenses";
 export const ADD_EXPENSE = "/finance/addExpense";
 export const UPDATE_EXPENSE = "/finance/updateExpense";
 export const DELETE_EXPENSE = "/finance/deleteExpense";
+
+// Invoice
+export const GET_INVOICES = "/finance/getInvoices";
+export const GET_INVOICE_BY_ID = "/finance/getInvoiceById";
+export const ADD_INVOICE = "/finance/addInvoice";
+export const UPDATE_INVOICE = "/finance/updateInvoice";
+export const DELETE_INVOICE = "/finance/deleteInvoice";
+
+// Expenses
+export const GET_TRANSACTIONS = "/finance/getTransactions";
+export const GET_TRANSACTION_BY_ID = "/finance/getTransactionById";
+export const ADD_TRANSACTION = "/finance/addTransaction";
+export const UPDATE_TRANSACTION = "/finance/updateTransaction";
+export const DELETE_TRANSACTION = "/finance/deleteTransaction";
 
 
 

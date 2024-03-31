@@ -1,7 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
-import { Button, Popover, PopoverHeader, PopoverBody } from "reactstrap";
-import { formatTime } from "Components/Hooks";
-import { createPortal } from "react-dom";
+import React from "react";
 
 const EventPopOverHeader = ({ event, closePopover }) => {
   const defId = event?.defId;

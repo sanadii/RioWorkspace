@@ -1,10 +1,15 @@
-import React, { useEffect, useState, useCallback, useRef } from "react";
+import React, { useState } from "react";
+
+// Redux
+import { useDispatch } from "react-redux";
+import { getSchedule } from "store/actions";
 
 // Utilities & CSS
 import Select from "react-select";
 import { Button } from "reactstrap";
 
 const LeftToolbarChunk = ({ calendarRef, staff, showLeftSidebar, setShowLeftSidebar }) => {
+  const dispatch: any = useDispatch();
   const [selectedSingle, setSelectedSingle] = useState<any>(null);
   const [selectedStaff, setSelectedStaff] = useState("all-rostered");
 
@@ -17,8 +22,7 @@ const LeftToolbarChunk = ({ calendarRef, staff, showLeftSidebar, setShowLeftSide
   }
 
   const handleRefreshClick = () => {
-    alert("Refresh button clicked!");
-    // Implement your refresh logic here
+    dispatch(getSchedule());
   };
 
   const handleStaffChange = (event) => {
@@ -38,14 +42,11 @@ const LeftToolbarChunk = ({ calendarRef, staff, showLeftSidebar, setShowLeftSide
           }}
           options={staff}
         />{" "}
-        <Button className="btn-sm btn-soft-secondary tip-init" title="Refresh calendar">
+        <Button className="btn-sm btn-soft-secondary tip-init" title="Refresh calendar" onClick={handleRefreshClick}>
           <i className="mdi mdi-refresh"></i>
         </Button>
         <Button className="btn-sm btn-soft-secondary tip-init" title="Print calendar to report">
           <i className="mdi mdi-printer"></i>
-        </Button>
-        <Button className="btn-sm btn-soft-secondary tip-init" title="Hide customer names & prices">
-          <i className="mdi mdi-eye"></i>
         </Button>
       </div>
     </React.Fragment>

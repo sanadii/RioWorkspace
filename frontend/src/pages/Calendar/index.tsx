@@ -11,34 +11,31 @@ import FullCalendar from "@fullcalendar/react";
 import useFullCalendarSettings from "./CalendarSettings"; // Adjust the path as needed
 
 import CalenderHeaderToolbar from "./CalenderHeaderToolbar";
-import CalendarLeftSidebar from "./CalendarLeftSidebar";
+import CalendarSidebar from "./CalendarSidebar";
+import EventQuickInfo from "./EventQuickInfo";
 import EventEditModal from "./EventEditModal";
 import EventCancelModal from "./EventCancelModal";
-import EventQuickInfo from "./EventQuickInfo";
-
-import { Row, Col, UncontrolledAlert } from "reactstrap";
+import { UncontrolledAlert } from "reactstrap";
 
 const Calender = () => {
   const dispatch: any = useDispatch();
-
-  // Data
   const calendarRef = useRef(null);
   const calendarApi = calendarRef?.current?.getApi();
-  console.log("calendarApi: index:", calendarApi);
 
   const { appointments, staff } = useSelector(appointmentsSelector);
   const [appointment, setAppointment] = useState<any>({});
+
+  // Modals & Popover
+  const [isQuickInfoModal, setIsQuickInfoModal] = useState<boolean>(null);
+  const [isEventBookingModal, setIsEventBookingModal] = useState<boolean>(null);
+  const [isCancelEventModal, setIsCancelEventModal] = useState<boolean>(null);
   const [bookingMood, setBookingMood] = useState<BookingMoodProps>("");
   const [bookingModal, setBookingModal] = useState<BookingModalProps>("");
-  const [isPopoverOpen, setIsPopoverOpen] = useState(false);
   const [popoverTarget, setPopoverTarget] = useState(null); // Initialize as null
-  const [modal, setModal] = useState<boolean>(false);
   const [isEdit, setIsEdit] = useState<boolean>(false);
-  const [isRebook, setIsRebook] = useState<boolean>(false);
+  const [isRebookEvent, setIsRebookEvent] = useState<boolean>(false);
   const [selectedNewDay, setSelectedNewDay] = useState<any>();
-
   const [showLeftSidebar, setShowLeftSidebar] = useState(true); // or false, based on initial visibility
-  console.log("we are toggling", showLeftSidebar);
 
   //
   // getDate
@@ -46,26 +43,6 @@ const Calender = () => {
   useEffect(() => {
     dispatch(getSchedule());
   }, [dispatch]);
-
-  /**
-   * Handling the modal state
-   */
-
-  const toggle = useCallback(() => {
-    console.log("you are toggling me");
-    if (bookingModal) {
-      setBookingModal("");
-      setAppointment(null);
-      setIsEdit(false);
-    } else {
-      setBookingModal("");
-    }
-  }, [bookingModal]);
-
-  // Handle Reebook
-  const handleRebookCancel = () => {
-    setIsRebook(false);
-  };
 
   console.log("bookingModal: ", bookingModal);
   const str_dt = function formatDate(date: any) {
@@ -93,6 +70,20 @@ const Calender = () => {
   };
 
   /**
+   * Handling the modal state
+   */
+
+  const toggleModal = useCallback(() => {
+    if (isEventBookingModal) {
+      setIsEventBookingModal(false);
+      setAppointment(null);
+      setIsEdit(false);
+    } else {
+      setIsEventBookingModal(true);
+    }
+  }, [isEventBookingModal]);
+
+  /**
    * Handling click on date on calendar
    */
 
@@ -109,16 +100,17 @@ const Calender = () => {
     const adjustedEnd = new Date(endDate.getTime());
 
     if (bookingMood === "bookNextEvent") {
-      setBookingMood("");
+      setIsEdit(false);
       setAppointment({
         start: adjustedStart.toISOString(),
         end: adjustedEnd.toISOString(),
         client: appointment.client,
       });
     } else if (bookingMood === "rescheduleEvent") {
-      setBookingMood("");
+      setIsEdit(true);
       setAppointment({
         start: adjustedStart.toISOString(),
+        end: adjustedEnd.toISOString(),
         id: appointment.id,
         client: appointment.client,
         services: appointment.services,
@@ -129,46 +121,65 @@ const Calender = () => {
         end: adjustedEnd.toISOString(),
       });
     }
-    toggle();
+
+    if (isRebookEvent) {
+      setIsRebookEvent(false);
+      setBookingMood("");
+    }
+
+    toggleModal();
   };
 
   /**
    * Handling click on event on calendar
    */
-  const handleEventClick = useCallback((arg: any) => {
-    const appointment = arg.event;
-    const st_date = appointment.start;
-    const ed_date = appointment.end;
-    const r_date = ed_date == null ? str_dt(st_date) : str_dt(st_date) + " to " + str_dt(ed_date);
-    const er_date = ed_date === null ? [st_date] : [st_date, ed_date];
+  const handleEventClick = useCallback(
+    (arg: any) => {
+      const appointment = arg.event;
+      const st_date = appointment.start;
+      const ed_date = appointment.end;
+      const r_date = ed_date == null ? str_dt(st_date) : str_dt(st_date) + " to " + str_dt(ed_date);
+      const er_date = ed_date === null ? [st_date] : [st_date, ed_date];
 
-    setAppointment({
-      id: appointment.id,
-      title: appointment.title,
-      start: appointment.start,
-      end: appointment.end,
-      classNames: appointment.classNames,
+      setAppointment({
+        id: appointment.id,
+        title: appointment.title,
+        start: appointment.start,
+        end: appointment.end,
+        classNames: appointment.classNames,
 
-      client: appointment.extendedProps.client,
-      services: appointment.extendedProps.services,
-      packages: appointment.extendedProps.packages,
-      products: appointment.extendedProps.products,
-      status: appointment.extendedProps.status,
+        client: appointment.extendedProps.client,
+        services: appointment.extendedProps.services,
+        packages: appointment.extendedProps.packages,
+        products: appointment.extendedProps.products,
+        status: appointment.extendedProps.status,
 
-      duration: appointment.duration,
-      price: appointment.price,
+        duration: appointment.duration,
+        price: appointment.price,
 
-      // category: appointment.classNames[0],
-      note: appointment._def.extendedProps.note,
-      defaultDate: er_date,
-      datetag: r_date,
-    });
+        // category: appointment.classNames[0],
+        note: appointment._def.extendedProps.note,
+        defaultDate: er_date,
+        datetag: r_date,
+      });
 
-    setPopoverTarget(arg.el); // Use the event's element as the popover target
-    // setIsPopoverOpen(true); // Open the popover
-    setBookingModal("quickInfoEvent");
-    setIsEdit(true);
-  }, []);
+      setPopoverTarget(arg.el); // Use the event's element as the popover target
+      setIsQuickInfoModal(true);
+      setIsEdit(true);
+
+      if (isRebookEvent) {
+        setIsRebookEvent(false);
+        setBookingMood("");
+      }
+    },
+    [isRebookEvent]
+  );
+
+  // Handle Reebook
+  const handleCloseRebookClick = () => {
+    setIsRebookEvent(false);
+    setBookingMood("");
+  };
 
   const handleEventResize = (arg) => {
     const { id, start, end } = arg.event;
@@ -189,12 +200,18 @@ const Calender = () => {
     };
     dispatch(updateAppointment(updatedAppointment));
   };
+
   console.log("calendarRef:: ", calendarRef);
   const fullCalendarOptions = useFullCalendarSettings();
   return (
     <React.Fragment>
       <div className="d-lg-flex gap-1">
-        <div id="flex-pane">{showLeftSidebar && <CalendarLeftSidebar />}</div>
+        {showLeftSidebar && (
+          <div id="flex-pane">
+            <CalendarSidebar />
+          </div>
+        )}
+
         <div className="w-100">
           <CalenderHeaderToolbar
             calendarRef={calendarRef}
@@ -213,50 +230,49 @@ const Calender = () => {
           />
         </div>
       </div>
-      {bookingMood === ("bookNextEvent" || "rescheduleEvent") && (
-        <BookAnotherAppointment bookingMood={bookingMood} setBookingMood={setBookingMood} appointment={appointment} />
-      )}
-      {isRebook && (
+
+      {isRebookEvent && (
         <UncontrolledAlert
-          color="warning"
-          className="alert-solid alert-dismissible bg-warning text-white alert-label-icon material-shadow fade show"
+          color="primary"
+          className="fc-messages alert-solid alert-dismissible bg-primary text-white alert-label-icon material-shadow fade show"
         >
           <i className="ri-alert-line label-icon"></i>
-          <a className="rebook-cancel" onClick={handleRebookCancel}>
-            &times;
+          {bookingMood === "bookNextEvent" ? "Book Next Appointment " : "Reschedule Appointment "}- Choose a new time.
+          <a className="rebook-cancel" onClick={handleCloseRebookClick}>
+            ×
           </a>
         </UncontrolledAlert>
       )}
 
+      {/* Event Quick Info */}
       <EventQuickInfo
-        eventEl={popoverTarget}
         event={appointment}
         setAppointment={setAppointment}
-        isOpen={bookingModal === "quickInfoEvent"}
-        toggle={toggle}
-        setBookingModal={setBookingModal}
+        eventEl={popoverTarget}
+        // Popover & Modals
+        isOpen={isQuickInfoModal}
+        setIsQuickInfoModal={setIsQuickInfoModal}
+        setIsEventBookingModal={setIsEventBookingModal}
+        toggleModal={toggleModal}
         setBookingMood={setBookingMood}
+        setIsRebookEvent={setIsRebookEvent}
+        setIsCancelEventModal={setIsCancelEventModal}
       />
-      <EventEditModal isOpen={bookingModal === "editEvent"} toggle={toggle} appointment={appointment} isEdit={isEdit} />
-      <EventCancelModal isOpen={bookingModal === "cancelEvent"} toggle={toggle} appointment={appointment} />
-    </React.Fragment>
-  );
-};
 
-const BookAnotherAppointment = ({ appointment, setBookingMood, bookingMood }) => {
-  const handleCloseButton = () => {
-    setBookingMood("");
-  };
-  return (
-    <div
-      className="bg-primary fc-messages"
-      // style="display: block;"
-    >
-      {bookingMood === "bookNextEvent" ? "Book Next Appointment " : "Reschedule Appointment "}- Choose a new time.
-      <a className="rebook-cancel" onClick={handleCloseButton}>
-        ×
-      </a>
-    </div>
+      {/* Event Edit Modal */}
+      <EventEditModal
+        isOpen={isEventBookingModal}
+        // isOpen={bookingModal === "editEvent"}
+        toggleModal={toggleModal}
+        appointment={appointment}
+        isEdit={isEdit}
+      />
+
+      {/* Event Cancel Modal */}
+      <EventCancelModal isOpen={isCancelEventModal} toggleModal={toggleModal} appointment={appointment} />
+
+      {/* Event Change Date Alert */}
+    </React.Fragment>
   );
 };
 

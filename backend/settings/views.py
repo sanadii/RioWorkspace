@@ -35,7 +35,7 @@ class GetSettings(APIView):
             choice_serializer = OptionChoicesSerializer(option_choices, many=True)
             
             # Add the choices to the data dictionary
-            data.setdefault('setting_choices', {}).update({category_serializer.data['name']: choice_serializer.data})
+            data.setdefault('setting_choices', {}).update({category_serializer.data['value']: choice_serializer.data})
 
         # Return the response
         return Response({'data': data})

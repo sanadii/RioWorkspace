@@ -1,12 +1,21 @@
 import React, { useEffect, useState, useRef } from "react";
 import { Button, ButtonGroup } from "reactstrap";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 // Redux
 import { useDispatch, useSelector } from "react-redux";
 import { updateAppointment } from "store/actions";
 
-const EventPopoverFooter = ({ event, setAppointment, toggle, setBookingModal, setBookingMood }) => {
+const EventPopoverFooter = ({
+  event,
+  setAppointment,
+  toggleModal,
+  closePopover,
+  setIsEventBookingModal,
+  setBookingMood,
+  setIsRebookEvent,
+  setIsCancelEventModal
+}) => {
   const dispatch: any = useDispatch();
   const navigate = useNavigate();
 
@@ -17,27 +26,27 @@ const EventPopoverFooter = ({ event, setAppointment, toggle, setBookingModal, se
   const [isEdit, setIsEdit] = useState<boolean>(false);
 
   const handleEditAction = (e) => {
-    setBookingModal("editEvent");
+    setIsEventBookingModal(true);
+    setBookingMood("editEvent");
     setIsEdit(true);
+    closePopover();
   };
 
-  const handleBookNexttAction = (event) => {
+  const handleBookNextClick = (event) => {
+    setIsRebookEvent(true);
     setBookingMood("bookNextEvent");
-    setAppointment(event);
-    // setAppointment
-    toggle();
+    closePopover();
   };
 
   const handleRescheduleAction = (event) => {
+    setIsRebookEvent(true);
     setBookingMood("rescheduleEvent");
-    setBookingModal("");
-
-    setAppointment(event);
-    toggle("");
+    closePopover();
   };
 
   const handleCancelEventAction = (event) => {
-    setBookingModal("cancelEvent");
+    setBookingMood("cancelEvent");
+    setIsCancelEventModal(true);
     setIsEdit(true);
   };
 
@@ -58,7 +67,7 @@ const EventPopoverFooter = ({ event, setAppointment, toggle, setBookingModal, se
     // const clientId = scheduleObj.current.activeEventData?.event.client.id;
 
     navigate(`/invoice?appointmentId=${appointmentId}`);
-    toggle("");
+    toggleModal("");
   };
 
   // Handle different button actions
@@ -91,7 +100,7 @@ const EventPopoverFooter = ({ event, setAppointment, toggle, setBookingModal, se
           // disabled={loader && true}
           className="btn btn-soft-secondary w-100 waves-effect waves-light material-shadow-none"
           // className="btn btn-primary-light btn-small bln-close"
-          onClick={(event) => handleBookNexttAction(event)}
+          onClick={(event) => handleBookNextClick(event)}
         >
           Book Next
         </button>
@@ -123,7 +132,7 @@ const EventPopoverFooter = ({ event, setAppointment, toggle, setBookingModal, se
         </div>
       ) : (
         <>
-          <div className="btn-group calendar-balloon__status-buttons" data-toggle="buttons-relaxed-radio">
+          <div className="btn-group calendar-balloon__status-buttons" data-toggleModal="buttons-relaxed-radio">
             <ButtonGroup size="sm" className="w-100 material-shadow">
               <Button
                 className={`btn-light material-shadow-none ${appointmentStatus === 3 ? "active" : ""}`}

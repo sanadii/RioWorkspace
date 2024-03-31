@@ -31,6 +31,7 @@ class SettingOption(models.Model):
 class OptionCategory(models.Model):
     name = models.CharField(max_length=100)
     description = models.CharField(max_length=150)
+    value = models.TextField(null=True)
     config = models.CharField(max_length=250)
 
     def __str__(self):
