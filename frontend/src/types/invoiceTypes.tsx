@@ -154,10 +154,10 @@ export type InvoiceProps = {
 };
 
 export type InvoiceItemList = {
-  serviceList: Service[];
-  packageList: Package[];
-  productList: Product[];
-  voucherList: Voucher[];
+  appointmentList: Appointment[];
+  packageList?: Package[];
+  productList?: Product[];
+  voucherList?: Voucher[];
 };
 
 export interface ItemTabProps {

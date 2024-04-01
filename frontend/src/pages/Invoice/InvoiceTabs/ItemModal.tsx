@@ -69,8 +69,8 @@ const ItemTabModal: React.FC<ItemTabModalProps> = ({
 
       switch (itemType) {
         case "service":
-          updatedList = [...prevItemList.serviceList, newItem];
-          return { ...prevItemList, serviceList: updatedList };
+          updatedList = [...prevItemList.appointmentList[0].services, newItem];
+          return { ...prevItemList, appointmentList: updatedList };
         case "product":
           updatedList = [...prevItemList.productList, newItem];
           return { ...prevItemList, productList: updatedList };

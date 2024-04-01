@@ -54,7 +54,7 @@ const Summary: React.FC<SummaryProps> = ({
   };
 
   // Calculate total prices for services, packages, and products
-  const totalServicePrice = calculateTotalPrice(invoiceItemList.serviceList);
+  const totalServicePrice = calculateTotalPrice(invoiceItemList.appointmentList);
   const totalPackagePrice = calculateTotalPrice(invoiceItemList.packageList);
   const totalProductPrice = calculateTotalPrice(invoiceItemList.productList);
   const totalVoucherPrice = calculateTotalPrice(invoiceItemList.voucherList);
@@ -74,7 +74,7 @@ const Summary: React.FC<SummaryProps> = ({
         appointment: activeInvoice.appointment,
         client: activeInvoice.client,
         items: {
-          services: invoiceItemList.serviceList,
+          services: invoiceItemList.appointmentList,
           packages: invoiceItemList.packageList,
           products: invoiceItemList.productList,
         },
@@ -118,7 +118,7 @@ const Summary: React.FC<SummaryProps> = ({
         setModal={setModal}
         toggle={toggle}
         selectedItem={selectedItem}
-        invoiceItemList={invoiceItemList.serviceList}
+        invoiceItemList={invoiceItemList.appointmentList}
         staff={staff}
         setInvoiceItemList={setInvoiceItemList}
         selectedIndex={selectedIndex}

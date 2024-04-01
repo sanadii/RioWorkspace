@@ -1,30 +1,8 @@
 import React, { useEffect, useState, useCallback } from "react";
-import {
-  Card,
-  CardBody,
-  Col,
-  Container,
-  DropdownItem,
-  DropdownMenu,
-  DropdownToggle,
-  FormFeedback,
-  Input,
-  Modal,
-  ModalBody,
-  ModalHeader,
-  Row,
-  UncontrolledDropdown,
-} from "reactstrap";
-import { ToastContainer } from "react-toastify";
-import { DeleteModal } from "Components/Common";
-import SimpleBar from "simplebar-react";
 
-//redux
+// Redux
 import { settingsSelector } from "Selectors";
-
 import { useSelector, useDispatch } from "react-redux";
-
-//import action
 import { getSettingOptions } from "store/actions";
 
 // Formik
@@ -34,21 +12,35 @@ import { FieldComponent } from "Components/Common";
 
 import { Link } from "react-router-dom";
 
+// Components
 import SettingSidebar from "./SettingSidebar";
-import FolderList from "./FolderList";
 import BusinessDetails from "./BusinessDetails";
+import BusinessLocations from "./BusinessLocations";
+import CalendarSettings from "./CalendarSettings";
+import { DeleteModal } from "Components/Common";
+import { Container, TabPane } from "reactstrap";
+import SimpleBar from "simplebar-react";
+import { ToastContainer } from "react-toastify";
+
 const Settings = () => {
-  document.title = "File Manager | Velzon - React Admin & Dashboard Template";
-
-  const { settingOptions } = useSelector(settingsSelector);
-
   const dispatch: any = useDispatch();
-
-  // const [settingOptions, setSettingOptions] = useState<any>(null);
+  const { settingOptions } = useSelector(settingsSelector);
 
   useEffect(() => {
     dispatch(getSettingOptions());
   }, [dispatch]);
+
+  const [activeTab, setActiveTab] = useState("2");
+
+  const settingTabs = [
+    { id: "1", label: "Business Details", component: BusinessDetails },
+    { id: "2", label: "Business Locations", component: BusinessLocations },
+    { id: "3", label: "Calendar Settings", component: CalendarSettings },
+  ];
+
+  useEffect(() => {
+    document.title = `File Manager | ${settingOptions.appName} - React Admin & Dashboard Template`;
+  }, [settingOptions.appName]);
 
   return (
     <React.Fragment>
@@ -56,27 +48,19 @@ const Settings = () => {
       <div className="bg-gray">
         <Container fluid>
           <div className="d-lg-flex gap-1 p-1">
-            <SettingSidebar />
+            <SettingSidebar activeTab={activeTab} setActiveTab={setActiveTab} />
 
             <div className="file-manager-content bg-white w-100 p-3 py-0 border">
-              <div className="mx-n3 pt-4 px-4 file-manager-content-scroll overflow-x-hidden overflow-y-auto">
-                {/* <BusinessDetails settingOptions={settingOptions} /> */}
-                <BusinessDetails />
-                <div>
-                  <div className="d-flex align-items-center mb-3">
-                    <h5 className="flex-grow-1 fs-16 mb-0" id="filetype-title">
-                      Recent File
-                    </h5>
-                    <div className="flex-shrink-0">
-                      {/* <button className="btn btn-primary createFile-modal" onClick={() => handleFileClicks()}>
-                        <i className="ri-add-line align-bottom me-1"></i> Create File
-                      </button> */}
-                    </div>
-                  </div>
-
-                  <ul id="pagination" className="pagination pagination-lg"></ul>
-                </div>
-              </div>
+              <SimpleBar className="mx-n3 pt-4 px-4 file-manager-content-scroll overflow-x-hidden overflow-y-auto">
+                {settingTabs.map(
+                  (tab, index) =>
+                    activeTab === tab.id && (
+                      <TabPane tabId={tab.id} key={index}>
+                        <tab.component />
+                      </TabPane>
+                    )
+                )}
+              </SimpleBar>
             </div>
           </div>
         </Container>

@@ -14,7 +14,7 @@ import { FieldComponent } from "Components/Common";
 import { Fields } from "@syncfusion/ej2-react-dropdowns";
 import { Row, Col, Label, Form, Input } from "reactstrap";
 
-const BusinessDetails = () => {
+const BusinessLocations = () => {
   const dispatch = useDispatch();
   const { settingOptions } = useSelector(settingsSelector);
 
@@ -250,104 +250,62 @@ const BusinessDetails = () => {
   ];
 
   return (
-    <Form
-      className="tablelist-form"
-      on={(e) => {
-        e.preventDefault();
-        validation.handleSubmit();
-        return false;
-      }}
-    >
+    <div className="t-sidebar__content">
       <div className="t-settings-head affix-top" data-spy="affix" data-offset-top="75">
-        <h1>Business details</h1>
+        <h1>Locations</h1>
         <div className="t-settings-head__actions">
-          <button type="submit" className="btn btn-primary btn-padded">
-            Save
-          </button>
+          <a href="/Setup/Locations/LocationAdd" className="btn btn-primary btn-padded">
+            Add location
+          </a>
         </div>
         <hr />
       </div>
-      {fields.map((field) => (
-        <Row>
-          <div className="t-sidebar__content">
-            <div className="t-settings-head affix-top" data-spy="affix" data-offset-top="75">
-              <h1>Locations</h1>
-              <div className="t-settings-head__actions">
-                <a href="/Setup/Locations/LocationAdd" className="btn btn-primary btn-padded">
-                  Add location
-                </a>
-              </div>
-              <hr />
-            </div>
 
-            <div className="rg-row">
-              <div className="col-md-12 ">
-                <ul className="card__list card__list--hidden-child unstyled sortable ui-sortable">
-                  <li className="card__list-item">
-                    <div className="card card--locations  location-148566" data-id="148566">
-                      <div className="card__thumb">
-                        <i className="fa fa-home"></i>
-                      </div>
-
-                      <div className="card__body">
-                        <h3 className="card__title">Rio Brazil Salon</h3>
-
-                        <ul className="name-value-list horizontal-list unbordered">
-                          <li className="full-width">
-                            <h3>Block 3, Street 2, Building 6, Floor 2, Number 4, Salmiya</h3>
-                          </li>
-                        </ul>
-                      </div>
-
-                      <div className="card__actions">
-                        <a
-                          href="/Setup/Locations/Location/148566?tab=details"
-                          data-output-className="location-148566"
-                          className="btn btn-secondary"
-                        >
-                          Edit
-                        </a>
-
-                        <a
-                          className="pop btn btn-sm btn-secondary-light"
-                          href="javascript:void(0);"
-                          data-original-title="Delete this location?"
-                          data-content="This location has future appointments or classes and cannot be deleted until these appointments or classes are assigned to another location."
-                        >
-                          <i className="fa fa-trash-o"></i>
-                        </a>
-                      </div>
-                    </div>
-                  </li>
-                  <li className="new-location card__list-item"></li>
-                </ul>
-              </div>
-            </div>
-          </div>{" "}
-          {/* <Col lg={4}>
-            <h2>{field.header}</h2>
-            <p>{field.subHeader}</p>
-          </Col>
-          <Col lg={8}>
-            {field.items.map((item) => (
-              <div key={item.id}>
-                <FieldComponent formStructure="table" field={item} validation={validation} />
-              </div>
-            ))}
-          </Col> */}
-        </Row>
-      ))}
       <div className="rg-row">
-        <div className="col-md-12">
-          <div className="Form-actions text-right">
-            <button type="submit" className="btn btn-primary btn-padded">
-              Save
-            </button>
-          </div>
+        <div className="col-md-12 ">
+          <ul className="card__list card__list--hidden-child unstyled sortable ui-sortable">
+            <li className="card__list-item">
+              <div className="card card--locations  location-148566" data-id="148566">
+                <div className="card__thumb">
+                  <i className="fa fa-home"></i>
+                </div>
+
+                <div className="card__body">
+                  <h3 className="card__title">Rio Brazil Salon</h3>
+
+                  <ul className="name-value-list horizontal-list unbordered">
+                    <li className="full-width">
+                      <h3>Block 3, Street 2, Building 6, Floor 2, Number 4, Salmiya</h3>
+                    </li>
+                  </ul>
+                </div>
+
+                <div className="card__actions">
+                  <a
+                    href="/Setup/Locations/Location/148566?tab=details"
+                    data-output-className="location-148566"
+                    className="btn btn-secondary"
+                  >
+                    Edit
+                  </a>
+
+                  <a
+                    className="pop btn btn-sm btn-secondary-light"
+                    href="javascript:void(0);"
+                    data-original-title="Delete this location?"
+                    data-content="This location has future appointments or classes and cannot be deleted until these appointments or classes are assigned to another location."
+                  >
+                    <i className="fa fa-trash-o"></i>
+                  </a>
+                </div>
+              </div>
+            </li>
+            <li className="new-location card__list-item"></li>
+          </ul>
         </div>
       </div>
-    </Form>
+    </div>
   );
 };
 
-export default BusinessDetails;
+export default BusinessLocations;

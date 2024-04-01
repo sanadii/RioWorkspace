@@ -47,7 +47,8 @@ const Invoice = () => {
         amount: invoice?.amount || 0, // Default to 0 if 'amount' is not available in 'invoice'
         items: {
           // serviceList: appointment?.services || [],
-          serviceList: [],
+          // serviceList: [],
+          appointmentList: invoice?.appointments || [appointment],
           packageList: invoice?.packages || [],
           productList: invoice?.products || [],
           voucherList: invoice?.vouchers || [],
@@ -62,7 +63,7 @@ const Invoice = () => {
     if (activeInvoice) {
       setInvoiceItemList(
         activeInvoice.items || {
-          serviceList: [],
+          appointmentList: [],
           packageList: [],
           productList: [],
           voucherList: [],
@@ -86,7 +87,7 @@ const Invoice = () => {
   };
 
   const tabConfig = [
-    { tabId: "1", itemType: "service", items: services, itemList: invoiceItemList?.serviceList },
+    { tabId: "1", itemType: "service", items: services, itemList: invoiceItemList?.appointmentList },
     { tabId: "2", itemType: "product", items: products, itemList: invoiceItemList?.productList },
     { tabId: "3", itemType: "package", items: packages, itemList: invoiceItemList?.packageList },
     { tabId: "4", itemType: "voucher", items: vouchers, itemList: invoiceItemList?.voucherList },
