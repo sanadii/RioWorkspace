@@ -1,0 +1,606 @@
+import { Label, Form, Input } from "reactstrap";
+const BusinessDetails = () => {
+  return (
+    <Form className="business-settings" action="/Settings/BusinessGeneral" method="post">
+      <div className="t-settings-head affix-top" data-spy="affix" data-offset-top="75">
+        <h1>Business details</h1>
+        <div className="t-settings-head__actions">
+          <button type="submit" className="btn btn-primary btn-padded">
+            Save
+          </button>
+        </div>
+        <hr />
+      </div>
+      <Input
+        name="__RequestVerificationToken"
+        type="hidden"
+        value="u-k4huCTOwd53VVfi3QklfkOzHKkRPKS2Cxs8JhQCKwP3fUiIBOUe4CxnjNV_SrXsor3AjrUYA2K3Zw3aDfB--s83WLZ8PL3Uw8yZ7e1J_nig8bb0"
+      />
+      <div className="rg-row">
+        <div className="col-md-4">
+          <h2>Details</h2>
+          <p>Basic information about you and your business.</p>
+        </div>
+
+        <div className="col-md-8">
+          <div className="Form-group ">
+            <Label className="" htmlFor="BusinessName">
+              Business name
+            </Label>
+            <Input
+              className="Form-control"
+              id="BusinessName"
+              name="BusinessName"
+              type="text"
+              value="Rio Brazil Salon"
+            />
+          </div>
+
+          <div className="Form-group ">
+            <Label className="" htmlFor="WebsiteUrl">
+              Business website
+            </Label>
+            <a
+              href="javascript:void(0);"
+              rel="popover"
+              data-content="If you have a website enter its URL here. <i>This is not for the URL of your Timely Miniwebsite</i>."
+              data-original-title="Your own website"
+              className="tip-init"
+            >
+              &nbsp;<i className="fa fa-question-circle">&nbsp;</i>
+            </a>
+            <div className="Input-group">
+              <span className="Input-group-addon">
+                <select id="WebsiteUrlSchema" name="WebsiteUrlSchema">
+                  <option>http://</option>
+                  <option
+                  // selected="selected"
+                  >
+                    https://
+                  </option>
+                </select>{" "}
+              </span>
+              <Input className="Form-control" id="WebsiteUrl" name="WebsiteUrl" type="text" value="" />
+            </div>
+          </div>
+
+          <div className="Form-group ">
+            <Label className="" htmlFor="ContactTelephone">
+              Business phone number
+            </Label>
+            <Input
+              className="Form-control"
+              id="ContactTelephone"
+              name="ContactTelephone"
+              type="text"
+              value="60001215"
+            />
+          </div>
+
+          <div className="rg-row">
+            <div className="col-sm-6">
+              <div className="Form-group ">
+                <Label className="" htmlFor="FirstName">
+                  Your first name
+                </Label>
+                <Input className="Form-control" id="FirstName" name="FirstName" type="text" value="Sanad" />
+              </div>
+            </div>
+            <div className="col-sm-6">
+              <div className="Form-group ">
+                <Label className="" htmlFor="LastName">
+                  Your last name
+                </Label>
+                <Input className="Form-control" id="LastName" name="LastName" type="text" value="Almutairi" />
+              </div>
+            </div>
+          </div>
+
+          <div className="Form-group ">
+            <Label htmlFor="BusinessCategoryId">Business category</Label>
+            <select className="Form-control" id="BusinessCategoryId" name="BusinessCategoryId">
+              <option value="0">What do you do?</option>
+              <option value="-1"></option>
+              <option
+                // selected="selected"
+                value="12"
+              >
+                Hair &amp; Beauty
+              </option>
+              <option value="2">Hair</option>
+              <option value="3">Beauty</option>
+              <option value="13">Barber</option>
+              <option value="4">Massage/Day Spa</option>
+              <option value="6">Health/Wellbeing Clinic</option>
+              <option value="14">Body Art</option>
+              <option value="15">Personal Training</option>
+              <option value="5">Group Fitness</option>
+              <option value="7">Tutoring/Consulting</option>
+              <option value="1">Everything else!</option>
+            </select>
+          </div>
+
+          <div className="Form-group ">
+            <Label className="" htmlFor="UpdateBillingDetails">
+              Billing details
+            </Label>
+            <div className="checkbox">
+              <Label className="">
+                <Input id="UpdateBillingDetails" name="UpdateBillingDetails" type="checkbox" value="true" />
+                <Input name="UpdateBillingDetails" type="hidden" value="false" />
+                Update my Timely billing details with these settings
+                <a
+                  href="javascript:void(0);"
+                  rel="popover"
+                  data-content="Update the billing details displayed on your Timely subscription to match these settings. To enter separate billing details go to your <strong>Account</strong> > <strong>Billing</strong> page."
+                  data-original-title="Update billing details"
+                  className="tip-init"
+                >
+                  &nbsp;<i className="fa fa-question-circle">&nbsp;</i>
+                </a>
+              </Label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr />
+      <div className="rg-row">
+        <div className="col-md-4">
+          <h2>Regional settings</h2>
+          <p>Specify region specific settings for your business.</p>
+        </div>
+        <div className="col-md-8">
+          <div className="rg-row">
+            <div className="col-sm-6">
+              <div className="Form-group ">
+                <Label className="" htmlFor="CountryCode">
+                  Country
+                </Label>
+                <select className="Form-control" id="CountryCode" name="CountryCode">
+                  <option value="">Choose country</option>
+                  <option value="  "></option>
+                  <option value="NZ">New Zealand</option>
+                  <option value="AU">Australia</option>
+                </select>
+              </div>
+            </div>
+            <div className="col-sm-6">
+              <div className="Form-group ">
+                <Label className="" htmlFor="CurrencyCode">
+                  Currency
+                </Label>
+                <select className="Form-control" id="CurrencyCode" name="CurrencyCode">
+                  <option value="">Choose currency</option>
+                  <option value="  "></option>
+                  <option value="NZD">New Zealand Dollar</option>
+                  <option value="AUD">Australian Dollar</option>
+                  <option value="USD">United States Dollar</option>
+                  <option value="GBP">British Pound</option>
+                  <option value="CAD">Canadian Dollar</option>
+                  <option value=" "></option>
+                  <option value="AFN">Afghan afghani</option>
+                  <option value="ALL">Albanian lek</option>
+                  <option value="DZD">Algerian dinar</option>
+                  <option value="AOA">Angolan Kwanza</option>
+                  <option value="ARS">Argentine Peso</option>
+                  <option value="AMD">Armenian dram</option>
+                  <option value="AZN">Azerbaijani manat</option>
+                  <option value="BHD">Bahraini Dinar</option>
+                  <option value="BDT">Bangladeshi taka</option>
+                  <option value="BBD">Barbadian Dollar</option>
+                  <option value="BYN">Belarusian rubel</option>
+                  <option value="BOB">Bolivian boliviano</option>
+                  <option value="BAM">Bosnia and Herzegovina Convertible Marka</option>
+                  <option value="BWP">Botswana pula</option>
+                  <option value="BRL">Brazilian Real</option>
+                  <option value="BND">Brunei Dollar</option>
+                  <option value="BGN">Bulgarian Lev</option>
+                  <option value="BIF">Burundian franc</option>
+                  <option value="KHR">Cambodian riel</option>
+                  <option value="KYD">Caymanian Dollar</option>
+                  <option value="XPF">CFP Franc</option>
+                  <option value="CLP">Chilean peso</option>
+                  <option value="CNY">Chinese Yuan Renminbi</option>
+                  <option value="COP">Colombian Peso</option>
+                  <option value="CDF">Congolese franc</option>
+                  <option value="CRC">Costa Rican Colón</option>
+                  <option value="HRK">Croatian Kuna</option>
+                  <option value="CZK">Czech Koruna</option>
+                  <option value="DKK">Danish Krone</option>
+                  <option value="DPO">Dominican Peso</option>
+                  <option value="NLG">Dutch Guilder</option>
+                  <option value="XCD">Eastern Caribbean Dollar</option>
+                  <option value="EGP">Egyptian Pound</option>
+                  <option value="AED">Emirati Dirham</option>
+                  <option value="ETB">Ethiopian birr</option>
+                  <option value="EUR">Euro</option>
+                  <option value="FJD">Fijian Dollar</option>
+                  <option value="GMD">Gambian dalasi</option>
+                  <option value="GEL">Georgian lari</option>
+                  <option value="GHS">Ghanaian cedi</option>
+                  <option value="GTQ">Guatemalan Quetzal</option>
+                  <option value="GGP">Guernsey Pound</option>
+                  <option value="GNF">Guinean franc</option>
+                  <option value="GYD">Guyanese dollar</option>
+                  <option value="HTG">Haitian gourde</option>
+                  <option value="HNL">Honduran Lempira</option>
+                  <option value="HKD">Hong Kong Dollar</option>
+                  <option value="HUF">Hungarian Forint</option>
+                  <option value="ISK">Icelandic Króna</option>
+                  <option value="INR">Indian Rupee</option>
+                  <option value="IDR">Indonesian Rupiah</option>
+                  <option value="IRR">Iranian rial</option>
+                  <option value="IQD">Iraqi dinar</option>
+                  <option value="ILS">Israeli Shekel</option>
+                  <option value="JMD">Jamaican Dollar</option>
+                  <option value="JPY">Japanese Yen</option>
+                  <option value="KZT">Kazakhstani tenge</option>
+                  <option value="KES">Kenyan Shilling</option>
+                  {/* <option selected="selected" value="KWD">Kuwaiti Dinar</option> */}
+                  <option value="KGS">Kyrgyz som</option>
+                  <option value="LAK">Lao kip</option>
+                  <option value="LRD">Liberian dollar</option>
+                  <option value="LYD">Libyan dinar</option>
+                  <option value="MOP">Macanese Pataca</option>
+                  <option value="MKD">Macedonian denar</option>
+                  <option value="MGA">Malagasy ariary</option>
+                  <option value="MWK">Malawian Kwacha</option>
+                  <option value="MYR">Malaysian Ringgit</option>
+                  <option value="MVR">Maldivian Rufiyaa</option>
+                  <option value="MRU">Mauritanian ouguiya</option>
+                  <option value="MUR">Mauritius Rupee</option>
+                  <option value="MXN">Mexican Peso</option>
+                  <option value="MDL">Moldovan Leu</option>
+                  <option value="MNT">Mongolian tögrög</option>
+                  <option value="MAD">Moroccan dirham</option>
+                  <option value="MZN">Mozambican metical</option>
+                  <option value="MMK">Myanmar Kyat</option>
+                  <option value="NAD">Namibian Dollar</option>
+                  <option value="NPR">Nepalese Rupee</option>
+                  <option value="ANG">Netherlands Antillean guilder</option>
+                  <option value="TWD">New Taiwan Dollar</option>
+                  <option value="NIO">Nicaraguan córdoba</option>
+                  <option value="NGN">Nigerian Naira</option>
+                  <option value="KPW">North Korean won</option>
+                  <option value="NOK">Norwegian Krone</option>
+                  <option value="PKR">Pakistani Rupee</option>
+                  <option value="PGK">Papua New Guinea Kina</option>
+                  <option value="PYG">Paraguayan guaraní</option>
+                  <option value="PEN">Peruvian Nuevo Sol</option>
+                  <option value="PHP">Philippine Peso</option>
+                  <option value="PLN">Polish Zloty</option>
+                  <option value="QAR">Qatari Riyal</option>
+                  <option value="RON">Romanian Lei</option>
+                  <option value="RUB">Russia Ruble</option>
+                  <option value="RWF">Rwandan Franc</option>
+                  <option value="WST">Samoan Tala</option>
+                  <option value="SAR">Saudi Riyal</option>
+                  <option value="RSD">Serbian Dinar</option>
+                  <option value="SCR">Seychellois rupee</option>
+                  <option value="SLE">Sierra Leonean leone</option>
+                  <option value="SGD">Singapore Dollar</option>
+                  <option value="SBD">Solomon Islands dollar</option>
+                  <option value="SOS">Somali shilling</option>
+                  <option value="ZAR">South African Rand</option>
+                  <option value="KRW">South Korean won</option>
+                  <option value="SSP">South Sudanese pound</option>
+                  <option value="LKR">Sri Lankan Rupee</option>
+                  <option value="SDG">Sudanese pound</option>
+                  <option value="SRD">Surinamese dollar</option>
+                  <option value="SEK">Swedish Krona</option>
+                  <option value="CHF">Swiss Franc</option>
+                  <option value="SYP">Syrian pound</option>
+                  <option value="TJS">Tajikistani somoni</option>
+                  <option value="TZS">Tanzanian Shilling</option>
+                  <option value="THB">Thai Baht</option>
+                  <option value="TOP">Tongan pa`anga</option>
+                  <option value="TTD">Trinidadian Dollar</option>
+                  <option value="TND">Tunisian dinar</option>
+                  <option value="TRL">Turkish Lira</option>
+                  <option value="TMT">Turkmenistani manat</option>
+                  <option value="UGX">Ugandan Shilling</option>
+                  <option value="UAH">Ukrainian hryvnia</option>
+                  <option value="UYU">Uruguayan Peso</option>
+                  <option value="UZS">Uzbekistani soum</option>
+                  <option value="VUV">Vanuatu Vatu</option>
+                  <option value="VEF">Venezuelan Bolívar</option>
+                  <option value="VND">Vietnamese Dong</option>
+                  <option value="YER">Yemeni rial</option>
+                  <option value="ZMW">Zambian Kwacha</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div className="Form-group ">
+            <Label className="" htmlFor="TimeZoneLocaleId">
+              Time zone
+            </Label>
+            <select className="Form-control" id="TimeZoneLocaleId" name="TimeZoneLocaleId">
+              <option value="0">Choose time zone</option>
+              <option value="-1"></option>
+              <option value="94">(GMT-12:00) International Date Line West</option>
+              <option value="92">(GMT-10:00) Hawaii</option>
+              <option value="91">(GMT-08:00) Alaska</option>
+              <option value="86">(GMT-07:00) Arizona</option>
+              <option value="87">(GMT-07:00) Chihuahua, La Paz, Mazatlan</option>
+              <option value="89">(GMT-07:00) Pacific Time (US &amp; Canada)</option>
+              <option value="90">(GMT-07:00) Baja California</option>
+              <option value="82">(GMT-06:00) Central America</option>
+              <option value="84">(GMT-06:00) Guadalajara, Mexico City, Monterrey</option>
+              <option value="85">(GMT-06:00) Saskatchewan</option>
+              <option value="88">(GMT-06:00) Mountain Time (US &amp; Canada)</option>
+              <option value="79">(GMT-05:00) Bogota, Lima, Quito, Rio Branco</option>
+              <option value="83">(GMT-05:00) Central Time (US &amp; Canada)</option>
+              <option value="75">(GMT-04:00) Georgetown, La Paz, Manaus, San Juan</option>
+              <option value="76">(GMT-04:00) Cuiaba</option>
+              <option value="78">(GMT-04:00) Caracas</option>
+              <option value="80">(GMT-04:00) Eastern Time (US &amp; Canada)</option>
+              <option value="81">(GMT-04:00) Indiana (East)</option>
+              <option value="68">(GMT-03:00) Brasilia</option>
+              <option value="69">(GMT-03:00) City of Buenos Aires</option>
+              <option value="70">(GMT-03:00) Cayenne, Fortaleza</option>
+              <option value="72">(GMT-03:00) Montevideo</option>
+              <option value="74">(GMT-03:00) Atlantic Time (Canada)</option>
+              <option value="77">(GMT-03:00) Santiago</option>
+              <option value="73">(GMT-02:30) Newfoundland</option>
+              <option value="66">(GMT-01:00) Cabo Verde Is.</option>
+              <option value="71">(GMT-01:00) Greenland</option>
+              <option value="8">(GMT+00:00) Casablanca</option>
+              <option value="10">(GMT+00:00) Monrovia, Reykjavik</option>
+              <option value="65">(GMT+00:00) Azores</option>
+              <option value="9">(GMT+01:00) Dublin, Edinburgh, Lisbon, London</option>
+              <option value="15">(GMT+01:00) West Central Africa</option>
+              <option value="11">(GMT+02:00) Amsterdam, Berlin, Bern, Rome, Stockholm, Vienna</option>
+              <option value="12">(GMT+02:00) Belgrade, Bratislava, Budapest, Ljubljana, Prague</option>
+              <option value="13">(GMT+02:00) Brussels, Copenhagen, Madrid, Paris</option>
+              <option value="14">(GMT+02:00) Sarajevo, Skopje, Warsaw, Zagreb</option>
+              <option value="19">(GMT+02:00) Cairo</option>
+              <option value="20">(GMT+02:00) Harare, Pretoria</option>
+              <option value="24">(GMT+02:00) Windhoek</option>
+              <option value="16">(GMT+03:00) Amman</option>
+              <option value="17">(GMT+03:00) Athens, Bucharest</option>
+              <option value="18">(GMT+03:00) Beirut</option>
+              <option value="21">(GMT+03:00) Helsinki, Kyiv, Riga, Sofia, Tallinn, Vilnius</option>
+              <option value="22">(GMT+03:00) Jerusalem</option>
+              <option value="23">(GMT+03:00) Chisinau</option>
+              <option value="25">(GMT+03:00) Baghdad</option>
+              {/* <option selected="selected" value="26">(GMT+03:00) Kuwait, Riyadh</option> */}
+              <option value="27">(GMT+03:00) Moscow, St. Petersburg, Volgograd</option>
+              <option value="28">(GMT+03:00) Nairobi</option>
+              <option value="30">(GMT+03:30) Tehran</option>
+              <option value="29">(GMT+04:00) Tbilisi</option>
+              <option value="31">(GMT+04:00) Abu Dhabi, Muscat</option>
+              <option value="32">(GMT+04:00) Baku</option>
+              <option value="33">(GMT+04:00) Yerevan</option>
+              <option value="34">(GMT+04:30) Kabul</option>
+              <option value="35">(GMT+05:00) Ekaterinburg</option>
+              <option value="36">(GMT+05:00) Islamabad, Karachi</option>
+              <option value="37">(GMT+05:00) Ashgabat, Tashkent</option>
+              <option value="38">(GMT+05:30) Chennai, Kolkata, Mumbai, New Delhi</option>
+              <option value="39">(GMT+05:30) Sri Jayawardenepura</option>
+              <option value="40">(GMT+05:45) Kathmandu</option>
+              <option value="42">(GMT+06:00) Astana</option>
+              <option value="43">(GMT+06:30) Yangon (Rangoon)</option>
+              <option value="41">(GMT+07:00) Novosibirsk</option>
+              <option value="44">(GMT+07:00) Bangkok, Hanoi, Jakarta</option>
+              <option value="45">(GMT+07:00) Krasnoyarsk</option>
+              <option value="46">(GMT+08:00) Beijing, Chongqing, Hong Kong SAR, Urumqi</option>
+              <option value="47">(GMT+08:00) Irkutsk</option>
+              <option value="48">(GMT+08:00) Kuala Lumpur, Singapore</option>
+              <option value="49">(GMT+08:00) Perth</option>
+              <option value="50">(GMT+08:00) Taipei</option>
+              <option value="51">(GMT+09:00) Osaka, Sapporo, Tokyo</option>
+              <option value="52">(GMT+09:00) Seoul</option>
+              <option value="53">(GMT+09:00) Yakutsk</option>
+              <option value="55">(GMT+09:30) Darwin</option>
+              <option value="56">(GMT+10:00) Brisbane</option>
+              <option value="58">(GMT+10:00) Guam, Port Moresby</option>
+              <option value="60">(GMT+10:00) Vladivostok</option>
+              <option value="54">(GMT+10:30) Adelaide</option>
+              <option value="57">(GMT+11:00) Canberra, Melbourne, Sydney</option>
+              <option value="59">(GMT+11:00) Hobart</option>
+              <option value="61">(GMT+11:00) Solomon Is., New Caledonia</option>
+              <option value="63">(GMT+12:00) Fiji</option>
+              <option value="62">(GMT+13:00) Auckland, Wellington</option>
+              <option value="64">(GMT+13:00) Nuku'alofa</option>
+              <option value="93">(GMT+14:00) Samoa</option>
+            </select>
+          </div>
+
+          <div className="rg-row">
+            <div className="col-sm-6">
+              <div className="Form-group">
+                <Label className="" htmlFor="DateFormatId">
+                  Date format
+                </Label>
+                <select className="Form-control" id="DateFormatId" name="DateFormatId">
+                  <option
+                    // selected="selected"
+                    value="1"
+                  >
+                    31 Mar 2024
+                  </option>
+                  <option value="2">Mar 31, 2024</option>
+                </select>
+              </div>
+            </div>
+            <div className="col-sm-6">
+              <div className="Form-group">
+                <Label className="" htmlFor="TimeFormatId">
+                  Time format
+                </Label>
+                <select className="Form-control" id="TimeFormatId" name="TimeFormatId">
+                  <option
+                    //  selected="selected"
+                    value="1"
+                  >
+                    9:04PM
+                  </option>
+                  <option value="2">21:04</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr />
+      <div className="rg-row">
+        <div className="col-md-4">
+          <h2>Business description</h2>
+          <p>
+            Enter an optional description of your business for use on your <a href="/promote/website"> mini-website</a>.
+            <br />
+            The use of Scripting tags, and HTML formatting in the business description field is no longer supported by
+            Timely.
+          </p>
+        </div>
+        <div className="col-md-8">
+          <div className="Form-group ">
+            <textarea
+              className="char-count Form-control content-text-area"
+              // cols="100"
+              id="BusinessDescription"
+              name="BusinessDescription"
+              // rows="10"
+            >
+              Brazilian Salon
+            </textarea>
+
+            <br />
+
+            <div
+              id="business-description-warning"
+              className="alert alert-block alert-warning"
+              role="alert"
+              // style="display: none"
+            >
+              <p>
+                <strong>Important information about Business description</strong>
+                <br />
+                Please remove "&lt;" and "&gt;" from your business description. Scripting tags and HTML formatting are
+                not supported in your mini website.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr />
+      <div className="rg-row">
+        <div className="col-md-4">
+          <h2>Business logo</h2>
+          <p>Upload a logo to appear on your emails, invoices and mini-website.</p>
+        </div>
+        <div className="col-md-8">
+          <div className="Form-group">
+            <p></p>
+            <div className="logo">
+              <div
+              //  style="width: 250px; height: 150px; line-height: 150px"
+              >
+                <img
+                  src="https://app.gettimely.com/azure/timely-images/3d2b731b-55a9-4d4b-9d0a-78413b3eafab.jpg?width=250&amp;height=150&amp;quality=100"
+                  alt=""
+                />
+              </div>
+            </div>
+            <p></p>
+            <a
+              data-output-className="logo"
+              href="/Settings/BusinessLogo"
+              className="btn btn-primary btn-padded modal-open"
+            >
+              <i className="fa fa-pencil-square-o"></i>&nbsp;Edit logo
+            </a>
+          </div>
+        </div>
+      </div>
+      <hr />
+      <div className="rg-row">
+        <div className="col-md-4">
+          <h2>Get social!</h2>
+          <p>Enter your social networking accounts and we'll help you promote your business.</p>
+        </div>
+        <div className="col-md-8">
+          <div className="rg-row required ">
+            <div className="col-sm-6">
+              <Label className="" htmlFor="TwitterAccount">
+                Twitter account
+              </Label>
+              <br />
+              <div className="Form-group">
+                <div className="Input-group">
+                  <span className="Input-group-addon">@</span>
+                  <Input
+                    className=" Form-control"
+                    id="TwitterAccount"
+                    maxlength="100"
+                    name="TwitterAccount"
+                    type="text"
+                    value="RioBrazilSalon"
+                  />
+                </div>
+                <span className="Form-control-static"> &nbsp; e.g. Timely</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="rg-row required ">
+            <div className="col-sm-6">
+              <Label className="" htmlFor="InstagramAccount">
+                Instagram account
+              </Label>
+              <br />
+              <div className="Form-group">
+                <div className="Input-group">
+                  <span className="Input-group-addon">@</span>
+                  <Input
+                    className=" Form-control"
+                    id="InstagramAccount"
+                    maxlength="100"
+                    name="InstagramAccount"
+                    type="text"
+                    value="RioBrazilSalonkw"
+                  />
+                </div>
+                <span className="Form-control-static"> &nbsp; e.g. timelyapp</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="rg-row">
+            <div className="col-sm-6">
+              <div className="Form-group   ">
+                <Label className="" htmlFor="FacebookUrl">
+                  Facebook page
+                </Label>
+                <br />
+                <Input
+                  className="Form-control "
+                  id="FacebookUrl"
+                  maxlength="100"
+                  name="FacebookUrl"
+                  type="text"
+                  value="http://www.facebook.com/RioBrazilSalon"
+                />
+                <br />
+                <span className="Form-control-static"> &nbsp; e.g. http://www.facebook.com/liketimely </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="rg-row">
+        <div className="col-md-12">
+          <div className="Form-actions text-right">
+            <button type="submit" className="btn btn-primary btn-padded">
+              Save
+            </button>
+          </div>
+        </div>
+      </div>
+    </Form>
+  );
+};
+
+export default BusinessDetails;
