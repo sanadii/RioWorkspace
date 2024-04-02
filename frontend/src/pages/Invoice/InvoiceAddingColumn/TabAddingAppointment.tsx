@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Container, Row, Col, Card, CardBody, TabContent, TabPane } from "reactstrap";
 
-const AddingTabAppointment = () => {
+const TabAddingAppointment = () => {
   return (
     <React.Fragment>
       <div className="page-content">
@@ -14,4 +14,4 @@ const AddingTabAppointment = () => {
   );
 };
 
-export default AddingTabAppointment;
+export default TabAddingAppointment;

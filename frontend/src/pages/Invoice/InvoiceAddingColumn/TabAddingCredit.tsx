@@ -1,7 +1,7 @@
 import React from "react";
 import { Container } from "reactstrap";
 
-const AddingTabICredit = () => {
+const TabAddingCredit = () => {
   return (
     <React.Fragment>
       <div className="page-content">
@@ -13,4 +13,4 @@ const AddingTabICredit = () => {
   );
 };
 
-export default AddingTabICredit;
+export default TabAddingCredit;

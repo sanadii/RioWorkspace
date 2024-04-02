@@ -1,6 +1,58 @@
 # Getting Started with Create React App
 
+
+
+# Website
+- Website / eCommerce / Blog / Live Chat
+- 
+# Sales
+- Sales
+- CRM
+- Point of Sale
+- 
+
+- 
+# Finance
+- Accounting
+- Invoicing
+- Expenses
+- Sign
+
+Inventory & Manufacturing
+- Inventory
+- Purchase
+
+# Human Resources
+- Employee
+- Recruitment
+- Time Off
+- HR
+- Dashboard
+  
+# Marketing
+- Event
+- Survey
+- SMS marketing
+- Social Marketing
+
+# Services
+- Projects
+- Timesheet
+- Helpdek
+- Planning
+
+# Productivity
+- Planning
+
+- 
+
+
+<!-- Possible -->
+- Social Marketing
+- Email Marketing
+- 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
 
 ## Available Scripts
 

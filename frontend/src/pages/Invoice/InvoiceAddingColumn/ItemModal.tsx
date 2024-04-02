@@ -1,34 +1,33 @@
 import React, { useState, useEffect } from "react";
+
+// Redux
 import { useDispatch, useSelector } from "react-redux";
 import { clientsSelector } from "Selectors";
+import { getClientSearch, getClients } from "store/actions";
 
-import { Modal, Form, Button } from "reactstrap";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { FormFields } from "Components/Common";
-import { Staff, ItemTabModalProps } from "../../../types/invoiceTypes"; // Adjust the path as necessary
+import { Staff, ItemTabModalProps } from "types/invoiceTypes"; // Adjust the path as necessary
 
-import { getClientSearch, getClients } from "store/actions";
+import { Modal, Form, Button } from "reactstrap";
 
 const ItemTabModal: React.FC<ItemTabModalProps> = ({
   modal,
-  setModal,
   toggle,
   selectedItem,
   setSelectedItem,
-  itemTypeList = [], // Provide a default empty array
   staff,
   setInvoiceItemList,
-  itemType,
 }) => {
   const dispatch = useDispatch();
-
   const { clientSearch, clients } = useSelector(clientsSelector);
+  const [clientList, setClientList] = useState(clientSearch);
+  const [selectedStaff, setSelectedStaff] = useState<number | null>(null);
+  const bookableStaff = staff?.filter((staffMember) => staffMember.bookable) || [];
 
   useEffect(() => {
-    if (!clients || clients.length === 0) {
-      dispatch(getClients());
-    }
+    if (clients.length === 0) dispatch(getClients());
   }, [dispatch, clients]);
 
   const clientOptions = clients.map((client) => ({
@@ -36,18 +35,14 @@ const ItemTabModal: React.FC<ItemTabModalProps> = ({
     value: client.id,
   }));
 
-  const [clientList, setClientList] = useState(clientSearch);
-  const [selectedOption, setSelectedOption] = useState<number | null>(null);
-  const bookableStaff = staff?.filter((staffMember) => staffMember.bookable) || [];
-
-  const lastItemEndTime =
-    itemTypeList.length > 0 ? new Date(itemTypeList[itemTypeList.length - 1].endTime) : new Date();
+  // const lastItemEndTime =
+  //   itemTypeList.length > 0 ? new Date(itemTypeList[itemTypeList.length - 1].endTime) : new Date();
 
   const handleClientSearch = (e) => {
     dispatch(getClientSearch(e.value));
   };
   const handleStaffSelection = (staffId: number) => {
-    setSelectedOption(staffId);
+    setSelectedStaff(staffId);
     if (selectedItem) {
       setSelectedItem({ ...selectedItem, staff: staffId.toString() });
     }
@@ -55,92 +50,74 @@ const ItemTabModal: React.FC<ItemTabModalProps> = ({
 
   const updateInvoiceItemList = (newItem, itemType) => {
     setInvoiceItemList((prevItemList) => {
-      let updatedList;
-
+      const updatedList = { ...prevItemList };
       switch (itemType) {
         case "service":
-          // // TODO, if there is another appointment, what to do?
-          if (prevItemList.appointmentList && prevItemList.appointmentList.length > 0) {
-            // Assuming we update services for the first appointment in the list
-            const updatedServices = [...prevItemList.appointmentList[0].services, newItem];
-            const updatedAppointment = { ...prevItemList.appointmentList[0], services: updatedServices };
-            updatedList = [updatedAppointment, ...prevItemList.appointmentList.slice(1)];
-          } else {
-            // Handle case when appointmentList is empty or not present
-            updatedList = prevItemList.appointmentList;
-          }
-          return { ...prevItemList, appointmentList: updatedList };
-        // updatedList = [...prevItemList.appointmentList, newItem];
-        // return { ...prevItemList, appointmentList: updatedList };
-
+          const updatedServices = prevItemList.appointmentList[0]
+            ? [...prevItemList.appointmentList[0].services, newItem]
+            : [newItem];
+          updatedList.appointmentList = [{ ...prevItemList.appointmentList[0], services: updatedServices }];
+          break;
         case "product":
-          updatedList = [...prevItemList.productList, newItem];
-          return { ...prevItemList, productList: updatedList };
-
+          updatedList.productList = [...prevItemList.productList, newItem];
+          break;
         case "package":
-          updatedList = [...prevItemList.packageList, newItem];
-          return { ...prevItemList, packageList: updatedList };
-
+          updatedList.packageList = [...prevItemList.packageList, newItem];
+          break;
         case "voucher":
-          updatedList = [...prevItemList.voucherList, newItem];
-          console.log("updatedList: ", updatedList);
-
-          return { ...prevItemList, voucherList: updatedList };
-
+          updatedList.voucherList = [...prevItemList.voucherList, newItem];
+          break;
         default:
-          // Handle unknown itemType or throw an error
-          return prevItemList;
+        // Log error or handle unknown type
       }
+      return updatedList;
     });
   };
 
   const validation = useFormik({
     enableReinitialize: true,
+
     initialValues: {
       item: selectedItem?.id || null,
       name: selectedItem?.name || "",
       staff: selectedItem?.staff || null,
       unitPrice: selectedItem?.price || "0",
-      ...(itemType === "service" && {
-        duration: selectedItem?.duration || null,
-      }),
-      ...(itemType === "product" && {
-        quantity: selectedItem?.quantity || 1,
-      }),
+      ...(selectedItem?.itemType === "service" && { duration: selectedItem?.duration || null }),
+      ...(selectedItem?.itemType === "product" && { quantity: selectedItem?.quantity || 1 }),
     },
     validationSchema: Yup.object({
-      staff: Yup.number().integer("Staff must be an integer").nullable().required("Staff is required"),
+      // staff: Yup.number().integer("Staff must be an integer").nullable().required("Staff is required"),
       unitPrice: Yup.number().positive("Price must be a positive number").nullable().required("Price is required"),
       quantity:
-        itemType === "product"
+        selectedItem?.itemType === "product"
           ? Yup.number().positive("Quantity must be a positive number").nullable().required("Quantity is required")
           : undefined,
     }),
     onSubmit: (values) => {
       const newItem = {
         name: values.name,
-        staff: parseInt(values.staff, 10),
+        staff: selectedStaff,
         unitPrice: parseFloat(values.unitPrice),
         quantity: values.quantity || 0,
         itemId: values.item,
-        ...(itemType === "service" && {
+        ...(selectedItem?.itemType === "service" && {
           duration: values.duration,
-          startTime: lastItemEndTime,
-          endTime: new Date(lastItemEndTime.getTime() + values.duration * 60000),
+          // startTime: lastItemEndTime,
+          // endTime: new Date(lastItemEndTime.getTime() + values.duration * 60000),
         }),
-        ...(itemType === "package" &&
+        ...(selectedItem?.itemType === "package" &&
           {
             // Here we need to add new enty clientPackage in data base for client's package details to add and like it to both client and invoice
           }),
-        ...(itemType === "product" &&
+        ...(selectedItem?.itemType === "product" &&
           {
             //
           }),
       };
 
-      updateInvoiceItemList(newItem, itemType);
-      console.log("newItem: ", newItem);
-      setSelectedOption(null);
+      updateInvoiceItemList(newItem, selectedItem?.itemType);
+
+      setSelectedStaff(null);
       validation.resetForm();
       toggle();
     },
@@ -155,7 +132,7 @@ const ItemTabModal: React.FC<ItemTabModalProps> = ({
       options: bookableStaff.map((item) => ({
         id: item.id,
         label: item.name,
-        value: item.id.toString(),
+        value: 1,
         image: item.image,
         onClick: () => handleStaffSelection(item.id),
       })),
@@ -167,7 +144,7 @@ const ItemTabModal: React.FC<ItemTabModalProps> = ({
       type: "number",
       inputGroupText: "KD",
     },
-    ...(itemType === "product"
+    ...(selectedItem?.itemType === "product"
       ? [
           {
             id: "quantity-field",
@@ -179,7 +156,7 @@ const ItemTabModal: React.FC<ItemTabModalProps> = ({
       : []),
 
     // Voucher
-    ...(itemType === "voucher"
+    ...(selectedItem?.itemType === "voucher"
       ? [
           {
             id: "to-field",
@@ -218,7 +195,8 @@ const ItemTabModal: React.FC<ItemTabModalProps> = ({
   return (
     <Modal id="showModal" className="sale__modal" isOpen={modal} toggle={toggle} centered>
       <div className="sale__modal-head">
-        {selectedItem?.name} - {selectedItem?.unitPrice} {itemType === "service" && `- ${selectedItem?.duration}`}
+        {selectedItem?.name} - {selectedItem?.unitPrice}{" "}
+        {selectedItem?.itemType === "service" && `- ${selectedItem?.duration}`}
       </div>
       <div className="sale__modal-body">
         <Form
@@ -230,18 +208,13 @@ const ItemTabModal: React.FC<ItemTabModalProps> = ({
           }}
         >
           {fields.map((field) => (
-            <FormFields key={field.id} field={field} validation={validation} selectedOption={selectedOption} />
+            <FormFields key={field.id} field={field} validation={validation} selectedOption={selectedStaff} />
           ))}
-
           <div className="hstack flex-wrap gap-2">
-            <button
-              type="submit"
-              className="btn-primary-charcoal btn sale__button-save button-module_btn-width-fit__Q4Slu button-module_btn-primary-charcoal__2P0M6"
-              id="add-btn"
-            >
+            <button type="submit" className="btn-primary-charcoal btn sale__button-save" id="add-btn">
               Add To Sale
             </button>
-            <button className="sale__button-link sale__button-cancel sale__button-full-width" onClick={() => toggle()}>
+            <button className="sale__button-link sale__button-cancel" onClick={() => toggle()}>
               Cancel
             </button>
           </div>

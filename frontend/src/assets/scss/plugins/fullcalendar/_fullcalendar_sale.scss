@@ -303,6 +303,15 @@ $color_3: #6a7982;
 				box-shadow: 0 0 8px rgba(0, 0, 0, .04);
 				border-radius: 8px;
 				cursor: pointer;
+				display: flex;
+				flex-grow: 1;
+
+				&.item-type-product {
+					flex-direction: column;
+					align-items: center;
+				}
+
+
 
 				&:hover {
 					box-shadow: 0 0 8px rgba(0, 0, 0, .1);
@@ -313,38 +322,31 @@ $color_3: #6a7982;
 					border: 1px solid #dbdcff;
 				}
 
-				.sale__item-details {
+				.sale__item-name {
 					flex: 1;
-					display: flex;
-					flex-wrap: wrap;
+					// font-size: 16px;
+					font-weight: 700;
+					flex-grow: 1;
 
-
-					.sale__item-name {
-						flex: 1;
-						margin: 4px 0;
-						// font-size: 16px;
-						font-weight: 700;
-						flex-grow: 1 !important;
-
-						&.danger {
-							color: $danger;
-						}
-					}
-
-					.sale__item-price {
-						font-size: 16px;
-						line-height: 32px;
-						text-align: right;
-						flex-shrink: 0 !important;
-					}
-
-					.sale__item-duration {
-						color: $color_3;
-						font-style: italic;
-						flex: 1;
-						flex-basis: 100%;
+					&.danger {
+						color: $danger;
 					}
 				}
+
+				.sale__item-price {
+					font-size: 16px;
+					line-height: 32px;
+					text-align: right;
+					flex-shrink: 0 !important;
+				}
+
+				.sale__item-duration {
+					color: $color_3;
+					font-style: italic;
+					flex: 1;
+					flex-basis: 100%;
+				}
+
 			}
 
 			.sale__item-details {

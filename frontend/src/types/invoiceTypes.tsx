@@ -2,14 +2,13 @@ import { Dispatch } from "react";
 
 export type ItemTabModalProps = {
   modal: boolean;
-  setModal: React.Dispatch<React.SetStateAction<boolean>>;
   toggle: () => void;
   selectedItem: any; // Adjust the type as necessary
   setSelectedItem: React.Dispatch<any>; // Adjust the type as necessary
-  itemTypeList: any[]; // Adjust the type as necessary
+  // itemTypeList: any[]; // Adjust the type as necessary
   staff: Staff[];
   setInvoiceItemList: React.Dispatch<any>; // Adjust the type as necessary
-  itemType: "service" | "product" | "package" | "voucher";
+  // itemType: "service" | "product" | "package" | "voucher";
 };
 
 export interface InvoiceService {

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Container, Row, Col, Card, CardBody, TabContent, TabPane } from "reactstrap";
 
-const VoucherTab = () => {
+const TabAddingVoucher = () => {
   return (
     <React.Fragment>
       <Container fluid>
@@ -12,4 +12,4 @@ const VoucherTab = () => {
   );
 };
 
-export default VoucherTab;
+export default TabAddingVoucher;

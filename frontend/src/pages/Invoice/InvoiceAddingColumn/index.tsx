@@ -1,18 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import { useSelector } from "react-redux";
 import { TabContent, TabPane } from "reactstrap";
 import { appointmentsSelector } from "Selectors";
 
 // Components
-import AddingColumnNav from "./AddingColumnNav";
-import AddingTabItems from "./AddingTabItems";
-import AddingTabCredit from "./AddingTabICredit";
-import AddingTabAppointment from "./AddingTabAppointment";
+import AddingColumnNav from "./InvoiceAddingNavigation";
+import AddingTabItems from "./TabAddingItems";
+import AddingTabCredit from "./TabAddingCredit";
+import AddingTabAppointment from "./TabAddingAppointment";
+import ItemModal from "./ItemModal";
 
 const InvoiceAddingColumn = ({ invoiceItemList, setInvoiceItemList }) => {
   const { services, products, packages, vouchers, staff } = useSelector(appointmentsSelector);
   const [activeTab, setActiveTab] = useState("1");
+  const [selectedItem, setSelectedItem] = useState(null);
+  const [modal, setModal] = useState(false);
 
+  console.log("invoiceItemList: ", invoiceItemList);
   const toggleTab = (tab) => {
     if (activeTab !== tab) setActiveTab(tab);
   };
@@ -24,27 +28,20 @@ const InvoiceAddingColumn = ({ invoiceItemList, setInvoiceItemList }) => {
     { tabId: "4", itemType: "voucher", items: vouchers, itemList: invoiceItemList?.voucherList },
   ];
 
+  const toggle = useCallback(() => {
+    setModal(!modal);
+  }, [modal]);
+
   return (
     <React.Fragment>
       <div className="sale__adding-col">
         {/* Invoice Navigations */}
         <AddingColumnNav activeTab={activeTab} onTabClick={toggleTab} />
-
         {/* Invoice Content */}
-
         <TabContent activeTab={activeTab}>
-          {/* Tabs for Services, Packages, Products, and Vouchers */}
-          {tabConfig.map(({ tabId, itemType, items, itemList }) => (
+          {tabConfig.map(({ tabId, itemType, items }) => (
             <TabPane tabId={tabId} key={tabId}>
-              <div className={`sale__items-${itemType === "service" ? "list" : "grid"}`}>
-                <AddingTabItems
-                  items={items}
-                  staff={staff}
-                  itemTypeList={itemList}
-                  setInvoiceItemList={setInvoiceItemList}
-                  itemType={itemType}
-                />
-              </div>
+              <AddingTabItems items={items} setModal={setModal} itemType={itemType} setSelectedItem={setSelectedItem} />
             </TabPane>
           ))}
           <TabPane tabId="5">
@@ -53,8 +50,17 @@ const InvoiceAddingColumn = ({ invoiceItemList, setInvoiceItemList }) => {
           <TabPane tabId="6">
             <AddingTabAppointment />
           </TabPane>
-        </TabContent>
+        </TabContent>{" "}
       </div>
+
+      <ItemModal
+        modal={modal}
+        toggle={toggle}
+        selectedItem={selectedItem}
+        setSelectedItem={setSelectedItem}
+        staff={staff}
+        setInvoiceItemList={setInvoiceItemList}
+      />
     </React.Fragment>
   );
 };

@@ -1,12 +1,8 @@
-import React, { useState, useCallback } from "react";
-import ItemModal from "./ItemModal";
+import React from "react";
 import { Service, Package, Product, Voucher } from "types/invoiceTypes";
 type Item = Service | Product | Package | Voucher;
 
-const AddingTabItems = ({ items, staff, itemTypeList, setInvoiceItemList, itemType }) => {
-  const [selectedItem, setSelectedItem] = useState(null);
-  const [modal, setModal] = useState(false);
-
+const TabAddingItems = ({ items, setModal, setSelectedItem, itemType }) => {
   const groupItemsByCategory = (items: Item[]): Record<string, Item[]> => {
     if (!items) return {}; // Return an empty object if items are null or undefined
 
@@ -22,12 +18,9 @@ const AddingTabItems = ({ items, staff, itemTypeList, setInvoiceItemList, itemTy
 
   const itemsByCategory = groupItemsByCategory(items);
 
-  const toggle = useCallback(() => {
-    setModal(!modal);
-  }, [modal]);
-
-  const handleItemSelectionClick = (item) => {
-    setSelectedItem(item);
+  const handleItemSelectionClick = (item, itemType) => {
+    const selectedItem = { ...item, itemType }; // Spread the item's properties and add itemType
+    setSelectedItem(selectedItem);
     setModal(true);
   };
 
@@ -48,7 +41,7 @@ const AddingTabItems = ({ items, staff, itemTypeList, setInvoiceItemList, itemTy
     }
   };
 
-  const entryIcon = getEntryIconClassName(itemType);
+  const itemIcon = getEntryIconClassName(itemType);
 
   return (
     <React.Fragment>
@@ -61,18 +54,15 @@ const AddingTabItems = ({ items, staff, itemTypeList, setInvoiceItemList, itemTy
                 {items.map((item) => (
                   <div className="sale__item" key={item.id}>
                     <div
-                      className="sale__card"
-                      data-testid="sale__item-item"
-                      onClick={() => handleItemSelectionClick(item)}
+                      className={`sale__card ${itemType !== "service" && "item-type-product"}`}
+                      onClick={() => handleItemSelectionClick(item, itemType)}
                     >
-                      <div className="d-flex flex-grow-1 w-100">
-                        <div className={`calendar-balloon__icon ${entryIcon} flex-shrink`} title="Date"></div>
-                        <div className="flex-grow-1">
-                          {item.name}
-                          {"duration" in item && <span className="sale__item-duration"> - {item.duration} mins</span>}
-                        </div>
-                        <div className="flex-shrink">{item.price}KD</div>
+                      <div className={`calendar-balloon__icon ${itemIcon} flex-shrink`} title="Date"></div>
+                      <div className="sale__item-name">
+                        {item.name}
+                        {"duration" in item && <span className="sale__item-duration"> - {item.duration} mins</span>}
                       </div>
+                      <div>{item.price}KD</div>
                     </div>
                   </div>
                 ))}
@@ -83,19 +73,8 @@ const AddingTabItems = ({ items, staff, itemTypeList, setInvoiceItemList, itemTy
           <p>Nothing to show</p>
         )}
       </div>
-      <ItemModal
-        modal={modal}
-        setModal={setModal}
-        toggle={toggle}
-        selectedItem={selectedItem}
-        setSelectedItem={setSelectedItem}
-        itemTypeList={itemTypeList}
-        staff={staff}
-        setInvoiceItemList={setInvoiceItemList}
-        itemType={itemType}
-      />
     </React.Fragment>
   );
 };
 
-export default AddingTabItems;
+export default TabAddingItems;

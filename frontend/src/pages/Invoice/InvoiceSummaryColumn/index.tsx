@@ -5,7 +5,6 @@ import { Appointment, Service, Package, Product, Voucher, Discount, InvoiceSumma
 import SummaryCustomer from "./SummaryCustomer";
 import SummaryItemList from "./SummaryItemList";
 import SummaryActions from "./SummaryActions";
-
 import SummaryItemModal from "./SummaryItemModal";
 import DiscountModal from "./DiscountModal";
 
@@ -20,8 +19,7 @@ const InvoiceSummaryColumn: React.FC<InvoiceSummaryColumnProps> = ({
   isTransaction,
   setOverAllTotal,
 }) => {
-
-  console.log("activeInvoice: ", activeInvoice)
+  console.log("activeInvoice: ", activeInvoice);
   const currentInvoiceNote = activeInvoice?.items;
 
   const [updatedInvoice, setUpdatedInvoice] = useState<Appointment | null>(null);
@@ -32,7 +30,10 @@ const InvoiceSummaryColumn: React.FC<InvoiceSummaryColumnProps> = ({
   const [selectedItem, setSelectedIteme] = useState<Service | Package | Product | Voucher | null>(null);
   const [discountValue, setDiscountValue] = useState<Discount | null>(null);
 
-  const handleItemSelectionClick = (item: Service | Package | Product | Voucher, index: number) => {
+  const [editingItemType, setEditingItemType] = useState(null);
+
+  const handleItemSelectionClick = (itemType, item: Service | Package | Product | Voucher, index: number) => {
+    setEditingItemType(itemType);
     setSelectedIteme(item);
     setSelectedIndex(index); // Set the index of the selected service
     setModal(true);
@@ -50,45 +51,49 @@ const InvoiceSummaryColumn: React.FC<InvoiceSummaryColumnProps> = ({
   }, [modal]);
 
   const calculateTotalPrice = (items) => {
-    if (!Array.isArray(items)) {
-      return 0; // Return 0 if items is not an array
+    // Check if 'items' is an array and has elements
+    if (!Array.isArray(items) || items.length === 0) {
+      return 0;
     }
-    return items.reduce((total, item) => total + parseFloat(item.price || 0), 0);
+
+    // Calculate total price
+    return items.reduce((total, item) => {
+      const unitPrice = parseFloat(item.unitPrice) || 0; // Ensure unitPrice is a number, default to 0 if not
+      const quantity = parseInt(item.quantity, 10) || 1; // Assume a default quantity of 1 if not specified or invalid
+      return total + unitPrice * quantity;
+    }, 0);
   };
 
   // Calculate total prices for services, packages, and products
-  const totalServicePrice = calculateTotalPrice(invoiceItemList.appointmentList);
+  const calculateTotalServicePrice = (appointments) => {
+    if (!Array.isArray(appointments) || appointments.length === 0) {
+      return 0;
+    }
+
+    return appointments.reduce((total, appointment) => {
+      if (Array.isArray(appointment.services) && appointment.services.length > 0) {
+        const totalServicesPrice = appointment.services.reduce((serviceTotal, service) => {
+          const unitPrice = parseFloat(service.unitPrice) || 0;
+          const quantity = parseInt(service.quantity, 10) || 1;
+          return serviceTotal + unitPrice * quantity;
+        }, 0);
+        return total + totalServicesPrice;
+      }
+      return total;
+    }, 0);
+  };
+  const totalServicePrice = calculateTotalServicePrice(invoiceItemList.appointmentList);
   const totalPackagePrice = calculateTotalPrice(invoiceItemList.packageList);
   const totalProductPrice = calculateTotalPrice(invoiceItemList.productList);
   const totalVoucherPrice = calculateTotalPrice(invoiceItemList.voucherList);
 
   // Calculate overall total
   const overallTotal = totalServicePrice + totalPackagePrice + totalProductPrice;
+  console.log("overallTotal: ", overallTotal);
 
   useEffect(() => {
     setOverAllTotal(overallTotal);
   }, [setOverAllTotal, overallTotal]);
-
-  // useEffect(() => {
-  //   // Check if the activeInvoice is defined before trying to update it
-  //   if (activeInvoice) {
-  //     const newUpdatedAppointment = {
-  //       ...activeInvoice,
-  //       appointment: activeInvoice.appointment,
-  //       client: activeInvoice.client,
-  //       items: {
-  //         appointments: invoiceItemList.appointmentList,
-  //         packages: invoiceItemList.packageList,
-  //         products: invoiceItemList.productList,
-  //       },
-  //       discount: discountValue,
-  //       note: invoiceNote,
-  //       amount: overallTotal,
-  //       status: "pending",
-  //     };
-  //     setUpdatedInvoice(newUpdatedAppointment);
-  //   }
-  // }, [activeInvoice, invoiceItemList, invoiceNote, discountValue]);
 
   return (
     <React.Fragment>
@@ -102,19 +107,17 @@ const InvoiceSummaryColumn: React.FC<InvoiceSummaryColumnProps> = ({
             handleItemSelectionClick={handleItemSelectionClick}
           />
 
-          <div className="sale__summary-actions">
-            <SummaryActions
-              activeInvoice={activeInvoice}
-              updatedInvoice={updatedInvoice}
-              overallTotal={overallTotal}
-              invoiceNote={invoiceNote}
-              setInvoiceNote={setInvoiceNote}
-              isAddingNote={isAddingNote}
-              setIsAddingNote={setIsAddingNote}
-              isTransaction={isTransaction}
-              setIsTransaction={setIsTransaction}
-            />
-          </div>
+          <SummaryActions
+            activeInvoice={activeInvoice}
+            updatedInvoice={updatedInvoice}
+            overallTotal={overallTotal}
+            invoiceNote={invoiceNote}
+            setInvoiceNote={setInvoiceNote}
+            isAddingNote={isAddingNote}
+            setIsAddingNote={setIsAddingNote}
+            isTransaction={isTransaction}
+            setIsTransaction={setIsTransaction}
+          />
         </div>
 
         <SummaryItemModal
@@ -122,51 +125,12 @@ const InvoiceSummaryColumn: React.FC<InvoiceSummaryColumnProps> = ({
           setModal={setModal}
           toggle={toggle}
           selectedItem={selectedItem}
-          invoiceItemList={invoiceItemList.appointmentList}
+          invoiceItemList={invoiceItemList[`${editingItemType}List`]} // Dynamically access the correct list
           staff={staff}
           setInvoiceItemList={setInvoiceItemList}
           selectedIndex={selectedIndex}
           discountOptions={discountOptions}
-          itemType="service"
-        />
-
-        <SummaryItemModal
-          modal={modal}
-          setModal={setModal}
-          toggle={toggle}
-          selectedItem={selectedItem}
-          invoiceItemList={invoiceItemList.packageList}
-          staff={staff}
-          setInvoiceItemList={setInvoiceItemList}
-          selectedIndex={selectedIndex}
-          discountOptions={discountOptions}
-          itemType="package"
-        />
-
-        <SummaryItemModal
-          modal={modal}
-          setModal={setModal}
-          toggle={toggle}
-          selectedItem={selectedItem}
-          invoiceItemList={invoiceItemList.productList}
-          staff={staff}
-          setInvoiceItemList={setInvoiceItemList}
-          selectedIndex={selectedIndex}
-          discountOptions={discountOptions}
-          itemType="product"
-        />
-
-        <SummaryItemModal
-          modal={modal}
-          setModal={setModal}
-          toggle={toggle}
-          selectedItem={selectedItem}
-          invoiceItemList={invoiceItemList.voucherList}
-          staff={staff}
-          setInvoiceItemList={setInvoiceItemList}
-          selectedIndex={selectedIndex}
-          discountOptions={discountOptions}
-          itemType="voucher"
+          itemType={editingItemType}
         />
         <DiscountModal
           discountOptions={discountOptions}
