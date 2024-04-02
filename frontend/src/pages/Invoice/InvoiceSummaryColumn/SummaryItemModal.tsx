@@ -19,7 +19,7 @@ const SummaryItemModal: React.FC<SummaryItemModalProps> = ({
   discountOptions,
   itemType,
 }) => {
-  const bookableStaff = staff.filter((staffMember) => staffMember.bookable);
+  const bookableStaff = staff?.filter((staffMember) => staffMember.bookable) || [];
 
   const handleRemoveItem = () => {
     if (selectedIndex !== null) {
@@ -99,7 +99,7 @@ const SummaryItemModal: React.FC<SummaryItemModalProps> = ({
       name: "discount",
       label: "Discount",
       type: "select",
-      options: discountOptions.map((item) => ({
+      options: discountOptions?.map((item) => ({
         id: item.id,
         label: item.name,
         value: item.value.toString(),

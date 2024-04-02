@@ -1,30 +1,34 @@
 import React from "react";
 import { Card, CardHeader } from "reactstrap";
+import moment from "moment";
 
 const SummaryItemList = ({ activeInvoice, invoiceItemList, handleItemSelectionClick }) => {
-  const appointmentStartTime = activeInvoice.startTime;
 
-  // const itemTypes = [];
+  console.log("THE INVOICE ITEM LIST (SUMMARY): ", invoiceItemList)
+  const itemTypes = [];
 
-  // // Add appointments with their services
-  // invoiceItemList.serviceList.forEach((appointment) => {
-  //   itemTypes.push({
-  //     title: `Appointment: ${appointment.title} - ${appointment.start}`, // Format the date as needed
-  //     list: appointment.services, // This will include all services for the appointment
-  //     iconPath: "Icon Path for Appointment", // Replace with actual icon path
-  //   });
-  // });
+  // Add appointments with their services
+  invoiceItemList.appointmentList.forEach((appointment) => {
+    const formattedDate = moment(appointment.start).format("DD MMM, h:mma");
+    const appointmentTitle = `Appointment: ${appointment.title} - ${formattedDate}`;
+
+    itemTypes.push({
+      title: appointmentTitle, // Format the date as needed
+      list: appointment.services, // This will include all services for the appointment
+      iconPath: "Icon Path for Appointment", // Replace with actual icon path
+    });
+  });
 
   // console.log(itemTypes); //
 
-  // // Add packages, products, and vouchers
-  // itemTypes.push(
-  const itemTypes = [
-    {
-      title: "Services",
-      list: invoiceItemList.serviceList,
-      iconPath: "M11.75 9.75h8.5a2 2 0 012 2v8.5a2 2 0 01-2 2h-8.5a2 2 0 01-2-2v-8.5a2 2 0 012-2zm1 .75v11",
-    },
+  // Add packages, products, and vouchers
+  itemTypes.push(
+    // const itemTypes = [
+    // {
+    //   title: "Services",
+    //   list: invoiceItemList.appointmentList,
+    //   iconPath: "M11.75 9.75h8.5a2 2 0 012 2v8.5a2 2 0 01-2 2h-8.5a2 2 0 01-2-2v-8.5a2 2 0 012-2zm1 .75v11",
+    // },
     {
       title: "Packages",
       list: invoiceItemList.packageList,
@@ -39,9 +43,9 @@ const SummaryItemList = ({ activeInvoice, invoiceItemList, handleItemSelectionCl
       title: "Vouchers",
       list: invoiceItemList.voucherList,
       iconPath: "M11.75 9.75h8.5a2 2 0 012 2v8.5a2 2 0 01-2 2h-8.5a2 2 0 01-2-2v-8.5a2 2 0 012-2zm1 .75v11",
-    },
-  ];
-  // );
+    }
+    // ];
+  );
 
   console.log("itemTypes: ", itemTypes);
   return (

@@ -18,11 +18,11 @@ type ServiceItem = {
 
 const ServiceComponent = ({ serviceRef, appointment, services, staff }) => {
   const [serviceDetails, setServiceDetails] = useState<ServiceItem[]>([]);
-  const [serviceList, setServiceList] = useState(services);
+  const [appointmentList, setServiceList] = useState(services);
 
   console.log("services:", services);
   useEffect(() => {
-    const serviceList = services.map((service) => ({
+    const appointmentList = services.map((service) => ({
       id: service.id,
       name: service.name,
       duration: service.duration,
@@ -32,7 +32,7 @@ const ServiceComponent = ({ serviceRef, appointment, services, staff }) => {
       category: service.categoryName,
     }));
 
-    setServiceList(serviceList);
+    setServiceList(appointmentList);
   }, [services]);
 
   const [filteredServices, setFilteredServices] = useState([...services]);
@@ -49,7 +49,7 @@ const ServiceComponent = ({ serviceRef, appointment, services, staff }) => {
         services.filter((service) => service.name.toLowerCase().includes(serviceSearchValue.toLowerCase()))
       );
     } else {
-      setFilteredServices(serviceList);
+      setFilteredServices(appointmentList);
     }
   };
 
@@ -209,14 +209,14 @@ const ServiceComponent = ({ serviceRef, appointment, services, staff }) => {
     setServiceDetails([...serviceDetails, newServiceDetail]);
   };
 
-  console.log("serviceList: ", serviceList);
+  console.log("appointmentList: ", appointmentList);
   const fields = (serviceIndex) => [
     {
       id: `service-field-${serviceIndex}`,
       name: "service",
       label: "Service",
       type: "searchDropdown",
-      value: serviceList.find((service) => service.id === serviceDetails[serviceIndex].service)?.label || "",
+      value: appointmentList.find((service) => service.id === serviceDetails[serviceIndex].service)?.label || "",
       OptionCategories: groupedServices,
       width: "30%",
       onChange: (event) => {

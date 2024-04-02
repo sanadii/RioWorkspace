@@ -49,7 +49,7 @@ const DiscountModal: React.FC<DiscountModalProps> = ({
       name: "discount",
       label: "Discount",
       type: "select",
-      options: discountOptions.map((item) => ({
+      options: discountOptions?.map((item) => ({
         id: item.id,
         label: item.name,
         value: item.value.toString(),

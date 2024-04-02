@@ -93,7 +93,7 @@ class AppointmentNoteSerializer(serializers.ModelSerializer):
 
 
 class AppointmentSerializer(serializers.ModelSerializer):
-    title = serializers.CharField(source='client.first_name', read_only=True)
+    title = serializers.SerializerMethodField()
     client_id = serializers.IntegerField(write_only=True)
     client = ClientSerializer(read_only=True)
     services = AppointmentServiceSerializer(many=True, required=False)
@@ -105,11 +105,15 @@ class AppointmentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Appointment
         fields = [
-            'id', 'start', 'end', 'title', 'client', 'client_id',
-            'status', 'class_name',
-            'services', 'note'
+            'id', 'start', 'end', 'title', 'status', 'class_name',
+            # FullCalendar Extended Props
+            'client', 'client_id', 'services', 'note'
             # 'packages', 'products', 
             ]
+
+    def get_title(self, obj):
+        # Concatenate first name and last name
+        return f"{obj.client.first_name} {obj.client.last_name}"
 
     def get_class_name(self, obj):
         class_names = ["fc-booking"]

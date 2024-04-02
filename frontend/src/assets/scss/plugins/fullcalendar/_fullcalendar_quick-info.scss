@@ -274,6 +274,7 @@ $color_2: #da4f49;
 	background-position: 50% 50%;
 	background-repeat: no-repeat;
 	flex-shrink: 0;
+	// margin-top: 8px;
 
 
 	&.service-icon {
@@ -312,7 +313,6 @@ $color_2: #da4f49;
 		background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg width='16' height='16' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M8 15A7 7 0 108 1a7 7 0 000 14zm-4.949-2.051l9.898-9.898' stroke='%2339464E' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
 	}
 
-
 	&.customer-icon {
 		margin-top: 8px;
 		background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg width='32' height='32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M9.5 23.5h0a6.5 6.5 0 1113 0s0 0 0 0m-9-6v.5h0a2.5 2.5 0 005 0v-.5m-2.5-9h0a3.5 3.5 0 00-2.888 1.523C13.5 12 17.343 13.825 20.5 13c-.5-2-1-4.5-4.5-4.5zm3.292 4.69c-2.855.176-5.84-1.437-6.18-3.167h0a3.5 3.5 0 004.83 4.889' stroke='%2339464E' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")
@@ -335,11 +335,6 @@ $color_2: #da4f49;
 		background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg width='32' height='32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M17.768 11.732a2.5 2.5 0 11-3.536 3.536 2.5 2.5 0 013.536-3.536M16 8.5h0a5 5 0 015 5c0 2.271-3.383 7.967-4.583 9.777h0a.5.5 0 01-.834 0C14.383 21.467 11 15.77 11 13.5h0a5 5 0 015-5h0z' stroke='%2339464E' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")
 	}
 
-	&.service-icon {
-		margin-top: 8px;
-		background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg width='32' height='32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11.75 9.75h8.5a2 2 0 012 2v8.5a2 2 0 01-2 2h-8.5a2 2 0 01-2-2v-8.5a2 2 0 012-2zm1 .75v11' stroke='%2339464E' stroke-width='1.5' fill='none' stroke-linecap='square'/%3E%3C/svg%3E")
-	}
-
 	&.cancel-icon {
 		background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg width='32' height='32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20.25 23.15h-8.4a1.2 1.2 0 01-1.2-1.2v-10.8h10.8v10.8a1.2 1.2 0 01-1.2 1.2zm-6-3.6v-4.8m3.6 4.8v-4.8m-9.6-3.6h15.6m-6-2.4h-3.6a1.2 1.2 0 00-1.2 1.2v1.2h6v-1.2a1.2 1.2 0 00-1.2-1.2z' stroke='%23BD362F' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")
 	}
@@ -355,9 +350,4 @@ $color_2: #da4f49;
 	&.package-icon {
 		background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18'%3E%3Cg fill='none' fill-rule='evenodd' stroke='%2339464E' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5'%3E%3Cpath d='M2.649 9.189a1 1 0 00-.649.936v3.75a1 1 0 00.649.934l3 1.124a1 1 0 00.702 0l3-1.124a1 1 0 00.649-.934v-3.75a1 1 0 00-.649-.936l-3-1.125a1 1 0 00-.702 0l-3 1.125z'/%3E%3Cpath d='M2.172 9.565L6 11l3.828-1.435M6 11v5m9.8-11.933L10 6 4.2 4.067M10 6v.5'/%3E%3Cpath d='M4 6V4.667a1 1 0 01.684-.949l5-1.667a.995.995 0 01.632 0l5 1.667a1 1 0 01.684.949v5.666a1 1 0 01-.684.949l-2.299.766'/%3E%3C/g%3E%3C/svg%3E")
 	}
-
-	&.promo-icon {
-		background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg width='16' height='16' viewBox='0 -1 16 12' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'%3E%3Cdefs%3E%3Cpath d='M14.322 0C15.249 0 16 .751 16 1.678v1.946c0 .39-.316.705-.706.705a1.24 1.24 0 000 2.479l.096.006c.344.047.61.342.61.7v1.945c0 .927-.751 1.678-1.678 1.678H1.678A1.678 1.678 0 010 9.46V7.514c0-.39.316-.706.706-.706L.833 6.8a1.24 1.24 0 00-.127-2.47L.61 4.323a.706.706 0 01-.61-.7V1.679C0 .751.751 0 1.678 0zm0 1.412H1.678a.267.267 0 00-.266.266v1.336l.073.02a2.653 2.653 0 011.867 2.373l.005.162a2.652 2.652 0 01-1.872 2.534l-.073.02v1.336c0 .126.087.232.205.26l.061.006h12.644a.266.266 0 00.266-.266V8.123l-.073-.02a2.653 2.653 0 01-1.867-2.373l-.005-.161c0-1.193.788-2.202 1.872-2.535l.073-.021V1.678a.267.267 0 00-.205-.26l-.061-.006zm-3.89 4.423a1.678 1.678 0 110 3.357 1.678 1.678 0 010-3.357zm.499-3.197c.25.25.273.643.068.92l-.068.078L6.068 8.5A.706.706 0 015 7.58l.068-.08 4.863-4.862a.706.706 0 01.999 0zm-.5 4.61a.267.267 0 100 .532.267.267 0 000-.533zM5.57 1.944a1.678 1.678 0 110 3.357 1.678 1.678 0 010-3.357zm0 1.412a.267.267 0 100 .533.267.267 0 000-.533z' id='a'/%3E%3C/defs%3E%3Cuse fill='%23243342' xlink:href='%23a'/%3E%3C/svg%3E")
-	}
-
 }

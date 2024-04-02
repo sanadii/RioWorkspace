@@ -38,7 +38,7 @@ const ItemTabModal: React.FC<ItemTabModalProps> = ({
 
   const [clientList, setClientList] = useState(clientSearch);
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
-  const bookableStaff = staff.filter((staffMember) => staffMember.bookable);
+  const bookableStaff = staff?.filter((staffMember) => staffMember.bookable) || [];
 
   const lastItemEndTime =
     itemTypeList.length > 0 ? new Date(itemTypeList[itemTypeList.length - 1].endTime) : new Date();
@@ -60,18 +60,18 @@ const ItemTabModal: React.FC<ItemTabModalProps> = ({
       switch (itemType) {
         case "service":
           // // TODO, if there is another appointment, what to do?
-          // if (prevItemList.serviceList && prevItemList.serviceList.length > 0) {
-          //   // Assuming we update services for the first appointment in the list
-          //   const updatedServices = [...prevItemList.serviceList[0].services, newItem];
-          //   const updatedAppointment = { ...prevItemList.serviceList[0], services: updatedServices };
-          //   updatedList = [updatedAppointment, ...prevItemList.serviceList.slice(1)];
-          // } else {
-          //   // Handle case when serviceList is empty or not present
-          //   updatedList = prevItemList.serviceList;
-          // }
-          // return { ...prevItemList, serviceList: updatedList };
-          updatedList = [...prevItemList.serviceList, newItem];
-          return { ...prevItemList, serviceList: updatedList };
+          if (prevItemList.appointmentList && prevItemList.appointmentList.length > 0) {
+            // Assuming we update services for the first appointment in the list
+            const updatedServices = [...prevItemList.appointmentList[0].services, newItem];
+            const updatedAppointment = { ...prevItemList.appointmentList[0], services: updatedServices };
+            updatedList = [updatedAppointment, ...prevItemList.appointmentList.slice(1)];
+          } else {
+            // Handle case when appointmentList is empty or not present
+            updatedList = prevItemList.appointmentList;
+          }
+          return { ...prevItemList, appointmentList: updatedList };
+        // updatedList = [...prevItemList.appointmentList, newItem];
+        // return { ...prevItemList, appointmentList: updatedList };
 
         case "product":
           updatedList = [...prevItemList.productList, newItem];

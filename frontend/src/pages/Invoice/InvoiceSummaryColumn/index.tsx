@@ -11,26 +11,28 @@ import DiscountModal from "./DiscountModal";
 
 const InvoiceSummaryColumn: React.FC<InvoiceSummaryColumnProps> = ({
   activeInvoice,
-  appointment,
-  staff,
   invoiceItemList,
-  setInvoiceItemList,
+  staff,
   discountOptions,
+
+  setInvoiceItemList,
   setIsTransaction,
   isTransaction,
   setOverAllTotal,
 }) => {
-  console.log("invoiceItemList:???  ", invoiceItemList);
+
+  console.log("activeInvoice: ", activeInvoice)
+  const currentInvoiceNote = activeInvoice?.items;
+
   const [updatedInvoice, setUpdatedInvoice] = useState<Appointment | null>(null);
   const [isAddingNote, setIsAddingNote] = useState(false);
-  const [invoiceNote, setInvoiceNote] = useState(activeInvoice.note || "");
+  const [invoiceNote, setInvoiceNote] = useState(currentInvoiceNote || "");
 
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
   const [selectedItem, setSelectedIteme] = useState<Service | Package | Product | Voucher | null>(null);
   const [discountValue, setDiscountValue] = useState<Discount | null>(null);
 
   const handleItemSelectionClick = (item: Service | Package | Product | Voucher, index: number) => {
-    console.log("ITEM: ", item);
     setSelectedIteme(item);
     setSelectedIndex(index); // Set the index of the selected service
     setModal(true);
@@ -55,7 +57,7 @@ const InvoiceSummaryColumn: React.FC<InvoiceSummaryColumnProps> = ({
   };
 
   // Calculate total prices for services, packages, and products
-  const totalServicePrice = calculateTotalPrice(invoiceItemList.serviceList);
+  const totalServicePrice = calculateTotalPrice(invoiceItemList.appointmentList);
   const totalPackagePrice = calculateTotalPrice(invoiceItemList.packageList);
   const totalProductPrice = calculateTotalPrice(invoiceItemList.productList);
   const totalVoucherPrice = calculateTotalPrice(invoiceItemList.voucherList);
@@ -67,26 +69,26 @@ const InvoiceSummaryColumn: React.FC<InvoiceSummaryColumnProps> = ({
     setOverAllTotal(overallTotal);
   }, [setOverAllTotal, overallTotal]);
 
-  useEffect(() => {
-    // Check if the activeInvoice is defined before trying to update it
-    if (activeInvoice) {
-      const newUpdatedAppointment = {
-        ...activeInvoice,
-        appointment: activeInvoice.appointment,
-        client: activeInvoice.client,
-        items: {
-          appointments: invoiceItemList.serviceList,
-          packages: invoiceItemList.packageList,
-          products: invoiceItemList.productList,
-        },
-        discount: discountValue,
-        note: invoiceNote,
-        amount: overallTotal,
-        status: "pending",
-      };
-      setUpdatedInvoice(newUpdatedAppointment);
-    }
-  }, [activeInvoice, invoiceItemList, invoiceNote, discountValue]);
+  // useEffect(() => {
+  //   // Check if the activeInvoice is defined before trying to update it
+  //   if (activeInvoice) {
+  //     const newUpdatedAppointment = {
+  //       ...activeInvoice,
+  //       appointment: activeInvoice.appointment,
+  //       client: activeInvoice.client,
+  //       items: {
+  //         appointments: invoiceItemList.appointmentList,
+  //         packages: invoiceItemList.packageList,
+  //         products: invoiceItemList.productList,
+  //       },
+  //       discount: discountValue,
+  //       note: invoiceNote,
+  //       amount: overallTotal,
+  //       status: "pending",
+  //     };
+  //     setUpdatedInvoice(newUpdatedAppointment);
+  //   }
+  // }, [activeInvoice, invoiceItemList, invoiceNote, discountValue]);
 
   return (
     <React.Fragment>
@@ -103,14 +105,14 @@ const InvoiceSummaryColumn: React.FC<InvoiceSummaryColumnProps> = ({
           <div className="sale__summary-actions">
             <SummaryActions
               activeInvoice={activeInvoice}
+              updatedInvoice={updatedInvoice}
+              overallTotal={overallTotal}
+              invoiceNote={invoiceNote}
+              setInvoiceNote={setInvoiceNote}
               isAddingNote={isAddingNote}
               setIsAddingNote={setIsAddingNote}
-              setIsTransaction={setIsTransaction}
-              invoiceNote={invoiceNote}
-              setInvoiceNote={invoiceNote}
-              updatedInvoice={updatedInvoice}
               isTransaction={isTransaction}
-              overallTotal={overallTotal}
+              setIsTransaction={setIsTransaction}
             />
           </div>
         </div>
@@ -120,7 +122,7 @@ const InvoiceSummaryColumn: React.FC<InvoiceSummaryColumnProps> = ({
           setModal={setModal}
           toggle={toggle}
           selectedItem={selectedItem}
-          invoiceItemList={invoiceItemList.serviceList}
+          invoiceItemList={invoiceItemList.appointmentList}
           staff={staff}
           setInvoiceItemList={setInvoiceItemList}
           selectedIndex={selectedIndex}

@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from "react";
 import ItemModal from "./ItemModal";
-import { Service, Package, Product, Voucher } from "../../../types/invoiceTypes";
+import { Service, Package, Product, Voucher } from "types/invoiceTypes";
 type Item = Service | Product | Package | Voucher;
 
 const AddingTabItems = ({ items, staff, itemTypeList, setInvoiceItemList, itemType }) => {
@@ -8,7 +8,9 @@ const AddingTabItems = ({ items, staff, itemTypeList, setInvoiceItemList, itemTy
   const [modal, setModal] = useState(false);
 
   const groupItemsByCategory = (items: Item[]): Record<string, Item[]> => {
-    return items?.reduce((acc: Record<string, Item[]>, item: Item) => {
+    if (!items) return {}; // Return an empty object if items are null or undefined
+
+    return items.reduce((acc: Record<string, Item[]>, item: Item) => {
       const categoryName = (item as any).categoryName || (item as any).category || "Others";
       if (!acc[categoryName]) {
         acc[categoryName] = [];
@@ -53,25 +55,23 @@ const AddingTabItems = ({ items, staff, itemTypeList, setInvoiceItemList, itemTy
       <div className="sale__items sale__items--loaded">
         {Object.keys(itemsByCategory).length ? (
           Object.entries(itemsByCategory).map(([categoryName, items]) => (
-            <div className="sale__item-category-container" key={categoryName}>
-              <div className="sale__label">
-                <h3>{categoryName}</h3>
-              </div>
+            <div className="sale__item-category-container pb-3" key={categoryName}>
+              <h4 className="card-title">{categoryName}</h4>
               <div className="sale__item-category-items">
                 {items.map((item) => (
-                  <div className="sale__item " key={item.id}>
+                  <div className="sale__item" key={item.id}>
                     <div
                       className="sale__card"
                       data-testid="sale__item-item"
                       onClick={() => handleItemSelectionClick(item)}
                     >
-                      <div className="sale__item-row">
-                        <div className={`calendar-balloon__icon ${entryIcon}`} title="Date"></div>
-                        <div className="sale__item-name">
+                      <div className="d-flex flex-grow-1 w-100">
+                        <div className={`calendar-balloon__icon ${entryIcon} flex-shrink`} title="Date"></div>
+                        <div className="flex-grow-1">
                           {item.name}
                           {"duration" in item && <span className="sale__item-duration"> - {item.duration} mins</span>}
                         </div>
-                        <div className="sale__item-price">{item.price}KD</div>
+                        <div className="flex-shrink">{item.price}KD</div>
                       </div>
                     </div>
                   </div>

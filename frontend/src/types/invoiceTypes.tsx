@@ -148,13 +148,13 @@ export type InvoiceProps = {
   appointment?: number;
   staff?: string;
   amount: number;
-  items: InvoiceItemList;
+  items: InvoiceItemListProps;
   status: string;
   note: string;
 };
 
-export type InvoiceItemList = {
-  serviceList: Appointment[];
+export type InvoiceItemListProps = {
+  appointmentList?: Appointment[];
   packageList?: Package[];
   productList?: Product[];
   voucherList?: Voucher[];
@@ -173,9 +173,8 @@ export type InvoiceSummaryColumnProps = {
   startTime: any; // Define the type more specifically if possible
   staff: Staff[];
   discountOptions: Discount[];
-  invoiceItemList: InvoiceItemList;
+  invoiceItemList: InvoiceItemListProps;
   activeInvoice: any;
-  appointment: any;
   setInvoiceItemList: (updatedList: any) => void; // Add this line
   setIsTransaction: Dispatch<any>;
   isTransaction: boolean;
