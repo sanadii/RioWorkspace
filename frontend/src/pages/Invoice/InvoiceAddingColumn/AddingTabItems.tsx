@@ -3,12 +3,12 @@ import ItemModal from "./ItemModal";
 import { Service, Package, Product, Voucher } from "../../../types/invoiceTypes";
 type Item = Service | Product | Package | Voucher;
 
-const ItemTab = ({ items, staff, itemTypeList, setInvoiceItemList, itemType }) => {
+const AddingTabItems = ({ items, staff, itemTypeList, setInvoiceItemList, itemType }) => {
   const [selectedItem, setSelectedItem] = useState(null);
   const [modal, setModal] = useState(false);
 
   const groupItemsByCategory = (items: Item[]): Record<string, Item[]> => {
-    return items.reduce((acc: Record<string, Item[]>, item: Item) => {
+    return items?.reduce((acc: Record<string, Item[]>, item: Item) => {
       const categoryName = (item as any).categoryName || (item as any).category || "Others";
       if (!acc[categoryName]) {
         acc[categoryName] = [];
@@ -98,25 +98,4 @@ const ItemTab = ({ items, staff, itemTypeList, setInvoiceItemList, itemType }) =
   );
 };
 
-export default ItemTab;
-
-// <Card className="team-box">
-//    <CardBody className="p-2">
-//     <Row className="align-items-center team-row">
-//       <Col lg={10} className="col">
-//         <div className="d-flex team-content">
-//           <span className="text-muted">
-//             <i className="ri-star-fill fs-14 pe-2"></i>
-//             {item.name}{" "}
-//             {"duration" in item && (
-//               <span className="sale__item-duration"> - {item.duration} mins</span>
-//             )}
-//           </span>
-//         </div>
-//       </Col>
-//       <Col lg={2} className="col">
-//         <p className="text-muted mb-0">{item.price}KD</p>
-//       </Col>
-//     </Row>
-//   </CardBody>
-// </Card>
+export default AddingTabItems;

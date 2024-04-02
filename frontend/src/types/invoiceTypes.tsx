@@ -154,7 +154,7 @@ export type InvoiceProps = {
 };
 
 export type InvoiceItemList = {
-  appointmentList: Appointment[];
+  serviceList: Appointment[];
   packageList?: Package[];
   productList?: Product[];
   voucherList?: Voucher[];
@@ -168,7 +168,7 @@ export interface ItemTabProps {
   setItemList: Dispatch<any>;
 }
 
-export type SummaryProps = {
+export type InvoiceSummaryColumnProps = {
   client: any; // Define the type more specifically if possible
   startTime: any; // Define the type more specifically if possible
   staff: Staff[];
@@ -177,8 +177,8 @@ export type SummaryProps = {
   activeInvoice: any;
   appointment: any;
   setInvoiceItemList: (updatedList: any) => void; // Add this line
-  setIspayment: Dispatch<any>;
-  isPayment: boolean;
+  setIsTransaction: Dispatch<any>;
+  isTransaction: boolean;
   setOverAllTotal: Dispatch<any>;
 };
 

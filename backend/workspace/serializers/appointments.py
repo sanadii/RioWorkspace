@@ -97,8 +97,8 @@ class AppointmentSerializer(serializers.ModelSerializer):
     client_id = serializers.IntegerField(write_only=True)
     client = ClientSerializer(read_only=True)
     services = AppointmentServiceSerializer(many=True, required=False)
-    packages = AppointmentPackageSerializer(many=True, required=False)
-    products = AppointmentProductSerializer(many=True, required=False)
+    # packages = AppointmentPackageSerializer(many=True, required=False)
+    # products = AppointmentProductSerializer(many=True, required=False)
     note = serializers.CharField(required=False, allow_blank=True, allow_null=True)
     class_name = serializers.SerializerMethodField()
 
@@ -107,7 +107,8 @@ class AppointmentSerializer(serializers.ModelSerializer):
         fields = [
             'id', 'start', 'end', 'title', 'client', 'client_id',
             'status', 'class_name',
-            'services', 'packages', 'products', 'note'
+            'services', 'note'
+            # 'packages', 'products', 
             ]
 
     def get_class_name(self, obj):

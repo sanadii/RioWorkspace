@@ -54,32 +54,39 @@ const ItemTabModal: React.FC<ItemTabModalProps> = ({
   };
 
   const updateInvoiceItemList = (newItem, itemType) => {
-    console.log("newItem: ", newItem);
-
     setInvoiceItemList((prevItemList) => {
       let updatedList;
 
-      let newInvoiceItem = {
-        itemId: newItem.id,
-        itemName: newItem.name,
-        quantity: newItem.name,
-        unit_price: newItem.price,
-        staff: newItem.staff,
-      };
-
       switch (itemType) {
         case "service":
-          updatedList = [...prevItemList.appointmentList[0].services, newItem];
-          return { ...prevItemList, appointmentList: updatedList };
+          // // TODO, if there is another appointment, what to do?
+          // if (prevItemList.serviceList && prevItemList.serviceList.length > 0) {
+          //   // Assuming we update services for the first appointment in the list
+          //   const updatedServices = [...prevItemList.serviceList[0].services, newItem];
+          //   const updatedAppointment = { ...prevItemList.serviceList[0], services: updatedServices };
+          //   updatedList = [updatedAppointment, ...prevItemList.serviceList.slice(1)];
+          // } else {
+          //   // Handle case when serviceList is empty or not present
+          //   updatedList = prevItemList.serviceList;
+          // }
+          // return { ...prevItemList, serviceList: updatedList };
+          updatedList = [...prevItemList.serviceList, newItem];
+          return { ...prevItemList, serviceList: updatedList };
+
         case "product":
           updatedList = [...prevItemList.productList, newItem];
           return { ...prevItemList, productList: updatedList };
+
         case "package":
           updatedList = [...prevItemList.packageList, newItem];
           return { ...prevItemList, packageList: updatedList };
+
         case "voucher":
           updatedList = [...prevItemList.voucherList, newItem];
+          console.log("updatedList: ", updatedList);
+
           return { ...prevItemList, voucherList: updatedList };
+
         default:
           // Handle unknown itemType or throw an error
           return prevItemList;
@@ -93,7 +100,7 @@ const ItemTabModal: React.FC<ItemTabModalProps> = ({
       item: selectedItem?.id || null,
       name: selectedItem?.name || "",
       staff: selectedItem?.staff || null,
-      price: selectedItem?.price || "0",
+      unitPrice: selectedItem?.price || "0",
       ...(itemType === "service" && {
         duration: selectedItem?.duration || null,
       }),
@@ -103,7 +110,7 @@ const ItemTabModal: React.FC<ItemTabModalProps> = ({
     },
     validationSchema: Yup.object({
       staff: Yup.number().integer("Staff must be an integer").nullable().required("Staff is required"),
-      price: Yup.number().positive("Price must be a positive number").nullable().required("Price is required"),
+      unitPrice: Yup.number().positive("Price must be a positive number").nullable().required("Price is required"),
       quantity:
         itemType === "product"
           ? Yup.number().positive("Quantity must be a positive number").nullable().required("Quantity is required")
@@ -113,9 +120,8 @@ const ItemTabModal: React.FC<ItemTabModalProps> = ({
       const newItem = {
         name: values.name,
         staff: parseInt(values.staff, 10),
-        unit_price: parseFloat(values.price),
+        unitPrice: parseFloat(values.unitPrice),
         quantity: values.quantity || 0,
-
         itemId: values.item,
         ...(itemType === "service" && {
           duration: values.duration,
@@ -133,6 +139,7 @@ const ItemTabModal: React.FC<ItemTabModalProps> = ({
       };
 
       updateInvoiceItemList(newItem, itemType);
+      console.log("newItem: ", newItem);
       setSelectedOption(null);
       validation.resetForm();
       toggle();
@@ -154,9 +161,9 @@ const ItemTabModal: React.FC<ItemTabModalProps> = ({
       })),
     },
     {
-      id: "price-field",
-      name: "price",
-      label: "Price",
+      id: "unitPrice-field",
+      name: "unitPrice",
+      label: "unit Price",
       type: "number",
       inputGroupText: "KD",
     },
@@ -211,7 +218,7 @@ const ItemTabModal: React.FC<ItemTabModalProps> = ({
   return (
     <Modal id="showModal" className="sale__modal" isOpen={modal} toggle={toggle} centered>
       <div className="sale__modal-head">
-        {selectedItem?.name} - {selectedItem?.price} {itemType === "service" && `- ${selectedItem?.duration}`}
+        {selectedItem?.name} - {selectedItem?.unitPrice} {itemType === "service" && `- ${selectedItem?.duration}`}
       </div>
       <div className="sale__modal-body">
         <Form

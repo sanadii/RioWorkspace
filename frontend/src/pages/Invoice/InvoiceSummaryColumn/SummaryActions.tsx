@@ -10,11 +10,11 @@ const SummaryActions = ({
   isAddingNote,
   setIsAddingNote,
   activeInvoice,
-  setIspayment,
-  appointmentNote,
-  setAppointmentNote,
-  updatedAppointment,
-  isPayment,
+  setIsTransaction,
+  invoiceNote,
+  setInvoiceNote,
+  updatedInvoice,
+  isTransaction,
   overallTotal,
 }) => {
   const dispatch = useDispatch();
@@ -23,13 +23,13 @@ const SummaryActions = ({
     setIsAddingNote(true);
   };
   const handleCheckoutClick = () => {
-    setIspayment(true);
-    // dispatch(updateAppointment(updatedAppointment));
-    dispatch(addInvoice(updatedAppointment));
+    setIsTransaction(true);
+    // dispatch(updateAppointment(updatedInvoice));
+    dispatch(addInvoice(updatedInvoice));
   };
 
   const handleEditInvoiceClick = () => {
-    setIspayment(false);
+    setIsTransaction(false);
   };
 
   return (
@@ -66,8 +66,8 @@ const SummaryActions = ({
             className="form-control textarea-module_formControl__1hsMA"
             name="sale-note-field"
             placeholder="Add Notes"
-            value={appointmentNote}
-            onChange={(e) => setAppointmentNote(e.target.value)} // Extract the value from the event object
+            value={invoiceNote}
+            onChange={(e) => setInvoiceNote(e.target.value)} // Extract the value from the event object
           ></textarea>
         </div>
       ) : (
@@ -97,7 +97,7 @@ const SummaryActions = ({
         </div>
       </div>
       <SummarySaleExtras />
-      {isPayment ? (
+      {isTransaction ? (
         <button
           // variant="primary"
           // size="lg"

@@ -1,9 +1,24 @@
 import React from "react";
 import { Card, CardHeader } from "reactstrap";
 
-const SummaryItemList = ({ activeInvoice, invoiceItemList, onItemClick }) => {
+const SummaryItemList = ({ activeInvoice, invoiceItemList, handleItemSelectionClick }) => {
   const appointmentStartTime = activeInvoice.startTime;
 
+  // const itemTypes = [];
+
+  // // Add appointments with their services
+  // invoiceItemList.serviceList.forEach((appointment) => {
+  //   itemTypes.push({
+  //     title: `Appointment: ${appointment.title} - ${appointment.start}`, // Format the date as needed
+  //     list: appointment.services, // This will include all services for the appointment
+  //     iconPath: "Icon Path for Appointment", // Replace with actual icon path
+  //   });
+  // });
+
+  // console.log(itemTypes); //
+
+  // // Add packages, products, and vouchers
+  // itemTypes.push(
   const itemTypes = [
     {
       title: "Services",
@@ -26,33 +41,35 @@ const SummaryItemList = ({ activeInvoice, invoiceItemList, onItemClick }) => {
       iconPath: "M11.75 9.75h8.5a2 2 0 012 2v8.5a2 2 0 01-2 2h-8.5a2 2 0 01-2-2v-8.5a2 2 0 012-2zm1 .75v11",
     },
   ];
+  // );
 
+  console.log("itemTypes: ", itemTypes);
   return (
     <div className="sale__summary-items">
-      <div className="sale__summary-appointment">
-        <h5>
-          Appointment -<span className="sale__items-group-start-date sale__label">{appointmentStartTime}</span>
-        </h5>
-      </div>
+      <div className="sale__summary-appointment"></div>
       {itemTypes
         .filter((type) => type.list && type.list.length > 0) // Filter out types with empty or undefined lists
         .map((type, typeIndex) => (
-          <div key={typeIndex} className="sale__card">
+          <div key={typeIndex} className="sale__category-card">
             <div className="sale__category">
-              <h4 className="sale__category-name">{type.title}</h4>
+              <p className="sale__category-name bold text-primary">{type.title}</p>
             </div>
             {type.list.map((item, itemIndex) => (
               <div
                 className="sale__item sale__item-confirmed"
                 key={itemIndex}
-                onClick={() => onItemClick(item, itemIndex)}
+                onClick={() => handleItemSelectionClick(item, itemIndex)}
               >
-                <div key={itemIndex} className="sale__item-row" onClick={() => onItemClick(item, itemIndex)}>
+                <div
+                  key={itemIndex}
+                  className="sale__item-row"
+                  onClick={() => handleItemSelectionClick(item, itemIndex)}
+                >
                   <div className="sale__item-left">
                     <div className="sale__item-name">{item.name}</div>
                   </div>
                   <div className="sale__item-right">
-                    <div className="sale__item-price">{item.price} KD</div>
+                    <div className="sale__item-price">{item.unitPrice || item.price} KD</div>
                   </div>
                 </div>
               </div>

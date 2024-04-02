@@ -172,7 +172,18 @@ button.sale__button--xl {
 	box-shadow: 0 0 8px rgba(0, 0, 0, .04);
 	border-radius: 8px;
 	padding: 12px;
-	// margin-bottom: 12px;
+	border-color: $primary;
+	height: 100%;
+	display: flex;
+}
+
+.sale__category-card {
+	background-color: #fff;
+	border: 1px solid #e7e7e7;
+	box-shadow: 0 0 8px rgba(0, 0, 0, .04);
+	border-radius: 8px;
+	padding: 12px;
+	margin-bottom: 12px;
 	border-color: $primary;
 }
 
@@ -283,7 +294,7 @@ $color_3: #6a7982;
 
 			.sale__item {
 				position: relative;
-				padding: 8px;
+				padding-bottom: 8px;
 			}
 
 			.sale__card {
@@ -1954,5 +1965,5 @@ $color_3: #6a7982;
 }
 
 .icon-module_streamline__13d-J.icon-module_xlarge__2Al4n {
-    width: 40px;
+	width: 40px;
 }

@@ -1,7 +1,7 @@
 import classnames from "classnames";
 import { Nav, NavItem, NavLink } from "reactstrap";
 
-const InvoiceNav = ({ activeTab, onTabClick }) => {
+const AddingColumnNav = ({ activeTab, onTabClick }) => {
   const tabs = [
     { id: "1", name: "Services" },
     { id: "2", name: "Products" },
@@ -26,4 +26,4 @@ const InvoiceNav = ({ activeTab, onTabClick }) => {
   );
 };
 
-export default InvoiceNav;
+export default AddingColumnNav;

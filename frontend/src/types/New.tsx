@@ -332,8 +332,8 @@ export type SummaryProps = {
   setPackageList: Dispatch<any>;
   setProductList: Dispatch<any>;
   setVoucherList: Dispatch<any>;
-  setIspayment: Dispatch<any>;
-  isPayment: boolean;
+  setIsTransaction: Dispatch<any>;
+  isTransaction: boolean;
 };
 
 export type SummaryItemModalProps = {
