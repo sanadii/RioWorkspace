@@ -3,8 +3,7 @@ import { Card, CardHeader } from "reactstrap";
 import moment from "moment";
 
 const SummaryItemList = ({ activeInvoice, invoiceItemList, handleItemSelectionClick }) => {
-
-  console.log("THE INVOICE ITEM LIST (SUMMARY): ", invoiceItemList)
+  console.log("THE INVOICE ITEM LIST (SUMMARY): ", invoiceItemList);
   const itemTypes = [];
 
   // Add appointments with their services
@@ -19,16 +18,8 @@ const SummaryItemList = ({ activeInvoice, invoiceItemList, handleItemSelectionCl
     });
   });
 
-  // console.log(itemTypes); //
-
   // Add packages, products, and vouchers
   itemTypes.push(
-    // const itemTypes = [
-    // {
-    //   title: "Services",
-    //   list: invoiceItemList.appointmentList,
-    //   iconPath: "M11.75 9.75h8.5a2 2 0 012 2v8.5a2 2 0 01-2 2h-8.5a2 2 0 01-2-2v-8.5a2 2 0 012-2zm1 .75v11",
-    // },
     {
       title: "Packages",
       list: invoiceItemList.packageList,
@@ -44,7 +35,6 @@ const SummaryItemList = ({ activeInvoice, invoiceItemList, handleItemSelectionCl
       list: invoiceItemList.voucherList,
       iconPath: "M11.75 9.75h8.5a2 2 0 012 2v8.5a2 2 0 01-2 2h-8.5a2 2 0 01-2-2v-8.5a2 2 0 012-2zm1 .75v11",
     }
-    // ];
   );
 
   console.log("itemTypes: ", itemTypes);
@@ -53,7 +43,7 @@ const SummaryItemList = ({ activeInvoice, invoiceItemList, handleItemSelectionCl
       <div className="sale__summary-appointment"></div>
       {itemTypes
         .filter((type) => type.list && type.list.length > 0) // Filter out types with empty or undefined lists
-        .map((type, typeIndex) => (
+        .map(( , typeIndex) => (
           <div key={typeIndex} className="sale__category-card">
             <div className="sale__category">
               <p className="sale__category-name bold text-primary">{type.title}</p>

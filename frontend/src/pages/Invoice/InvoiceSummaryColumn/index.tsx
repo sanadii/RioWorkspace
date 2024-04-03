@@ -30,25 +30,34 @@ const InvoiceSummaryColumn: React.FC<InvoiceSummaryColumnProps> = ({
   const [selectedItem, setSelectedIteme] = useState<Service | Package | Product | Voucher | null>(null);
   const [discountValue, setDiscountValue] = useState<Discount | null>(null);
 
+  console.log("where are you selectedItem: ", selectedItem)
   const [editingItemType, setEditingItemType] = useState(null);
+
+  const [isEditModal, setIsEditModal] = useState<boolean>(false);
+  const [isDiscountModal, setIsDiscountModal] = useState<boolean>(false);
 
   const handleItemSelectionClick = (itemType, item: Service | Package | Product | Voucher, index: number) => {
     setEditingItemType(itemType);
     setSelectedIteme(item);
     setSelectedIndex(index); // Set the index of the selected service
-    setModal(true);
+    setIsEditModal(true);
   };
 
-  const [modal, setModal] = useState<boolean>(false);
-
-  const toggle = useCallback(() => {
-    if (modal) {
-      setModal(false);
-      // setLead("");
+  const toggleEditModal = useCallback(() => {
+    if (isEditModal) {
+      setIsEditModal(false);
     } else {
-      setModal(true);
+      setIsEditModal(true);
     }
-  }, [modal]);
+  }, [isEditModal]);
+
+  const toggleDiscountModal = useCallback(() => {
+    if (isDiscountModal) {
+      setIsDiscountModal(false);
+    } else {
+      setIsDiscountModal(true);
+    }
+  }, [isDiscountModal]);
 
   const calculateTotalPrice = (items) => {
     // Check if 'items' is an array and has elements
@@ -121,9 +130,9 @@ const InvoiceSummaryColumn: React.FC<InvoiceSummaryColumnProps> = ({
         </div>
 
         <SummaryItemModal
-          modal={modal}
-          setModal={setModal}
-          toggle={toggle}
+          isEditModal={isEditModal}
+          setIsEditModal={setIsEditModal}
+          toggleEditModal={toggleEditModal}
           selectedItem={selectedItem}
           invoiceItemList={invoiceItemList[`${editingItemType}List`]} // Dynamically access the correct list
           staff={staff}
@@ -133,10 +142,10 @@ const InvoiceSummaryColumn: React.FC<InvoiceSummaryColumnProps> = ({
           itemType={editingItemType}
         />
         <DiscountModal
+          isDiscountModal={isDiscountModal}
+          setIsDiscountModal={setIsDiscountModal}
           discountOptions={discountOptions}
-          modal={modal}
-          setModal={setModal}
-          toggle={toggle}
+          toggleDiscountModal={toggleDiscountModal}
           discountValue={discountValue}
           setDiscountValue={setDiscountValue}
         />

@@ -1478,38 +1478,33 @@ $color_3: #6a7982;
 
 
 // Sale Customer
-.sale__customer-picker {
-	position: relative
-}
-
-.sale__customer-picker-heading {
-	display: flex;
-	justify-content: center;
-	margin-bottom: 8px
-}
-
-.sale__customer-picker-heading .sale__heading--domaine {
-	margin: 0
-}
-
-.sale__customer-picker-heading-text {
+.sale__customer {
 	position: relative;
-	line-height: 32px
-}
 
-.sale__customer-picker-heading-text button {
-	position: absolute;
-	display: block;
-	top: 0;
-	left: -40px;
-	width: 32px;
-	height: 32px;
-	cursor: pointer
-}
+	&-picker-heading {
+		display: flex;
+		justify-content: center;
+		margin-bottom: 8px;
 
-.sale__customer-picker-heading-text svg {
-	width: 32px;
-	height: 32px
+		.sale__heading--domaine {
+			margin: 0
+		}
+	}
+
+	& button {
+		position: absolute;
+		display: block;
+		top: 0;
+		left: -40px;
+		width: 32px;
+		height: 32px;
+		cursor: pointer;
+	}
+
+	svg {
+		width: 32px;
+		height: 32px
+	}
 }
 
 .sale__customer-picker--focused {
@@ -1534,28 +1529,39 @@ $color_3: #6a7982;
 }
 
 .sale__customer-picker-selected {
-	position: relative;
-	display: flex
-}
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-ms-flex-negative: 0;
+	flex-shrink: 0;
+	-webkit-box-pack: justify;
+	-ms-flex-pack: justify;
+	justify-content: space-between;
+	padding: var(--vz-modal-header-padding);
+	border-bottom: var(--vz-modal-header-border-width) solid var(--vz-modal-header-border-color);
+	border-top-left-radius: var(--vz-modal-inner-border-radius);
+	border-top-right-radius: var(--vz-modal-inner-border-radius);
 
-.sale__customer-picker-selected .sale__customer-picker-selected-name {
-	font-size: 18px;
-	line-height: 24px
-}
 
-.sale__customer-picker-selected .sale__customer-picker-selected-phone {
-	font-size: 14px;
-	line-height: 16px;
-	color: #6a7982
-}
+	.sale__customer-picker-selected-name {
+		font-size: 18px;
+		line-height: 24px;
+	}
 
-.sale__customer-picker-selected .sale__customer-picker-selected-remove {
-	width: 40px;
-	height: 34px;
-	font-size: 22px;
-	text-align: center;
-	line-height: 34px;
-	cursor: pointer
+	.sale__customer-picker-selected-phone {
+		font-size: 14px;
+		line-height: 16px;
+		color: #6a7982;
+	}
+
+	.sale__customer-picker-selected-remove {
+		width: 40px;
+		height: 34px;
+		font-size: 22px;
+		text-align: center;
+		line-height: 34px;
+		cursor: pointer
+	}
 }
 
 .alert.sale__customer-account-debt-warning {

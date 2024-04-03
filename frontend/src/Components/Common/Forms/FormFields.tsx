@@ -62,7 +62,7 @@ interface FormFieldsProps {
 const FormFields: React.FC<FormFieldsProps> = ({ field, validation, selectedOption, inLineStyle }) => {
   const { clientSearch } = useSelector(clientsSelector);
 
-  const { id, label, name, type, colSize, icon, iconBg, inputGroupText, options } = field;
+  const { id, label, name, type, colSize, icon, iconBg, inputGroupText, inputGroupIcon, options } = field;
   const imageValue = validation?.values.image;
   const [imageSrc, setImageSrc] = useState(defaultAvatar);
   const [passwordShow, setPasswordShow] = useState(false);
@@ -165,18 +165,15 @@ const FormFields: React.FC<FormFieldsProps> = ({ field, validation, selectedOpti
         );
       case "number":
         return (
-          <div className="input-group mb-3">
-            {inputGroupText && <span className="input-group-text">{inputGroupText}</span>}
-            <Input
-              type="number"
-              id={id}
-              name={name}
-              placeholder={`write ${label}`}
-              value={validation.values[name] || 0}
-              onChange={validation.handleChange}
-              onBlur={validation.handleBlur}
-            ></Input>
-          </div>
+          <Input
+            type="number"
+            id={id}
+            name={name}
+            placeholder={`write ${label}`}
+            value={validation.values[name] || 0}
+            onChange={validation.handleChange}
+            onBlur={validation.handleBlur}
+          ></Input>
         );
       case "textarea":
         return (
@@ -354,7 +351,16 @@ const FormFields: React.FC<FormFieldsProps> = ({ field, validation, selectedOpti
       colSize={field.colSize}
       type={field.type}
     >
-      {renderInput()}
+      {(inputGroupText || inputGroupIcon) && (
+        <div className="input-group mb-3">
+          <span className="input-group-text">
+            {inputGroupText && inputGroupText}
+            {inputGroupIcon && <i className={inputGroupIcon}></i>}
+          </span>
+          {renderInput()}
+        </div>
+      )}
+
       {field.type !== "separator" &&
         field.type !== "title" &&
         validation.touched[field.name] &&

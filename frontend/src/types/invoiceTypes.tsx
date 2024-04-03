@@ -183,22 +183,23 @@ export type InvoiceSummaryColumnProps = {
 export interface SummaryItemModalProps {
   // items: "services" | "packages" | "products" | "vouchers";
   itemType: "service" | "package" | "product" | "voucher";
-  modal: boolean;
+  isEditModal: boolean;
+  setIsEditModal: React.Dispatch<React.SetStateAction<boolean>>;
+  toggleEditModal: () => void;
+
   selectedItem: Service | Product | Package | Voucher | null;
   invoiceItemList: any;
   staff: Staff[];
   selectedIndex: number | null;
   discountOptions: Discount[];
-  setModal: React.Dispatch<React.SetStateAction<boolean>>;
-  toggle: () => void;
   setInvoiceItemList: React.Dispatch<React.SetStateAction<(Service | Product | Package | Voucher)[]>>;
 }
 
 export interface DiscountModalProps {
   discountOptions: Discount[];
-  modal: boolean;
-  setModal: React.Dispatch<React.SetStateAction<boolean>>;
-  toggle: () => void;
+  isDiscountModal: boolean;
+  setIsDiscountModal: React.Dispatch<React.SetStateAction<boolean>>;
+  toggleDiscountModal: () => void;
   discountValue: Discount;
   setDiscountValue: React.Dispatch<any>;
 }

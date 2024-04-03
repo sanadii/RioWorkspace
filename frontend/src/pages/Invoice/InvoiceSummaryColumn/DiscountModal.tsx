@@ -6,9 +6,9 @@ import { FormFields } from "Components/Common";
 import { Package, DiscountModalProps } from "../../../types/invoiceTypes"; // Adjust the path as necessary
 
 const DiscountModal: React.FC<DiscountModalProps> = ({
-  modal,
-  setModal,
-  toggle,
+  isDiscountModal,
+  setIsDiscountModal,
+  toggleDiscountModal,
   discountOptions,
   discountValue,
   setDiscountValue,
@@ -39,7 +39,7 @@ const DiscountModal: React.FC<DiscountModalProps> = ({
       //   }
 
       validation.resetForm();
-      toggle();
+      toggleDiscountModal();
     },
   });
 
@@ -65,7 +65,7 @@ const DiscountModal: React.FC<DiscountModalProps> = ({
   ];
 
   return (
-    <Modal id="showModal" size="md" className="sale__modal" isOpen={modal} toggle={toggle} centered>
+    <Modal id="showModal" size="md" className="sale__modal" isOpen={isDiscountModal} toggle={toggleDiscountModal} centered>
       <div className="sale__modal-head">{discountValue?.name}</div>
       <div className="sale__modal-body sale__modal-body--gray sale__edit-line-item">
         <Form

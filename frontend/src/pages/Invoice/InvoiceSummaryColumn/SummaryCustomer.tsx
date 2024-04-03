@@ -17,9 +17,7 @@ const SummaryCustomer = ({ activeInvoice }) => {
                 </div>
                 <div className="sale__customer-picker-selected-phone">+{clientMobile}</div>
               </div>
-              <div className="sale__customer-picker-selected-remove" data-testid="sale__customer-remove-button">
-                ×
-              </div>
+              <i className="mdi mdi-close float-end"></i>
             </div>
           </div>
         </div>

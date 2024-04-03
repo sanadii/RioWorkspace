@@ -5,12 +5,10 @@ import * as Yup from "yup";
 import { FormFields } from "Components/Common";
 import { Staff, Service, Product, Package, Voucher, SummaryItemModalProps } from "../../../types/invoiceTypes";
 
-
-
 const SummaryItemModal: React.FC<SummaryItemModalProps> = ({
-  modal,
-  setModal,
-  toggle,
+  isEditModal,
+  setIsEditModal,
+  toggleEditModal,
   selectedItem,
   invoiceItemList,
   staff,
@@ -27,7 +25,7 @@ const SummaryItemModal: React.FC<SummaryItemModalProps> = ({
       updatedItemList.splice(selectedIndex, 1);
       setInvoiceItemList(updatedItemList);
     }
-    setModal(false);
+    setIsEditModal(false);
   };
 
   const validation = useFormik({
@@ -71,7 +69,7 @@ const SummaryItemModal: React.FC<SummaryItemModalProps> = ({
       }
 
       validation.resetForm();
-      toggle();
+      toggleEditModal();
     },
   });
 
@@ -88,6 +86,8 @@ const SummaryItemModal: React.FC<SummaryItemModalProps> = ({
       name: "staff",
       label: "Staff",
       type: "select",
+      inputGroupIcon: "mdi mdi-face-woman",
+
       options: bookableStaff.map((item) => ({
         id: item.id,
         label: item.name,
@@ -99,6 +99,7 @@ const SummaryItemModal: React.FC<SummaryItemModalProps> = ({
       name: "discount",
       label: "Discount",
       type: "select",
+      inputGroupIcon: "mdi mdi-content-cut",
       options: discountOptions?.map((item) => ({
         id: item.id,
         label: item.name,
@@ -107,9 +108,10 @@ const SummaryItemModal: React.FC<SummaryItemModalProps> = ({
     },
   ];
 
+  console.log("selectedItem: ", selectedItem);
   return (
-    <Modal id="showModal" size="md" className="sale__modal" isOpen={modal} toggle={toggle} centered>
-      <div className="sale__modal-head">{selectedItem?.name}</div>
+    <Modal id="showModal" size="md" className="sale__modal" isOpen={isEditModal} toggle={toggleEditModal} centered>
+      <div className="sale__modal-head">HH {selectedItem?.name}</div>
       <div className="sale__modal-body sale__modal-body--gray sale__edit-line-item">
         <Form
           className="tablelist-form"
