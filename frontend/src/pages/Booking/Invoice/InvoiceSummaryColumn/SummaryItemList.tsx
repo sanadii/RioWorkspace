@@ -43,7 +43,7 @@ const SummaryItemList = ({ activeInvoice, invoiceItemList, handleItemSelectionCl
       <div className="sale__summary-appointment"></div>
       {itemTypes
         .filter((type) => type.list && type.list.length > 0) // Filter out types with empty or undefined lists
-        .map(( , typeIndex) => (
+        .map((type, typeIndex) => (
           <div key={typeIndex} className="sale__category-card">
             <div className="sale__category">
               <p className="sale__category-name bold text-primary">{type.title}</p>

@@ -9,6 +9,7 @@ import Users from "./auth/users/reducer";
 
 // Front
 import Layout from "./layouts/reducer";
+import Apps from "./apps/reducer";
 import Settings from "./settings/reducer";
 
 // Calendar
@@ -42,6 +43,7 @@ const rootReducer = combineReducers({
 
     // Theme
     Layout,
+    Apps,
     Settings,
 
     // Authentication

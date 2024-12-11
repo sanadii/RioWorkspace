@@ -6,9 +6,9 @@ import { Input } from 'reactstrap';
 import SimpleBar from "simplebar-react";
 
 //import images
-import image2 from "../../assets/images/users/avatar-2.jpg";
-import image3 from "../../assets/images/users/avatar-3.jpg";
-import image5 from "../../assets/images/users/avatar-5.jpg";
+import image2 from "assets/images/users/avatar-2.jpg";
+import image3 from "assets/images/users/avatar-3.jpg";
+import image5 from "assets/images/users/avatar-5.jpg";
 
 const SearchOption = () => {
     const [value, setValue] = useState<any>("");

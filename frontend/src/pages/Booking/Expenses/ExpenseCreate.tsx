@@ -19,8 +19,8 @@ import Flatpickr from "react-flatpickr";
 import { BreadCrumb } from "Components/Common";
 import Select from "react-select";
 
-import logoDark from "../../assets/images/logo-dark.png";
-import logoLight from "../../assets/images/logo-light.png";
+import logoDark from "assets/images/logo-dark.png";
+import logoLight from "assets/images/logo-light.png";
 
 //formik
 import { useFormik } from "formik";

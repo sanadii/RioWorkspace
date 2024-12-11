@@ -8,7 +8,7 @@ import { useDispatch } from 'react-redux';
 import { useFormik } from 'formik';
 import { addRevenue as onAddRevenue, updateRevenue as onUpdateRevenue } from 'store/actions';
 
-import dummy from "../../../assets/images/users/user-dummy-img.jpg"
+import dummy from "assets/images/users/user-dummy-img.jpg"
 
 interface modal {
     isShow: boolean,

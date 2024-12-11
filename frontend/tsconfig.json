@@ -16,7 +16,19 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "paths": {
+      // "shared/*": ["shared/*"],
+      // "shared/components/*": ["shared/components/*"],
+      // "shared/constants/*": ["shared/constants/*"],
+      // "shared/contexts/*": ["shared/contexts/*"],
+      // "shared/hooks/*": ["shared/hooks/*"],
+      // "shared/data/*": ["shared/data/*"],
+      "store/*": ["store/*"],
+      "selector/*": ["selector/*"],
+      "assets/*": ["assets/*"],
+      "@/*": ["./*"]
+    }
   },
   "include": ["src/**/*", "**/*.ts", "**/*.tsx", "src/pages/Invoice/remove"],
   "exclude": ["node_modules"]

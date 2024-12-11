@@ -3,21 +3,21 @@ import { CardBody, Row, Col, Card, Table, CardHeader, Container } from "reactstr
 import { BreadCrumb } from "Components/Common";
 import { Link } from "react-router-dom";
 
-import logoDark from "../../assets/images/logo-dark.png";
-import logoLight from "../../assets/images/logo-light.png";
+import logoDark from "assets/images/logo-dark.png";
+import logoLight from "assets/images/logo-light.png";
 
-const RevenueDetails = () => {
-  //Print the Revenue
-  const printRevenue = () => {
+const ServiceDetails = () => {
+  //Print the Service
+  const printService = () => {
     window.print();
   };
 
-  document.title = "Revenue Details | Rio Brazil Salon - React Workspace";
+  document.title = "Service Details | Rio Brazil Salon - React Workspace";
 
   return (
     <div className="page-content">
       <Container fluid>
-        <BreadCrumb title="Revenue Details" pageTitle="Revenues" />
+        <BreadCrumb title="Service Details" pageTitle="Services" />
 
         <Row className="justify-content-center">
           <Col xxl={9}>
@@ -79,16 +79,16 @@ const RevenueDetails = () => {
                     <Row className="g-3">
                       <Col lg={3} xs={6}>
                         <p className="text-muted mb-2 text-uppercase fw-semibold">
-                          Revenue No
+                          Service No
                         </p>
-                        <h5 className="fs-14 mb-0">#VL<span id="Revenue-no">25000355</span></h5>
+                        <h5 className="fs-14 mb-0">#VL<span id="Service-no">25000355</span></h5>
                       </Col>
                       <Col lg={3} xs={6}>
                         <p className="text-muted mb-2 text-uppercase fw-semibold">
                           Date
                         </p>
                         <h5 className="fs-14 mb-0">
-                          <span id="Revenue-date">23 Nov, 2021</span> <small className="text-muted" id="Revenue-time">02:36PM</small>
+                          <span id="Service-date">23 Nov, 2021</span> <small className="text-muted" id="Service-time">02:36PM</small>
                         </h5>
                       </Col>
                       <Col lg={3} xs={6}>
@@ -253,7 +253,7 @@ const RevenueDetails = () => {
                         <p className="mb-0">
                           <span className="fw-semibold">NOTES:</span>
                           <span id="note"> All accounts
-                            are to be paid within 7 days from receipt of Revenue. To
+                            are to be paid within 7 days from receipt of Service. To
                             be paid by cheque or credit card or direct payment online.
                             If account is not paid within 7 days the credits details
                             supplied as confirmation of work undertaken will be
@@ -265,7 +265,7 @@ const RevenueDetails = () => {
                     <div className="hstack gap-2 justify-content-end d-print-none mt-4">
                       <Link
                         to="#"
-                        onClick={printRevenue}
+                        onClick={printService}
                         className="btn btn-soft-primary"
                       >
                         <i className="ri-printer-line align-bottom me-1"></i> Print
@@ -286,4 +286,4 @@ const RevenueDetails = () => {
   );
 };
 
-export default RevenueDetails;
+export default ServiceDetails;

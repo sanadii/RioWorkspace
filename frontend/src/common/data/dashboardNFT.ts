@@ -1,25 +1,25 @@
 // Import Images
-import Img1 from "../../assets/images/nft/img-01.jpg";
-import Img2 from "../../assets/images/nft/img-02.jpg";
-import Img3 from "../../assets/images/nft/img-03.jpg";
-import Img4 from "../../assets/images/nft/img-04.jpg";
-import Img5 from "../../assets/images/nft/img-05.jpg";
-import Img6 from "../../assets/images/nft/img-06.jpg";
+import Img1 from "assets/images/nft/img-01.jpg";
+import Img2 from "assets/images/nft/img-02.jpg";
+import Img3 from "assets/images/nft/img-03.jpg";
+import Img4 from "assets/images/nft/img-04.jpg";
+import Img5 from "assets/images/nft/img-05.jpg";
+import Img6 from "assets/images/nft/img-06.jpg";
 
-// import ImgGif5 from "../../assets/images/nft/gif/img-5.gif";
-// import ImgGif1 from "../../assets/images/nft/gif/img-1.gif";
-// import ImgGif3 from "../../assets/images/nft/gif/img-3.gif";
-// import ImgGif4 from "../../assets/images/nft/gif/img-4.gif";
+// import ImgGif5 from "assets/images/nft/gif/img-5.gif";
+// import ImgGif1 from "assets/images/nft/gif/img-1.gif";
+// import ImgGif3 from "assets/images/nft/gif/img-3.gif";
+// import ImgGif4 from "assets/images/nft/gif/img-4.gif";
 
-import avatar8 from "../../assets/images/users/avatar-8.jpg";
-import avatar10 from "../../assets/images/users/avatar-10.jpg";
-import avatar1 from "../../assets/images/users/avatar-1.jpg";
-import btcCoin from "../../assets/images/svg/crypto-icons/btc.svg";
-import ltcCoin from "../../assets/images/svg/crypto-icons/ltc.svg";
-import etcCoin from "../../assets/images/svg/crypto-icons/etc.svg";
-import dashCoin from "../../assets/images/svg/crypto-icons/dash.svg";
-import bnbCoin from "../../assets/images/svg/crypto-icons/bnb.svg";
-import usdtCoin from "../../assets/images/svg/crypto-icons/usdt.svg";
+import avatar8 from "assets/images/users/avatar-8.jpg";
+import avatar10 from "assets/images/users/avatar-10.jpg";
+import avatar1 from "assets/images/users/avatar-1.jpg";
+import btcCoin from "assets/images/svg/crypto-icons/btc.svg";
+import ltcCoin from "assets/images/svg/crypto-icons/ltc.svg";
+import etcCoin from "assets/images/svg/crypto-icons/etc.svg";
+import dashCoin from "assets/images/svg/crypto-icons/dash.svg";
+import bnbCoin from "assets/images/svg/crypto-icons/bnb.svg";
+import usdtCoin from "assets/images/svg/crypto-icons/usdt.svg";
 const topartWork = [
     {
         id: 1,

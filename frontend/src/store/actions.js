@@ -7,6 +7,7 @@ export * from "./auth/users/action";
 
 // Layout
 export * from "./layouts/action";
+export * from "./apps/action";
 export * from "./settings/action";
 
 // Calendar

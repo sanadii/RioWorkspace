@@ -10,6 +10,7 @@ import UsersSaga from "./auth/users/saga";
 
 // Settings
 import LayoutSaga from "./layouts/saga";
+import AppsSaga from "./apps/saga";
 import SettingsSaga from "./settings/saga";
 
 // 
@@ -46,6 +47,7 @@ export default function* rootSaga() {
 
     // System / Settings
     fork(LayoutSaga),
+    fork(AppsSaga),
     fork(SettingsSaga),
 
     // Finance

@@ -28,7 +28,7 @@ import { useFormik } from "formik";
 // actions
 import { loginUser, socialLogin, resetLoginFlag } from "store/actions";
 
-import logoLight from "../../assets/images/logo-light.png";
+import logoLight from "assets/images/logo-light.png";
 import { createSelector } from "reselect";
 //import images
 

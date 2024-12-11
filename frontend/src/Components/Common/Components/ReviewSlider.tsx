@@ -2,10 +2,10 @@ import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Card, CardBody } from "reactstrap";
 
-import companies1 from "../../../assets/images/companies/img-1.png";
-import companies8 from "../../../assets/images/companies/img-8.png";
-import avatar2 from "../../../assets/images/users/avatar-2.jpg";
-import avatar3 from "../../../assets/images/users/avatar-3.jpg";
+import companies1 from "assets/images/companies/img-1.png";
+import companies8 from "assets/images/companies/img-8.png";
+import avatar2 from "assets/images/users/avatar-2.jpg";
+import avatar3 from "assets/images/users/avatar-3.jpg";
 
 import "swiper/css";
 import "swiper/css/pagination";

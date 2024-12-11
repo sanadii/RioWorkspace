@@ -3,7 +3,7 @@ import { Modal, Form, ModalHeader, ModalBody, Button } from "reactstrap";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { FormFields } from "Components/Common";
-import { Package, DiscountModalProps } from "../../../types/invoiceTypes"; // Adjust the path as necessary
+import { Package, DiscountModalProps } from "../../../../types/invoiceTypes"; // Adjust the path as necessary
 
 const DiscountModal: React.FC<DiscountModalProps> = ({
   isDiscountModal,

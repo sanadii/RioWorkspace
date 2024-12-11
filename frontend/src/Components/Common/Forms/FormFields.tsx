@@ -5,7 +5,7 @@ import { getClientSearch } from "store/actions";
 
 import { Row, Col, Label, Input, FormFeedback } from "reactstrap";
 import Flatpickr from "react-flatpickr";
-import defaultAvatar from "../../../assets/images/users/default.jpg";
+import defaultAvatar from "assets/images/users/default.jpg";
 import config from "../../../config";
 import { Link } from "react-router-dom";
 import { ComboBoxComponent } from "@syncfusion/ej2-react-dropdowns";

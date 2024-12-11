@@ -3,19 +3,19 @@ import { Navigate } from "react-router-dom";
 
 //Dashboard
 // import Scheduler from "../pages/Scheduler";
-import Calendar from "../pages/Calendar";
-import CalendarTest from "../pages/Calendar/CalendarTest";
+import Calendar from "../pages/Booking/Calendar";
+import CalendarTest from "../pages/Booking/Calendar/CalendarTest";
 
-import Invoice from "../pages/Invoice/";
+import Invoice from "../pages/Booking/Invoice/";
 // Revenues
-import RevenueList from "../pages/Revenues/RevenueList";
-import RevenueCreate from "../pages/Revenues/RevenueCreate";
-import RevenueDetails from "../pages/Revenues/RevenueDetails";
+import RevenueList from "../pages/Booking/Revenues/RevenueList";
+import RevenueCreate from "../pages/Booking/Revenues/RevenueCreate";
+import RevenueDetails from "../pages/Booking/Revenues/RevenueDetails";
 
 // Expenses
-import ExpenseList from "../pages/Expenses/ExpensesList";
-import ExpenseCreate from "../pages/Expenses/ExpenseCreate";
-import ExpenseDetails from "../pages/Expenses/ExpenseDetails";
+import ExpenseList from "../pages/Booking/Expenses/ExpensesList";
+import ExpenseCreate from "../pages/Booking/Expenses/ExpenseCreate";
+import ExpenseDetails from "../pages/Booking/Expenses/ExpenseDetails";
 
 // Clients
 // import ClientList from "../pages/Clients/ClientList";
@@ -27,9 +27,9 @@ import ExpenseDetails from "../pages/Expenses/ExpenseDetails";
 // import StaffDetails from "../pages/Staff/StaffDetails";
 
 // Services
-import ServiceList from "../pages/Services/ServiceList";
-import ServiceCreate from "../pages/Services/ServiceCreate";
-import ServiceDetails from "../pages/Services/ServiceDetails";
+import ServiceList from "../pages/Booking/Services/ServiceList";
+import ServiceCreate from "../pages/Booking/Services/ServiceCreate";
+import ServiceDetails from "../pages/Booking/Services/ServiceDetails";
 
 // Resources
 // import ResourceList from "../pages/Resources/ResourceList";
@@ -67,7 +67,7 @@ import ForgetPasswordPage from "../pages/Authentication/ForgetPassword";
 import Logout from "../pages/Authentication/Logout";
 import Register from "../pages/Authentication/Register";
 
-import Settings from "../pages/Settings";
+import Settings from "../pages/Booking/Settings";
 
 const authProtectedRoutes = [
   // { path: "/schedule", component: <Scheduler /> },
